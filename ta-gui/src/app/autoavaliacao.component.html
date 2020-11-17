@@ -1,6 +1,23 @@
 <table>
   <tr>
     <td><button (click)="cadastrarAutoAvaliacao(matricula, avaliacoes)">Cadastrar</button></td>
+    <!--inicio-->
+    <tr>
+      <th>CPF</th>
+      <th>Turma</th>
+    </tr>
+    <tr>
+      <td class="meta"><input [(ngModel)]="cpf"></td>
+      <td class="meta"><input [(ngModel)]="turma"></td>
+      <td><button (click)="preencherAvaliacao(cpf,turma)">Preencher auto avaliação</button></td>
+    </tr>
+    <tr *ngFor="let meta of metas" >
+      <th>{meta}</th>
+    </tr>
+    <tr *ngFor="let meta of metas">
+      <td class="meta"><input [(ngModel)]="meta" (change)="atualizarAluno(a)"></td>
+    </tr>
+    <!--fim-->
     <td><button (click)="notificarAutoAvaliacao(matricula)">Notificar</button></td>
   </tr>
 </table>

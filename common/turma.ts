@@ -3,7 +3,7 @@ import { Roteiro } from './roteiro';
 import { Aluno } from './aluno';
 
 export class Turma {
-    descrição: string = ""
+    descricao: string = ""
     metas: string[] = []
     matriculas: Matricula[] = []
     roteiros: Roteiro[] = []
@@ -16,30 +16,35 @@ export class Turma {
     }
 
     getNumAprovados(): number{
-        
+        return 0;
     }
 
     getNumReprovados(): number{
-
+        return 0;
     }
 
     getMedia(): number{
-
+        return 0;
     }
 
     getMatricula(cpf:string): Matricula{ 
-
+        let matricula: Matricula = this.matriculas.find(matricula => matricula.getAluno().cpf == cpf);
+        return matricula;
     }
 
     getRoteiros(): Roteiro[]{
-        
+        return ;
     }
     
     getMonitores(): Aluno[] {
-
+        return ;
     }
 
     getPercentual(meta: string, conceito: string): number{
+        return 0;
+    }
 
+    getMetas(): string[]{
+        return this.metas;
     }
 }

@@ -1,5 +1,6 @@
-//import { Aluno } from '../../../common/aluno';
-//import { AlunoService } from './aluno.service';
+import { Component, OnInit } from '@angular/core';
+import { Aluno } from '../../../common/aluno';
+import { AlunoService } from './aluno.service';
 import { Turma } from '../../../common/turma';
 
 @Component({
@@ -10,5 +11,10 @@ import { Turma } from '../../../common/turma';
 
 export class MonitoresComponent implements OnInit {
 	alunos: Aluno[] = [];
-	listarMonitores(turma: Turma): Monitores[] {}
+	listarMonitores(turma: Turma): Monitores[] {
+      return;
+   }
+    ngOnInit(): void {
+      
+   }
 }

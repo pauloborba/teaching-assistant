@@ -15,9 +15,9 @@ import { AlunoService } from './aluno.service';
     alunos: Aluno[];
 
     atualizarAluno(aluno: Aluno): void {
-  
     }
 
     ngOnInit(): void {
       
-  }
+    }
+}

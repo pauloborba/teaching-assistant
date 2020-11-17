@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-//import { Roteiro } from '../../../common/roteiro';
-//import { RoteiroService } from './roteiro.service';
+import { Roteiro } from '../../../common/roteiro';
+import { RoteiroService } from './roteiro.service';
 
   @Component({
    selector: 'roteiros',
@@ -17,4 +17,7 @@ import { Component, OnInit } from '@angular/core';
      deletarRoteiro(roteiro: Roteiro): void{}
      atualizarRoteiro(roteiro: Roteiro): void{}
 
+     ngOnInit(): void {
+      
+    }
 }

@@ -1,7 +1,9 @@
+import { Component, OnInit } from '@angular/core';
 import { Aluno } from '../../../common/aluno';
 import { AlunoService } from './aluno.service';
 import { Matricula } from '../../../common/matricula';
-import { Avaliacao } from '../../../common/avaliacao';
+import { Avaliacao } from '../../../ta-server/avaliacao';
+import { Turmas } from '../../../ta-server/turmas';
 
 @Component({
    selector: 'autoavaliacao',
@@ -10,7 +12,25 @@ import { Avaliacao } from '../../../common/avaliacao';
 })
 
 export class AutoavaliacaoComponent implements OnInit {
-	alunos: Aluno[] = [];
-	cadastrarAutoAvaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void {}
-	notificarAutoAvaliacao(matricula: Matricula): void {}
+
+   constructor(private alunoService: AlunoService, private turmas: Turmas) {}
+   alunos: Aluno[] = [];
+   metas: string[] = [];
+   avaliacoes: Avaliacao[] = [];
+
+   preencherAvaliacao(cpf: string, descricaoTurma: string){
+      let turma = this.turmas.getTurma(descricaoTurma);  //pegar do servidor as turmas
+      let matricula = turma.getMatricula(cpf); 
+      this.metas = turma.getMetas();
+      this.avaliacoes = matricula.getAvaliacoes();
+   }
+
+	cadastrarAutoAvaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void {
+      
+   }
+   notificarAutoAvaliacao(matricula: Matricula): void {}
+   
+   ngOnInit(): void {
+      
+   }
 }
