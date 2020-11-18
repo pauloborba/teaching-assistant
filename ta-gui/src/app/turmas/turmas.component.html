@@ -1,6 +1,6 @@
 <!-- Botões para cadastrar, remover, atualizar e comparar turmas -->
 <div id="botoes">
-
+    <button (click)="alternarVisualizacaoOpcoesComparacao()">Comparar Turmas</button>
 </div>
 
 <!-- Lista de turmas e suas médias -->
@@ -15,3 +15,21 @@
 
     </tbody>
 </table>
+
+<div *ngIf="modalOpcoesComparacaoAtivo" class="modal">
+    <h3>Opções de Comparação</h3>
+    <button (click)="compararTodas()">Todas as Turmas</button>
+    <button (click)="compararUltimasQuatro()">Últimas 4 Turmas</button>
+    <button (click)="alternarVisualizacaoTurmas()">Escolher Turmas</button>
+</div>
+
+<div *ngIf="modalTurmasAtivo" class="modal">
+    <h3>Turmas Disponíveis</h3>
+    <button *ngFor="let turma of turmas" (click)="atualizarTurmasEscolhidas(turma.descricao)">
+        {{ turma.descricao }}
+    </button>
+    <div>
+        <button (click)="compararTurmasEscolhidas()">Confirmar</button>
+        <button (click)="alternarVisualizacaoTurmas()">Voltar</button>
+    </div>
+</div>
