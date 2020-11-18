@@ -3,8 +3,8 @@ import bodyParser = require("body-parser");
 
 import {Aluno} from '../common/aluno';
 import {CadastroDeAlunos} from './cadastrodealunos'; 
-import {Turmas} from './turmas'
-import {Matricula} from '../common/matricula'
+// import {Turmas} from './turmas'
+// import {Matricula} from '../common/matricula'
 
 var taserver = express();
 
@@ -19,6 +19,40 @@ var allowCrossDomain = function(req: any, res: any, next: any) {
 taserver.use(allowCrossDomain);
 
 taserver.use(bodyParser.json());
+
+taserver.get('/alunos', function (req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(cadastro.getAlunos()));
+})
+
+taserver.post('/aluno', function (req: express.Request, res: express.Response) {
+  var aluno: Aluno = <Aluno> req.body; //verificar se é mesmo Aluno!
+  aluno = cadastro.cadastrar(aluno);
+  if (aluno) {
+    res.send({"success": "O aluno foi cadastrado com sucesso"});
+  } else {
+    res.send({"failure": "O aluno não pode ser cadastrado"});
+  }
+})
+
+taserver.put('/aluno', function (req: express.Request, res: express.Response) {
+  var aluno: Aluno = <Aluno> req.body;
+  aluno = cadastro.atualizar(aluno);
+  if (aluno) {
+    res.send({"success": "O aluno foi atualizado com sucesso"});
+  } else {
+    res.send({"failure": "O aluno não pode ser atualizado"});
+  }
+})
+
+var server = taserver.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+})
+
+function closeServer(): void {
+  server.close();
+}
+
+export { server, closeServer }
 
 taserver.get('/alunos', function (req: express.Request, res: express.Response) {
 
