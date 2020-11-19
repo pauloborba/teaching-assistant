@@ -1,4 +1,5 @@
 export class Aluno {
+<<<<<<< HEAD
     nome: String;
     cpf: String;
     email: String;
@@ -15,3 +16,4 @@ export class Aluno {
         return this.email
     }
 }
+
