@@ -21,6 +21,10 @@
     <button (click)="compararTodas()">Todas as Turmas</button>
     <button (click)="compararUltimasQuatro()">Últimas 4 Turmas</button>
     <button (click)="alternarVisualizacaoTurmas()">Escolher Turmas</button>
+    <div>
+        <button [routerLink]="['/comparacao-de-desempenho', turmasEscolhidas.join(',')]">Confirmar</button>
+        <button (click)="alternarVisualizacaoOpcoesComparacao()">Voltar</button>
+    </div>
 </div>
 
 <div *ngIf="modalTurmasAtivo" class="modal">
@@ -29,7 +33,7 @@
         {{ turma.descricao }}
     </button>
     <div>
-        <button (click)="compararTurmasEscolhidas()">Confirmar</button>
+        <button [routerLink]="['/comparacao-de-desempenho', turmasEscolhidas.join(',')]">Confirmar</button>
         <button (click)="alternarVisualizacaoTurmas()">Voltar</button>
     </div>
 </div>
