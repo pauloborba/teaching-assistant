@@ -1,15 +1,19 @@
-// import { Roteiro } from "./roteiro";
-// import { RespostaDeQuestao } from "./respostadequestao"
+import { Roteiro } from "./roteiro";
+import { RespostaDeQuestao } from "./respostadequestao"
 
-// export class RespostaDeRoteiro {
-//     nota: String;
-//     roteiro: Roteiro
-//     respostasDeQuestoes: RespostaDeQuestao[] = []
+export class RespostaDeRoteiro {
+    nota: String;
+    roteiro: Roteiro
+    respostasDeQuestoes: RespostaDeQuestao[] = []
 
-//     getNota(): String{
-//         return this.nota
-//     }
+    getNota(): String{
+        return this.nota
+    }
 
-//     getRoteiro(): Roteiro{}
-//     getRespostasDeQuestoes(): RespostaDeQuestao[]{}
-// }
+    getRoteiro(): Roteiro{
+        return null;
+    }
+    getRespostasDeQuestoes(): RespostaDeQuestao[]{
+        return null;
+    }
+}

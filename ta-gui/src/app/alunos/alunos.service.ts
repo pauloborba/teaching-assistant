@@ -1,44 +1,38 @@
 import { Injectable }    from '@angular/core';
-import { Http, Headers } from '@angular/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { retry, map } from 'rxjs/operators';
 
 import { Aluno } from '../../../../common/aluno';
 
 @Injectable()
 export class AlunoService {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private headers = new HttpHeaders({'Content-Type': 'application/json'});
   private taURL = 'http://localhost:3000';
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) {}
 
-  criar(aluno: Aluno): Promise<Aluno> {
-    return this.http.post(this.taURL + "/aluno",JSON.stringify(aluno), {headers: this.headers})
-           .toPromise()
-           .then(res => {
-              if (res.json().success) {return aluno;} else {return null;}
-           })
-           .catch(this.tratarErro);
+  criar(aluno: Aluno): Observable<Aluno> {
+    return this.http.post<any>(this.taURL + "/aluno", aluno, {headers: this.headers})
+             .pipe( 
+                retry(2),
+                map( res => {if (res.success) {return aluno;} else {return null;}} )
+              ); 
   }
 
-  atualizar(aluno: Aluno): Promise<Aluno> {
-    return this.http.put(this.taURL + "/aluno",JSON.stringify(aluno), {headers: this.headers})
-         .toPromise()
-         .then(res => {
-            if (res.json().success) {return aluno;} else {return null;}
-         })
-         .catch(this.tratarErro);
+  atualizar(aluno: Aluno): Observable<Aluno> {
+    return this.http.put<any>(this.taURL + "/aluno",JSON.stringify(aluno), {headers: this.headers})          .pipe( 
+                retry(2),
+                map( res => {if (res.success) {return aluno;} else {return null;}} )
+              ); 
   }
 
-  getAlunos(): Promise<Aluno[]> {
-    return this.http.get(this.taURL + "/alunos")
-             .toPromise()
-             .then(res => res.json() as Aluno[])
-             .catch(this.tratarErro);
+  getAlunos(): Observable<Aluno[]> {
+    return this.http.get<Aluno[]>(this.taURL + "/alunos")
+              .pipe(
+                 retry(2)
+               );
   }
 
-  private tratarErro(erro: any): Promise<any>{
-    console.error('Acesso mal sucedido ao serviço de alunos',erro);
-    return Promise.reject(erro.message || erro);
-  }
 }

@@ -1,7 +1,9 @@
-// export class NotificacaoNotas {
+import  { Turma } from '../common/turma'
 
-//   enviarNotificação(turma: Turma): boolean {
-//     return true;
-//   }
+export class NotificacaoNotas {
+
+  enviarNotificação(turma: Turma): boolean {
+    return true;
+  }
   
-// }
+}

@@ -1,26 +1,26 @@
-// import { Turma } from '../common/turma';
+import { Turma } from '../common/turma';
 
-// export class Turmas {
-//     turmas: Turma[ ] = [ ]
+export class Turmas {
+    turmas: Turma[ ] = [ ]
 
 
-//     cadastrarTurma(turma: Turma): Turma{
+    cadastrarTurma(turma: Turma): Turma{
+        return null;
+    }
 
-//     }
+    removerTurma(descricao: string): Turma{
+        return null;
+    }
 
-//     removerTurma(descricao: string): Turma{
-
-//     }
-
-//     atualizarTurma(turma: Turma): Turma{
-
-//     }
+    atualizarTurma(turma: Turma): Turma{
+        return null;
+    }
     
-//     compararTurmas(turmas: Turma []): any{
+    compararTurmas(turmas: Turma []): any{
+        return null;
+    }
 
-//     }
-
-//     getTurma(descricao: string): Turma{
-
-//     }
-// }
+    getTurma(descricao: string): Turma{
+        return null;
+    }
+}

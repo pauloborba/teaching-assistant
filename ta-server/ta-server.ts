@@ -3,8 +3,8 @@ import bodyParser = require("body-parser");
 
 import {Aluno} from '../common/aluno';
 import {CadastroDeAlunos} from './cadastrodealunos'; 
-// import {Turmas} from './turmas'
-// import {Matricula} from '../common/matricula'
+import {Turmas} from './turmas'
+import {Matricula} from '../common/matricula'
 
 var taserver = express();
 
@@ -44,19 +44,6 @@ taserver.put('/aluno', function (req: express.Request, res: express.Response) {
   }
 })
 
-var server = taserver.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
-})
-
-function closeServer(): void {
-  server.close();
-}
-
-export { server, closeServer }
-
-taserver.get('/alunos', function (req: express.Request, res: express.Response) {
-
-})
 
 //recebe um identificador de turma e retorna a mesma
 taserver.get('/turmas', function (req: express.Request, res: express.Response){
@@ -67,3 +54,13 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response){
 taserver.get('/matriculas', function (req: express.Request, res: express.Response){
 
 })
+
+var server = taserver.listen(3000, function () {
+    console.log('Example app listening on port 3000!')
+})
+  
+function closeServer(): void {
+    server.close();
+}
+  
+export { server, closeServer }
