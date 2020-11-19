@@ -17,7 +17,7 @@ export class Turmas {
     }
     
     getResumos(descricoes: string[]): any[] {
-        let resumos: any[];
+        let resumos: any[] = [];
         descricoes.forEach(descricao => {
             const turma = this.getTurma(descricao);
             if (!turma) {
