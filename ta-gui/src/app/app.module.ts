@@ -56,9 +56,12 @@ import { RelatorioService } from './relatorio/relatorio.service';
     {
       path: 'relatorio',
       component: RelatorioComponent
+    },
+    {
+      path: 'comparacao-de-desempenho',
+      component: ComparacaoDeDesempenhoComponent
     }
-    
-  ]),HttpClientModule
+  ])
   ],
   providers: [RelatorioService],
   bootstrap: [AppComponent]
