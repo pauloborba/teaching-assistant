@@ -102,8 +102,7 @@ taserver.get('/matriculas', function (req: express.Request, res: express.Respons
 
 taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: express.Response) {
     const descricoes: string[] = req.query.turmas.split(',');
-    const resumoTurmas: any = turmas.compararTurmas(descricoes);
-    res.send(resumoTurmas);
+    res.send(turmas.getResumos(descricoes));
 });
 
 var server = taserver.listen(3000, function () {
