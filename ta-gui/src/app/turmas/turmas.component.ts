@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Turma } from '../../../../common/turma';
 
 @Component({
@@ -8,11 +9,11 @@ import { Turma } from '../../../../common/turma';
 })
 export class TurmasComponent implements OnInit {
   turmas: Turma[] = [];
-  turmasEscolhidas: Turma[] = [];
+  turmasEscolhidas: string[] = [];
   modalOpcoesComparacaoAtivo: boolean = false;
   modalTurmasAtivo: boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
 
@@ -29,25 +30,28 @@ export class TurmasComponent implements OnInit {
   }
 
   atualizarTurmasEscolhidas(descricaoTurma: string): void {
-    if (!this.turmasEscolhidas.find(turma => turma.descricao === descricaoTurma)) {
-      this.turmasEscolhidas.push(this.turmas.find(turma => turma.descricao === descricaoTurma));
+    if (!this.turmasEscolhidas.find(descricao => descricao === descricaoTurma)) {
+      this.turmasEscolhidas.push(this.turmas.find(turma => turma.descricao === descricaoTurma).descricao);
     } else {
-      this.turmasEscolhidas = this.turmasEscolhidas.filter(turma => turma.descricao !== descricaoTurma);
+      this.turmasEscolhidas = this.turmasEscolhidas.filter(descricao => descricao !== descricaoTurma);
     }
   }
 
   compararTodas(): void {
-    this.turmasEscolhidas = this.turmas.map(turma => turma);
+    this.turmasEscolhidas = this.turmas.map(turma => turma.descricao);
+    this.compararTurmasEscolhidas();
   }
-
+  
   compararUltimasQuatro(): void {
     this.turmasEscolhidas = [];
     for (let i = this.turmas.length; this.turmasEscolhidas.length < 4; i--) {
-      this.turmasEscolhidas.push(this.turmas[i]);
+      this.turmasEscolhidas.push(this.turmas[i].descricao);
     }
+    
+    this.compararTurmasEscolhidas();
   }
 
   compararTurmasEscolhidas(): void {
-    
+    this.router.navigate(['comparacao-de-desempenho'], { state: { turmas: this.turmasEscolhidas } });
   }
 }

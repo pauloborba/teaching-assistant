@@ -49,7 +49,10 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
       path: 'roteiros',
       component: RoteirosComponent
     },
-    
+    {
+      path: 'comparacao-de-desempenho',
+      component: ComparacaoDeDesempenhoComponent
+    }
   ])
   ],
   providers: [],
