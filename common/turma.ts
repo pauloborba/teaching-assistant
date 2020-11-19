@@ -1,15 +1,14 @@
 import { Matricula } from './matricula';
-import { Roteiro } from './roteiro';
+import { Roteiro } from '../ta-server/roteiro';
 import { Aluno } from './aluno';
 
 export class Turma {
-    descricao: string = ""
-    metas: string[] = []
-    matriculas: Matricula[] = []
-    roteiros: Roteiro[] = []
-    monitores: Aluno[] = []
-    numeroMatriculas: number = 0
-
+    descricao: string = "";
+    metas: string[] = [];
+    matriculas: Matricula[] = [];
+    roteiros: Roteiro[] = [];
+    monitores: Aluno[] = [];
+    numeroMatriculas: number = 0;
 
     getNumMatriculas(): number {
         return this.numeroMatriculas
@@ -33,11 +32,11 @@ export class Turma {
     }
 
     getRoteiros(): Roteiro[]{
-        return ;
+        return [] ;
     }
     
     getMonitores(): Aluno[] {
-        return ;
+        return [] ;
     }
 
     getPercentual(meta: string, conceito: string): number{
