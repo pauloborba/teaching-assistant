@@ -13,15 +13,15 @@ export class ComparacaoDeDesempenhoComponent implements AfterViewInit {
   @ViewChildren('grafico') graficos: QueryList<any>;
   resumoTurmas: any[] = [];
   
-  constructor(private comparacaoDeDesempenhoService: ComparacaoDeDesempenhoService, private rota: ActivatedRoute) { }
+  constructor(private servico: ComparacaoDeDesempenhoService, private rota: ActivatedRoute) { }
   
   ngAfterViewInit(): void {
     let turmas: string[] = [];
-    this.rota.params.subscribe(params => {
+    this.rota.queryParams.subscribe(params => {
       turmas = params.turmas.split(',');
     });
 
-    this.comparacaoDeDesempenhoService.compararTurmas(turmas)
+    this.servico.compararTurmas(turmas)
       .subscribe(
         res => {
           this.resumoTurmas = res;

@@ -53,7 +53,7 @@ import { HttpClientModule } from '@angular/common/http';
       component: RoteirosComponent
     },
     {
-      path: 'comparacao-de-desempenho/:turmas',
+      path: 'comparacao-de-desempenho',
       component: ComparacaoDeDesempenhoComponent
     }
   ])

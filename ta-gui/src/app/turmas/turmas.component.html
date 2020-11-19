@@ -22,7 +22,7 @@
     <button (click)="compararUltimasQuatro()">Últimas 4 Turmas</button>
     <button (click)="alternarVisualizacaoTurmas()">Escolher Turmas</button>
     <div>
-        <button [routerLink]="['/comparacao-de-desempenho', turmasEscolhidas.join(',')]">Confirmar</button>
+        <button [routerLink]="['/comparacao-de-desempenho']" [queryParams]="{ turmas: turmasEscolhidas.join(',') }">Confirmar</button>
         <button (click)="alternarVisualizacaoOpcoesComparacao()">Voltar</button>
     </div>
 </div>
@@ -33,7 +33,7 @@
         {{ turma.descricao }}
     </button>
     <div>
-        <button [routerLink]="['/comparacao-de-desempenho', turmasEscolhidas.join(',')]">Confirmar</button>
+        <button [routerLink]="['/comparacao-de-desempenho']" [queryParams]="{ turmas: turmasEscolhidas.join(',') }">Confirmar</button>
         <button (click)="alternarVisualizacaoTurmas()">Voltar</button>
     </div>
 </div>
