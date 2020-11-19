@@ -9,9 +9,9 @@ export class ComparacaoDeDesempenhoService {
 
     constructor(private http: HttpClient) { }
 
-    compararTurmas(descricaoTurmas: string[]): Observable<any> {
+    compararTurmas(descricoes: string[]): Observable<any> {
         const options: any = {
-            params: (new HttpParams).set('turmas', descricaoTurmas.join(','))
+            params: (new HttpParams).set('turmas', descricoes.join(','))
         };
 
         return this.http.get<any>(this.URLServidor + '/comparacao-de-desempenho', options).pipe(retry(2));

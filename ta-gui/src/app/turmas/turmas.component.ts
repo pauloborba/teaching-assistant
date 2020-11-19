@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Turma } from '../../../../common/turma';
 
 @Component({
@@ -8,18 +7,12 @@ import { Turma } from '../../../../common/turma';
   styleUrls: ['./turmas.component.css']
 })
 export class TurmasComponent implements OnInit {
-  turmas: any[] = [
-    { descricao: '2018.1' },
-    { descricao: '2018.2' },
-    { descricao: '2019.1' },
-    { descricao: '2019.2' },
-    { descricao: '2020.3' }
-  ];
+  turmas: Turma[] = [];
   turmasEscolhidas: string[] = [];
   modalOpcoesComparacaoAtivo: boolean = false;
   modalTurmasAtivo: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
 

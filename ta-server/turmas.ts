@@ -16,7 +16,7 @@ export class Turmas {
         return null;
     }
     
-    compararTurmas(turmas: Turma []): any{
+    compararTurmas(descricoes: string[]): any {
         return null;
     }
 
