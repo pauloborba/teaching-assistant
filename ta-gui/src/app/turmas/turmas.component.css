@@ -1,18 +1,52 @@
 .modal {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 
-    padding: 20px;
+    width: 400px;
+    min-height: 280px;
+    padding: 20px 40px;
+
     position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 
     border-radius: 20px;
-    border: 2px solid black;
+    background-color: gainsboro;
+}
+
+.modal h3 {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: gray;
+}
+
+.modal button {
+    padding: 10px 0;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.modal button:hover {
+    border: 2px solid gray;
+}
+
+.modal > button {
+    width: 80%;
 }
 
 .modal > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 80%;
+    margin: 10px 0;
+}
+
+.modal > div button {
+    width: 45%;
 }
