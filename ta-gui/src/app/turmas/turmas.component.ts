@@ -9,7 +9,7 @@ import { Turma } from '../../../../common/turma';
 })
 export class TurmasComponent implements OnInit {
   turmas: Turma[] = [];
-  turmasEscolhidas: Turma[] = [];
+  turmasEscolhidas: string[] = [];
   modalOpcoesComparacaoAtivo: boolean = false;
   modalTurmasAtivo: boolean = false;
 
@@ -29,29 +29,22 @@ export class TurmasComponent implements OnInit {
     this.modalTurmasAtivo = !this.modalTurmasAtivo;
   }
 
-  atualizarTurmasEscolhidas(descricaoTurma: string): void {
-    if (!this.turmasEscolhidas.find(turma => turma.descricao === descricaoTurma)) {
-      this.turmasEscolhidas.push(this.turmas.find(turma => turma.descricao === descricaoTurma));
+  atualizarTurmasEscolhidas(descricao: string): void {
+    if (!this.turmasEscolhidas.find(turma => turma === descricao)) {
+      this.turmasEscolhidas.push(descricao);
     } else {
-      this.turmasEscolhidas = this.turmasEscolhidas.filter(turma => turma.descricao !== descricaoTurma);
+      this.turmasEscolhidas = this.turmasEscolhidas.filter(turma => turma !== descricao);
     }
   }
 
   compararTodas(): void {
-    this.turmasEscolhidas = this.turmas.map(turma => turma);
-    this.compararTurmasEscolhidas();
+    this.turmasEscolhidas = this.turmas.map(turma => turma.descricao);
   }
   
   compararUltimasQuatro(): void {
     this.turmasEscolhidas = [];
     for (let i = this.turmas.length; this.turmasEscolhidas.length < 4; i--) {
-      this.turmasEscolhidas.push(this.turmas[i]);
+      this.turmasEscolhidas.push(this.turmas[i].descricao);
     }
-    
-    this.compararTurmasEscolhidas();
-  }
-
-  compararTurmasEscolhidas(): void {
-    this.router.navigate(['comparacao-de-desempenho'], { state: { turmas: this.turmasEscolhidas } });
   }
 }
