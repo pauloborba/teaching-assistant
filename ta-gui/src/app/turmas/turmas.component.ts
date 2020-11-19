@@ -42,8 +42,10 @@ export class TurmasComponent implements OnInit {
   
   compararUltimasQuatro(): void {
     this.turmasEscolhidas = [];
-    for (let i = this.turmas.length; this.turmasEscolhidas.length < 4; i--) {
+    for (let i = this.turmas.length - 1; this.turmasEscolhidas.length < 4; i--) {
       this.turmasEscolhidas.push(this.turmas[i].descricao);
     }
+
+    this.turmasEscolhidas.reverse();
   }
 }
