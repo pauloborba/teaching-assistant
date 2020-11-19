@@ -25,17 +25,17 @@ export class ComparacaoDeDesempenhoComponent implements AfterViewInit {
       .subscribe(
         res => {
           this.resumoTurmas = res;
+          
+          const canvasMedia = this.graficos.find(c => c.nativeElement.id === 'media').nativeElement;
+          this.criarGrafico(canvasMedia, 'Média', this.resumoTurmas.map(turma => turma.media));
+          
+          const canvasReprovacao = this.graficos.find(c => c.nativeElement.id === 'reprovacao').nativeElement;
+          this.criarGrafico(canvasReprovacao, 'Reprovação', this.resumoTurmas.map(turma => turma.reprovacao));
         },
         err => {
           alert(err.message);
         }
       );
-
-    const canvasMedia = this.graficos.find(c => c.nativeElement.id === 'media').nativeElement;
-    this.criarGrafico(canvasMedia, 'Média', this.resumoTurmas.map(turma => turma.media));
-    
-    const canvasReprovacao = this.graficos.find(c => c.nativeElement.id === 'reprovacao').nativeElement;
-    this.criarGrafico(canvasReprovacao, 'Reprovação', this.resumoTurmas.map(turma => turma.reprovacao));
   }
 
   criarGrafico(canvas: any, nome: string, dados: number[]): Chart {
