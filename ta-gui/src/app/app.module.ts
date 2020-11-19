@@ -12,6 +12,8 @@ import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
+import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([{
 
       path: 'metas',
@@ -50,12 +53,12 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
       component: RoteirosComponent
     },
     {
-      path: 'comparacao-de-desempenho',
+      path: 'comparacao-de-desempenho/:turmas',
       component: ComparacaoDeDesempenhoComponent
     }
   ])
   ],
-  providers: [],
+  providers: [ComparacaoDeDesempenhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
