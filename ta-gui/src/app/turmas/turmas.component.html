@@ -3,7 +3,7 @@
 <!-- Botões para cadastrar, remover, atualizar e comparar turmas -->
 <div id="botoes">
     <button (click)="adicionarTurma()">Adicionar Turma</button>
-    <button (click)="alternarVisualizacaoOpcoesComparacao()" [disabled]="turmas.length < 2">
+    <button (click)="alternarVisualizacaoOpcoesComparacao()">
         Comparar Turmas
     </button>
 </div>
@@ -69,4 +69,9 @@
 
         <button (click)="alternarVisualizacaoTurmas()">Voltar</button>
     </div>
+</div>
+
+<div *ngIf="modalErroAtivo" class="modal">
+    <h3>Não há turmas suficientes para comparar!</h3>
+    <button (click)="alternarVisualizacaoErro()">Voltar</button>
 </div>

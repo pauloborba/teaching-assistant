@@ -13,6 +13,7 @@ export class TurmasComponent implements OnInit {
   turmasEscolhidas: string[] = [];
   modalOpcoesComparacaoAtivo: boolean = false;
   modalTurmasAtivo: boolean = false;
+  modalErroAtivo: boolean = false;
   opcaoComparacaoSelecionada: string = "";
 
   constructor() { }
@@ -28,14 +29,22 @@ export class TurmasComponent implements OnInit {
   }
 
   alternarVisualizacaoOpcoesComparacao(): void {
-    this.modalOpcoesComparacaoAtivo = !this.modalOpcoesComparacaoAtivo;
-    this.opcaoComparacaoSelecionada = "";
-    this.turmasEscolhidas = [];
+    if (!this.modalOpcoesComparacaoAtivo && this.turmas.length < 2) {
+      this.alternarVisualizacaoErro();
+    } else {
+      this.modalOpcoesComparacaoAtivo = !this.modalOpcoesComparacaoAtivo;
+      this.opcaoComparacaoSelecionada = "";
+      this.turmasEscolhidas = [];
+    }
   }
 
   alternarVisualizacaoTurmas(): void {
     this.alternarVisualizacaoOpcoesComparacao();
     this.modalTurmasAtivo = !this.modalTurmasAtivo;
+  }
+
+  alternarVisualizacaoErro(): void {
+    this.modalErroAtivo = !this.modalErroAtivo;
   }
 
   atualizarTurmasEscolhidas(descricao: string): void {
