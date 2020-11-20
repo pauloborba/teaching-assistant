@@ -11,6 +11,7 @@ export class TurmasComponent implements OnInit {
   turmasEscolhidas: string[] = [];
   modalOpcoesComparacaoAtivo: boolean = false;
   modalTurmasAtivo: boolean = false;
+  opcaoComparacaoSelecionada: string = "";
 
   constructor() { }
 
@@ -20,6 +21,7 @@ export class TurmasComponent implements OnInit {
 
   alternarVisualizacaoOpcoesComparacao(): void {
     this.modalOpcoesComparacaoAtivo = !this.modalOpcoesComparacaoAtivo;
+    this.opcaoComparacaoSelecionada = "";
     this.turmasEscolhidas = [];
   }
 
@@ -38,6 +40,7 @@ export class TurmasComponent implements OnInit {
 
   compararTodas(): void {
     this.turmasEscolhidas = this.turmas.map(turma => turma.descricao);
+    this.opcaoComparacaoSelecionada = 'todas';
   }
   
   compararUltimasQuatro(): void {
@@ -45,7 +48,7 @@ export class TurmasComponent implements OnInit {
     for (let i = this.turmas.length - 1; this.turmasEscolhidas.length < 4; i--) {
       this.turmasEscolhidas.push(this.turmas[i].descricao);
     }
-
-    this.turmasEscolhidas.reverse();
+    
+    this.opcaoComparacaoSelecionada = 'ultimas-quatro';
   }
 }

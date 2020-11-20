@@ -25,6 +25,7 @@
 }
 
 .modal button {
+    margin: 5px 0;
     padding: 10px 0;
     background-color: white;
     border: none;
@@ -49,4 +50,9 @@
 
 .modal > div button {
     width: 45%;
+}
+
+.ativo {
+    background-color: gray !important;
+    color: white;
 }
