@@ -1,0 +1,49 @@
+.discrepante{
+    background-color: red;
+}
+
+.incompleta{
+    background-color: orange;
+}
+
+th {
+    width: 120px;
+    background-color: #3399ff;
+    color: #ffffff;
+    text-align: center;
+  }
+
+.biggerTh{
+    width: 240px;
+    background-color: #3399ff;
+    color: #ffffff;
+}
+ 
+   td, th {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+ 
+   tr:hover {
+    background-color: #cce6ff;
+  }
+ 
+   .meta {
+    text-align: center;
+    width: 20px;
+  }
+ 
+   .input {
+    width: 100px;
+    margin-bottom: 30px;
+  }
+
+  .painel{
+      margin-left: 30%;
+      padding-top: 100px;
+  }
+
+  .painel-th{
+      width: 170;
+      background-color: gray;
+  }
