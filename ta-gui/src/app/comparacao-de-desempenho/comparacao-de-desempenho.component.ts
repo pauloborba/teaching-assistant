@@ -16,9 +16,9 @@ export class ComparacaoDeDesempenhoComponent implements AfterViewInit {
   constructor(private servico: ComparacaoDeDesempenhoService, private rota: ActivatedRoute) { }
   
   ngAfterViewInit(): void {
-    let turmas: string[] = [];
+    let turmas: string[];
     this.rota.queryParams.subscribe(params => {
-      turmas = params.turmas.split(',');
+      turmas = params.turmas.split(',').sort();
     });
 
     this.servico.compararTurmas(turmas)
@@ -50,6 +50,6 @@ export class ComparacaoDeDesempenhoComponent implements AfterViewInit {
           }
         ]
       }
-    })
+    });
   }
 }
