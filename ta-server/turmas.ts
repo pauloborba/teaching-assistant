@@ -1,4 +1,6 @@
 import { Turma } from '../common/turma';
+import { Matricula } from '../common/matricula';
+import { Avaliacao } from './avaliacao';
 
 export class Turmas {
     turmas: Turma[ ] = [ ]
@@ -21,6 +23,37 @@ export class Turmas {
     }
 
     getTurma(descricao: string): Turma{
-        return null;
+        console.log("GETTURMA")
+        //console.log(descricao)
+        if(descricao=="ESS 2018.1"){
+            var turma = new Turma()
+            turma.descricao = "ESS 2018.1"
+            turma.metas = ["Requisitos", "Gerência de Configuração", "Testes"]
+            console.log(turma.descricao)
+            return turma
+    
+        }else if (descricao=="ESS 2018.2"){
+            var turma = new Turma()
+            turma.descricao = "ESS 2018.2"
+            turma.metas = ["Requisitos", "Gerência de Configuração", "Testes"]
+            return turma
+
+        }else if(descricao=="ESS 2019.1"){
+            console.log("ENTROU EM GETTURMA DE ESS 2019.1")
+            var turma = new Turma()
+            turma.descricao = "ESS 2019.1"
+            turma.metas = ["Requisitos", "Gerência de Configuração", "Testes"]
+            return turma
+           
+        }else if(descricao=="ESS 2019.2"){
+            var turma = new Turma()
+            turma.descricao = "ESS 2019.2"
+            turma.metas = ["Requisitos", "Gerência de Configuração", "Testes"]
+            return turma
+
+        }else{
+            return null;
+        }
+
     }
 }

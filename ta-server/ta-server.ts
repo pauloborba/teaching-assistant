@@ -9,6 +9,7 @@ import {Matricula} from '../common/matricula'
 var taserver = express();
 
 var cadastro: CadastroDeAlunos = new CadastroDeAlunos();
+var turmas: Turmas = new Turmas();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -26,7 +27,13 @@ taserver.get('/alunos', function (req: express.Request, res: express.Response) {
 
 //recebe um identificador de turma e retorna a mesma
 taserver.get('/turmas', function (req: express.Request, res: express.Response){
+   
+})
 
+taserver.get('/turma/:descricao', function (req: express.Request, res: express.Response){
+    let turma = turmas.getTurma(req.params.descricao)
+    res.send(turma)
+    //res.send(JSON.stringify(cadastro.getAlunos()));
 })
 
 //recebe um identificador de turma e de aluno e retorna uma matricula
