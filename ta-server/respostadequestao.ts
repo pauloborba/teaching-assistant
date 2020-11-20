@@ -7,9 +7,19 @@ export class RespostaDeQuestao{
     correcao: String;
     duracao: number;
 
-    getQuestao(): Questao{return;}
-    getResposta(): String{return;}
-    getNota(): String{return;}
-    getCorrecao(): String{return;}
-    getDuracao(): number{return;}
+    getQuestao(): Questao {
+        return null;
+    }
+    getResposta(): String {
+        return null;
+    }
+    getNota(): String {
+        return null;
+    }
+    getCorrecao(): String {
+        return null;
+    }
+    getDuracao(): number {
+        return null;
+    }
 }

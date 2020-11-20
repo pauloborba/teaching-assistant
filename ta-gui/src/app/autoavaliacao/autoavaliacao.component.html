@@ -1,23 +1,56 @@
 <table>
     <tr>
-      <td><button (click)="cadastrarAutoAvaliacao(matricula, avaliacoes)">Cadastrar</button></td>
-      <!--inicio-->
-    <tr>
-      <th>CPF</th>
-      <th>Turma</th>
-    </tr>
-    <tr>
-      <td class="meta"><input [(ngModel)]="cpf"></td>
-      <td class="meta"><input [(ngModel)]="turma"></td>
-      <td><button (click)="preencherAvaliacao(cpf,turma)">Preencher auto avaliação</button></td>
-    </tr>
-    <tr *ngFor="let meta of metas" >
-      <th>{meta}</th>
-    </tr>
-    <tr *ngFor="let meta of metas">
-      <td class="meta"><input [(ngModel)]="meta" (change)="atualizarAluno(a)"></td>
-    </tr>
-    <!--fim-->
+      <td><button (click)="setShowContent()">Cadastrar</button></td>
       <td><button (click)="notificarAutoAvaliacao(matricula)">Notificar</button></td>
+      <td><button routerLink="/discrepantes" >Discrepantes</button></td>
+      
     </tr>
+    
+    <!-- <tr *ngFor="let meta of metas" >
+      <th>{{meta}}</th>
+    </tr>  -->
+    <!-- <tr *ngFor="let meta of metas"> -->
+      <!-- <td class="meta"><input [(ngModel)]="meta" (change)="atualizarAluno(a)"></td> -->
+    <!-- </tr> -->
+    
+</table>
+  <table *ngIf="showContent">
+    <tr>
+      <!-- <div> -->
+        <th>CPF</th>
+        <!-- <p>*Campo obrigatório</p> -->
+      <!-- </div> -->
+      <!-- <div> -->
+        <th>Turma</th>
+        <!-- <p>*Campo obrigatório</p> -->
+      <!-- </div> -->
+    </tr>
+    <tr>
+      <td class="meta"><input [(ngModel)]="cpf" name="cpf" required></td>
+      <td class="meta"><input [(ngModel)]="descricaoTurma" name="descricaoTurma" required></td>
+      <td><button (click)="preencherAutoavaliacao(cpf,descricaoTurma); setShowGrades(cpf,descricaoTurma)">Preencher auto avaliação</button></td>
+    </tr> 
+    
   </table>
+  <div *ngIf="showGrades">
+
+    <h2>Avaliações do professor</h2>
+      <table>
+        <tr >
+            <th *ngFor="let a of avaliacoes" class="header data">{{a.meta}}</th>
+        </tr> 
+        <tr>
+          <td *ngFor="let a of avaliacoes" class="data">{{a.nota}}</td>
+        </tr>
+      </table>
+      <h2>Auto Avaliações</h2>
+      <table>
+          <tr>
+            <th *ngFor="let a of autoavaliacoes" class="header data">{{a.meta}}</th>
+          </tr>
+          <tr>
+            <td *ngFor="let a of autoavaliacoes let in=index" lass="data"><input [(ngModel)]="autoavaliacoes[in].nota" (change)="cadastrarAutoavaliacao(matricula,autoavaliacoes)"></td>
+          </tr>
+         
+      </table>
+  </div>

@@ -6,6 +6,7 @@ import { CadastroDeAlunos } from './cadastrodealunos';
 import { Turmas } from './turmas'
 import { Turma } from '../common/turma'
 import { Matricula } from '../common/matricula'
+import { Avaliacao } from './avaliacao';
 
 var taserver = express();
 
@@ -39,6 +40,17 @@ taserver.get('/matriculas', function (req: express.Request, res: express.Respons
     let matricula: Matricula = turma.getMatricula(cpf);
 
     res.send(matricula);
+})
+
+taserver.put('/autoavalicoes/atualizar', function (req: express.Request, res: express.Response) {
+    var autoavalicoes: Avaliacao[] = <Avaliacao[]> req.body.autoavalicoes;
+    var matricula: Matricula = <Matricula> req.body.matricula;
+    autoavalicoes = cadastro.atualizar(autoavalicoes, matricula);
+    if (autoavalicoes) {
+      res.send({"success": "A autoavaliacao foi atualizada com sucesso"});
+    } else {
+      res.send({"failure": "A autoavaliacao não pode ser atualizada"});
+    }
 })
 
 var server = taserver.listen(3000, function () {

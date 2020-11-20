@@ -5,19 +5,19 @@ export class Turmas {
 
 
     cadastrarTurma(turma: Turma): Turma{
-        return;
+        return null;
     }
 
     removerTurma(descricao: string): Turma{
-        return;
+        return null;
     }
 
     atualizarTurma(turma: Turma): Turma{
-        return;
+        return null;
     }
     
     compararTurmas(turmas: Turma []): any{
-        return;
+        return null;
     }
 
     getTurma(descricao: string): Turma{

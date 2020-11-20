@@ -1,0 +1,28 @@
+.avaliacao-container{
+    display: flex;
+    flex-direction: column;
+    background-color: red;
+    margin-right: 1rem;
+}
+
+.avaliacao-container2{
+    display: flex;
+}
+
+.container{
+    display: flex;
+}
+
+.header {
+    background-color: #3399ff;
+    color: #ffffff;
+  }
+  
+  .data {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  tr:hover {
+    background-color: #cce6ff;
+}

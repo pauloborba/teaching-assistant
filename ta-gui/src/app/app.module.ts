@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,9 @@ import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component'
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
 
+import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,14 +25,38 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
     AlunosComponent,
     AutoavaliacaoComponent,
     MonitoresComponent,
-    RoteirosComponent
+    RoteirosComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule, 
+    RouterModule.forRoot([{
+
+      path: 'metas',
+      component: MetasComponent
+    },
+    {
+      path:'alunos',
+      component: AlunosComponent
+    },
+    {
+      path: 'auto-avaliacao',
+      component: AutoavaliacaoComponent
+    },
+    {
+      path: 'turmas',
+      component: TurmasComponent
+    },
+    {
+      path: 'roteiros',
+      component: RoteirosComponent
+    },
+    
+  ])
   ],
-  providers: [],
+  providers: [AutoavaliacaoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
