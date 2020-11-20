@@ -1,5 +1,8 @@
+<input [(ngModel)]="descricaoNovaTurma">
+
 <!-- Botões para cadastrar, remover, atualizar e comparar turmas -->
 <div id="botoes">
+    <button (click)="adicionarTurma()">Adicionar Turma</button>
     <button (click)="alternarVisualizacaoOpcoesComparacao()" [disabled]="turmas.length < 2">
         Comparar Turmas
     </button>
@@ -14,7 +17,10 @@
         </tr>
     </thead>
     <tbody>
-
+        <tr *ngFor="let turma of turmas">
+            <td>{{ turma.descricao }}</td>
+            <td>{{ turma.getMedia() }}</td>
+        </tr>
     </tbody>
 </table>
 
