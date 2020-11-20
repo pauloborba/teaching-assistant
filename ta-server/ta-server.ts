@@ -34,24 +34,15 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response){
 
 //recebe um identificador de turma e de aluno e retorna uma matricula
 taserver.get('/matriculas', function (req: express.Request, res: express.Response){
-    let cpf = req.query.cpf;
-    let descricaoTurma = req.query.descricaoTurma;
+    let cpf: string = req.query.cpf;
+    let descricaoTurma: string = req.query.descricaoTurma;
     let turma: Turma = conjTurmas.getTurma(descricaoTurma);
     let matricula: Matricula = turma.getMatricula(cpf);
 
     res.send(matricula);
 })
 
-taserver.put('/autoavalicoes/atualizar', function (req: express.Request, res: express.Response) {
-    var autoavalicoes: Avaliacao[] = <Avaliacao[]> req.body.autoavalicoes;
-    var matricula: Matricula = <Matricula> req.body.matricula;
-    autoavalicoes = cadastro.atualizar(autoavalicoes, matricula);
-    if (autoavalicoes) {
-      res.send({"success": "A autoavaliacao foi atualizada com sucesso"});
-    } else {
-      res.send({"failure": "A autoavaliacao não pode ser atualizada"});
-    }
-})
+
 
 var server = taserver.listen(3000, function () {
     console.log('Example app listening on port 3000!')

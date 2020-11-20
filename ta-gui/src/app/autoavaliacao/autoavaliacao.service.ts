@@ -22,8 +22,8 @@ export class AutoavaliacaoService {
 
   getMatricula(cpf: string, descricaoTurma: string): Observable<Matricula>{
 
-    // let getUrl = this.taURL + `/matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${descricaoTurma.toString().toLowerCase()}`;
-    // console.log(getUrl);
+    let getUrl = this.taURL + `/matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${descricaoTurma.toString().toLowerCase()}`;
+    console.log(getUrl);
     // let response = this.http.get<Matricula>(getUrl, { headers: this.headers })
     // .pipe(
     //   retry(2),

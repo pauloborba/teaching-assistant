@@ -11,17 +11,17 @@ export class Matricula{
     
     getAluno(): Aluno{
         return this.aluno
-    };
+    }
     getAvaliacoes(): Avaliacao[]{
         return this.avaliacoes
-    };
+    }
     getAutoAvaliacoes(): Avaliacao[]{
         return this.autoAvaliacoes
-    };
+    }
     getMonitor(): Aluno {
         return this.monitor      
-    };
+    }
     getRespostasDeRoteiros(): RespostaDeRoteiro[]{
         return this.respostasDeRoteiros
-    };
+    }
 }
