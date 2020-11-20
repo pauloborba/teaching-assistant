@@ -3,9 +3,7 @@
 <!-- Botões para cadastrar, remover, atualizar e comparar turmas -->
 <div id="botoes">
     <button (click)="adicionarTurma()">Adicionar Turma</button>
-    <button (click)="alternarVisualizacaoOpcoesComparacao()">
-        Comparar Turmas
-    </button>
+    <button (click)="mostrarOpcoesComparacao()">Comparar Turmas</button>
 </div>
 
 <!-- Lista de turmas e suas médias -->
@@ -24,22 +22,22 @@
     </tbody>
 </table>
 
-<div *ngIf="modalOpcoesComparacaoAtivo" class="modal">
+<div *ngIf="modalAtivo === 'opcoes'" class="modal">
     <h3>Opções de Comparação</h3>
     <button
-        (click)="compararTodas()"
-        [ngClass]="{ ativo: opcaoComparacaoSelecionada === 'todas' }">
+        (click)="selecionarTodas()"
+        [ngClass]="{ ativo: opcaoSelecionada === 'todas' }">
             Todas as Turmas
     </button>
 
     <button 
         *ngIf="turmas.length >= 4"
-        (click)="compararUltimasQuatro()"
-        [ngClass]="{ ativo: opcaoComparacaoSelecionada === 'ultimas-quatro' }">
+        (click)="selecionarUltimasQuatro()"
+        [ngClass]="{ ativo: opcaoSelecionada === 'ultimas-quatro' }">
             Últimas 4 Turmas
     </button>
 
-    <button (click)="alternarVisualizacaoTurmas()">Escolher Turmas</button>
+    <button (click)="mostrarTurmas()">Escolher Turmas</button>
 
     <div>
         <button
@@ -48,11 +46,11 @@
                 Confirmar
         </button>
 
-        <button (click)="alternarVisualizacaoOpcoesComparacao()">Voltar</button>
+        <button (click)="esconderModal()">Voltar</button>
     </div>
 </div>
 
-<div *ngIf="modalTurmasAtivo" class="modal">
+<div *ngIf="modalAtivo === 'turmas'" class="modal">
     <h3>Turmas Disponíveis</h3>
     <button
         *ngFor="let turma of turmas"
@@ -67,11 +65,11 @@
                 Confirmar
         </button>
 
-        <button (click)="alternarVisualizacaoTurmas()">Voltar</button>
+        <button (click)="esconderModal()">Voltar</button>
     </div>
 </div>
 
-<div *ngIf="modalErroAtivo" class="modal">
+<div *ngIf="modalAtivo === 'erro'" class="modal">
     <h3>Não há turmas suficientes para comparar!</h3>
-    <button (click)="alternarVisualizacaoErro()">Voltar</button>
+    <button (click)="esconderModal()">Voltar</button>
 </div>
