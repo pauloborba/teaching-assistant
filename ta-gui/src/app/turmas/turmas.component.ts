@@ -8,13 +8,11 @@ import { Turma } from '../../../../common/turma';
 })
 export class TurmasComponent implements OnInit {
   turmas: Turma[] = [];
-  descricaoNovaTurma: string = "";
+  descricaoNovaTurma: string = '';
 
   turmasEscolhidas: string[] = [];
-  modalOpcoesComparacaoAtivo: boolean = false;
-  modalTurmasAtivo: boolean = false;
-  modalErroAtivo: boolean = false;
-  opcaoComparacaoSelecionada: string = "";
+  modalAtivo: string = '';
+  opcaoSelecionada: string = '';
 
   constructor() { }
 
@@ -28,23 +26,27 @@ export class TurmasComponent implements OnInit {
     this.turmas.push(turma);
   }
 
-  alternarVisualizacaoOpcoesComparacao(): void {
-    if (!this.modalOpcoesComparacaoAtivo && this.turmas.length < 2) {
-      this.alternarVisualizacaoErro();
+  mostrarOpcoesComparacao(): void {
+    if (this.turmas.length < 2) {
+      this.modalAtivo = 'erro';
     } else {
-      this.modalOpcoesComparacaoAtivo = !this.modalOpcoesComparacaoAtivo;
-      this.opcaoComparacaoSelecionada = "";
+      this.modalAtivo = 'opcoes';
+      this.opcaoSelecionada = '';
       this.turmasEscolhidas = [];
     }
   }
 
-  alternarVisualizacaoTurmas(): void {
-    this.alternarVisualizacaoOpcoesComparacao();
-    this.modalTurmasAtivo = !this.modalTurmasAtivo;
+  mostrarTurmas(): void {
+    this.modalAtivo = 'turmas';
+    this.turmasEscolhidas = [];
   }
 
-  alternarVisualizacaoErro(): void {
-    this.modalErroAtivo = !this.modalErroAtivo;
+  esconderModal(): void {
+    if (this.modalAtivo === 'turmas') {
+      this.mostrarOpcoesComparacao();
+    } else {
+      this.modalAtivo = '';
+    }
   }
 
   atualizarTurmasEscolhidas(descricao: string): void {
@@ -55,17 +57,17 @@ export class TurmasComponent implements OnInit {
     }
   }
 
-  compararTodas(): void {
+  selecionarTodas(): void {
     this.turmasEscolhidas = this.turmas.map(turma => turma.descricao);
-    this.opcaoComparacaoSelecionada = 'todas';
+    this.opcaoSelecionada = 'todas';
   }
   
-  compararUltimasQuatro(): void {
+  selecionarUltimasQuatro(): void {
     this.turmasEscolhidas = [];
     for (let i = this.turmas.length - 1; this.turmasEscolhidas.length < 4; i--) {
       this.turmasEscolhidas.push(this.turmas[i].descricao);
     }
     
-    this.opcaoComparacaoSelecionada = 'ultimas-quatro';
+    this.opcaoSelecionada = 'ultimas-quatro';
   }
 }
