@@ -1,6 +1,8 @@
 <!-- Botões para cadastrar, remover, atualizar e comparar turmas -->
 <div id="botoes">
-    <button (click)="alternarVisualizacaoOpcoesComparacao()">Comparar Turmas</button>
+    <button (click)="alternarVisualizacaoOpcoesComparacao()" [disabled]="turmas.length < 2">
+        Comparar Turmas
+    </button>
 </div>
 
 <!-- Lista de turmas e suas médias -->
@@ -18,22 +20,47 @@
 
 <div *ngIf="modalOpcoesComparacaoAtivo" class="modal">
     <h3>Opções de Comparação</h3>
-    <button (click)="compararTodas()">Todas as Turmas</button>
-    <button (click)="compararUltimasQuatro()">Últimas 4 Turmas</button>
+    <button
+        (click)="compararTodas()"
+        [ngClass]="{ ativo: opcaoComparacaoSelecionada === 'todas' }">
+            Todas as Turmas
+    </button>
+
+    <button 
+        *ngIf="turmas.length >= 4"
+        (click)="compararUltimasQuatro()"
+        [ngClass]="{ ativo: opcaoComparacaoSelecionada === 'ultimas-quatro' }">
+            Últimas 4 Turmas
+    </button>
+
     <button (click)="alternarVisualizacaoTurmas()">Escolher Turmas</button>
+
     <div>
-        <button [routerLink]="['/comparacao-de-desempenho']" [queryParams]="{ turmas: turmasEscolhidas.join(',') }">Confirmar</button>
+        <button
+            [routerLink]="['/comparacao-de-desempenho']"
+            [queryParams]="{ turmas: turmasEscolhidas.join(',') }">
+                Confirmar
+        </button>
+
         <button (click)="alternarVisualizacaoOpcoesComparacao()">Voltar</button>
     </div>
 </div>
 
 <div *ngIf="modalTurmasAtivo" class="modal">
     <h3>Turmas Disponíveis</h3>
-    <button *ngFor="let turma of turmas" (click)="atualizarTurmasEscolhidas(turma.descricao)">
-        {{ turma.descricao }}
+    <button
+        *ngFor="let turma of turmas"
+        (click)="atualizarTurmasEscolhidas(turma.descricao)"
+        [ngClass]="{ ativo: turmasEscolhidas.includes(turma.descricao) }">
+            {{ turma.descricao }}
     </button>
     <div>
-        <button [routerLink]="['/comparacao-de-desempenho']" [queryParams]="{ turmas: turmasEscolhidas.join(',') }">Confirmar</button>
+        <button
+            [routerLink]="['/comparacao-de-desempenho']"
+            [queryParams]="{ turmas: turmasEscolhidas.join(',') }">
+                Confirmar
+        </button>
+
         <button (click)="alternarVisualizacaoTurmas()">Voltar</button>
     </div>
 </div>
