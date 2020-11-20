@@ -8,6 +8,8 @@ import { Turma } from '../../../../common/turma';
 })
 export class TurmasComponent implements OnInit {
   turmas: Turma[] = [];
+  descricaoNovaTurma: string = "";
+
   turmasEscolhidas: string[] = [];
   modalOpcoesComparacaoAtivo: boolean = false;
   modalTurmasAtivo: boolean = false;
@@ -17,6 +19,12 @@ export class TurmasComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  adicionarTurma(): void {
+    const turma = new Turma();
+    turma.descricao = this.descricaoNovaTurma;
+    this.turmas.push(turma);
   }
 
   alternarVisualizacaoOpcoesComparacao(): void {
