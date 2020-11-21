@@ -41,4 +41,8 @@ export class Turma {
     getPercentual(meta: string, conceito: string): number {
         return 0;
     }
+
+    getMatriculas(): Matricula[] {
+        return this.matriculas;
+    }
 }
