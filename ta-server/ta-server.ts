@@ -36,13 +36,13 @@ stub_autoavaliacao1.meta = "Requisitos";
 stub_autoavaliacao1.nota = "MPA";
 stub_autoavaliacao2.meta = "Refatoração";
 stub_autoavaliacao2.nota = "MPA";
-stub_autoavaliacao3.meta = "Meta1";
+stub_autoavaliacao3.meta = "Requisitos";
 stub_autoavaliacao3.nota = "MA";
-stub_autoavaliacao4.meta = "Meta2";
+stub_autoavaliacao4.meta = "Refatoração";
 stub_autoavaliacao4.nota = "MA";
 stub_matricula1.autoAvaliacoes = [stub_autoavaliacao1, stub_autoavaliacao2];
 stub_matricula2.autoAvaliacoes = [stub_autoavaliacao3, stub_autoavaliacao4];
-stub_turma1.matriculas = [stub_matricula1];
+stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
 stub_turma2.matriculas = [stub_matricula2];
 
 

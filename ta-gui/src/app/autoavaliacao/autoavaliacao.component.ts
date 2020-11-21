@@ -23,6 +23,8 @@ export class AutoavaliacaoComponent implements OnInit {
   descricaoTurma: string;
   notificar: boolean = false;
   show_matriculas: boolean = false;
+  selectedEmails: string[] = [];
+  index = -1;
 
   constructor(private aaService: AutoavaliacaoService) { }
 
@@ -31,7 +33,10 @@ export class AutoavaliacaoComponent implements OnInit {
   }
 
   cadastrarAutoAvaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void { }
-	notificarAutoAvaliacao(cpf: string, descricaoTurma: string): void {}
+	notificarAutoAvaliacao(cpf: string, descricaoTurma: string): void {
+    console.log(descricaoTurma);
+    console.log(cpf);
+  }
 
   setNotificar(): void {
     this.notificar = true;
@@ -45,5 +50,18 @@ export class AutoavaliacaoComponent implements OnInit {
       this.turma.metas = as.metas;
       this.matriculas = as.matriculas;
     }, msg => {alert(msg.message);});
+  }
+
+  selected(email: string): void {
+    var result: string = this.selectedEmails.find(a => a == email);
+    if (!result) {
+      this.selectedEmails.push(email);
+    } else {
+      this.index = this.selectedEmails.indexOf(result)
+      if (this.index > -1) {
+        this.selectedEmails.splice(this.index, 1)
+      }
+    }
+    console.log(this.selectedEmails);
   }
 }

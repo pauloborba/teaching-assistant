@@ -28,7 +28,7 @@
         <th *ngFor="let a of turma.metas">{{a}}</th>
      </tr>
     <tr *ngFor="let matricula of matriculas">
-      <input type="checkbox">
+      <input type="checkbox" value='{{matricula.aluno.email}}' (click)="selected(matricula.aluno.email)">
       <td>{{matricula.aluno.nome}}</td>
       <td>{{matricula.aluno.cpf}}</td>
       <td>{{matricula.aluno.email}}</td>
