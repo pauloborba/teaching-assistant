@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Aluno } from '../../../../common/aluno';
 import { Matricula } from '../../../../common/matricula';
 import { Avaliacao } from '../../../../ta-server/avaliacao';
+import { Turmas } from '../../../../ta-server/turmas';
 
 @Component({
   selector: 'app-autoavaliacao',
@@ -12,7 +13,14 @@ import { Avaliacao } from '../../../../ta-server/avaliacao';
 export class AutoavaliacaoComponent implements OnInit {
   alunos: Aluno[] = [];
   avaliacoes: Avaliacao[] = [];
+  auto_avaliacoes: Avaliacao[] = [];
   matricula: Matricula;
+  turmas: Turmas;
+  cpf: string;
+  descricaoTurma: string;
+  notificar: boolean = false;
+  matriculas: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
@@ -20,5 +28,15 @@ export class AutoavaliacaoComponent implements OnInit {
   }
 
   cadastrarAutoAvaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void { }
-	notificarAutoAvaliacao(matricula: Matricula): void { }
+	notificarAutoAvaliacao(cpf: string, descricaoTurma: string): void {}
+
+  setNotificar(): void {
+    this.notificar = true;
+  }
+
+  showMatriculas(descricaoTurma: string): void {
+    let turma = this.turmas.getTurma(descricaoTurma);
+    let matriculas = turma.getMatriculas();
+    this.matriculas = true;
+  }
 }

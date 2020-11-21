@@ -1,7 +1,38 @@
 <table>
     <tr>
       <td><button (click)="cadastrarAutoAvaliacao(matricula, avaliacoes)">Cadastrar</button></td>
-      <td><button (click)="notificarAutoAvaliacao(matricula)">Notificar</button></td>
+      <td><button (click)="setNotificar()">Notificar</button></td>
       <td><button routerLink="/discrepantes" >Discrepantes</button></td>
     </tr>
+</table>
+
+
+<table *ngIf="notificar">
+  <tr>
+    <th>Turma</th>
+  </tr>
+  <tr>
+    <td><input [(ngModel)]="descricaoTurma" name="descricaoTurma"></td>
+    <td><button (click)="showMatriculas(descricaoTurma)">Selecionar</button></td>
+  </tr>
+</table>
+
+<div *ngIf="matriculas">
+  <h2>Alunos</h2>
+  <table>
+    <!-- <tr *ngFor="let a of alunos"> -->
+    <tr>
+      <input type="checkbox">
+      <td>João</td>
+      <td>123</td>
+      <td>joao@cin.ufpe.br</td>
+      <!-- <td *ngFor="let avaliacao of auto_avaliacoes">{{avaliacao.meta}}</td>
+      <td *ngFor="let avaliacao of auto_avaliacoes">{{avaliacao.nota}}</td> -->
+      <td>META 1</td>
+      <td>NOTA 1</td>
+   </tr>
+   <tr>
+    <td><button (click)="notificarAutoAvaliacao(cpf, descricaoTurma)">Notificar</button></td>
+   </tr>
   </table>
+</div>
