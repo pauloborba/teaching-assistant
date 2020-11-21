@@ -20,8 +20,11 @@ taserver.use(allowCrossDomain);
 
 taserver.use(bodyParser.json());
 
-taserver.get('/alunos', function (req: express.Request, res: express.Response) {
+// Stub para popular o front-end com alunos de uma turma
+var alunos = [{nome:'João',cpf:'123',email:'joao@cin.br',metas:{'requisitos':'MA'}},{nome:'Maria',cpf:'456',email:'maria@cin.br',metas:{'requisitos':'MPA'}}];
 
+taserver.get('/alunos', function (req: express.Request, res: express.Response) {
+    res.send(alunos);
 })
 
 //recebe um identificador de turma e retorna a mesma
