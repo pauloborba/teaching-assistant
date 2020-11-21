@@ -16,7 +16,7 @@ export class AutoavaliacaoComponent implements OnInit {
   avaliacoes: Avaliacao[] = [];
   auto_avaliacoes: Avaliacao[] = [];
   matricula: Matricula;
-  turmas: Turmas;
+  turmas: Turmas = null;
   cpf: string;
   descricaoTurma: string;
   notificar: boolean = false;
@@ -38,8 +38,6 @@ export class AutoavaliacaoComponent implements OnInit {
   showMatriculas(descricaoTurma: string): void {
     console.log("oi")
     this.show_matriculas = true;
-    //let turma = this.turmas.getTurma(descricaoTurma);
-    //let matriculas = turma.getMatriculas();
     let alunos = this.aaService.getAlunos(descricaoTurma).subscribe(as => { this.alunos = as; }, msg => {alert(msg.message);});
     console.log(alunos)
   }
