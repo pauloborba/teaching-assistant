@@ -20,20 +20,19 @@
 <div *ngIf="show_matriculas">
   <h2>Alunos</h2>
   <table>
-    <!-- <tr *ngFor="let a of alunos"> -->
       <tr>
         <th>Solicitar</th>
         <th>Nome</th>
         <th>CPF</th>
         <th>E-mail</th>
-        <th>Requisitos</th>
+        <th *ngFor="let a of turma.metas">{{a}}</th>
      </tr>
-    <tr *ngFor="let a of alunos">
+    <tr *ngFor="let matricula of matriculas">
       <input type="checkbox">
-      <td>{{a.nome}}</td>
-      <td>{{a.cpf}}</td>
-      <td>{{a.email}}</td>
-      <td>{{a.metas.requisitos}}</td>
+      <td>{{matricula.aluno.nome}}</td>
+      <td>{{matricula.aluno.cpf}}</td>
+      <td>{{matricula.aluno.email}}</td>
+      <td *ngFor="let a of matricula.autoAvaliacoes">{{a.nota}}</td>
    </tr>
    <tr>
     <td><button (click)="notificarAutoAvaliacao(cpf, descricaoTurma)">Notificar</button></td>

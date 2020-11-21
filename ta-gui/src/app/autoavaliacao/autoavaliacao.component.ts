@@ -4,6 +4,7 @@ import { Aluno } from '../../../../common/aluno';
 import { Matricula } from '../../../../common/matricula';
 import { Avaliacao } from '../../../../ta-server/avaliacao';
 import { Turmas } from '../../../../ta-server/turmas';
+import { Turma } from '../../../../common/turma';
 import { AutoavaliacaoService } from './autoavaliacao.service';
 
 @Component({
@@ -15,8 +16,9 @@ export class AutoavaliacaoComponent implements OnInit {
   alunos: Aluno[] = [];
   avaliacoes: Avaliacao[] = [];
   auto_avaliacoes: Avaliacao[] = [];
+  matriculas: Matricula[];
   matricula: Matricula;
-  turmas: Turmas = null;
+  turma: Turma = null;
   cpf: string;
   descricaoTurma: string;
   notificar: boolean = false;
@@ -36,9 +38,12 @@ export class AutoavaliacaoComponent implements OnInit {
   }
 
   showMatriculas(descricaoTurma: string): void {
-    console.log("oi")
     this.show_matriculas = true;
-    let alunos = this.aaService.getAlunos(descricaoTurma).subscribe(as => { this.alunos = as; }, msg => {alert(msg.message);});
-    console.log(alunos)
+    this.aaService.getTurmas(descricaoTurma).subscribe(as => {
+      this.turma = new Turma();
+      this.turma.descricao = as.descricao;
+      this.turma.metas = as.metas;
+      this.matriculas = as.matriculas;
+    }, msg => {alert(msg.message);});
   }
 }

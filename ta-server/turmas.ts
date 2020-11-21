@@ -21,6 +21,7 @@ export class Turmas {
     }
 
     getTurma(descricao: string): Turma{
-        return null;
+        var result: Turma = this.turmas.find(a => a.descricao == descricao);
+        return result;
     }
 }
