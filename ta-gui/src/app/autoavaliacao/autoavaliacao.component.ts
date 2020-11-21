@@ -4,6 +4,7 @@ import { Aluno } from '../../../../common/aluno';
 import { Matricula } from '../../../../common/matricula';
 import { Avaliacao } from '../../../../ta-server/avaliacao';
 import { Turmas } from '../../../../ta-server/turmas';
+import { AutoavaliacaoService } from './autoavaliacao.service';
 
 @Component({
   selector: 'app-autoavaliacao',
@@ -21,7 +22,7 @@ export class AutoavaliacaoComponent implements OnInit {
   notificar: boolean = false;
   show_matriculas: boolean = false;
 
-  constructor() { }
+  constructor(private aaService: AutoavaliacaoService) { }
 
   ngOnInit() {
 
@@ -35,8 +36,11 @@ export class AutoavaliacaoComponent implements OnInit {
   }
 
   showMatriculas(descricaoTurma: string): void {
+    console.log("oi")
     this.show_matriculas = true;
-    let turma = this.turmas.getTurma(descricaoTurma);
-    let matriculas = turma.getMatriculas();
+    //let turma = this.turmas.getTurma(descricaoTurma);
+    //let matriculas = turma.getMatriculas();
+    let alunos = this.aaService.getAlunos(descricaoTurma).subscribe(as => { this.alunos = as; }, msg => {alert(msg.message);});
+    console.log(alunos)
   }
 }

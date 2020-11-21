@@ -21,15 +21,19 @@
   <h2>Alunos</h2>
   <table>
     <!-- <tr *ngFor="let a of alunos"> -->
-    <tr>
+      <tr>
+        <th>Solicitar</th>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>E-mail</th>
+        <th>Requisitos</th>
+     </tr>
+    <tr *ngFor="let a of alunos">
       <input type="checkbox">
-      <td>João</td>
-      <td>123</td>
-      <td>joao@cin.ufpe.br</td>
-      <!-- <td *ngFor="let avaliacao of auto_avaliacoes">{{avaliacao.meta}}</td>
-      <td *ngFor="let avaliacao of auto_avaliacoes">{{avaliacao.nota}}</td> -->
-      <td>META 1</td>
-      <td>NOTA 1</td>
+      <td>{{a.nome}}</td>
+      <td>{{a.cpf}}</td>
+      <td>{{a.email}}</td>
+      <td>{{a.metas.requisitos}}</td>
    </tr>
    <tr>
     <td><button (click)="notificarAutoAvaliacao(cpf, descricaoTurma)">Notificar</button></td>
