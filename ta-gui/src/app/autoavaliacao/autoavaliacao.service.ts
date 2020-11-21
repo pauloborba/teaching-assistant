@@ -23,4 +23,8 @@ export class AutoavaliacaoService {
   getTurmas(descricaoTurma: string): Observable<Turma> {
     return this.http.get<Turma>(this.taURL + "/turmas/?descricaoTurma=" + descricaoTurma).pipe(retry(2));
   }
+
+  notificar(email: string): Observable<string> {
+    return this.http.get<string>(this.taURL + "/notificar/?email=" + email).pipe(retry(2));
+  }
 }

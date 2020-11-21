@@ -33,9 +33,9 @@ export class AutoavaliacaoComponent implements OnInit {
   }
 
   cadastrarAutoAvaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void { }
-	notificarAutoAvaliacao(cpf: string, descricaoTurma: string): void {
-    console.log(descricaoTurma);
-    console.log(cpf);
+	notificarAutoAvaliacao(): void {
+    console.log(this.selectedEmails);
+    this.aaService.notificar(this.selectedEmails[0]).subscribe(as => {}, msg => {alert(msg.message);});
   }
 
   setNotificar(): void {
@@ -62,6 +62,5 @@ export class AutoavaliacaoComponent implements OnInit {
         this.selectedEmails.splice(this.index, 1)
       }
     }
-    console.log(this.selectedEmails);
   }
 }

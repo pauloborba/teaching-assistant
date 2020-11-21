@@ -7,6 +7,7 @@ import {Turmas} from './turmas'
 import {Matricula} from '../common/matricula'
 import { Turma } from '../common/turma'
 import { Avaliacao } from './avaliacao';
+import { EmailSender } from './EmailSender';
 
 var taserver = express();
 // Stub para popular o front-end com alunos de uma turma
@@ -44,6 +45,7 @@ stub_matricula1.autoAvaliacoes = [stub_autoavaliacao1, stub_autoavaliacao2];
 stub_matricula2.autoAvaliacoes = [stub_autoavaliacao3, stub_autoavaliacao4];
 stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
 stub_turma2.matriculas = [stub_matricula2];
+var sender = new EmailSender();
 
 
 var turmas: Turmas = new Turmas();
@@ -70,6 +72,16 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response){
     let descricaoTurma: string = req.query.descricaoTurma;
     let turma: Turma = turmas.getTurma(descricaoTurma);
     res.send(turma);
+})
+
+//recebe um endereço de email e envia a notificação para fazer a auto-avaliação
+taserver.get('/notificar', function (req: express.Request, res: express.Response){
+    let to: string = req.query.email;
+    let from: string = "professor@cin.ufpe.br";
+    let subject: string = "Notificação de auto-avaliação";
+    let message: string = "Seu professor está requisitando que você realize sua auto-avaliação";
+    let notificationSent: boolean = sender.enviarEmail(from, to, subject, message);
+    res.send(notificationSent);
 })
 
 //recebe um identificador de turma e de aluno e retorna uma matricula
