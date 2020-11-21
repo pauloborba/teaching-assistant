@@ -13,26 +13,20 @@
   </tr>
   <tr>
     <td><input [(ngModel)]="descricaoTurma" name="descricaoTurma"></td>
-    <td><button (click)="showMatriculas(descricaoTurma)">Selecionar</button></td>
+    <td><button (click)="showTurmas(descricaoTurma)">Selecionar</button></td>
   </tr>
 </table>
 
-<div *ngIf="show_matriculas">
-  <h2>Alunos</h2>
+<div *ngIf="show_turmas">
+  <h2>Metas</h2>
   <table>
       <tr>
         <th>Solicitar</th>
-        <th>Nome</th>
-        <th>CPF</th>
-        <th>E-mail</th>
-        <th *ngFor="let a of turma.metas">{{a}}</th>
+        <th>Metas</th>
      </tr>
-    <tr *ngFor="let matricula of matriculas">
-      <input type="checkbox" value='{{matricula.aluno.email}}' (click)="selected(matricula.aluno.email)">
-      <td>{{matricula.aluno.nome}}</td>
-      <td>{{matricula.aluno.cpf}}</td>
-      <td>{{matricula.aluno.email}}</td>
-      <td *ngFor="let a of matricula.autoAvaliacoes">{{a.nota}}</td>
+    <tr *ngFor="let a of turma.metas">
+      <input type="checkbox" value='{{a}}' (click)="selected(a)">
+      <td>{{a}}</td>
    </tr>
    <tr>
     <td><button (click)="notificarAutoAvaliacao()">Notificar</button></td>

@@ -22,8 +22,8 @@ export class AutoavaliacaoComponent implements OnInit {
   cpf: string;
   descricaoTurma: string;
   notificar: boolean = false;
-  show_matriculas: boolean = false;
-  selectedEmails: string[] = [];
+  show_turmas: boolean = false;
+  selectedMetas: string[] = [];
   index = -1;
 
   constructor(private aaService: AutoavaliacaoService) { }
@@ -34,16 +34,16 @@ export class AutoavaliacaoComponent implements OnInit {
 
   cadastrarAutoAvaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void { }
 	notificarAutoAvaliacao(): void {
-    console.log(this.selectedEmails);
-    this.aaService.notificar(this.selectedEmails[0]).subscribe(as => {}, msg => {alert(msg.message);});
+    console.log(this.selectedMetas);
+    this.aaService.notificar(this.matriculas[0].aluno.email, this.selectedMetas[0]).subscribe(as => {}, msg => {alert(msg.message);});
   }
 
   setNotificar(): void {
     this.notificar = true;
   }
 
-  showMatriculas(descricaoTurma: string): void {
-    this.show_matriculas = true;
+  showTurmas(descricaoTurma: string): void {
+    this.show_turmas = true;
     this.aaService.getTurmas(descricaoTurma).subscribe(as => {
       this.turma = new Turma();
       this.turma.descricao = as.descricao;
@@ -53,13 +53,13 @@ export class AutoavaliacaoComponent implements OnInit {
   }
 
   selected(email: string): void {
-    var result: string = this.selectedEmails.find(a => a == email);
+    var result: string = this.selectedMetas.find(a => a == email);
     if (!result) {
-      this.selectedEmails.push(email);
+      this.selectedMetas.push(email);
     } else {
-      this.index = this.selectedEmails.indexOf(result)
+      this.index = this.selectedMetas.indexOf(result)
       if (this.index > -1) {
-        this.selectedEmails.splice(this.index, 1)
+        this.selectedMetas.splice(this.index, 1)
       }
     }
   }

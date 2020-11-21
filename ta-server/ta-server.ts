@@ -77,9 +77,10 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response){
 //recebe um endereço de email e envia a notificação para fazer a auto-avaliação
 taserver.get('/notificar', function (req: express.Request, res: express.Response){
     let to: string = req.query.email;
+    let meta: string = req.query.meta;
     let from: string = "professor@cin.ufpe.br";
     let subject: string = "Notificação de auto-avaliação";
-    let message: string = "Seu professor está requisitando que você realize sua auto-avaliação";
+    let message: string = "Seu professor está requisitando que você realize sua auto-avaliação da meta " + meta;
     let notificationSent: boolean = sender.enviarEmail(from, to, subject, message);
     res.send(notificationSent);
 })
