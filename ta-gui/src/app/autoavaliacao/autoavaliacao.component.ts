@@ -19,7 +19,7 @@ export class AutoavaliacaoComponent implements OnInit {
   cpf: string;
   descricaoTurma: string;
   notificar: boolean = false;
-  matriculas: boolean = false;
+  show_matriculas: boolean = false;
 
   constructor() { }
 
@@ -35,8 +35,8 @@ export class AutoavaliacaoComponent implements OnInit {
   }
 
   showMatriculas(descricaoTurma: string): void {
+    this.show_matriculas = true;
     let turma = this.turmas.getTurma(descricaoTurma);
     let matriculas = turma.getMatriculas();
-    this.matriculas = true;
   }
 }
