@@ -12,6 +12,7 @@ import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
+import { RelatorioComponent } from './relatorio/relatorio.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
     AlunosComponent,
     AutoavaliacaoComponent,
     MonitoresComponent,
-    RoteirosComponent
+    RoteirosComponent,
+    RelatorioComponent
   ],
   imports: [
     BrowserModule,
