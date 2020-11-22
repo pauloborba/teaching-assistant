@@ -35,7 +35,13 @@ export class AutoavaliacaoComponent implements OnInit {
   cadastrarAutoAvaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void { }
 	notificarAutoAvaliacao(): void {
     console.log(this.selectedMetas);
-    this.aaService.notificar(this.matriculas[0].aluno.email, this.selectedMetas[0]).subscribe(as => {}, msg => {alert(msg.message);});
+    var i, j;
+    for (i = 0; i < this.matriculas.length; i++) {
+      for (j = 0; j < this.selectedMetas.length; j++) {
+        this.aaService.notificar(this.matriculas[i].aluno.email, this.selectedMetas[j]).subscribe(as => {}, msg => {alert(msg.message);});
+      }
+    }
+    
   }
 
   setNotificar(): void {
