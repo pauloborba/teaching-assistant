@@ -51,6 +51,10 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
       path: 'roteiros',
       component: RoteirosComponent
     },
+    {
+      path: 'relatorio',
+      component: RelatorioComponent
+    }
     
   ])
   ],
