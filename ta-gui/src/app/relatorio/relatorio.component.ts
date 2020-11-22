@@ -1,19 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Turma } from '../../../../common/turma';
 
-import { Roteiro } from '../../../../ta-server/roteiro';
+import { Observable } from 'rxjs';
+import { RelatorioService } from './relatorio.service';
 
 @Component({
     selector: 'app-relatorio',
     templateUrl: './relatorio.component.html',
-    styleUrls: ['./relatorio.component.css']
+    styleUrls: ['./relatorio.component.css'],
+    providers: [RelatorioService]
   })
 export class RelatorioComponent implements OnInit{
-  turmas: Turma[] = [];
+
+  turma: Turma
   
-  constructor() { }
+  constructor() {
+   }
   
   ngOnInit() {
-
+    this.turma.descricao = "Turma 2020.3"
   }
+
 }
