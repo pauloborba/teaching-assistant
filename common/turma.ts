@@ -38,11 +38,11 @@ export class Turma {
             case '2018.1':
                 return 10;
             case '2018.2':
-                return 5;
+                return 6;
             case '2019.1':
                 return 4;
             case '2019.2':
-                return 15;
+                return 5;
             default:
                 return 6;
         }
