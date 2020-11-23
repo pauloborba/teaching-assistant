@@ -12,6 +12,8 @@ import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
+import { TurmasService } from './turmas/turmasService';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([{
 
       path: 'metas',
@@ -56,7 +59,7 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
     
   ])
   ],
-  providers: [],
+  providers: [TurmasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

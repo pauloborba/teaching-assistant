@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Turma } from '../../../../common/turma';
+import { TurmasService } from '../turmas/turmasService';
 
 @Component({
   selector: 'app-turmas',
@@ -8,7 +9,7 @@ import { Turma } from '../../../../common/turma';
 })
 export class MetasComponent implements OnInit {
   turmas: Turma[] = [];
-  turmasDescricao: string[] =["ess 2020.1", "gerencia de projetos", "teste"];
+  turmasDescricao: string[] =[];
   metasTurma: string[] = [];
   turmaAtual: string;
   turmaClonada: string;
@@ -17,10 +18,20 @@ export class MetasComponent implements OnInit {
   metasDiscrepantes: string[];
   metasIguais: string[];
 
-  constructor() { }
+  constructor(private turmasService: TurmasService) { //erro aqui!
+  }
 
   ngOnInit() {
+    this.turmasService.getTurmas()
+             .subscribe(
+               res => {
+                 const {descricoes} = res;
+                 this.turmasDescricao = descricoes
+               },
+               msg => { alert(msg.message); }
+              );
 
+        
   }
 
   isShow = false;
