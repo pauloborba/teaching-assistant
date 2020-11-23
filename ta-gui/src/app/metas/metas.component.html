@@ -18,16 +18,10 @@
                     {{turma}}
                   </option>
                 </select>
-                <!-- <button (click) = batata()>teste</button> -->
         </div>
 
         <div>
-            <button (click) = metasCadastradas()>Clonar</button>
-                <div *ngIf = 'isShowClone'>
-                    <p>Existem metas dessa turma já cadastradas, o que deseja fazer?</p>
-                    <button (click) = toggleDisplayHide() (click) = toggleDisplayHideClone() (click) = 'clonarMetas()'>Continuar</button>
-                    <button (click) = toggleDisplayHideClone()>Cancelar</button>
-                </div>
+            <button (click) = toggleDisplayShowClone()>Clonar</button>
             <button (click) = toggleDisplayHide()>Cancelar</button>
         </div>
         
