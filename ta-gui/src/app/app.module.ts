@@ -12,6 +12,8 @@ import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
+import { AlunoService } from './alunos/alunos.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     RouterModule.forRoot([{
 
@@ -52,7 +55,7 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
     
   ])
   ],
-  providers: [],
+  providers: [AlunoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
