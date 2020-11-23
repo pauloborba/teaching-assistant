@@ -26,7 +26,7 @@ taserver.get('/alunos', function (req: express.Request, res: express.Response) {
 })
 
 //recebe um identificador de turma e retorna a mesma
-taserver.use("/turma", turmaRotas);
+taserver.use("/turmas", turmaRotas);
 
 //recebe um identificador de turma e de aluno e retorna uma matricula
 taserver.get('/matriculas', function (req: express.Request, res: express.Response){

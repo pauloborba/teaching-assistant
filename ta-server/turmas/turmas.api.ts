@@ -8,7 +8,8 @@ const turmas: Turmas = new Turmas();
 
 turmaRotas.get("/:id/metas", (req: Request, res: Response) => {
     const {id} = req.params
-    res.send(id)
+    const turma = turmas.getTurma(id);
+    res.send(turma.getMetas())
 });
 
 turmaRotas.get("/", (req: Request, res: Response) =>{
