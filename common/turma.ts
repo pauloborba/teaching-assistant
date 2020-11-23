@@ -49,4 +49,8 @@ export class Turma {
     getPercentual(meta: string, conceito: string): number {
         return 0;
     }
+
+    addMetas(metasClonadas: string[]){
+        this.metas = this.metas.concat(metasClonadas);
+    }
 }

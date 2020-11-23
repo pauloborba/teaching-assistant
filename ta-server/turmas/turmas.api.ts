@@ -18,4 +18,12 @@ turmaRotas.get("/", (req: Request, res: Response) =>{
     
 });
 
+turmaRotas.post('/:id/metas', (req: Request, res: Response) => {
+    const {id} = req.params
+    const {metas}  = req.body;
+    const turma = turmas.getTurma(id);
+    turma.addMetas(metas)
+    res.send(turma)
+  });
+
 export default turmaRotas;
