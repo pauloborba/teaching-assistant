@@ -1,8 +1,11 @@
 import { Turma } from '../common/turma';
 
 export class Turmas {
-    turmas: Turma[ ] = [ ]
+    turmas: Turma[] = [];
 
+    constructor(){
+
+    }
 
     cadastrarTurma(turma: Turma): Turma{
         return null;
@@ -25,6 +28,12 @@ export class Turmas {
     }
 
     getTurmas(): Turma[]{
-        return this.turmas;
+        return null;
     }
-}
+
+    getDescricoes(): string[]{
+        const descricoes = this.turmas.map(turma => turma.descricao);
+        //const descricoes = ["teste1", "vector", "maryzinha", "elaine", "mozao", "caronas"];
+        return descricoes;
+    }
+} 
