@@ -1,38 +1,39 @@
 <table>
     <tr>
-      <td><button (click)="setShowContent()">Cadastrar</button></td>
-      <td><button (click)="notificarAutoAvaliacao(matricula)">Notificar</button></td>
-      <td><button routerLink="/discrepantes" >Discrepantes</button></td>
+      <td><button (click)="setShowContent()" class="botoes-menu">Cadastrar</button></td>
+      <td><button (click)="notificarAutoAvaliacao(matricula)" class="botoes-menu">Notificar</button></td>
+      <td><button routerLink="/discrepantes" class="botoes-menu" >Discrepantes</button></td>
       
     </tr>
     
-    <!-- <tr *ngFor="let meta of metas" >
-      <th>{{meta}}</th>
-    </tr>  -->
-    <!-- <tr *ngFor="let meta of metas"> -->
-      <!-- <td class="meta"><input [(ngModel)]="meta" (change)="atualizarAluno(a)"></td> -->
-    <!-- </tr> -->
     
 </table>
   <table *ngIf="showContent">
-    <tr>
-      <!-- <div> -->
+    <!-- <tr>
+      
         <th>CPF</th>
-        <!-- <p>*Campo obrigatório</p> -->
-      <!-- </div> -->
-      <!-- <div> -->
+       
         <th>Turma</th>
-        <!-- <p>*Campo obrigatório</p> -->
-      <!-- </div> -->
-    </tr>
+       
+    </tr> -->
     <tr>
-      <td class="meta"><input [(ngModel)]="cpf" name="cpf" required></td>
-      <td class="meta"><input [(ngModel)]="descricaoTurma" name="descricaoTurma" required></td>
-      <td><button (click)="preencherAutoavaliacao(cpf,descricaoTurma); setShowGrades(cpf,descricaoTurma)">Preencher auto avaliação</button></td>
+      <td class="pesquisar-matricula">
+        <div class="container">
+          <p>CPF</p>
+          <td class="meta"><input [(ngModel)]="cpf" name="cpf" required></td>
+          <p *ngIf="cpfObrigatorio" class="mensagem-de-erro">Campo obrigatório</p>
+        </div>
+        <div class="container">
+          <p>Turma</p>
+          <td class="meta"><input [(ngModel)]="descricaoTurma" name="descricaoTurma" required></td>
+          <p *ngIf="turmaObrigatorio" class="mensagem-de-erro">*Campo obrigatório</p>
+        </div>
+        <button (click)="preencherAutoavaliacao(cpf,descricaoTurma); setShowGrades(cpf,descricaoTurma)">Preencher auto avaliação</button>
+      </td>
     </tr> 
     
   </table>
-  <div *ngIf="showGrades">
+  <div *ngIf="showGrades && matricula && cpf && descricaoTurma">
 
     <h2>Avaliações do professor</h2>
       <table>
@@ -40,7 +41,7 @@
             <th *ngFor="let a of avaliacoes" class="header data">{{a.meta}}</th>
         </tr> 
         <tr>
-          <td *ngFor="let a of avaliacoes" class="data">{{a.nota}}</td>
+          <td *ngFor="let a of avaliacoes" class="data avaliacao-container">{{a.nota}}</td>
         </tr>
       </table>
       <h2>Auto Avaliações</h2>
@@ -49,7 +50,7 @@
             <th *ngFor="let a of autoavaliacoes" class="header data">{{a.meta}}</th>
           </tr>
           <tr>
-            <td *ngFor="let a of autoavaliacoes let in=index" lass="data"><input [(ngModel)]="autoavaliacoes[in].nota" (change)="cadastrarAutoavaliacao(matricula,autoavaliacoes)"></td>
+            <td *ngFor="let a of autoavaliacoes let in=index" lass="data" class="nota avaliacao-container data"><input [(ngModel)]="autoavaliacoes[in].nota" (change)="atualizarAutoavaliacao(cpf, descricaoTurma, autoavaliacoes)"></td>
           </tr>
          
       </table>

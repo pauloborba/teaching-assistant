@@ -6,6 +6,7 @@ import { Matricula } from '../../../../common/matricula';
 import { Avaliacao } from '../../../../ta-server/avaliacao';
 import { Turmas } from '../../../../ta-server/turmas';
 import { AutoavaliacaoService } from './autoavaliacao.service';
+import { Turma } from '../../../../common/turma';
 
 
 @Component({
@@ -22,11 +23,12 @@ export class AutoavaliacaoComponent implements OnInit {
   descricaoTurma: string = "";
   showContent: boolean = false;
   showGrades: boolean = false;
+  cpfObrigatorio: boolean = false;
+  turmaObrigatorio: boolean = false;
 
   // alunos: Aluno[] = [];
   // metas: string[] = [];
-  // turmas: Turmas[] = [];
-
+  turma: Turma;
   avaliacoes: Avaliacao[] = [];
   autoavaliacoes: Avaliacao[] = [];
   matricula: Matricula;
@@ -45,20 +47,40 @@ export class AutoavaliacaoComponent implements OnInit {
     }
   }
 
-
   preencherAutoavaliacao(cpf: string, descricaoTurma: string): void{
+
+    if(cpf === ''){
+      this.cpfObrigatorio = true;
+     }
+     if(descricaoTurma === ''){
+      this.turmaObrigatorio = true;
+     }
+     else{
+      this.cpfObrigatorio = false;
+      this.turmaObrigatorio = false;
+     }
 
      if(cpf && descricaoTurma){
        this.aaService.getMatricula(cpf, descricaoTurma).subscribe(
          ma => {
-           this.matricula = ma;
-           console.log(ma);
-         },
-         msg => { alert(msg) }
+           this.matricula = new Matricula();
+           this.matricula.autoAvaliacoes = ma.autoAvaliacoes;
+           this.matricula.avaliacoes = ma.avaliacoes;
+           this.avaliacoes = this.matricula.getAvaliacoes();
+           this.autoavaliacoes = this.matricula.getAutoAvaliacoes();
+          },
+          msg => { alert(msg.message) }
        );
-   
-       this.avaliacoes = this.matricula.getAvaliacoes();
-       this.autoavaliacoes = this.matricula.getAutoAvaliacoes();
+      // this.aaService.getTurma(descricaoTurma).subscribe(
+      //   tu => {
+      //     this.turma = new Turma();
+      //     this.turma.matriculas = tu.matriculas;
+      //     this.matricula = this.turma.getMatricula(cpf);
+      //     this.avaliacoes = this.matricula.avaliacoes;
+      //     this.autoavaliacoes = this.matricula.autoAvaliacoes;
+      // }, 
+      //   msg => { alert(msg.message) }
+      // );
      }
   }
 
@@ -68,11 +90,18 @@ export class AutoavaliacaoComponent implements OnInit {
     this.matricula.getAutoAvaliacoes()
   }
 
-  atualizarAutoavaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void {
-    this.aaService.atualizar(matricula, avaliacoes).subscribe(
-      (a) => { if (a == null) alert("Erro ao tentar atualizar auto-avaliação! Por favor, contate os administradores do sistema."); },
+  atualizarAutoavaliacao(cpf: string, descricaoTurma: string, autoavaliacoes: Avaliacao[]): void {
+    this.aaService.atualizar(cpf, descricaoTurma, autoavaliacoes).subscribe(
+      (a) => { if (a == null){ alert("Erro ao tentar atualizar auto-avaliação! Por favor, contate os administradores do sistema.");} else{console.log('teste', a);}  },
       (msg) => { alert(msg.message); }
    );
   }
+
+  //  atualizarAutoavaliacao(matricula: Matricula, autoavaliacoes: Avaliacao[]): void {
+  //   this.aaService.atualizar(this.matricula, autoavaliacoes).subscribe(
+  //     (a) => { if (a == null){ alert("Erro ao tentar atualizar auto-avaliação! Por favor, contate os administradores do sistema.");} else{console.log('teste', a);}  },
+  //     (msg) => { alert(msg.message); }
+  //  );
+  // }
 	notificarAutoAvaliacao(matricula: Matricula): void { }
 }

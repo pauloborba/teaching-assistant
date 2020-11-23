@@ -1,16 +1,12 @@
 .avaliacao-container{
-    display: flex;
-    flex-direction: column;
-    background-color: red;
-    margin-right: 1rem;
+    padding: 0.4rem;
 }
 
-.avaliacao-container2{
-    display: flex;
-}
 
 .container{
     display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .header {
@@ -18,11 +14,45 @@
     color: #ffffff;
   }
   
-  .data {
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  tr:hover {
-    background-color: #cce6ff;
+.data {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.pesquisar-matricula{
+  display: flex;
+  align-items: flex-start;
+}
+
+
+th{
+  text-transform: capitalize;
+}
+
+input{
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  min-height: 1.1rem;
+  text-transform: uppercase;
+}
+
+.nota{
+  width: 0.7rem;
+  text-transform: uppercase;
+}
+
+.botoes-menu{
+  background-color: #3399ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  min-height: 2rem;
+  -webkit-appearance: none;
+  font-style: bold;
+  cursor: pointer;
+}
+
+.mensagem-de-erro{
+  color: red;
+  font-size: 0.9rem;
 }
