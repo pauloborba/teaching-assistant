@@ -1,31 +1,5 @@
 <!-- Botões para cadastrar, remover, atualizar e comparar turmas -->
-<div id="botoes">
-    <button><a>Nova Meta</a></button>
-    <button><a (click) = toggleDisplayMainButton()>Clonar</a></button>
-    <div *ngIf = 'isShow'>
-        <div>
-            <p>Selecione de onde deseja clonar as metas</p>
-                <select [(ngModel)]='turmaClonada'> 
-                  <option *ngFor="let turma of turmasDescricao" [value]="turma">
-                    {{turma}}
-                  </option>
-                </select>
-                <button (click) = batata()>teste</button>
-        </div>
 
-        <div>
-            <button (click) = metasCadastradas()>Clonar</button>
-                <div *ngIf = 'isShowClone'>
-                    <p>Existem metas dessa turma já cadastradas, o que deseja fazer?</p>
-                    <button (click) = toggleDisplayHide() (click) = toggleDisplayHideClone() (click) = 'clonarMetas()'>Continuar</button>
-                    <button (click) = toggleDisplayHideClone()>Cancelar</button>
-                </div>
-            <button (click) = toggleDisplayHide()>Cancelar</button>
-        </div>
-        
-    </div>
-   
-</div>
 
 <!-- Lista de turmas e suas médias -->
 <!-- <table>
