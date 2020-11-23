@@ -33,6 +33,14 @@ export class Turma {
     getRoteiros(): Roteiro[] {
         return [];
     }
+    
+    getMetas(): string[]{
+        return this.metas;
+    }
+
+    getDescricao(): string{
+        return this.descricao;
+    }
 
     getMonitores(): Aluno[] {
         return [];
