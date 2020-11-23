@@ -38,6 +38,10 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
       component: AlunosComponent
     },
     {
+      path:'turma',
+      component: TurmasComponent
+    },
+    {
       path: 'auto-avaliacao',
       component: AutoavaliacaoComponent
     },
