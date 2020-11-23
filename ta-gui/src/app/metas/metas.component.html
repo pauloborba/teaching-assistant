@@ -1,18 +1,36 @@
-<div>
+<div id="botoes">
     <button><a>Nova Meta</a></button>
-    <button><a>Clonar</a></button>
-</div>
+    <button><a (click) = toggleDisplayMainButton()>Clonar</a></button>
+    <div *ngIf = 'isShow'>
+        <div>
+            <p>Clonar de</p>
+               
+            <select [(ngModel)]='turmaAtual'> 
+                <option *ngFor="let turma of turmasDescricao" [value]="turma">
+                  {{turma}}
+                </option>
+            </select> 
 
-<div>
-    <table>
-        <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>e-mail</th>
-            <th>Média</th>
-        </tr>
-        <tr>
-            <!-- alunos aqui -->
-        </tr>
-    </table>
+            <p>para</p>
+            
+            <select [(ngModel)]='turmaClonada'> 
+                  <option *ngFor="let turma of turmasDescricao" [value]="turma">
+                    {{turma}}
+                  </option>
+                </select>
+                <button (click) = batata()>teste</button>
+        </div>
+
+        <div>
+            <button (click) = metasCadastradas()>Clonar</button>
+                <div *ngIf = 'isShowClone'>
+                    <p>Existem metas dessa turma já cadastradas, o que deseja fazer?</p>
+                    <button (click) = toggleDisplayHide() (click) = toggleDisplayHideClone() (click) = 'clonarMetas()'>Continuar</button>
+                    <button (click) = toggleDisplayHideClone()>Cancelar</button>
+                </div>
+            <button (click) = toggleDisplayHide()>Cancelar</button>
+        </div>
+        
+    </div>
+   
 </div>
