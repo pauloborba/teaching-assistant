@@ -1,5 +1,6 @@
 import express = require('express');
 import bodyParser = require("body-parser");
+import turmaRotas from "./turmas/turmas.api";
 
 import {Aluno} from '../common/aluno';
 import {CadastroDeAlunos} from './cadastrodealunos'; 
@@ -25,9 +26,7 @@ taserver.get('/alunos', function (req: express.Request, res: express.Response) {
 })
 
 //recebe um identificador de turma e retorna a mesma
-taserver.get('/turmas', function (req: express.Request, res: express.Response){
-
-})
+taserver.use("/turma", turmaRotas);
 
 //recebe um identificador de turma e de aluno e retorna uma matricula
 taserver.get('/matriculas', function (req: express.Request, res: express.Response){
