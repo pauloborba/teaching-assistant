@@ -23,4 +23,8 @@ export class Turmas {
     getTurma(descricao: string): Turma{
         return null;
     }
+
+    getTurmas(): Turma[]{
+        return this.turmas;
+    }
 }
