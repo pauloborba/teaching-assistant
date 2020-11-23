@@ -3,6 +3,9 @@ import { Turma } from '../../../../common/turma';
 
 import { Observable } from 'rxjs';
 import { RelatorioService } from './relatorio.service';
+import { Roteiro } from '../../../../ta-server/roteiro';
+import { BlocoDeQuestoes } from '../../../../ta-server/blocodequestoes';
+import { Matricula } from '../../../../common/matricula';
 
 @Component({
     selector: 'app-relatorio',
@@ -12,13 +15,29 @@ import { RelatorioService } from './relatorio.service';
   })
 export class RelatorioComponent implements OnInit{
 
-  turma: Turma
+  media: Number;
+  desvio: Number;
+  corr: Number;
   
-  constructor() {
+  constructor(private service: RelatorioService) {
    }
   
   ngOnInit() {
-    this.turma.descricao = "Turma 2020.3"
+    
+    // @ts-ignore
+    this.turma = this.service.getTurma(descricao);
+  }
+
+  getMedia(turma, roteiro): Number {
+    return 0
+  }
+
+  getDesvio(turma, roteiro): Number {
+    return 0
+  }
+
+  getCorr(turma, roteiro): Number {
+    return 0
   }
 
 }

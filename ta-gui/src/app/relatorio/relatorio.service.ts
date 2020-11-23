@@ -13,8 +13,8 @@ export class RelatorioService {
 
   constructor(private http: HttpClient) {}
 
-  getTurmas(): Observable<Turma[]> {
-    return this.http.get<Turma[]>(this.taURL + "/turmas")
+  getTurma(descricao: string): Observable<Turma> {
+    return this.http.get<Turma>(this.taURL + `/turmas?descricao=${descricao}`)
               .pipe(
                  retry(2)
                );
