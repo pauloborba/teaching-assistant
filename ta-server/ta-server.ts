@@ -33,35 +33,66 @@ taserver.get('/alunos', function (req: express.Request, res: express.Response) {
 //recebe um identificador de turma e retorna a mesma
 taserver.get('/turmas', function (req: express.Request, res: express.Response){
     
-    let questao1 = new Questao();
-    let questao2 = new Questao();
+    let descricao = req.query.descricao;
+
     
     let resposta1 = new RespostaDeQuestao();
-    resposta1.questao = questao1;
     resposta1.duracao = 2;
     resposta1.correcao = 'Errado';
 
 
     let resposta2 = new RespostaDeQuestao();
-    resposta2.questao = questao2;
     resposta2.duracao = 7;
     resposta2.correcao = 'Certo';
 
+    let resposta3 = new RespostaDeQuestao();
+    resposta3.duracao = 1;
+    resposta3.correcao = 'Errado';
+
+
+    let resposta4 = new RespostaDeQuestao();
+    resposta4.duracao = 6;
+    resposta4.correcao = 'Certo';
+
+
+    let roteiro1 = new Roteiro();
+    roteiro1.descricao = 'testes'
+
+    let roteiro2 = new Roteiro();
+    roteiro1.descricao = 'projeto'
+
+
     let respostasRoteiro1 = new RespostaDeRoteiro(); 
     respostasRoteiro1.respostasDeQuestoes = [resposta1, resposta2];
+    respostasRoteiro1.roteiro = roteiro1;
+
+    let respostasRoteiro2 = new RespostaDeRoteiro(); 
+    respostasRoteiro2.respostasDeQuestoes = [resposta3, resposta4];
+    respostasRoteiro2.roteiro = roteiro2;
+
+    let matricula1 = new Matricula();
+    // @ts-ignore
+    matricula1.respostasDeRoteiros = respostasRoteiro1
+
+    let matricula2 = new Matricula();
+    // @ts-ignore
+    matricula2.respostasDeRoteiros = respostasRoteiro2
     
-    let blocoDeQuestoes1 = new BlocoDeQuestoes(); 
-    blocoDeQuestoes1.questoes = [questao1, questao2];
-    
-    let roteiro1 = new Roteiro();
-    roteiro1.blocos = []
     
     let turma20 = new Turma();
     turma20.descricao = 'ess';
+    turma20.numeroMatriculas = 2
+    turma20.roteiros = [roteiro1, roteiro2]
+    turma20.matriculas = [matricula1, matricula2];
 
-    let turmas = [turma20];
+    let turmas = new Turmas();
+    turmas.turmas = [turma20];
 
     // fim do stub
+
+    let turma: Turma = turmas.getTurma(descricao)
+
+    res.send(turma);
 })
 
 //recebe um identificador de turma e de aluno e retorna uma matricula
