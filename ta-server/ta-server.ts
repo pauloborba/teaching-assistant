@@ -95,11 +95,20 @@ taserver.get('/alunos', function (req: express.Request, res: express.Response) {
 })
 
 
-taserver.get('/turmas/', function (req: express.Request, res: express.Response){
+// taserver.get('/turmas/', function (req: express.Request, res: express.Response){
+//   let conjTurmas: Turmas = turmas;
+//   let descricaoTurma: string = req.query.descricaoTurma;
+//   let turma: Turma = conjTurmas.getTurma(descricaoTurma);
+//   res.send(turma);
+    
+// })
+
+taserver.get('/metas/', function (req: express.Request, res: express.Response){
   let conjTurmas: Turmas = turmas;
   let descricaoTurma: string = req.query.descricaoTurma;
   let turma: Turma = conjTurmas.getTurma(descricaoTurma);
-  res.send(turma);
+  let metas = turma.getMetas();
+  res.send(metas);
     
 })
 
@@ -123,8 +132,6 @@ taserver.put('/autoavalicoes/atualizar/', function (req: express.Request, res: e
     let atualizacao = JSON.stringify(matricula.atualizarAutoAvaliacoes(autoavaliacoes));
     let autoavaliacoesenviadas = JSON.stringify(autoavaliacoes);
 
-    console.log('att', atualizacao);
-    console.log('send', autoavaliacoesenviadas);
     if (atualizacao === autoavaliacoesenviadas) {
       console.log('é igual');
       res.send({"success": "A autoavaliacao foi atualizada com sucesso"});
