@@ -29,11 +29,17 @@
             <th>Nome</th>
             <th>CPF</th>
             <th>Email</th>
+            <div class="espaco">
+            </div>
          </tr>
          <tr class="table-list" *ngFor="let a of alunos" name="alunolist">
             <td name="nomelist">{{a.nome}}</td>
             <td name="cpflist">{{a.cpf}}</td>
             <td>{{a.email}}</td>
+            <div class="alunos-editar">
+               <img src="./../../assets/icons/edit.png" alt="">
+               <img src="./../../assets/icons/delete.png" alt="">
+            </div>
          </tr>
       </table>
    </div>
