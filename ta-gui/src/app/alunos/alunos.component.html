@@ -9,15 +9,16 @@
          <tr>
             <td><label>CPF </label></td>
             <td><input [(ngModel)]="aluno.cpf" name="cpfbox"></td>
-            <td *ngIf="cpfduplicado">
-               Já existe um aluno com esse CPF
-            </td>
          </tr>
          <tr>
             <td><label>Email </label></td>
             <td><input [(ngModel)]="aluno.email"></td>
          </tr>
       </table>
+      <div class="aluno-repetido" *ngIf="cpfduplicado">
+         <p> Já existe um aluno com esse CPF!</p> 
+         <p> Por favor, tente novamente!</p>
+      </div>
       <div class="button-div">
          <button class="alunos-button" (click)="criarAluno(aluno)">Adicionar</button>
       </div>

@@ -109,3 +109,10 @@
 .alunos-editar img:hover{
   transform: scale(1.5);
 }
+
+.aluno-repetido{
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
