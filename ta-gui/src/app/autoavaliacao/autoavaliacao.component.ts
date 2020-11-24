@@ -47,9 +47,21 @@ export class AutoavaliacaoComponent implements OnInit {
     }
   }
 
+  adicionarMetas(metas: string[], avaliacoes: Avaliacao[]): Avaliacao[]{
+    console.log(metas);
+    metas.map((meta) => {
+      const metaExistente = avaliacoes.find(avaliacao => avaliacao.meta === meta);
+      if(!metaExistente){
+        avaliacoes.push({meta: meta, nota: ''});
+      }
+    })
+    console.log('dps att', avaliacoes);
+    return avaliacoes;
+  }
+
   preencherAutoavaliacao(cpf: string, descricaoTurma: string): void{
 
-    if(cpf === ''){
+     if(cpf === ''){
       this.cpfObrigatorio = true;
      }
      if(descricaoTurma === ''){
@@ -71,13 +83,20 @@ export class AutoavaliacaoComponent implements OnInit {
       //     },
       //     msg => { alert(msg.message) }
       //  );
+
+      
       this.aaService.getTurma(descricaoTurma).subscribe(
         tu => {
+          console.log('tu', tu);
           this.turma = new Turma();
           this.turma.matriculas = tu.matriculas;
+          this.turma.metas = tu.metas;
           this.matricula = this.turma.getMatricula(cpf);
+          this.autoavaliacoes = this.adicionarMetas(this.turma.metas, this.matricula.autoAvaliacoes);
+          this.matricula.autoAvaliacoes = this.autoavaliacoes;
+          console.log('mat mds', this.matricula.autoAvaliacoes);
           this.avaliacoes = this.matricula.avaliacoes;
-          this.autoavaliacoes = this.matricula.autoAvaliacoes;
+          // this.autoavaliacoes = this.matricula.autoAvaliacoes;
       }, 
         msg => { alert(msg.message) }
       );
@@ -91,7 +110,7 @@ export class AutoavaliacaoComponent implements OnInit {
   }
 
   atualizarAutoavaliacao(cpf: string, descricaoTurma: string, autoavaliacoes: Avaliacao[]): void {
-    this.aaService.atualizar(cpf, descricaoTurma, autoavaliacoes).subscribe(
+    this.aaService.atualizar(cpf, descricaoTurma, this.autoavaliacoes).subscribe(
       (a) => { if (a == null){ alert("Erro ao tentar atualizar auto-avaliação! Por favor, contate os administradores do sistema.");} else{console.log('teste', a);}  },
       (msg) => { alert(msg.message); }
    );

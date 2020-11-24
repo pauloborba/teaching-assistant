@@ -26,10 +26,20 @@ export class Matricula{
     }
 
     atualizarAutoAvaliacoes(autoAvaliacoesAtualizadas: Avaliacao[]): Avaliacao[] {
+        console.log('em mat', autoAvaliacoesAtualizadas);
+        console.log('em mat auto', this.autoAvaliacoes);
         autoAvaliacoesAtualizadas.map((avaliacao) => {
             const meta = avaliacao.meta;
             const metaExistente = this.autoAvaliacoes.find(av => av.meta == meta);
-            metaExistente.setNota(avaliacao.nota);
+            if(metaExistente){
+                metaExistente.setNota(avaliacao.nota);
+            }
+            else{
+                const av = new Avaliacao();
+                av.setMeta(avaliacao.meta);
+                av.setNota(avaliacao.nota);
+                this.autoAvaliacoes.push(av);
+            }
         })
         return this.autoAvaliacoes;
     }

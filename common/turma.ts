@@ -27,7 +27,7 @@ export class Turma {
     }
 
     getMatricula(cpf:string): Matricula{ 
-        let matricula: Matricula = this.matriculas.find(matricula => matricula.getAluno().cpf == cpf);
+        let matricula: Matricula = this.matriculas.find(matricula => matricula.aluno.cpf == cpf);
         return matricula;
     }
 

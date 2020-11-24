@@ -27,27 +27,27 @@ aluno2.cpf = '456';
 aluno2.email = 'eunice@';
 
 let autoavaliacao1 = new Avaliacao();
-autoavaliacao1.meta = 'requisitos';
+autoavaliacao1.meta = 'entender requisitos';
 autoavaliacao1.nota = 'MANA';
 
 let autoavaliacao2 = new Avaliacao();
-autoavaliacao2.meta = 'gerencia de configuracao';
+autoavaliacao2.meta = 'gerencia de configuração';
 autoavaliacao2.nota = 'MPA';
 
 let autoavaliacao3 = new Avaliacao();
-autoavaliacao3.meta = 'refatoração';
+autoavaliacao3.meta = 'refatorar código com qualidade';
 autoavaliacao3.nota = '7';
 
 let avaliacao1 = new Avaliacao();
-avaliacao1.meta = 'requisitos';
+avaliacao1.meta = 'entender requisitos';
 avaliacao1.nota = 'MA';
 
 let avaliacao2 = new Avaliacao();
-avaliacao2.meta = 'gerencia de configuracao';
+avaliacao2.meta = 'gerencia de configuração';
 avaliacao2.nota = 'MA';
 
 let avaliacao3 = new Avaliacao();
-avaliacao3.meta = 'refatoração';
+avaliacao3.meta = 'refatorar código com qualidade';
 avaliacao3.nota = '10';
 
 let respostasDeRoteiros1 = new RespostaDeRoteiro();
@@ -67,10 +67,12 @@ matricula2.respostasDeRoteiros = [respostasDeRoteiros1];
 let turma1 = new Turma();
 turma1.matriculas = [matricula1];
 turma1.descricao = 'ess';
+turma1.metas = ['gerencia de configuração', 'refatorar código com qualidade', 'entender requisitos', 'especificar requisitos', 'elicitar requisitos'];
 
 let turma2 = new Turma();
 turma2.matriculas = [matricula1,matricula2];
 turma2.descricao = 'compiladores';
+turma2.metas = ['entender requisitos', 'especificar requisitos', 'elicitar requisitos'];
 
 let turmas = new Turmas();
 turmas.turmas = [turma1, turma2];
@@ -121,6 +123,8 @@ taserver.put('/autoavalicoes/atualizar/', function (req: express.Request, res: e
     let atualizacao = JSON.stringify(matricula.atualizarAutoAvaliacoes(autoavaliacoes));
     let autoavaliacoesenviadas = JSON.stringify(autoavaliacoes);
 
+    console.log('att', atualizacao);
+    console.log('send', autoavaliacoesenviadas);
     if (atualizacao === autoavaliacoesenviadas) {
       console.log('é igual');
       res.send({"success": "A autoavaliacao foi atualizada com sucesso"});
