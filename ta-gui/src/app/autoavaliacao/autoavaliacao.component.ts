@@ -21,13 +21,15 @@ export class AutoavaliacaoComponent implements OnInit {
 
   cpf: string = "";
   descricaoTurma: string = "";
+
+  //estados para mostrar conteúdo ou mensagens de erro
   showContent: boolean = false;
   showGrades: boolean = false;
   cpfObrigatorio: boolean = false;
   turmaObrigatorio: boolean = false;
+  matriculaNaoEncontrada: boolean = false;
 
-  // alunos: Aluno[] = [];
-  // metas: string[] = [];
+  
   turma: Turma;
   avaliacoes: Avaliacao[] = [];
   autoavaliacoes: Avaliacao[] = [];
@@ -47,15 +49,17 @@ export class AutoavaliacaoComponent implements OnInit {
     }
   }
 
+  // adiciona avaliacoes com as metas da turma e notas vazias ao array de autoavaliacao
   adicionarMetas(metas: string[], avaliacoes: Avaliacao[]): Avaliacao[]{
-    console.log(metas);
     metas.map((meta) => {
       const metaExistente = avaliacoes.find(avaliacao => avaliacao.meta === meta);
       if(!metaExistente){
-        avaliacoes.push({meta: meta, nota: ''});
+        const av = new Avaliacao();
+        av.setMeta(meta);
+        av.setNota('');
+        avaliacoes.push(av);
       }
     })
-    console.log('dps att', avaliacoes);
     return avaliacoes;
   }
 
@@ -64,13 +68,16 @@ export class AutoavaliacaoComponent implements OnInit {
      if(cpf === ''){
       this.cpfObrigatorio = true;
      }
+     else{
+      this.cpfObrigatorio = false;
+     }
      if(descricaoTurma === ''){
       this.turmaObrigatorio = true;
      }
      else{
-      this.cpfObrigatorio = false;
       this.turmaObrigatorio = false;
      }
+     
 
      if(cpf && descricaoTurma){
       //  this.aaService.getMatricula(cpf, descricaoTurma).subscribe(
@@ -87,26 +94,25 @@ export class AutoavaliacaoComponent implements OnInit {
       
       this.aaService.getTurma(descricaoTurma).subscribe(
         tu => {
-          console.log('tu', tu);
           this.turma = new Turma();
           this.turma.matriculas = tu.matriculas;
           this.turma.metas = tu.metas;
           this.matricula = this.turma.getMatricula(cpf);
+
+          if(!this.matricula){
+            this.matriculaNaoEncontrada = true;
+            return;
+          }
+          else{
+            this.matriculaNaoEncontrada = false;
+          }
           this.autoavaliacoes = this.adicionarMetas(this.turma.metas, this.matricula.autoAvaliacoes);
           this.matricula.autoAvaliacoes = this.autoavaliacoes;
-          console.log('mat mds', this.matricula.autoAvaliacoes);
           this.avaliacoes = this.matricula.avaliacoes;
-          // this.autoavaliacoes = this.matricula.autoAvaliacoes;
       }, 
         msg => { alert(msg.message) }
       );
      }
-  }
-
-  
-
-  cadastrarAutoavaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void {
-    this.matricula.getAutoAvaliacoes()
   }
 
   atualizarAutoavaliacao(cpf: string, descricaoTurma: string, autoavaliacoes: Avaliacao[]): void {
