@@ -1,35 +1,40 @@
-<div>
-
-<table>
-<tr>
-   <td><label>Nome </label></td>
-   <td><input [(ngModel)]="aluno.nome" name="namebox"></td>
-   <td><button (click)="criarAluno(aluno)">Adicionar</button></td>
-</tr>
-<tr>
-   <td><label>CPF </label></td>
-   <td><input [(ngModel)]="aluno.cpf" name="cpfbox"></td>
-   <td *ngIf="cpfduplicado">
-     Já existe um aluno com esse CPF
-   </td>
-</tr>
-<tr>
-   <td><label>e-mail </label></td>
-   <td><input [(ngModel)]="aluno.email"></td>
-</tr>
-</table>
-
-<table>
-<tr *ngIf="alunos.length > 0">
-   <th>Nome</th>
-   <th>CPF</th>
-   <th>e-mail</th>
-</tr>
-<tr *ngFor="let a of alunos" name="alunolist">
-   <td name="nomelist">{{a.nome}}</td>
-   <td name="cpflist">{{a.cpf}}</td>
-   <td>{{a.email}}</td>
-</tr>
-</table>
-
+<div class="alunos-container" >
+   <div class="alunos-cadastro">
+      <h1>Cadastro de alunos</h1>
+      <table class="alunos-form">
+         <tr>
+            <td><label class="test-class">Nome </label></td>
+            <td><input [(ngModel)]="aluno.nome" name="namebox"></td>
+         </tr>
+         <tr>
+            <td><label>CPF </label></td>
+            <td><input [(ngModel)]="aluno.cpf" name="cpfbox"></td>
+            <td *ngIf="cpfduplicado">
+               Já existe um aluno com esse CPF
+            </td>
+         </tr>
+         <tr>
+            <td><label>Email </label></td>
+            <td><input [(ngModel)]="aluno.email"></td>
+         </tr>
+      </table>
+      <div class="button-div">
+         <button class="alunos-button" (click)="criarAluno(aluno)">Adicionar</button>
+      </div>
+   </div>
+   <div class="alunos-cadastrados">
+      <h1>Lista de alunos cadastrados</h1>
+      <table class="alunos-table"> 
+         <tr class="table-cabecario" *ngIf="alunos.length > 0">
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Email</th>
+         </tr>
+         <tr class="table-list" *ngFor="let a of alunos" name="alunolist">
+            <td name="nomelist">{{a.nome}}</td>
+            <td name="cpflist">{{a.cpf}}</td>
+            <td>{{a.email}}</td>
+         </tr>
+      </table>
+   </div>
 </div>
