@@ -41,7 +41,7 @@ export class ComparacaoDeDesempenhoComponent implements AfterViewInit {
   criarGrafico(canvas: any, nome: string, dados: number[]): Chart {
     const labels = this.resumoTurmas.map(turma => turma.descricao);
     canvas.setAttribute('data-labels', labels);
-    canvas.setAttribute('data-dados', dados);
+    canvas.setAttribute('data-valores', dados);
 
     return new Chart(canvas, {
       type: 'line',
