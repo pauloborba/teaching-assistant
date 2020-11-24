@@ -61,26 +61,26 @@ export class AutoavaliacaoComponent implements OnInit {
      }
 
      if(cpf && descricaoTurma){
-       this.aaService.getMatricula(cpf, descricaoTurma).subscribe(
-         ma => {
-           this.matricula = new Matricula();
-           this.matricula.autoAvaliacoes = ma.autoAvaliacoes;
-           this.matricula.avaliacoes = ma.avaliacoes;
-           this.avaliacoes = this.matricula.getAvaliacoes();
-           this.autoavaliacoes = this.matricula.getAutoAvaliacoes();
-          },
-          msg => { alert(msg.message) }
-       );
-      // this.aaService.getTurma(descricaoTurma).subscribe(
-      //   tu => {
-      //     this.turma = new Turma();
-      //     this.turma.matriculas = tu.matriculas;
-      //     this.matricula = this.turma.getMatricula(cpf);
-      //     this.avaliacoes = this.matricula.avaliacoes;
-      //     this.autoavaliacoes = this.matricula.autoAvaliacoes;
-      // }, 
-      //   msg => { alert(msg.message) }
-      // );
+      //  this.aaService.getMatricula(cpf, descricaoTurma).subscribe(
+      //    ma => {
+      //      this.matricula = new Matricula();
+      //      this.matricula.autoAvaliacoes = ma.autoAvaliacoes;
+      //      this.matricula.avaliacoes = ma.avaliacoes;
+      //      this.avaliacoes = this.matricula.getAvaliacoes();
+      //      this.autoavaliacoes = this.matricula.getAutoAvaliacoes();
+      //     },
+      //     msg => { alert(msg.message) }
+      //  );
+      this.aaService.getTurma(descricaoTurma).subscribe(
+        tu => {
+          this.turma = new Turma();
+          this.turma.matriculas = tu.matriculas;
+          this.matricula = this.turma.getMatricula(cpf);
+          this.avaliacoes = this.matricula.avaliacoes;
+          this.autoavaliacoes = this.matricula.autoAvaliacoes;
+      }, 
+        msg => { alert(msg.message) }
+      );
      }
   }
 

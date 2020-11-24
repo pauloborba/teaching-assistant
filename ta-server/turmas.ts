@@ -1,8 +1,7 @@
 import { Turma } from '../common/turma';
 
 export class Turmas {
-    turmas: Turma[] = []
-
+    turmas: Turma[] = [];
 
     cadastrarTurma(turma: Turma): Turma{
         return null;

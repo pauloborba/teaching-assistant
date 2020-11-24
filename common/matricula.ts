@@ -10,18 +10,27 @@ export class Matricula{
     respostasDeRoteiros: RespostaDeRoteiro[] = [];
     
     getAluno(): Aluno{
-        return this.aluno
-    };
+        return this.aluno;
+    }
     getAvaliacoes(): Avaliacao[]{
-        return this.avaliacoes
-    };
+        return this.avaliacoes;
+    }
     getAutoAvaliacoes(): Avaliacao[]{
-        return this.autoAvaliacoes
-    };
+        return this.autoAvaliacoes;
+    }
     getMonitor(): Aluno {
-        return this.monitor      
-    };
+        return this.monitor;      
+    }
     getRespostasDeRoteiros(): RespostaDeRoteiro[]{
-        return this.respostasDeRoteiros
-    };
+        return this.respostasDeRoteiros;
+    }
+
+    atualizarAutoAvaliacoes(autoAvaliacoesAtualizadas: Avaliacao[]): Avaliacao[] {
+        autoAvaliacoesAtualizadas.map((avaliacao) => {
+            const meta = avaliacao.meta;
+            const metaExistente = this.autoAvaliacoes.find(av => av.meta == meta);
+            metaExistente.setNota(avaliacao.nota);
+        })
+        return this.autoAvaliacoes;
+    }
 }
