@@ -64,6 +64,7 @@
     <div>
         <button
             name="botao-confirmar"
+            [disabled]="turmasEscolhidas.length < 2"
             [routerLink]="['/comparacao-de-desempenho']"
             [queryParams]="{ turmas: turmasEscolhidas.join(',') }">
                 Confirmar
