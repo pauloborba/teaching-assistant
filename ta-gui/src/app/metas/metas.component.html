@@ -5,15 +5,15 @@
         <div>
             <p>Clonar de</p>
                
-            <select [(ngModel)]='turmaAtual'> 
-                <option *ngFor="let turma of turmasDescricao" [value]="turma">
+            <select [(ngModel)]='turmaOrigem' (change)= 'getMetas($event.target.value, "origem")'> 
+                <option *ngFor="let turma of turmasDescricao" [value]="turma" >
                   {{turma}}
                 </option>
             </select> 
 
             <p>para</p>
             
-            <select [(ngModel)]='turmaClonada'> 
+            <select [(ngModel)]='turmaDestino' (change)= 'getMetas($event.target.value, "destino")'> 
                   <option *ngFor="let turma of turmasDescricao" [value]="turma">
                     {{turma}}
                   </option>
@@ -21,7 +21,7 @@
         </div>
 
         <div>
-            <button (click) = toggleDisplayShowClone()>Clonar</button>
+            <button (click) = toggleDisplayShowClone() [disabled] = "!(turmaOrigem && turmaDestino)">Clonar</button>
             <button (click) = toggleDisplayHide()>Cancelar</button>
         </div>
         

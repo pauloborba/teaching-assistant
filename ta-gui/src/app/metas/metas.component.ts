@@ -8,13 +8,13 @@ import { TurmasService } from '../turmas/turmasService';
   styleUrls: ['./metas.component.css']
 })
 export class MetasComponent implements OnInit {
-  turmas: Turma[] = [];
+  //turmas: Turma[] = [];
   turmasDescricao: string[] =[];
   metasTurma: string[] = [];
-  turmaAtual: string;
-  turmaClonada: string;
-  metasAtual: string [];
-  metasClonadas: string[];
+  turmaDestino: string;
+  turmaOrigem: string;
+  metasDestino: string [] = [];
+  metasOrigem: string[] = [];
   metasDiscrepantes: string[];
   metasIguais: string[];
 
@@ -30,15 +30,13 @@ export class MetasComponent implements OnInit {
                },
                msg => { alert(msg.message); }
               );
-
-        
   }
 
   isShow = false;
   isShowClone = false;
 
 batata(){
-  console.log(this.turmaClonada);
+  console.log("funcionando");
   //checa se estava pegando a turma selecionada
 }
 
@@ -50,60 +48,49 @@ batata(){
   toggleDisplayHide() {
       this.isShow = false;
   } 
-    
-  toggleDisplayHideClone() {
-    this.isShow = false;
-}
+  
+  toggleDisplayShowClone(){
+    if (confirm("voce realmente deseja clonar as metas?")){
+      this.clonarMetas(this.turmaDestino, this.turmaOrigem);
+      setTimeout(() => this.toggleDisplayHide(), 500);
+    }
+  }
 
-  metasCadastradas(){
-    //checar se existe alguma meta igual já cadastrada,
-    //se sim confirmar se deseja clonar, se nao clonar
-    //dar hide
-    this.metasAtual = this.getMetas(this.turmaAtual, this.turmasDescricao);
-    this.metasClonadas = this.getMetas(this.turmaClonada, this.turmasDescricao);
+  
 
-    for (var i = 0; i < this.metasAtual.length; i++){
-      for (var j = 0; j<this.metasClonadas.length; j++){
-        if(this.metasAtual[i].toLowerCase == this.metasClonadas[j].toLowerCase){
-          this.metasIguais.push;
-        }else{
-          this.metasDiscrepantes.push;
+  clonarMetas(turmaDestino: string, turmaOrigem: string){
+    // this.metasDestino = this.getMetas(this.turmaDestino); //await
+    // this.metasOrigem = this.getMetas(this.turmaOrigem); //await
+
+    this.metasDiscrepantes = this.metasOrigem
+                 .filter(x => !this.metasDestino.includes(x));
+
+    this.turmasService.postMetas(this.turmaDestino, this.metasDiscrepantes)
+    .subscribe(
+      ar => {
+        this.metasDestino = ar;
+        console.log(ar);
+      },
+       msg => {alert(msg.message);}
+        
+    )
+        console.log(this.metasDestino);
+    }
+
+  getMetas(turma: string, tipo: "origem" | "destino"){
+    this.turmasService.getMetas(turma)
+    .subscribe(
+      res => {
+        const metas = res;
+        if(tipo == "origem"){
+          this.metasOrigem = metas;
+        }else {
+          this.metasDestino = metas;
         }
-      }
-
-    }
-
-    if (this.metasIguais.length == 0){
-      this.metasAtual = this.clonarMetas(this.metasDiscrepantes);
-    }else{
-      this.temMetaIgual();
-    }
+      },
+      msg => { alert(msg.message); }
+     );
   }
 
-
-  temMetaIgual(){
-    this.isShowClone = true;
-  }
-
-  clonarMetas(metasDiscrepantes: string[]): string []{
-    //cadastrar metas do array
-    //igualar um array ao outro deve resolver.
-    this.metasTurma = this.metasTurma.concat(metasDiscrepantes);
-    return [];
-  }
-
-  getTurmas(): void{
-    this.turmasDescricao = this.turmas.map(turma => turma.descricao);
-  }
-
-  getMetas(descricao: string, turmas: string[]): string []{
-    var turmaX: Turma;
-    turmaX = this.turmas.find(turma => turma.descricao === descricao);
-    // this.turmaAtual = this.turmasDescricao.find(turma => turma === this.turmaAtual);
-    // this.metasTurma = this.turma.metas;
-    var metas: string[];
-    metas = turmaX.getMetas();
-    return metas;
-  }
 }
 

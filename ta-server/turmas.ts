@@ -3,11 +3,9 @@ import { Turma } from '../common/turma';
 export class Turmas {
     turmas: Turma[] = [];
     
-    constructor(){
-        // var turmaTurminha = new Turma();
-        // turmaTurminha.descricao = "batata"
-        // turmaTurminha.metas = ["meta1", 'meta2', 'metA3'];
-        // this.turmas.push(turmaTurminha);
+    constructor(){ 
+      
+       
     }
 
     cadastrarTurma(turma: Turma): Turma{
@@ -36,8 +34,8 @@ export class Turmas {
     }
 
     getDescricoes(): string[]{
-        //const descricoes = this.turmas.map(turma => turma.descricao);
-        const descricoes = ["teste1", "vector", "maryzinha", "elaine", "mozao", "caronas"];
+        const descricoes = this.turmas.map(turma => turma.descricao);
         return descricoes;
     }
+
 } 
