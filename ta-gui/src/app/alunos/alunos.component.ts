@@ -26,27 +26,25 @@ export class AlunosComponent implements OnInit {
   carregarMatriculas() {
     
     this.metas = []
-
+    let achou: boolean = false;
     //Chamando autoavaliacao.service que faz a req pro server para pegar a turma indicada pelo usuário
     this.alunoService.getTurma(this.nomeTurma).subscribe(
 
       (a) => {
-
         this.turma = new Turma()
         this.turma.descricao = a.descricao
         this.matriculas = a.matriculas
-        
         console.log(this.matriculas)
       },
-      (msg) => { alert(msg.message); }
+      (msg) => { alert("msg.message"); }
     )
-
+    
     this.header = ["Nome", "CPF", "Email", "Status de Auto-Avaliação"]
     this.clickedBtm = true
 
   }
 
-  corDoBloco(matricula: Matricula): String {
+  statusDeAutoAvaliacao(matricula: Matricula): String {
     let fezAlgumaQuestao: boolean = false;
     let fezTodasQuestoes: boolean = false;
     let autoAvaliacoesFeitas: number = 0;
@@ -70,6 +68,18 @@ export class AlunosComponent implements OnInit {
       return "iniciado mas nao concluido";
     }
     return "nao iniciado";
+  }
+
+
+  corDoBloco(matricula: Matricula): String{
+    let status: String = "";
+    status = this.statusDeAutoAvaliacao(matricula);
+    if(status=="concluido"){
+      return "concluido";
+    } else if(status=="iniciado mas nao concluido") {
+      return "iniciadoMasNaoConcluido";
+    }
+    return "naoIniciado";
   }
 
 }

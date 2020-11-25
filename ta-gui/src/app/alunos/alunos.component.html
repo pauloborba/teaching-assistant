@@ -13,7 +13,6 @@
         <td>{{a.aluno.nome}}</td>
         <td>{{a.aluno.cpf}}</td>
         <td>{{a.aluno.email}}</td>
-
-        <td>{{corDoBloco(a)}}</td>
+        <td [ngClass] = "corDoBloco(a)">{{statusDeAutoAvaliacao(a)}}</td>
      </tr>
 </table>
