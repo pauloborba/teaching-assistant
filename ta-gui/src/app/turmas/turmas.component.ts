@@ -21,9 +21,7 @@ export class TurmasComponent implements OnInit {
   }
 
   adicionarTurma(): void {
-    const turma = new Turma();
-    turma.descricao = this.descricaoNovaTurma;
-    this.turmas.push(turma);
+    this.turmas.push(new Turma(this.descricaoNovaTurma));
     this.descricaoNovaTurma = '';
   }
 
