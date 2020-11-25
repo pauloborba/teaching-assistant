@@ -24,7 +24,7 @@ export class Matricula{
     getRespostasDeRoteiros(): RespostaDeRoteiro[]{
         return this.respostasDeRoteiros
     }
-    getMediaGeral(cpfAluno: String): Number {
+    getMediaGeral(): Number {
         // let somatorio = 0;
         // let total = 0;
         // for (let i = 0; i < this.avaliacoes.length; i++) {
@@ -34,13 +34,13 @@ export class Matricula{
         // return (somatorio/total);
 
         // Fake
-        if (cpfAluno == '12345') {
+        if (this.aluno.cpf == '12345') {
             return (6.95);
         }
-        else if (cpfAluno == '34567') {
+        else if (this.aluno.cpf == '34567') {
             return (4.7);
         }
-        else if (cpfAluno == '35790') {
+        else if (this.aluno.cpf == '35790') {
             return (7.5);
         }
         else {

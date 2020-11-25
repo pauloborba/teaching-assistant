@@ -13,15 +13,12 @@ export class Turma {
     // Stub
 
     getNumMatriculas(): number {
-        // let total = 0;
-        // for (let i = 0; i < this.matriculas.length; i++) {
-        //     total++;
-        // }
-        // this.numeroMatriculas = total;
-        // return this.numeroMatriculas;
-
-        // Fake
-        return 3;
+        let total = 0;
+        for (let i = 0; i < this.matriculas.length; i++) {
+            total++;
+        }
+        this.numeroMatriculas = total;
+        return this.numeroMatriculas;
     }
 
     getNumAprovados(): number {
@@ -33,17 +30,15 @@ export class Turma {
     }
 
     getMedia(): number {
-        // let soma = 0.0;
-        // let total = 0;
+        let soma = 0.0;
+        let total = 0;
 
-        // for (let i = 0; i < this.matriculas.length; i++) {
-        //     soma = soma + Number(this.matriculas[i].getMediaGeral());
-        // }
+        for (let i = 0; i < this.matriculas.length; i++) {
+            soma = soma + Number(this.matriculas[i].getMediaGeral());
+            total = total + 1;
+        }
 
-        // return (soma/total);
-
-        // Fake
-        return (5.5);
+        return (soma/total);
     }
 
     getMatricula(cpf: string): Matricula {

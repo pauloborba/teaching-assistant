@@ -35,46 +35,9 @@ export class CadastroDeAlunos {
       aluno2.cpf = '34567';
       aluno2.email = 'fulainho@email';
 
-      aluno3.nome = 'Baeltraninho';
+      aluno3.nome = 'Beltraninho';
       aluno3.cpf = '35790';
       aluno3.email = 'beltraninho@email';
-
-      this.alunos = [aluno1, aluno2, aluno3];
-
-      return (this.alunos);
-    }
-    
-    getAlunosTeste(): Aluno[] {
-      
-      var aluno1: any = null;
-      var aluno2: any = null;
-      var aluno3: any = null; 
-
-      aluno1 = new Aluno();
-      aluno2 = new Aluno();
-      aluno3 = new Aluno();
-      
-      aluno1.nome = 'Sicraninho';
-      aluno1.cpf = '12345';
-      aluno1.email = 'sicraninho@email';
-      aluno1.media = '10.0';
-      aluno1.color = 'yellow';
-      
-
-      aluno2.nome = 'Fulaninho';
-      aluno2.cpf = '34567';
-      aluno2.email = 'fulainho@email';
-      aluno2.media = '9.0';
-      aluno2.color = 'green';
-
-      aluno3.nome = 'Baeltraninho';
-      aluno3.cpf = '35790';
-      aluno3.email = 'beltraninho@email';
-      aluno3.media = '7.5';
-      aluno3.color = 'blue';
-
-      // this.alunos.push(aluno1);
-      // this.alunos.push(aluno2);
 
       this.alunos = [aluno1, aluno2, aluno3];
 
@@ -124,7 +87,7 @@ export class CadastroDeAlunos {
         aux.nome = String(matriculaAux.aluno.nome);
         aux.cpf = String(matriculaAux.aluno.cpf);
         aux.email = String(matriculaAux.aluno.email);
-        aux.media = String(matriculaAux.getMediaGeral(aux.cpf));
+        aux.media = String(matriculaAux.getMediaGeral());
         aux.color = 'white';
 
         if (Number(aux.media) < Number(mediaTurma)) {
