@@ -1,9 +1,9 @@
 import { Injectable }    from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { retry, map } from 'rxjs/operators';
 
 import { Aluno } from '../../../../common/aluno';
+// import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class AlunoService {
@@ -35,4 +35,11 @@ export class AlunoService {
                );
   }
 
+  remover(aluno: Aluno): Observable<Aluno> {
+    return this.http.delete(this.taURL + "/aluno",JSON.stringify(aluno), {headers: this.headers})
+      .pipe(res => {
+        if (res.json().success) {return aluno;} else {return null;}
+      })
+    // .catch(this.tratarErro);
+  }
 }

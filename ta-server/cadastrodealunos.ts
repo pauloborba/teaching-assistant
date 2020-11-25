@@ -13,6 +13,11 @@ export class CadastroDeAlunos {
      return result;
    }
 
+   remover(aluno) {
+    this.alunos = this.alunos.filter(a => a.aluno != aluno.aluno);
+    return true;
+}
+    
     cpfNaoCadastrado(cpf: string): boolean {
       return !this.alunos.find(a => a.cpf == cpf);
    }

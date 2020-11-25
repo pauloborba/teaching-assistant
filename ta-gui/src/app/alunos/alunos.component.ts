@@ -14,8 +14,6 @@ import { AlunoService } from './alunos.service';
     alunos: Aluno[] = [];
     cpfduplicado: boolean = false;
 
-    // constructor() { }
-
     constructor(private alunoService: AlunoService) {}
 
      criarAluno(a: Aluno): void {
@@ -33,9 +31,17 @@ import { AlunoService } from './alunos.service';
               );
     } 
 
-    // onMove(): void {
-    //    this.cpfduplicado = false;
-    // }
+    removerAluno(a:Aluno):void{
+      this.alunoService.remover(a)
+      .then(a=>{
+         if(a){
+            this.alunos = this.alunos.filter(b=>b.aluno != a.aluno);
+            this.aluno = new Aluno();
+         }
+      })
+      .catch(erro => alert(erro));
+   }
+
 
      ngOnInit(): void {
        this.alunoService.getAlunos()
