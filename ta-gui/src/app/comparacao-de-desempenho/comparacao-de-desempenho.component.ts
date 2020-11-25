@@ -16,26 +16,24 @@ export class ComparacaoDeDesempenhoComponent implements AfterViewInit {
   constructor(private servico: ComparacaoDeDesempenhoService, private rota: ActivatedRoute) { }
   
   ngAfterViewInit(): void {
-    let turmas: string[];
     this.rota.queryParams.subscribe(params => {
-      turmas = params.turmas.split(',').sort();
+      const turmas: string[] = params.turmas.split(',').sort();
+      this.servico.compararTurmas(turmas)
+        .subscribe(
+          res => {
+            this.resumoTurmas = res;
+            
+            let canvas = this.graficos.find(c => c.nativeElement.id === 'media').nativeElement;
+            this.criarGrafico(canvas, 'Média', this.resumoTurmas.map(turma => turma.media));
+            
+            canvas = this.graficos.find(c => c.nativeElement.id === 'reprovacao').nativeElement;
+            this.criarGrafico(canvas, 'Reprovação', this.resumoTurmas.map(turma => turma.reprovacao));
+          },
+          err => {
+            alert(err.message);
+          }
+        );
     });
-
-    this.servico.compararTurmas(turmas)
-      .subscribe(
-        res => {
-          this.resumoTurmas = res;
-          
-          const canvasMedia = this.graficos.find(c => c.nativeElement.id === 'media').nativeElement;
-          this.criarGrafico(canvasMedia, 'Média', this.resumoTurmas.map(turma => turma.media));
-          
-          const canvasReprovacao = this.graficos.find(c => c.nativeElement.id === 'reprovacao').nativeElement;
-          this.criarGrafico(canvasReprovacao, 'Reprovação', this.resumoTurmas.map(turma => turma.reprovacao));
-        },
-        err => {
-          alert(err.message);
-        }
-      );
   }
 
   criarGrafico(canvas: any, nome: string, dados: number[]): Chart {
