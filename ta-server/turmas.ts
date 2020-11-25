@@ -29,9 +29,7 @@ export class Turmas {
     }
 
     getTurma(descricao: string): Turma{
-        const turma = new Turma();
-        turma.descricao = descricao;
-        turma.numeroMatriculas = Math.floor(Math.random() * 10) + 40;
+        const turma = new Turma(descricao);
         return turma;
     }
 }
