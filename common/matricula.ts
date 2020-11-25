@@ -26,11 +26,8 @@ export class Matricula{
     }
 
     atualizarAutoAvaliacoes(autoAvaliacoesAtualizadas: Avaliacao[]): Avaliacao[] {
-        console.log('em mat', autoAvaliacoesAtualizadas);
-        console.log('em mat auto', this.autoAvaliacoes);
         autoAvaliacoesAtualizadas.map((avaliacao) => {
-            const meta = avaliacao.meta;
-            const metaExistente = this.autoAvaliacoes.find(av => av.meta == meta);
+            const metaExistente = this.autoAvaliacoes.find(av => av.meta == avaliacao.meta);
             if(metaExistente){
                 metaExistente.setNota(avaliacao.nota);
             }
