@@ -24,4 +24,41 @@ export class Matricula{
     getRespostasDeRoteiros(): RespostaDeRoteiro[]{
         return this.respostasDeRoteiros
     }
+    getMediaGeral(cpfAluno: String): Number {
+        // let somatorio = 0;
+        // let total = 0;
+        // for (let i = 0; i < this.avaliacoes.length; i++) {
+        //     somatorio = somatorio + Number(this.avaliacoes[i].getNota());
+        //     total = total + 1;
+        // }
+        // return (somatorio/total);
+
+        // Fake
+        if (cpfAluno == '12345') {
+            return (6.95);
+        }
+        else if (cpfAluno == '34567') {
+            return (4.7);
+        }
+        else if (cpfAluno == '35790') {
+            return (7.5);
+        }
+        else {
+            return 0;
+        }
+    }
+    reprovacoesAnteriores(cpfAluno: String): Boolean {
+        if (cpfAluno == '12345') {
+            return (true);
+        }
+        else if (cpfAluno == '34567') {
+            return (true);
+        }
+        else if (cpfAluno == '35790') {
+            return (false);
+        }
+        else {
+            return (false);
+        }
+    }
 }

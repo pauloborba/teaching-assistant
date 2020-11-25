@@ -2,7 +2,19 @@ export class Avaliacao {
     meta: String = "";
     nota: String = "";
     
-     setMeta(meta: String):void {}
+     setMeta(metaRecebida: String):void {
+         this.meta = metaRecebida;
+     }
 
-     setNota(nota: String):void {}
+     setNota(notaRecebida: String):void {
+         this.nota = notaRecebida
+     }
+
+     getMeta(): String {
+         return this.meta;
+     }
+
+     getNota(): String {
+         return this.nota;
+     }
  }

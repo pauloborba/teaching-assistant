@@ -2,12 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComparacaoDeDesempenhoComponent } from './comparacao-de-desempenho/comparacao-de-desempenho.component';
 import { TurmasComponent } from './turmas/turmas.component';
 import { MetasComponent } from './metas/metas.component';
+import { MetasService } from './metas/metas.service';
 import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
@@ -28,6 +30,7 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([{
 
       path: 'metas',
@@ -52,7 +55,7 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
     
   ])
   ],
-  providers: [],
+  providers: [MetasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
