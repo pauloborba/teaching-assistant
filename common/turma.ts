@@ -10,6 +10,10 @@ export class Turma {
     monitores: Aluno[] = [];
     numeroMatriculas: number = 0;
 
+    constructor(descricao: string) {
+        this.descricao = descricao;
+    }
+
     getNumMatriculas(): number {
         switch (this.descricao) {
             case '2017.2':
