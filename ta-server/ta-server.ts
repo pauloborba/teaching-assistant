@@ -45,7 +45,7 @@ taserver.put('/aluno', function (req: express.Request, res: express.Response) {
 })
 
 taserver.delete('/aluno', function(req: express.Request, res: express.Response){
-  let aluno: string = req.query.id;
+  let aluno: string = req.query.id.toString();
   var removido = cadastro.remover(aluno);
   if (removido) {
     res.send({"success": "O aluno foi removido com sucesso"});
