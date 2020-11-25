@@ -44,6 +44,15 @@ taserver.put('/aluno', function (req: express.Request, res: express.Response) {
   }
 })
 
+taserver.delete('/aluno/delete', function(req: express.Request, res: express.Response){
+  var aluno: Aluno = <Aluno> req.body;
+  aluno = cadastro.remover(aluno);
+  if (aluno) {
+    res.send({"success": "O aluno foi removido com sucesso"});
+  } else {
+    res.send({"failure": "O aluno não pode ser removido"});
+  }
+}
 
 //recebe um identificador de turma e retorna a mesma
 taserver.get('/turmas', function (req: express.Request, res: express.Response){
