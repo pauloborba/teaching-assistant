@@ -1,7 +1,7 @@
 import { Matricula } from './matricula';
 import { Roteiro } from '../ta-server/roteiro';
 import { Aluno } from './aluno';
-
+import { Avaliacao } from "../ta-server/avaliacao"
 export class Turma {
     descricao: string = "";
     metas: string[] = [];
@@ -28,6 +28,10 @@ export class Turma {
 
     getMatricula(cpf: string): Matricula {
         return null;
+    }
+
+    getMatriculas(): Matricula [] {
+        return this.matriculas;
     }
 
     getRoteiros(): Roteiro[] {

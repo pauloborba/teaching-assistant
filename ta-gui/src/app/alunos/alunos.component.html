@@ -1,3 +1,19 @@
+<h3>Turma:</h3>
+<input class= "input"[(ngModel)]="nomeTurma"> 
+<button (click)="carregarMatriculas()">Ok</button>
+
 <table>
-    
+     <tr *ngIf="matriculas.length > 0">
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>e-mail</th>
+        <th>Status de Auto Avaliacao</th>
+     </tr>
+     <tr *ngFor="let a of matriculas;">
+        <td>{{a.aluno.nome}}</td>
+        <td>{{a.aluno.cpf}}</td>
+        <td>{{a.aluno.email}}</td>
+
+        <td>{{corDoBloco(a)}}</td>
+     </tr>
 </table>
