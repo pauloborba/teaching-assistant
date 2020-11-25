@@ -1,7 +1,7 @@
 <table>
     <tr>
       <td><button (click)="cadastrarAutoAvaliacao(matricula, avaliacoes)">Cadastrar</button></td>
-      <td><button (click)="setNotificar()">Notificar</button></td>
+      <td><button name="notificar" (click)="setNotificar()">Notificar</button></td>
       <td><button routerLink="/discrepantes" >Discrepantes</button></td>
     </tr>
 </table>
@@ -13,7 +13,7 @@
   </tr>
   <tr>
     <td><input [(ngModel)]="descricaoTurma" name="descricaoTurma"></td>
-    <td><button (click)="showTurmas(descricaoTurma)">Selecionar</button></td>
+    <td><button name="selecionar" (click)="showTurmas(descricaoTurma)">Selecionar</button></td>
   </tr>
 </table>
 
@@ -29,7 +29,7 @@
       <td>{{a}}</td>
    </tr>
    <tr>
-    <td><button (click)="notificarAutoAvaliacao()">Notificar</button></td>
+    <td><button name="notificarEmail" (click)="notificarAutoAvaliacao()">Notificar</button></td>
    </tr>
   </table>
 </div>
