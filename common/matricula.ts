@@ -40,8 +40,11 @@ export class Matricula{
         else if (this.aluno.cpf == '34567') {
             return (4.7);
         }
-        else if (this.aluno.cpf == '35790') {
-            return (7.5);
+        else if (this.aluno.cpf == '13579') {
+            return (5.5);
+        }
+        else if (this.aluno.cpf == '40028922') {
+            return (8.2);
         }
         else {
             return 0;
@@ -54,8 +57,11 @@ export class Matricula{
         else if (cpfAluno == '34567') {
             return (true);
         }
-        else if (cpfAluno == '35790') {
+        else if (cpfAluno == '13579') {
             return (false);
+        }
+        else if (cpfAluno == '40028922') {
+            return false
         }
         else {
             return (false);
