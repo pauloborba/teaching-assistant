@@ -34,20 +34,20 @@ export class Matricula{
         return (somatorio/total);
     }
     reprovacoesAnteriores(cpfAluno: String): Boolean {
-        if (cpfAluno == '12345') {
-            return (true);
+
+        let matriculas = this.aluno.getMatriculas();
+
+        for (let i = 0; i < matriculas.length; i++) {
+            for (let j = 0; j < matriculas.length; j++) {
+                if (i == j) {
+                    break;
+                }
+                else if (this.aluno.matriculas[i] == this.aluno.matriculas[j]) {
+                    return true;
+                }
+            }
         }
-        else if (cpfAluno == '34567') {
-            return (true);
-        }
-        else if (cpfAluno == '13579') {
-            return (false);
-        }
-        else if (cpfAluno == '40028922') {
-            return false
-        }
-        else {
-            return (false);
-        }
+
+        return false;
     }
 }

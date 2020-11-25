@@ -56,6 +56,7 @@ export class Stub {
     aluno.nome = 'João';
     aluno.cpf = '12345';
     aluno.email = 'joao@cin.ufpe.br';
+    aluno.matriculas = ['ESS', 'ESS'];
 
     avaliacaoIndivudual.setMeta('Projeto');
     avaliacaoIndivudual.setNota('6.7');
@@ -71,6 +72,7 @@ export class Stub {
     aluno.nome = 'Maria';
     aluno.cpf = '34567';
     aluno.email = 'maria@cin.ufpe.br';
+    aluno.matriculas = ['ESS', 'IP', 'ESS'];
 
     // Em maria se baixarmos a nota pra 7.2 ela fica abaixo da média com a segunda avaliação de paulo
     avaliacaoIndivudual.setMeta('Projeto');
@@ -87,6 +89,7 @@ export class Stub {
     aluno.nome = 'Paulo';
     aluno.cpf = '13579';
     aluno.email = 'paulo@cin.ufpe.br';
+    aluno.matriculas = ['ESS'];
 
     avaliacaoIndivudual.setMeta('Projeto');
     avaliacaoIndivudual.setNota('6.0');
@@ -109,6 +112,7 @@ export class Stub {
     aluno.nome = 'Gabriel';
     aluno.cpf = '40028922';
     aluno.email = 'gabriel@cin.ufpe.br';
+    aluno.matriculas = ['ESS', 'IP'];
 
     avaliacaoIndivudual.setMeta('Projeto');
     avaliacaoIndivudual.setNota('8.5');
