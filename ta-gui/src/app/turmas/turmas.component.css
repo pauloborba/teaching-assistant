@@ -32,7 +32,7 @@
     border-radius: 4px;
 }
 
-.modal button:hover {
+.modal button:hover:enabled {
     border: 2px solid gray;
 }
 
