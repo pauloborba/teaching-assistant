@@ -1,6 +1,9 @@
+<input name="input-descricao" [(ngModel)]="descricaoNovaTurma">
+
 <!-- Botões para cadastrar, remover, atualizar e comparar turmas -->
 <div id="botoes">
-
+    <button name="botao-adicionar-turma" (click)="adicionarTurma()">Adicionar Turma</button>
+    <button name="botao-opcoes-comparacao" (click)="mostrarOpcoesComparacao()">Comparar Turmas</button>
 </div>
 
 <!-- Lista de turmas e suas médias -->
@@ -12,6 +15,66 @@
         </tr>
     </thead>
     <tbody>
-
+        <tr name="turma" *ngFor="let turma of turmas">
+            <td name="descricao">{{ turma.descricao }}</td>
+            <td name="media">{{ turma.getMedia() }}</td>
+        </tr>
     </tbody>
 </table>
+
+<div *ngIf="modalAtivo === 'opcoes'" class="modal">
+    <h3>Opções de Comparação</h3>
+    <button
+        name="botao-todas-turmas"
+        (click)="selecionarTodas()"
+        [ngClass]="{ ativo: opcaoSelecionada === 'todas' }">
+            Todas as Turmas
+    </button>
+
+    <button
+        name="botao-ultimas-quatro-turmas"
+        *ngIf="turmas.length >= 4"
+        (click)="selecionarUltimasQuatro()"
+        [ngClass]="{ ativo: opcaoSelecionada === 'ultimas-quatro' }">
+            Últimas 4 Turmas
+    </button>
+
+    <button name="botao-escolher-turmas" (click)="mostrarTurmas()">Escolher Turmas</button>
+
+    <div>
+        <button
+            name="botao-confirmar"
+            [routerLink]="['/comparacao-de-desempenho']"
+            [queryParams]="{ turmas: turmasEscolhidas.join(',') }">
+                Confirmar
+        </button>
+
+        <button (click)="esconderModal()">Voltar</button>
+    </div>
+</div>
+
+<div *ngIf="modalAtivo === 'turmas'" class="modal">
+    <h3>Turmas Disponíveis</h3>
+    <button
+        *ngFor="let turma of turmas"
+        (click)="atualizarTurmasEscolhidas(turma.descricao)"
+        [ngClass]="{ ativo: turmasEscolhidas.includes(turma.descricao) }">
+            {{ turma.descricao }}
+    </button>
+    <div>
+        <button
+            name="botao-confirmar"
+            [disabled]="turmasEscolhidas.length < 2"
+            [routerLink]="['/comparacao-de-desempenho']"
+            [queryParams]="{ turmas: turmasEscolhidas.join(',') }">
+                Confirmar
+        </button>
+
+        <button (click)="esconderModal()">Voltar</button>
+    </div>
+</div>
+
+<div name="modal-erro" *ngIf="modalAtivo === 'erro'" class="modal">
+    <h3>Não há turmas suficientes para comparar!</h3>
+    <button (click)="esconderModal()">Voltar</button>
+</div>
