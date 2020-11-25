@@ -1,9 +1,9 @@
 .discrepante{
-    background-color: red;
+    background-color: rgba(240, 41, 41, 0.87);
 }
 
 .incompleta{
-    background-color: orange;
+    background-color: rgb(247, 177, 47);
 }
 
 th {
