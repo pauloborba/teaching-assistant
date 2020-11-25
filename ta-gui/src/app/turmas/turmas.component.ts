@@ -49,11 +49,15 @@ export class TurmasComponent implements OnInit {
   }
 
   atualizarTurmasEscolhidas(descricao: string): void {
-    if (!this.turmasEscolhidas.find(turma => turma === descricao)) {
+    if (this.turmaNaoFoiEscolhida(descricao)) {
       this.turmasEscolhidas.push(descricao);
     } else {
       this.turmasEscolhidas = this.turmasEscolhidas.filter(turma => turma !== descricao);
     }
+  }
+
+  turmaNaoFoiEscolhida(descricao: string): boolean {
+    return !this.turmasEscolhidas.find(turma => turma === descricao);
   }
 
   selecionarTodas(): void {
