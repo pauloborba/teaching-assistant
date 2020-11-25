@@ -9,6 +9,7 @@ import { AutoavaliacaoService } from './autoavaliacao.service';
 import { Turma } from '../../../../common/turma';
 
 
+
 @Component({
   selector: 'app-autoavaliacao',
   templateUrl: './autoavaliacao.component.html',
@@ -34,6 +35,7 @@ export class AutoavaliacaoComponent implements OnInit {
   avaliacoes: Avaliacao[] = [];
   autoavaliacoes: Avaliacao[] = [];
   matricula: Matricula;
+  metas: string[] = [];
 
  
   ngOnInit(): void {
@@ -78,46 +80,59 @@ export class AutoavaliacaoComponent implements OnInit {
       this.turmaObrigatorio = false;
      }
      
-
      if(cpf && descricaoTurma){
-      //  this.aaService.getMatricula(cpf, descricaoTurma).subscribe(
-      //    ma => {
-      //      this.matricula = new Matricula();
-      //      this.matricula.autoAvaliacoes = ma.autoAvaliacoes;
-      //      this.matricula.avaliacoes = ma.avaliacoes;
-      //      this.avaliacoes = this.matricula.getAvaliacoes();
-      //      this.autoavaliacoes = this.matricula.getAutoAvaliacoes();
-      //     },
-      //     msg => { alert(msg.message) }
-      //  );
+       this.aaService.getMetas(descricaoTurma).subscribe(
+         me => {
+           console.log('me', me);
+           this.metas = me;
+         },
+         msg => { alert(msg.message) }
+       );
+       this.aaService.getMatricula(cpf, descricaoTurma).subscribe(
+         ma => {
+           if(!ma){
+             this.matriculaNaoEncontrada = true;
+             return;
+           }
+           else{
+            this.matriculaNaoEncontrada = false;
+           }
+           this.matricula = new Matricula();
+           this.matricula.autoAvaliacoes = ma.autoAvaliacoes;
+           this.matricula.avaliacoes = ma.avaliacoes;
+           this.avaliacoes = this.matricula.getAvaliacoes();
+           this.autoavaliacoes = this.adicionarMetas(this.metas, this.matricula.getAutoAvaliacoes());
+          },
+          msg => { alert(msg.message) }
+       );
 
       
-      this.aaService.getTurma(descricaoTurma).subscribe(
-        tu => {
-          this.turma = new Turma();
-          this.turma.matriculas = tu.matriculas;
-          this.turma.metas = tu.metas;
-          this.matricula = this.turma.getMatricula(cpf);
+      // this.aaService.getTurma(descricaoTurma).subscribe(
+      //   tu => {
+      //     this.turma = new Turma();
+      //     this.turma.matriculas = tu.matriculas;
+      //     this.turma.metas = tu.metas;
+      //     this.matricula = this.turma.getMatricula(cpf);
 
-          if(!this.matricula){
-            this.matriculaNaoEncontrada = true;
-            return;
-          }
-          else{
-            this.matriculaNaoEncontrada = false;
-          }
-          this.autoavaliacoes = this.adicionarMetas(this.turma.metas, this.matricula.autoAvaliacoes);
-          this.matricula.autoAvaliacoes = this.autoavaliacoes;
-          this.avaliacoes = this.matricula.avaliacoes;
-      }, 
-        msg => { alert(msg.message) }
-      );
+      //     if(!this.matricula){
+      //       this.matriculaNaoEncontrada = true;
+      //       return;
+      //     }
+      //     else{
+      //       this.matriculaNaoEncontrada = false;
+      //     }
+      //     this.autoavaliacoes = this.adicionarMetas(this.turma.metas, this.matricula.autoAvaliacoes);
+      //     this.matricula.autoAvaliacoes = this.autoavaliacoes;
+      //     this.avaliacoes = this.matricula.avaliacoes;
+      // }, 
+      //   msg => { alert(msg.message) }
+      // );
      }
   }
 
   atualizarAutoavaliacao(cpf: string, descricaoTurma: string, autoavaliacoes: Avaliacao[]): void {
-    this.aaService.atualizar(cpf, descricaoTurma, this.autoavaliacoes).subscribe(
-      (a) => { if (a == null){ alert("Erro ao tentar atualizar auto-avaliação! Por favor, contate os administradores do sistema.");} else{console.log('teste', a);}  },
+    this.aaService.atualizar(cpf, descricaoTurma, autoavaliacoes).subscribe(
+      (a) => { if (a == null){ alert("Erro ao tentar atualizar auto-avaliação! Por favor, contate os administradores do sistema.");} else{console.log('test',a );}  },
       (msg) => { alert(msg.message); }
    );
   }

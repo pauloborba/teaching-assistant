@@ -16,6 +16,7 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
 import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
     AppComponent,
