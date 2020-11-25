@@ -1,7 +1,9 @@
 import { defineSupportCode } from 'cucumber';
-import { browser, by, element, ElementArrayFinder, ExpectedConditions } from 'protractor';
+import { browser, by, element, ElementArrayFinder } from 'protractor';
 
 const expect = require('chai').use(require('chai-as-promised')).expect;
+
+const URLBase = 'http://localhost:4200';
 
 const cadastrarTurma = async (descricao) => {
     await element(by.name('input-descricao')).sendKeys(<string> descricao);
@@ -13,17 +15,26 @@ const getTurmasCadastradas = () => element.all(by.name('turma'));
 const mesmaDescricao = (turma, descricao) => turma.element(by.name('descricao')).getText().then(texto => texto === descricao);
 const mesmaMedia = (turma, media) => turma.element(by.name('media')).getText().then(texto => texto === media);
 
+const verificarTamanho = (array, tamanho) => expect(Promise.resolve(array.length)).to.eventually.equal(tamanho);
+
+const getPontosGraficoMedia = async () => {
+    const dataset: any = await browser.executeScript("return document.querySelector('#media').dataset");
+    const labels: string[] = dataset.labels.split(',');
+    const valores: string[] = dataset.valores.split(',');
+    return { labels, valores };
+};
+
 defineSupportCode(({ Given, When, Then }) => {
     Given(/^I am at the classes page$/, async () => {
-        await browser.get('http://localhost:4200/');
+        await browser.get(URLBase);
         await expect(browser.getTitle()).to.eventually.equal('TaGui');
         await element(by.name('turmas')).click();
     });
 
     Given(/^I can see the class "(.*)" with average grade "(.*)" at the classes list$/, async (descricao, media) => {
         await cadastrarTurma(descricao);
-        getTurmasCadastradas().filter(turma => mesmaDescricao(turma, descricao) && mesmaMedia(turma, media))
-            .then(turmas => expect(Promise.resolve(turmas.length)).to.eventually.equal(1));
+        getTurmasCadastradas().filter(async (turma) => (await mesmaDescricao(turma, descricao)) && (await mesmaMedia(turma, media)))
+            .then(turmas => verificarTamanho(turmas, 1));
     });
 
     Given(/^I can only see the class "(.*)" in the classes list$/, async (descricao) => {
@@ -31,8 +42,8 @@ defineSupportCode(({ Given, When, Then }) => {
         const turmasCadastradas: ElementArrayFinder = getTurmasCadastradas();
 
         expect(turmasCadastradas.count()).to.eventually.equal(1);
-        turmasCadastradas.filter(turma => mesmaDescricao(turma, descricao))
-            .then(turmas => expect(Promise.resolve(turmas.length)).to.eventually.equal(1));
+        turmasCadastradas.filter(async (turma) => await mesmaDescricao(turma, descricao))
+            .then(turmas => verificarTamanho(turmas, 1));
     });
 
     When(/^I request a performance comparison$/, async () => {
@@ -61,7 +72,7 @@ defineSupportCode(({ Given, When, Then }) => {
 
     Then(/^I am at the performance comparison page$/, async () => {
         const url: string = await browser.getCurrentUrl();
-        expect(url.includes('comparacao-de-desempenho')).to.equal(true);
+        expect(url.startsWith(`${URLBase}/comparacao-de-desempenho`)).to.equal(true);
     });
 
     Then(/^I can see a chart with the classes average grades$/, async () => {
@@ -69,18 +80,13 @@ defineSupportCode(({ Given, When, Then }) => {
     });
 
     Then(/^the average grade chart has "(\d*)" points$/, async (numPontos) => {
-        const dataset: any = await browser.executeScript("return document.querySelector('#media').dataset");
-        const labels: string[] = dataset.labels.split(',');
-        const valores: string[] = dataset.valores.split(',');
-
+        const { labels, valores } = await getPontosGraficoMedia();
         expect(labels.length).to.equal(+numPontos);
         expect(valores.length).to.equal(+numPontos);
     });
 
     Then(/^the average grade chart associates the class "(.*)" to the average grade "(.*)"$/, async (descricao, media) => {
-        const dataset: any = await browser.executeScript("return document.querySelector('#media').dataset");
-        const labels: string[] = dataset.labels.split(',');
-        const valores: string[] = dataset.valores.split(',');
+        const { labels, valores } = await getPontosGraficoMedia();
 
         let associaTurmaMedia: boolean = false;
         for (let i = 0; i < labels.length && !associaTurmaMedia; i++) {
