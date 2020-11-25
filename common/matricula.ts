@@ -25,30 +25,13 @@ export class Matricula{
         return this.respostasDeRoteiros
     }
     getMediaGeral(): Number {
-        // let somatorio = 0;
-        // let total = 0;
-        // for (let i = 0; i < this.avaliacoes.length; i++) {
-        //     somatorio = somatorio + Number(this.avaliacoes[i].getNota());
-        //     total = total + 1;
-        // }
-        // return (somatorio/total);
-
-        // Fake
-        if (this.aluno.cpf == '12345') {
-            return (6.95);
+        let somatorio = 0;
+        let total = 0;
+        for (let i = 0; i < this.avaliacoes.length; i++) {
+            somatorio = somatorio + Number(this.avaliacoes[i].getNota());
+            total = total + 1;
         }
-        else if (this.aluno.cpf == '34567') {
-            return (4.7);
-        }
-        else if (this.aluno.cpf == '13579') {
-            return (5.5);
-        }
-        else if (this.aluno.cpf == '40028922') {
-            return (8.2);
-        }
-        else {
-            return 0;
-        }
+        return (somatorio/total);
     }
     reprovacoesAnteriores(cpfAluno: String): Boolean {
         if (cpfAluno == '12345') {
