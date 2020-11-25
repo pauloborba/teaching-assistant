@@ -34,13 +34,13 @@ var stub_autoavaliacao2 = new Avaliacao();
 var stub_autoavaliacao3 = new Avaliacao();
 var stub_autoavaliacao4 = new Avaliacao();
 stub_autoavaliacao1.meta = "Requisitos";
-stub_autoavaliacao1.nota = "MPA";
+stub_autoavaliacao1.nota = "";
 stub_autoavaliacao2.meta = "Refatoração";
-stub_autoavaliacao2.nota = "MPA";
+stub_autoavaliacao2.nota = "";
 stub_autoavaliacao3.meta = "Requisitos";
 stub_autoavaliacao3.nota = "MA";
 stub_autoavaliacao4.meta = "Refatoração";
-stub_autoavaliacao4.nota = "MA";
+stub_autoavaliacao4.nota = "";
 stub_matricula1.autoAvaliacoes = [stub_autoavaliacao1, stub_autoavaliacao2];
 stub_matricula2.autoAvaliacoes = [stub_autoavaliacao3, stub_autoavaliacao4];
 stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
@@ -75,14 +75,26 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response){
 })
 
 //recebe um endereço de email e envia a notificação para fazer a auto-avaliação
-taserver.get('/notificar', function (req: express.Request, res: express.Response){
-    let to: string = req.query.email;
-    let meta: string = req.query.meta;
-    let from: string = "professor@cin.ufpe.br";
-    let subject: string = "Notificação de auto-avaliação";
-    let message: string = "Seu professor está requisitando que você realize sua auto-avaliação da meta " + meta;
-    let notificationSent: boolean = sender.enviarEmail(from, to, subject, message);
-    res.send(notificationSent);
+taserver.post('/notificar', function (req: express.Request, res: express.Response){
+    let objectNotification = req.body;
+    console.log(objectNotification);
+    let notificationSent: boolean;
+    for (var i = 0; i < objectNotification.length; i++) {
+        let to: string = objectNotification[i].email;
+        let meta: string = objectNotification[i].meta;
+        let from: string = "professor@cin.ufpe.br";
+        let subject: string = "Notificação de auto-avaliação";
+        let message: string = "Seu professor está requisitando que você realize sua auto-avaliação da meta " + meta;
+        notificationSent = sender.enviarEmail(from, to, subject, message);
+        if (notificationSent === false) {
+            break;
+        }
+    }
+    if (notificationSent === true) {
+        res.send({"success": "Notificações foram enviadas"})
+    } else {
+        res.send({"failure": "Notificações não foram enviadas"})
+    }
 })
 
 //recebe um identificador de turma e de aluno e retorna uma matricula

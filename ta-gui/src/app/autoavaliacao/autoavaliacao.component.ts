@@ -23,6 +23,7 @@ export class AutoavaliacaoComponent implements OnInit {
   descricaoTurma: string;
   notificar: boolean = false;
   show_turmas: boolean = false;
+  show_matriculas: boolean = false;
   selectedMetas: string[] = [];
   index = -1;
 
@@ -34,14 +35,27 @@ export class AutoavaliacaoComponent implements OnInit {
 
   cadastrarAutoAvaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void { }
 	notificarAutoAvaliacao(): void {
-    console.log(this.selectedMetas);
-    var i, j;
-    for (i = 0; i < this.matriculas.length; i++) {
-      for (j = 0; j < this.selectedMetas.length; j++) {
-        this.aaService.notificar(this.matriculas[i].aluno.email, this.selectedMetas[j]).subscribe(as => {}, msg => {alert(msg.message);});
+    var toNotify = [];
+    for (var i = 0; i < this.matriculas.length; i++) {
+      var toNotifyMetas = [];
+      for (var j = 0; j < this.selectedMetas.length; j++) {
+        for (var k = 0; k < this.matriculas[i].autoAvaliacoes.length; k++) {
+          if (this.matriculas[i].autoAvaliacoes[k].meta === this.selectedMetas[j] && this.matriculas[i].autoAvaliacoes[k].nota === "") {
+            toNotifyMetas.push(this.selectedMetas[j]);
+          }
+        }
+      }
+      if (toNotifyMetas.length > 0) {
+        var aux = {"email": this.matriculas[i].aluno.email, "meta": toNotifyMetas};
+        console.log(aux);
+        toNotify.push(aux);
       }
     }
-    
+    if (toNotify.length === 0) {
+      alert("Os alunos dessa turma já realizaram a auto-avaliação para as metas selecionadas");
+    } else {
+      this.aaService.notificar(toNotify).subscribe(as => {}, msg => {alert(msg.message);});
+    }
   }
 
   setNotificar(): void {
@@ -50,6 +64,7 @@ export class AutoavaliacaoComponent implements OnInit {
 
   showTurmas(descricaoTurma: string): void {
     this.show_turmas = true;
+    this.show_matriculas = true;
     this.aaService.getTurmas(descricaoTurma).subscribe(as => {
       this.turma = new Turma();
       this.turma.descricao = as.descricao;

@@ -33,3 +33,21 @@
    </tr>
   </table>
 </div>
+
+<div *ngIf="show_matriculas">
+  <h2>Alunos</h2>
+  <table>
+      <tr>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>E-mail</th>
+        <th *ngFor="let a of turma.metas">{{a}}</th>
+     </tr>
+    <tr *ngFor="let matricula of matriculas">
+      <td>{{matricula.aluno.nome}}</td>
+      <td>{{matricula.aluno.cpf}}</td>
+      <td>{{matricula.aluno.email}}</td>
+      <td *ngFor="let a of matricula.autoAvaliacoes">{{a.nota}}</td>
+   </tr>
+  </table>
+</div>
