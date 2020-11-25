@@ -24,4 +24,7 @@ export class Matricula{
     getRespostasDeRoteiros(): RespostaDeRoteiro[]{
         return this.respostasDeRoteiros
     }
+    getMedia(): number{
+        return 0;
+    }
 }
