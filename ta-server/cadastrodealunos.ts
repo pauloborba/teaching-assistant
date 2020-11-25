@@ -13,8 +13,8 @@ export class CadastroDeAlunos {
     return result;
   }
 
-  remover(aluno: Aluno): Aluno {
-    var result: Aluno = this.alunos.find(a => a.cpf!= aluno.cpf);
+  remover(aluno: string): Aluno {
+    var result: Aluno = this.alunos.find(a => a.cpf == aluno);
     return result;
   }
 

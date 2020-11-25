@@ -32,7 +32,7 @@ export class AlunoService {
   }
 
   remover(aluno: Aluno): Observable<Aluno> {
-    return this.http.delete<any>(this.taURL + "/aluno/id=${aluno.cpf}", { headers: this.headers })
+    return this.http.delete<any>(this.taURL + `/aluno/?id=${aluno.cpf}`, { headers: this.headers })
       .pipe(
         retry(2),
         map(res => { if (res.success) { return aluno; } else { return null; } })
