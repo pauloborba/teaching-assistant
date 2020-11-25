@@ -38,7 +38,7 @@
             <td name="cpflist">{{a.cpf}}</td>
             <td>{{a.email}}</td>
             <div class="alunos-editar">
-               <img src="./../../assets/icons/delete.png" alt="">
+               <img (click)="removerAluno(aluno)" src="./../../assets/icons/delete.png" alt="">
             </div>
          </tr>
       </table>

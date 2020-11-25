@@ -35,7 +35,7 @@ export class AlunosComponent implements OnInit {
     this.alunoService.remover(a)
       .subscribe(a => {
         if (a) {
-          this.alunos = this.alunos.find(b => b.cpf != a.cpf);
+          this.alunos.find(b => b.cpf != a.cpf);
         }
       })
   }

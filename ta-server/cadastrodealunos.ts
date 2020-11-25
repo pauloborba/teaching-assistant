@@ -14,8 +14,8 @@ export class CadastroDeAlunos {
   }
 
   remover(aluno: Aluno): Aluno {
-    this.alunos = this.alunos.find(a => a.cpf!= aluno.cpf);
-    return true;
+    var result: Aluno = this.alunos.find(a => a.cpf!= aluno.cpf);
+    return result;
   }
 
   cpfNaoCadastrado(cpf: string): boolean {
