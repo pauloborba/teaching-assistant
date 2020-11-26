@@ -51,6 +51,16 @@ taserver.post('/roteiro', function (req: express.Request, res: express.Response)
   }
 })
 
+taserver.put('/roteiro', function (req: express.Request, res: express.Response) {
+  var roteiro: Roteiro = <Roteiro> req.body;
+  roteiro = cadastroRoteiro.atualizarRoteiro(roteiro);
+  if (roteiro) {
+    res.send({"success": "O roteiro foi atualizado com sucesso"});
+  } else {
+    res.send({"failure": "O roteiro não pode ser atualizado"});
+  }
+})
+
 var server = taserver.listen(3000, function () {
     console.log('Example app listening on port 3000!')
 })

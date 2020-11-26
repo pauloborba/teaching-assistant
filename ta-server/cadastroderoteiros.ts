@@ -13,6 +13,14 @@ export class CadastroDeRoteiros{
          return result;
        }
 
+       atualizarRoteiro(roteiro: Roteiro): Roteiro{
+         var result: Roteiro = this.roteiros.find(a => a.descricao == roteiro.descricao);
+         if (result){
+           result.copyFrom(roteiro);
+         }
+         return result;
+       }
+
        roteiroNaoCadastrado(descricao: string): boolean {
          return !this.roteiros.find(a => a.descricao == descricao);
        }

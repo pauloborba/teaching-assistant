@@ -1,3 +1,4 @@
+<html (mousemove)="onMove()">
 <table>
     <tr>
         <td><label>Nome </label></td>
@@ -22,12 +23,27 @@
             <tr *ngFor="let b of a.blocos">
                 <td name = "blocolist">{{b.tipo}}</td>
                 <td>
-                    <ol *ngFor="let c of questoes">
-                        <li>{{c.pergunta}}</li>
-                    </ol>
+                    <table>
+                      <tr *ngIf="b.questoes.length > 0">
+                        <th>Pergunta</th>
+                        <th>Dica</th>
+                      </tr>
+                      <tr *ngFor="let c of b.questoes">
+                          <td>{{c.pergunta}}</td>
+                          <td>{{c.dica}}</td>
+                      </tr>
+                    </table>
                 </td>
+            </tr>
+            <tr>
+              <td><select name="selectBloco" [(ngModel)]="bloco.tipo" size="1">
+                <option value="Sequencial">Sequencial</option>
+                <option value="Paralelo">Paralelo</option>
+              </select></td>
+              <td><button (click)="adicionarBloco(a, bloco)">Adicionar bloco</button></td>
             </tr>
         </table>
     </li>
     <li><button (click)="deletarRoteiro(a)">Deletar</button></li>
 </ul>
+</html>

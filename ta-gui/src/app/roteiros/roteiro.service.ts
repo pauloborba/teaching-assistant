@@ -20,6 +20,13 @@ export class RoteiroService {
               );
   }
 
+  atualizar(roteiro: Roteiro): Observable<Roteiro> {
+  return this.http.put<any>(this.taURL + "/roteiro", JSON.stringify(roteiro), {headers: this.headers})
+            .pipe(
+              retry(2),
+              map( res => {if (res.success) {return roteiro;} else {return null;}} ));
+  }
+
   getRoteiros(): Observable<Roteiro[]> {
     return this.http.get<Roteiro[]>(this.taURL + "/roteiros")
               .pipe(

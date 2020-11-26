@@ -26,6 +26,10 @@ export class RoteirosComponent implements OnInit {
     else return false;
   }
 
+  onMove(){
+    this.roteiroJaExiste = false;
+  }
+
   criarRoteiro(roteiro: Roteiro): void {
     if(this.semDescricao(roteiro.descricao)) return alert("Roteiro sem nome");
     else{
@@ -39,8 +43,23 @@ export class RoteirosComponent implements OnInit {
             },
             msg => { alert(msg.message); }
           );
-}
+        }
+  }
+
+  adicionarBloco(roteiro: Roteiro, bloco: BlocoDeQuestoes): void {
+    if(this.semDescricao(bloco.tipo)) return alert("Não foi escolhido um tipo para o bloco de questões");
+    else{
+      roteiro.blocos.push(bloco);
+      this.atualizarRoteiro(roteiro);
+      this.bloco = new BlocoDeQuestoes();
+    }
   }
   deletarRoteiro(roteiro: Roteiro): void { }
-  atualizarRoteiro(roteiro: Roteiro): void { }
+
+  atualizarRoteiro(roteiro: Roteiro): void {
+  this.roteiroService.atualizar(roteiro).subscribe(
+           (a) => { if (a == null) alert("Erro ao atualizar o roteiro"); },
+           (msg) => { alert(msg.message); }
+  );
+}
 }
