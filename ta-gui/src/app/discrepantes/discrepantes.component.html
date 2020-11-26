@@ -17,8 +17,8 @@
         <td *ngFor="let meta of turma.metas; let x = index">
          <table>
             <tr>
-             <td id={{a.getAluno().getCpf()}} name="avaliacao">Avaliação: {{nota(true, a, meta)}}</td>
-             <td  id={{a.getAluno().getCpf()}} name="auto-avaliacao">Autoavaliação: {{nota(false, a, meta)}}</td> 
+             <td id={{a.getAluno().getCpf()}} name="avaliacao">Avaliação: {{notaDaMeta(true, a, meta)}}</td>
+             <td  id={{a.getAluno().getCpf()}} name="auto-avaliacao">Autoavaliação: {{notaDaMeta(false, a, meta)}}</td> 
             </tr>
           
          </table>

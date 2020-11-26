@@ -3,6 +3,7 @@ import {Matricula} from '../../../../common/matricula'
 import {Turma} from '../../../../common/turma'
 import {DiscrepantesService} from './discrepantes.service'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Avaliacao } from '../../../../ta-server/avaliacao';
 
 
 @Component({
@@ -47,8 +48,8 @@ export class DiscrepantesComponent implements OnInit {
             this.metas.push(meta)
           })
          
-          this.carregaTotalDiscrepantes()
-          this.carregaPorcentagemDiscrepantes()
+          this.carregarTotalDiscrepantes()
+          this.carregarPorcentagemDiscrepantes()
           
         },
         (msg) => { alert(msg.message); }
@@ -61,10 +62,7 @@ export class DiscrepantesComponent implements OnInit {
   }
 
 
-  carregaTotalDiscrepantes(){
-      //Contador para alunos com autoavaliações discrepantes
-      var count = 0
-
+  carregarTotalDiscrepantes(){
       //Intera pelas matriculas da turma 
       this.turma.getMatriculas().forEach((matricula) =>{
 
@@ -72,18 +70,16 @@ export class DiscrepantesComponent implements OnInit {
         if(matricula.avaliacoes.length==matricula.autoAvaliacoes.length){
           this.totalRealizouAutoAvaliacao++
 
-          //Checa se o aluno teve autoavaliação discrepante
+          //Checa se o aluno teve autoavaliação discrepante e incrementa total de Discrepantes
           if(this.matriculaDiscrepancia(matricula)){
-            count++
+            this.totalDiscrepantes++
           }
         }
       })
 
-      this.totalDiscrepantes = count
-
   }
 
-  carregaPorcentagemDiscrepantes(){
+  carregarPorcentagemDiscrepantes(){
     if(this.totalDiscrepantes==0){
       this.porcentagemDiscrepantes = 0
     }else{
@@ -93,9 +89,12 @@ export class DiscrepantesComponent implements OnInit {
     this.clicouNoBotao = true
 
   }
+  
   corDaLinha(matricula: Matricula): String{
     //Checa se foi feita a autoavaliacao de todas as metas
     if(matricula.avaliacoes.length==matricula.autoAvaliacoes.length){
+
+      //Checa se matricula possui autoavaliação discrepante 
       if(this.matriculaDiscrepancia(matricula)){
         return "discrepante"
       }else{
@@ -136,29 +135,22 @@ export class DiscrepantesComponent implements OnInit {
 
   }
 
-  nota(selector: boolean, matricula: Matricula, meta: string){
-
+  notaDaMeta(selector: boolean, matricula: Matricula, meta: string){
+    let avaliacao
     if(selector){
-      let avaliacao = matricula.avaliacoes.find(avaliacao => avaliacao.meta == meta)
-      if(avaliacao!= null){
-        return avaliacao.nota
-      }else{
-        return null
-      }
+      avaliacao = matricula.avaliacoes.find(avaliacao => avaliacao.meta == meta)
     }else{
-      let autoavaliacao = matricula.autoAvaliacoes.find(autoavaliacao => autoavaliacao.meta == meta)
-      
-      if(autoavaliacao != null){
-        return autoavaliacao.nota
-      }else{
-        return null
-      }
-    }
-  }
+      avaliacao = matricula.autoAvaliacoes.find(autoavaliacao => autoavaliacao.meta == meta)
 
-  totalDiscrepante():Number{
-    return this.totalDiscrepantes
-  }
+    }
+    if(avaliacao!= null){
+      return avaliacao.nota
+    }else{
+      return null
+    }
+    }
+  
+
   
 }
 
