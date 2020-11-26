@@ -1,3 +1,14 @@
-.alunos {
-    
+.concluido{
+    background-color: green;
+    color: white;
 }
+
+.iniciadoMasNaoConcluido{
+    background-color: blue;
+    color: white;
+}
+
+.naoIniciado{
+    background-color: orange;
+}
+

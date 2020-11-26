@@ -1,9 +1,8 @@
 export class Aluno {
-<<<<<<< HEAD
     nome: String;
     cpf: String;
     email: String;
-
+    
     getNome(): String {
         return this.nome
     }
