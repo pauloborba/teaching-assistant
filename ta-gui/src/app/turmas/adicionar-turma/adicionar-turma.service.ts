@@ -8,6 +8,7 @@ import { Aluno } from '../../../../../common/aluno';
 import { Turma } from '../../../../../common/turma';
 import { Turmas } from '../../../../../ta-server/turmas'; 
 import { Roteiro } from '../../../../../ta-server/roteiro';
+import { Custom } from './mycustom.type'
 
 @Injectable()
 export class AdicionarTurmaService {
@@ -19,9 +20,7 @@ export class AdicionarTurmaService {
 
   // methods go herea
  // metas: string, matricula:Matricula, roteiro:Roteiro, monitores:Aluno, numeroMatricula: number &metas=" + metas
-  adicionarTurmaServe(descricaoTurma: string,): Observable<string> {
-    return this.http.post<string>(this.taURL + "/adicionar-turma/?descricaoTurma=" + descricaoTurma  , {headers: this.headers}) ;
+  adicionarTurmaServe(turma: Turma,): Observable<Turma> {
+    return this.http.post<any>(this.taURL + "/adicionar-turma/?descricaoTurma=" + turma , {headers: this.headers}) ;;
   }
-
-  
 }

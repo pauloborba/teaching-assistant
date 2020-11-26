@@ -20,8 +20,11 @@ export class AdicionarTurmaComponent implements OnInit {
   roteiro: Roteiro[] = [];
   monitores: Aluno[] = [];
   numeroMatriculas: number;
-  turma: Turma = null;
   descricao2:string;
+  teste:string;
+
+  turma: Turma = new Turma();
+  turmas: Turma[] = [];
 
   
   constructor(private atService: AdicionarTurmaService) { }
@@ -29,13 +32,18 @@ export class AdicionarTurmaComponent implements OnInit {
   ngOnInit() {
   }
 
-  adicionarTurma(){
-    this.atService.adicionarTurmaServe(this.descricao).subscribe(
-      data => {this.descricao2 = data},
+  adicionarTurma(a: Turma): void{
+    this.atService.adicionarTurmaServe(a).subscribe(
+      data => {
+        let a = this.turmas.push(data)
+        this.turma = new Turma();
+        console.log("valor: " + a)
+      },
       error => console.log(error),
       () => console.log("acesso pegou")
     );
-    console.log(this.descricao);
+    console.log(a)
   }
+
 
 }

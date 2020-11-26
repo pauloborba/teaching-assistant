@@ -9,6 +9,9 @@ import {Matricula} from '../common/matricula'
 
 var taserver = express();
 
+var cadastroTurma: Turmas = new Turmas();
+
+
 // stub para turmas
 var stub_turma1 = new Turma();
 var stub_turma2 = new Turma();
@@ -67,21 +70,20 @@ taserver.get('/matriculas', function (req: express.Request, res: express.Respons
 })
 
 taserver.post('/adicionar-turma', function (req: express.Request, res: express.Response){
-    let descricaoTurma: string = req.query.descricaoTurma;
-    let turma: Turma = turmas.getTurma(descricaoTurma);
-    let teste = turma.descricao;
-    console.log("adicionar-turma");
-    console.log(descricaoTurma);
-    res.send({"teste": {teste}});
-
+    var turma: Turma = <Turma> req.body;
+    turma = cadastroTurma.cadastrarTurma(turma);
+    //let descricaoTurma: string = req.query.descricaoTurma;
+    console.log("adicionou");
+    //console.log(descricaoTurma);
+    if(turma){
+        res.send({"sucess": "A turma foi criada com suceso"});
+    } else {
+        res.send({"failure": "A turma não foi cadastrada"});
+    }
 })
 
-taserver.put('/editar-turma', function (req: express.Request, res: express.Response){
-    let descricaoTurma: string = req.query.descricaoTurma;
-    console.log("editar-turma");
-    console.log(descricaoTurma);
-    res.send(descricaoTurma);
-
+taserver.get('adicionar-turma', function (req: express.Request, res: express.Response){
+    
 })
 
   

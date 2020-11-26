@@ -1,0 +1,1 @@
+interface MyrResponse { atb1: 'string' }
