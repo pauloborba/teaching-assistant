@@ -24,4 +24,17 @@ defineSupportCode(function ({ Given, When, Then }) {
     When(/^I send the self-grade request to all students$/, async () => {
         await $("button[name='notificarEmail']").click();
     });
+
+    When(/^I select the class "([^\"]*)"$/, async (turma) => {
+        await $("button[name='notificar']").click();
+        await $("input[name='descricaoTurma']").sendKeys(<string> turma);
+    });
+
+    Then(/^I see a confirmation message$/, async () => {
+        await $("tr[name='confirmacao']");
+    });
+
+    Then(/^I see an error message$/, async () => {
+        await $("tr[name='erro']");
+    });
 })

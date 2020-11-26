@@ -24,6 +24,9 @@ export class AutoavaliacaoComponent implements OnInit {
   notificar: boolean = false;
   show_turmas: boolean = false;
   show_matriculas: boolean = false;
+  confirmacao: boolean = false;
+  erro: boolean = false;
+  erro_turma: boolean = false;
   selectedMetas: string[] = [];
   index = -1;
 
@@ -46,13 +49,14 @@ export class AutoavaliacaoComponent implements OnInit {
         }
       }
       if (toNotifyMetas.length > 0) {
+        this.confirmacao = true;
         var aux = {"email": this.matriculas[i].aluno.email, "meta": toNotifyMetas};
         console.log(aux);
         toNotify.push(aux);
       }
     }
     if (toNotify.length === 0) {
-      alert("Os alunos dessa turma já realizaram a auto-avaliação para as metas selecionadas");
+      this.erro = true;
     } else {
       this.aaService.notificar(toNotify).subscribe(as => {}, msg => {alert(msg.message);});
     }
@@ -63,20 +67,25 @@ export class AutoavaliacaoComponent implements OnInit {
   }
 
   showTurmas(descricaoTurma: string): void {
-    this.show_turmas = true;
-    this.show_matriculas = true;
-    this.aaService.getTurmas(descricaoTurma).subscribe(as => {
-      this.turma = new Turma();
-      this.turma.descricao = as.descricao;
-      this.turma.metas = as.metas;
-      this.matriculas = as.matriculas;
-    }, msg => {alert(msg.message);});
+    console.log(descricaoTurma);
+    if (!descricaoTurma) {
+      this.erro_turma = true;
+    } else {
+      this.show_turmas = true;
+      this.show_matriculas = true;
+      this.aaService.getTurmas(descricaoTurma).subscribe(as => {
+        this.turma = new Turma();
+        this.turma.descricao = as.descricao;
+        this.turma.metas = as.metas;
+        this.matriculas = as.matriculas;
+      }, msg => {alert(msg.message);});
+    }
   }
 
-  selected(email: string): void {
-    var result: string = this.selectedMetas.find(a => a == email);
+  selected(meta: string): void {
+    var result: string = this.selectedMetas.find(a => a == meta);
     if (!result) {
-      this.selectedMetas.push(email);
+      this.selectedMetas.push(meta);
     } else {
       this.index = this.selectedMetas.indexOf(result)
       if (this.index > -1) {

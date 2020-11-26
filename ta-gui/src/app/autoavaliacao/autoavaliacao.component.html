@@ -16,6 +16,9 @@
     <td><button name="selecionar" (click)="showTurmas(descricaoTurma)">Selecionar</button></td>
   </tr>
 </table>
+<div *ngIf="erro_turma">
+  <tr name="erro">Você não forneceu o nome de uma turma existente</tr>
+</div>
 
 <div *ngIf="show_turmas">
   <h2>Metas</h2>
@@ -32,6 +35,13 @@
     <td><button name="notificarEmail" (click)="notificarAutoAvaliacao()">Notificar</button></td>
    </tr>
   </table>
+</div>
+
+<div *ngIf="confirmacao">
+  <tr name="confirmacao">Notificação enviada para os alunos!</tr>
+</div>
+<div *ngIf="erro">
+  <tr name="erro">Nenhuma meta foi selecionada</tr>
 </div>
 
 <div *ngIf="show_matriculas">

@@ -7,12 +7,12 @@ Given I am at the auto-avaliacao page
 Given I am at the "ESS" class
 When I select the topics "Requisitos" and "Refatoração"
 When I send the self-grade request to all students
-Then I see an AA in the color green under the selected topics
+Then I see a confirmation message
 
-Scenario: Notificação do fim da auto-avaliação para o professor
-Given All students have completed their self evaluation
-When I open the auto-avaliacao page
-Then I can see a notification stating that the students have completed their self evaluation
+Scenario: Escolha de turma inexistente
+Given I am at the auto-avaliacao page
+When I select the class ""
+Then I see an error message
 
 Scenario: Notificação de fim de tempo para auto-avaliação
 Given At least one student did not do their self evaluation
@@ -23,4 +23,4 @@ Scenario: Envio de solicitação de auto avaliação sem selecionar os tópicos
 Given I am at the auto-avaliacao page
 Given I am at the "ESS" class
 When I send the self-grade request to all students
-Then I can see an error message
+Then I see an error message
