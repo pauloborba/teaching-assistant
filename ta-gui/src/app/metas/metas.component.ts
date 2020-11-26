@@ -14,6 +14,32 @@ export class MetasComponent implements OnInit {
 
   constructor(private metasService: MetasService) {}
 
+  habilitarCores(): void {
+
+    this.metasService.getAlunos()
+      .subscribe(
+        (as) => {
+          this.alunos = as;
+        },
+        (msg) => {
+          alert(msg.message);
+        }
+      );
+
+  }
+
+  desabilitarCores(): void {
+
+    let aux: any = this.alunos;
+
+    for (let i = 0; i < aux.length; i++) {
+      aux[i].color = 'white';
+    }
+
+    this.alunos = aux;
+    
+  }
+
   ngOnInit(): void {
 
     this.metasService.getAlunos()
