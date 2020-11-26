@@ -4,6 +4,9 @@ let chai = require('chai').use(require('chai-as-promised'));
 let expect = chai.expect;
 var {setDefaultTimeout} = require('cucumber');
 setDefaultTimeout(60 * 1000);
+import request = require("request-promise");
+
+var base_url = "http://localhost:3000/";
 
 let mesmaDescricao = ((elem, descricao) => elem.getText().then(text => text === descricao));
 let mesmoTipo = ((elem, tipo) => elem.getText().then(text => text === tipo));
@@ -23,6 +26,16 @@ async function elementosComMesmoTipo(n,tipo) {
     var sameblocos = allblocos.filter(elem => mesmoTipo(elem,tipo));
     await tamanhoArray(n,sameblocos);
 }
+
+async function roteiroVazioNoServidor(p, descricao) {
+  let resposta = `{"descricao":"${descricao}","blocos":[]}`;
+  await request.get(base_url + "roteiros").then(body => expect(body.includes(resposta)).to.equal(p));
+}
+
+async function roteiroNoServidor(p, descricao, tipo, pergunta) {
+  let resposta = `{"descricao":"${descricao}","blocos":[{"tipo":"${tipo}","questoes":[{"pergunta":"${pergunta}","dica":""}]}]}`;
+  await request.get(base_url + "roteiros").then(body => expect(body.includes(resposta)).to.equal(p));
+}
 defineSupportCode(function ({ Given, When, Then }) {
     Given(/^Eu estou na página roteiros$/, async () => {
         await browser.get("http://localhost:4200/");
@@ -30,11 +43,11 @@ defineSupportCode(function ({ Given, When, Then }) {
         await $("a[name=roteiros]").click();
     });
 
-    Given(/^Eu não vejo o roteiro “(.*)” na lista de roteiros$/, async (descricao) => {
+    Given(/^Eu não vejo o roteiro "(.*)" na lista de roteiros$/, async (descricao) => {
         await elementosComMesmaDescricao(0 , descricao);
     });
 
-    Given(/^Eu vejo o roteiro “(.*)” nos roteiros$/, async (descricao) => {
+    Given(/^Eu vejo o roteiro "(.*)" nos roteiros$/, async (descricao) => {
         await elementosComMesmaDescricao(1, descricao);
     });
 
@@ -43,7 +56,19 @@ defineSupportCode(function ({ Given, When, Then }) {
       await elementosComMesmoTipo(0,par);
     });
 
-    When(/^Eu tento adicionar um roteiro de nome “(.*)”$/, async (descricao) => {
+    Given(/^O sistema não possui um roteiro "(.*)"$/, async (descricao) => {
+      await roteiroVazioNoServidor(false, descricao);
+    });
+
+    Given(/^O sistema possui um roteiro "(.*)" sem blocos$/, async (descricao) => {
+      await roteiroVazioNoServidor(true, descricao);
+    });
+
+    Given(/^O sistema possui um roteiro "(.*)" com um bloco "(.*)" com a questão "(.*)"$/, async (descricao, tipo, questao) => {
+      await roteiroNoServidor(true, descricao, tipo, questao);
+    });
+
+    When(/^Eu tento adicionar um roteiro de nome "(.*)"$/, async (descricao) => {
         await $("input[name='descricaobox']").sendKeys(<string> descricao);
         await element(by.name('addRoteiro')).click();
     });
@@ -55,11 +80,28 @@ defineSupportCode(function ({ Given, When, Then }) {
       await element(by.name('addBloco')).click();
     });
 
-    When(/^Eu tento remover o roteiro “(.*)”$/, async (descricao) => {
+    When(/^Eu tento remover o roteiro "(.*)"$/, async (descricao) => {
         await element(by.name('delRoteiro')).click();
     });
 
-    Then(/^Eu vejo o roteiro “(.*)” na lista de roteiros$/, async (descricao) => {
+    When(/^Eu registro o roteiro "(.*)" sem blocos$/, async (descricao) => {
+    let roteiro = {"descricao": descricao, "blocos" : []};
+    var options:any = {method: 'POST', uri: (base_url + "roteiro"), body:roteiro, json: true};
+    await request(options).then(body => expect(JSON.stringify(body)).to.equal('{"success":"O roteiro foi cadastrado com sucesso"}'));
+    });
+
+    When(/^Eu cadastro um bloco "(.*)" com a questão "(.*)" no roteiro "(.*)"$/, async (tipo, pergunta, descricao) => {
+    let roteiro = {"descricao": descricao, "blocos" : [{"tipo": tipo,"questoes":[{"pergunta": pergunta,"dica":""}]}]};
+    var options:any = {method: 'PUT', uri: (base_url + "roteiro"), body:roteiro, json: true};
+    await request(options).then(body => expect(JSON.stringify(body)).to.equal('{"success":"O roteiro foi atualizado com sucesso"}'));
+    });
+
+    When(/^Eu deleto o roteiro "(.*)"$/, async (descricao) => {
+    var options:any = {method: 'DELETE', uri: (base_url + "roteiro/" + descricao)};
+    await request(options).then(body => expect(body).to.equal('{"success":"O roteiro foi removido com sucesso"}'));
+    });
+
+    Then(/^Eu vejo o roteiro "(.*)" na lista de roteiros$/, async (descricao) => {
         await elementosComMesmaDescricao(1, descricao);
     });
 
@@ -68,15 +110,27 @@ defineSupportCode(function ({ Given, When, Then }) {
       await elementosComMesmoTipo(Number(n2),par);
     });
 
-    Then(/^Eu vejo um único roteiro “(.*)” na lista de roteiros$/, async (descricao) => {
+    Then(/^Eu vejo um único roteiro "(.*)" na lista de roteiros$/, async (descricao) => {
         await elementosComMesmaDescricao(1, descricao);
     });
-    Then(/^Eu não vejo “(.*)” na lista de roteiros$/, async (descricao) => {
+    Then(/^Eu não vejo "(.*)" na lista de roteiros$/, async (descricao) => {
         await elementosComMesmaDescricao(0, descricao);
     });
 
     Then(/^Eu vejo uma mensagem de erro$/, async () => {
       var allmsgs : ElementArrayFinder = element.all(by.name('erroRoteiro'));
       await tamanhoArray(1,allmsgs);
+    });
+
+    Then(/^O sistema agora possui um roteiro "(.*)" sem blocos$/, async (descricao) => {
+      await roteiroVazioNoServidor(true, descricao);
+    });
+
+    Then(/^O sistema agora não possui um roteiro "(.*)"$/, async (descricao) => {
+      await roteiroVazioNoServidor(false, descricao);
+    });
+
+    Then(/^O sistema agora possui um roteiro "(.*)" com um bloco "(.*)" com a questão "(.*)"$/, async (descricao, tipo, questao) => {
+      await roteiroNoServidor(true, descricao, tipo, questao);
     });
 })
