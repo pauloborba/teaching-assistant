@@ -1,8 +1,6 @@
-import { Aluno } from '../common/aluno';
+import { Aluno } from './aluno';
 
 export class ImportacaoDeAlunos{
   
-  importarAluno (path: String): Aluno[] {
-    return null
-  } 
+  importarAluno (path: String): Aluno[]; 
 }   
