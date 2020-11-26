@@ -14,6 +14,7 @@ export class RoteirosComponent implements OnInit {
   roteiros: Roteiro[] = [];
   bloco: BlocoDeQuestoes = new BlocoDeQuestoes();
   roteiroJaExiste: boolean = false;
+  altBloco: boolean = false;
 
   constructor(private roteiroService: RoteiroService) {}
 
@@ -53,6 +54,21 @@ export class RoteirosComponent implements OnInit {
       this.atualizarRoteiro(roteiro);
       this.bloco = new BlocoDeQuestoes();
     }
+  }
+
+  removerBloco(roteiro: Roteiro, bloco: BlocoDeQuestoes) : void{
+    var index = roteiro.blocos.indexOf(bloco);
+    roteiro.blocos.splice(index, 1);
+    this.atualizarRoteiro(roteiro);
+}
+
+  atualizarBloco(roteiro: Roteiro): void{
+    this.atualizarRoteiro(roteiro);
+    this.altBloco = false;
+}
+
+  alterarBloco() : void {
+    this.altBloco = !this.altBloco;
   }
   deletarRoteiro(roteiro: Roteiro): void { }
 

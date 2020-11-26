@@ -40,6 +40,9 @@
                 <option value="Sequencial">Sequencial</option>
                 <option value="Paralelo">Paralelo</option>
               </select></td>
+              <td *ngIf="altBloco" ><button (click)= "atualizarBloco(a)">Atualizar bloco</button></td>
+              <td><button (click) = alterarBloco()>Alterar bloco</button></td>
+              <td><button (click) = "removerBloco(a, b)">Remover bloco</button></td>
               <td><button (click)="adicionarBloco(a, bloco)">Adicionar bloco</button></td>
             </tr>
         </table>
