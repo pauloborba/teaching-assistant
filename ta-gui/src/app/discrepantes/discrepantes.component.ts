@@ -13,30 +13,26 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class DiscrepantesComponent implements OnInit {
 
-  //nomeTurmaAux: string = ""
   nomeTurma: string = ""
   turma: Turma
   matriculas: Matricula[] = []
-  header: String[] = []
+  cabecalho: String[] = []
   metas: String[] = []
   totalDiscrepantes = 0
   porcentagemDiscrepantes = 0
   totalRealizouAutoAvaliacao = 0
-  clickedBtm = false
+  clicouNoBotao = false
   
 
   constructor(private discrepantesService: DiscrepantesService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   carregarMatriculas(){
-    console.log("CHAMANDOOO")
     this.totalDiscrepantes = 0
     this.porcentagemDiscrepantes = 0
     this.totalRealizouAutoAvaliacao = 0
     this.metas = []
-    //this.nomeTurma = this.nomeTurmaAux
     
       //Chamando autoavaliacao.service que faz a req pro server para pegar a turma indicada pelo usuário
       this.discrepantesService.getTurma(this.nomeTurma).subscribe(
@@ -46,42 +42,37 @@ export class DiscrepantesComponent implements OnInit {
           this.turma = new Turma()
           this.turma.descricao = a.descricao
           this.turma.metas = a.metas
-          console.log(this.turma)
           this.matriculas = this.turma.getMatriculas() 
           this.turma.metas.forEach( meta => {
             this.metas.push(meta)
           })
          
-          this.loadTotalDiscrepantes()
-          this.loadPorcentagemDiscrepantes()
+          this.carregaTotalDiscrepantes()
+          this.carregaPorcentagemDiscrepantes()
           
         },
         (msg) => { alert(msg.message); }
 
       )
-
-      //this.autoAvaliacaoService.getMatriculas().
-
-      //Pegando as matriculas da turma
       
-
-      //Configurando Header
-      this.header = ["Nome", "CPF", "Email"]
-      
-      console.log(this.totalDiscrepantes + "funcao carregar")
+      //Configurando cabecalho
+      this.cabecalho = ["Nome", "CPF", "Email"]
      
   }
 
 
-  loadTotalDiscrepantes(){
+  carregaTotalDiscrepantes(){
+      //Contador para alunos com autoavaliações discrepantes
       var count = 0
+
+      //Intera pelas matriculas da turma 
       this.turma.getMatriculas().forEach((matricula) =>{
 
+        //Checa se o aluno completou as autoaliações
         if(matricula.avaliacoes.length==matricula.autoAvaliacoes.length){
-          console.log("FEZ AUTOAV")
-        
           this.totalRealizouAutoAvaliacao++
-          console.log(this.totalRealizouAutoAvaliacao)
+
+          //Checa se o aluno teve autoavaliação discrepante
           if(this.matriculaDiscrepancia(matricula)){
             count++
           }
@@ -90,19 +81,16 @@ export class DiscrepantesComponent implements OnInit {
 
       this.totalDiscrepantes = count
 
-      //this.loadPorcentagemDiscrepantes()
   }
 
-  loadPorcentagemDiscrepantes(){
+  carregaPorcentagemDiscrepantes(){
     if(this.totalDiscrepantes==0){
       this.porcentagemDiscrepantes = 0
     }else{
-      console.log(this.totalDiscrepantes)
-      console.log(this.porcentagemDiscrepantes)
-      this.porcentagemDiscrepantes = this.totalDiscrepantes/this.totalRealizouAutoAvaliacao
+      this.porcentagemDiscrepantes = Math.round((this.totalDiscrepantes/this.totalRealizouAutoAvaliacao)*100)
     }
 
-    this.clickedBtm = true
+    this.clicouNoBotao = true
 
   }
   corDaLinha(matricula: Matricula): String{
@@ -122,12 +110,12 @@ export class DiscrepantesComponent implements OnInit {
   }
 
   matriculaDiscrepancia(matricula: Matricula):boolean{
-    var discrepantes = 0
+      var discrepantes = 0
 
-    //Checa se foi feita a autoavaliacao de todas as metas
-
+      //Itera pelas avaliações da matriculas
       matricula.avaliacoes.forEach((avaliacao) => {
         
+          //Procura a autoavaliação correspondente a essa matricula
           let autoavaliacao = matricula.autoAvaliacoes.find(autoavaliacao => autoavaliacao.meta == avaliacao.meta);
          
           if(avaliacao.nota=="MANA" && autoavaliacao.nota=="MPA"){
