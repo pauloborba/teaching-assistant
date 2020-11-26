@@ -26,16 +26,7 @@ taserver.use(allowCrossDomain);
 
 taserver.use(bodyParser.json());
 
-taserver.get('/alunos', function (req: express.Request, res: express.Response) {
-
-})
-
-//recebe um identificador de turma e retorna a mesma
-taserver.get('/turmas', function (req: express.Request, res: express.Response){
-    
-    let descricao = req.query.descricao;
-
-    
+function stub(descricao: String) {
     let resposta1 = new RespostaDeQuestao();
     resposta1.duracao = 2;
     resposta1.correcao = 'Errado';
@@ -80,7 +71,8 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response){
     
     
     let turma20 = new Turma();
-    turma20.descricao = 'ess';
+    // @ts-ignore
+    turma20.descricao = descricao;
     turma20.numeroMatriculas = 2
     turma20.roteiros = [roteiro1, roteiro2]
     turma20.matriculas = [matricula1, matricula2];
@@ -88,11 +80,18 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response){
     let turmas = new Turmas();
     turmas.turmas = [turma20];
 
-    // fim do stub
+    return turmas.turmas[0]
+}
 
-    let turma: Turma = turmas.getTurma(descricao)
+//recebe um identificador de turma e retorna a mesma
+taserver.get('/turmas', function (req: express.Request, res: express.Response){
+    
+    let descricao: String = req.query.descricao;
+    let turma: Turma;
 
-    res.send(turma);
+    turma = stub(descricao)
+
+    res.send(JSON.stringify(turma));
 })
 
 //recebe um identificador de turma e de aluno e retorna uma matricula
