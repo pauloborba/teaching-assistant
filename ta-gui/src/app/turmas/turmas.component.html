@@ -5,13 +5,15 @@
 
 <!-- Lista de turmas e suas médias -->
 <table>
-    <thead>
         <tr>
             <th>Turma</th>
             <th>Média</th>
         </tr>
-    </thead>
-    <tbody>
+     <tr *ngFor="let t of turmas">
+        <td>{{t.descricao}}</td>
+        <td>{{t.getMedia()}}</td>
+        <td><button (click)="notificarTurma(t)">Notificar</button></td>
 
-    </tbody>
+     </tr>
+   
 </table>

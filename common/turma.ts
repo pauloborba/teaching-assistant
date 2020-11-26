@@ -10,6 +10,7 @@ export class Turma {
     monitores: Aluno[] = [];
     numeroMatriculas: number = 0;
 
+
     getNumMatriculas(): number {
         return this.numeroMatriculas
     }
@@ -23,7 +24,7 @@ export class Turma {
     }
 
     getMedia(): number {
-        return 0;
+        return 7;
     }
 
     getMatricula(cpf: string): Matricula {
