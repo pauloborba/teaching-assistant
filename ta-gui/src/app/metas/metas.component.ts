@@ -25,7 +25,8 @@ export class MetasComponent implements OnInit {
     this.turmasService.getTurmas()
              .subscribe(
                res => {
-                 const {descricoes} = res;
+                 let descricoes = res;
+                 console.log(res)
                  this.turmasDescricao = descricoes
                },
                msg => { alert(msg.message); }

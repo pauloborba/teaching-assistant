@@ -30,7 +30,7 @@ export class TurmasService {
     return this.http.post<string[]>(`${this.taURL}/${turma}/metas`, {metas: metasDiscrepantes}, {headers: this.headers})
     .pipe(
       retry(2),
-      map(res =>{ return res.metas
+      map(res =>{ return res//.metas
       })
     );
   }
