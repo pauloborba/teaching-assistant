@@ -61,6 +61,16 @@ taserver.put('/roteiro', function (req: express.Request, res: express.Response) 
   }
 })
 
+taserver.delete('/roteiro/:descricao', function (req: express.Request, res: express.Response) {
+  var descricao: string = <string> req.params.descricao;
+  descricao = cadastroRoteiro.removerRoteiro(descricao);
+  if (descricao) {
+    res.send({"success": "O roteiro foi removido com sucesso"});
+  } else {
+    res.send({"failure": "O roteiro não pode ser removido"});
+  }
+})
+
 var server = taserver.listen(3000, function () {
     console.log('Example app listening on port 3000!')
 })

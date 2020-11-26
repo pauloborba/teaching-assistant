@@ -24,6 +24,16 @@ export class CadastroDeRoteiros{
        roteiroNaoCadastrado(descricao: string): boolean {
          return !this.roteiros.find(a => a.descricao == descricao);
        }
-       removerRoteiro (descricao: String ): void{};
+
+       removerRoteiro (descricao: string): string{
+         var result: Roteiro = this.roteiros.find(a => a.descricao == descricao);
+         if(result){
+           var index = this.roteiros.indexOf(result);
+           this.roteiros.splice(index, 1);
+           return result;
+         } else {
+           return null;
+         }
+       }
 
 }

@@ -27,6 +27,12 @@ export class RoteiroService {
               map( res => {if (res.success) {return roteiro;} else {return null;}} ));
   }
 
+  deletar(descricao: string): Observable<{}> {
+  return this.http.delete(this.taURL + "/roteiro/" + descricao, {headers: this.headers})
+          .pipe();
+}
+
+
   getRoteiros(): Observable<Roteiro[]> {
     return this.http.get<Roteiro[]>(this.taURL + "/roteiros")
               .pipe(

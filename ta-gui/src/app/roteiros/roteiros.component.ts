@@ -49,7 +49,16 @@ export class RoteirosComponent implements OnInit {
         }
   }
 
-  deletarRoteiro(roteiro: Roteiro): void { }
+  deletarRoteiro(descricao: string): void {
+    this.roteiroService.deletar(descricao).subscribe(
+      ar => {
+        if (ar){
+          var index = this.roteiros.indexOf(ar);
+          this.roteiros.splice(index, 1);
+        } else  alert("Erro ao remover o roteiro");
+          }
+    );
+  }
 
   atualizarRoteiro(roteiro: Roteiro): void {
     this.roteiroService.atualizar(roteiro).subscribe(
