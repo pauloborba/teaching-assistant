@@ -8,6 +8,7 @@ var base_url = "http://localhost:3000/";
 
 let sameName = ((elem, name) => elem.element(by.name('nomelist')).getText().then(text => text === name));
 let sameStatus = ((elem, status) => elem.element(by.name('statusList')).getText().then(text => text === status));
+let sameColorStatus = ((elem, colorStatus) => elem.element(by.name('statusList')).getCssValue('background-color').then(color => color === colorStatus));
 
 let pAND = ((p,q) => p.then(a => q.then(b => a && b)))
 
@@ -52,6 +53,22 @@ defineSupportCode(function ({ Given, When, Then }) {
         var turma = element.all(by.name('alunoList'))
         
         await turma.filter(async elem => pAND(sameStatus(elem, status), sameName(elem, nome))).then
+                   (elems => {return expect(Promise.resolve(elems.length)).to.eventually.equal(1)}).catch(e =>
+                    expect(e).equal(null)
+                  );
+    });
+
+    Then(/^I can see "(.*)" with color status "(.*)" in the students list$/, async (nome, colorStatus) => {
+        var turma = element.all(by.name('alunoList'))
+        var backgroundColor: string = ''
+        if(colorStatus=="green"){
+            backgroundColor = 'rgb(0, 128, 0)'
+        } else if(colorStatus=="blue"){
+            backgroundColor = 'rgb(0, 0, 255)'
+        } else if(colorStatus=="orange"){
+            backgroundColor = 'rgb(255, 165, 0)'
+        }
+        await turma.filter(async elem => pAND(sameColorStatus(elem, backgroundColor), sameName(elem, nome))).then
                    (elems => {return expect(Promise.resolve(elems.length)).to.eventually.equal(1)}).catch(e =>
                     expect(e).equal(null)
                   );

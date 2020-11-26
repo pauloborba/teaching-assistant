@@ -18,22 +18,20 @@ Then I can see "Pablo" with status "concluido" in the students list
 Then I can see "Luciano" with status "nao iniciado" in the students list
 Then I can see "Brenner" with status "nao iniciado" in the students list
 
-# Scenario: Getting Class 1 with three different self-evaluation status
-# Given I am at the students page
-# Given I cannot see a class with id "1"
-# When I try to get a class with id "1"
-# Then I can see a class
-# Then I can see "Carlos Eduardo" with color status "green" in the students list
-# Then I can see "Carimbo da Silva" with color status "blue" in the students list
-# Then I can see "Macaule Cauque" with color status "orange" in the students list
+Scenario: Getting Class 1 with three different self-evaluation status
+Given I am at the students page
+When I try to get a class with id "ESS 2018.1"
+Then I can see a class with id "ESS 2018.1"
+Then I can see "Carlos Eduardo" with color status "green" in the students list
+Then I can see "Carimbo da Silva" with color status "blue" in the students list
+Then I can see "Macaule Cauque" with color status "orange" in the students list
 
 
 
-# Scenario: Getting Class 1 with three different self-evaluation status
-# Given I am at the students page
-# Given I cannot see a class with id "2"
-# When I try to get a class with id "2"
-# Then I can see a class
-# Then I can see "Pablo" with color status "green" in the students list
-# Then I can see "Luciano" with color status "orange" in the students list
-# Then I can see "Brenner" with color status "orange" in the students list
+Scenario: Getting Class 2 with three different self-evaluation status
+Given I am at the students page
+When I try to get a class with id "ESS 2018.2"
+Then I can see a class with id "ESS 2018.2"
+Then I can see "Pablo" with color status "green" in the students list
+Then I can see "Luciano" with color status "orange" in the students list
+Then I can see "Brenner" with color status "orange" in the students list
