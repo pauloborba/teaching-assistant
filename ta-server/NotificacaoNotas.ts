@@ -5,37 +5,48 @@ import { Matricula } from '../common/matricula'
 export class NotificacaoNotas {
   emailSender: EmailSender = new EmailSender();
 
-  enviarNotificação(turma: Turma): boolean {
+  enviarNotificação(turma: Turma): string {
     var porcentagensDeConceitoDasMetasMap: Map<String, Map<string, number>> = this.gerarPercentsDeMetas(turma);
-    var porcentagensTextMap : Map<String,String> = this.porcentagensDeConceitosText(porcentagensDeConceitoDasMetasMap, turma);
+    var porcentagensTextMap: Map<String, String> = this.porcentagensDeConceitosText(porcentagensDeConceitoDasMetasMap, turma);
     var mediaTurma: number = turma.getMedia();
     for (let matricula of turma.matriculas) {
-      var texto: string = this.conceitosDasMetasDoAluno(matricula) + this.ressaltarDiferencas(matricula, porcentagensDeConceitoDasMetasMap);
-      
+      var texto: string = /*this.conceitosDasMetasDoAluno(matricula) +*/ this.ressaltarDiferencasMetas(matricula, porcentagensTextMap) + 
+      this.ressaltarDiferencaMedia(matricula,mediaTurma);
 
-
-      return this.emailSender.enviarEmail(matricula.aluno.email, "", texto);
+      console.log("Enviando email para : " + matricula.aluno.email )
+      if(this.emailSender.enviarEmail(matricula.aluno.email, "", texto) == false){
+        return null;
+      }
     }
+    return "Turma notificada!";
   }
 
-  ressaltarDiferencas(matricula: Matricula, porcentagensDeConceitoDasMetas: Map<String, Map<string, number>>): string {
-    var texto:string = "" ;
+  ressaltarDiferencasMetas(matricula: Matricula, porcentagensTextMap: Map<String, String>): string {
+    var texto: string = "";
     for (let aval of matricula.avaliacoes) {
-      
+      texto =
+        "Para a meta: " + aval.meta +
+        "Você: " + aval.nota +
+        "\n Turma: " + porcentagensTextMap.get(aval.meta);
     }
-    return ""
+    return texto;
   }
-  porcentagensDeConceitosText(porcentagens: Map<String,Map<string,number>>, turma:Turma): Map<String,String>{
-    var metaPorcentagensMap: Map<String,String>
-    for(let meta of turma.metas){
-      
-      let percentsText: String = 
-       "MA - " + porcentagens.get(meta).get("MA") + ", "
-        + "MPA - " + porcentagens.get(meta).get("MPA") + ", "
-        +  "MANA : " + porcentagens.get(meta).get("MA") + "\n \n"
-        metaPorcentagensMap.set(meta,percentsText);
+  ressaltarDiferencaMedia(matricula: Matricula, mediaTurma: number ){
+    var texto: string ="" ;
+    texto = "Sua média: " + matricula.getMedia() + " \n" + 
+    "Média da turma: " + mediaTurma;
+  }
+  porcentagensDeConceitosText(porcentagens: Map<String, Map<string, number>>, turma: Turma): Map<String, String> {
+    var metaPorcentagensMap: Map<String, String>
+    for (let meta of turma.metas) {
+
+      let percentsText: String =
+        "MA - " + porcentagens.get(meta).get("MA") + ", " +
+        "MPA - " + porcentagens.get(meta).get("MPA") + ", " +
+        "MANA - " + porcentagens.get(meta).get("MA") + "\n \n"
+      metaPorcentagensMap.set(meta, percentsText);
     }
-return null;
+    return null;
   }
 
   gerarPercentsDeMetas(turma: Turma): Map<String, Map<string, number>> {
@@ -52,7 +63,7 @@ return null;
 
   //Texto que diz qual conceito o aluno tirou em cada meta {{stub}}
   conceitosDasMetasDoAluno(matricula: Matricula): string {
-    
+
     return "";
   }
 
