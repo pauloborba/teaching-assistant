@@ -4,11 +4,11 @@
 }
 
 .iniciadoMasNaoConcluido{
-    background-color: rgb(0, 18, 175);
+    background-color: blue;
     color: white;
 }
 
 .naoIniciado{
-    background-color: rgb(255, 166, 0);
+    background-color: orange;
 }
 

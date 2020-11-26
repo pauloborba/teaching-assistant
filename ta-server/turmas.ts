@@ -23,7 +23,7 @@ export class Turmas {
     }
     //tenho que usar o get turmas e procurar a turma
     getTurma(descricao: string): Turma {
-        if (descricao == "1") {
+        if (descricao == "ESS 2018.1") {
             var turma = new Turma()
             turma.descricao = "ESS 2018.1"
             //crio as matrículas
@@ -89,7 +89,7 @@ export class Turmas {
             turma.matriculas.push(matricula2);
             turma.matriculas.push(matricula3);
             return turma
-        } else if(descricao == "2") {
+        } else if(descricao == "ESS 2018.2") {
             var turma = new Turma()
             turma.descricao = "ESS 2018.2"
             //crio as matrículas

@@ -1,18 +1,18 @@
 <h3>Turma:</h3>
-<input class= "input"[(ngModel)]="nomeTurma"> 
-<button (click)="carregarMatriculas()">Ok</button>
-
+<input class= "input"[(ngModel)]="nomeTurma" name="turmabox"> 
+<button (click)="carregarMatriculas()" id="carregarMatricula">Ok</button>
+<h3 name="descricaoTurma">{{turma.descricao}}</h3>
 <table>
-     <tr *ngIf="matriculas.length > 0">
+     <tr *ngIf="matriculas.length > 0" name="turma">
         <th>Nome</th>
         <th>CPF</th>
         <th>e-mail</th>
         <th>Status de Auto Avaliacao</th>
      </tr>
-     <tr *ngFor="let a of matriculas;">
-        <td>{{a.aluno.nome}}</td>
-        <td>{{a.aluno.cpf}}</td>
+     <tr *ngFor="let a of matriculas;" name="alunoList">
+        <td name="nomelist">{{a.aluno.nome}}</td>
+        <td name="cpflist">{{a.aluno.cpf}}</td>
         <td>{{a.aluno.email}}</td>
-        <td [ngClass] = "corDoBloco(a)">{{statusDeAutoAvaliacao(a)}}</td>
+        <td [ngClass] = "corDoBloco(a)" name="statusList">{{statusDeAutoAvaliacao(a)}}</td>
      </tr>
 </table>
