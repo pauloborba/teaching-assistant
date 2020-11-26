@@ -25,7 +25,7 @@ describe('Turmas:', () => {
         });
 
         it('retorna um resumo para cada descrição de turma', () => {
-            expect(resumos.length === descricoes.length);
+            expect(resumos.length).toBe(descricoes.length);
             resumos.forEach(resumo => {
                 const descricao = descricoes.find(descricao => descricao === resumo.descricao);
                 expect(descricao).toBeTruthy();
