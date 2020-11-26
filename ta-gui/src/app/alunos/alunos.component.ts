@@ -15,7 +15,6 @@ export class AlunosComponent implements OnInit {
   matriculas: Matricula[] = []
   header: String[] = []
   metas: String[] = []
-  clickedBtm = false
 
   constructor(private alunoService: AlunoService) { }
 
@@ -34,13 +33,9 @@ export class AlunosComponent implements OnInit {
         this.turma = new Turma()
         this.turma.descricao = a.descricao
         this.matriculas = a.matriculas
-        console.log(this.matriculas)
       },
       (msg) => { alert(msg.message); }
     )
-    
-    this.header = ["Nome", "CPF", "Email", "Status de Auto-Avaliação"]
-    this.clickedBtm = true
 
   }
 

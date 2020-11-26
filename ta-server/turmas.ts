@@ -23,9 +23,9 @@ export class Turmas {
     }
     //tenho que usar o get turmas e procurar a turma
     getTurma(descricao: string): Turma {
-        if (descricao == "ESS 2018.1") {
+        if (descricao == "ESS 2020.1") {
             var turma = new Turma()
-            turma.descricao = "ESS 2018.1"
+            turma.descricao = "ESS 2020.1"
             //crio as matrículas
             var matricula1 = new Matricula();
             var matricula2 = new Matricula();
@@ -89,9 +89,9 @@ export class Turmas {
             turma.matriculas.push(matricula2);
             turma.matriculas.push(matricula3);
             return turma
-        } else if(descricao == "ESS 2018.2") {
+        } else if(descricao == "ESS 2020.3") {
             var turma = new Turma()
-            turma.descricao = "ESS 2018.2"
+            turma.descricao = "ESS 2020.3"
             //crio as matrículas
             var matricula1 = new Matricula();
             var matricula2 = new Matricula();
