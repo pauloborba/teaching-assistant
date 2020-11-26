@@ -31,10 +31,11 @@ export class NotificacaoNotas {
     }
     return texto;
   }
-  ressaltarDiferencaMedia(matricula: Matricula, mediaTurma: number ){
+  ressaltarDiferencaMedia(matricula: Matricula, mediaTurma: number ) : string{
     var texto: string ="" ;
     texto = "Sua média: " + matricula.getMedia() + " \n" + 
     "Média da turma: " + mediaTurma;
+    return texto;
   }
   porcentagensDeConceitosText(porcentagens: Map<String, Map<string, number>>, turma: Turma): Map<String, String> {
     var metaPorcentagensMap: Map<String, String>
