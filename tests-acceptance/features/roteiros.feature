@@ -21,6 +21,7 @@
       And Eu vejo o roteiro “Roteiro de requisitos” na lista de roteiros
       When Eu tento adicionar um roteiro de nome “Roteiro de requisitos”
       Then Eu vejo um único roteiro “Roteiro de requisitos” na lista de roteiros
+      And Eu vejo uma mensagem de erro
 
     Scenario: Remover um roteiro existente
       Given Eu estou na página roteiros
