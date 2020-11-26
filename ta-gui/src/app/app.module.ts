@@ -14,6 +14,9 @@ import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
 import { AdicionarTurmaComponent } from './turmas/adicionar-turma/adicionar-turma.component';
 import { EditarTurmaComponent } from './turmas/editar-turma/editar-turma.component';
+import { AdicionarTurmaService } from './turmas/adicionar-turma/adicionar-turma.service';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,7 @@ import { EditarTurmaComponent } from './turmas/editar-turma/editar-turma.compone
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([{
 
       path: 'metas',
@@ -64,7 +68,7 @@ import { EditarTurmaComponent } from './turmas/editar-turma/editar-turma.compone
     
   ])
   ],
-  providers: [],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

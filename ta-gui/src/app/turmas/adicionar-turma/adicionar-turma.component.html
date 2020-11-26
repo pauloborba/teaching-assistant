@@ -8,6 +8,7 @@
 <table id="turmas">
         <tr>
             <th>Descrição</th>
+            <th>Teste</th>
             <th>Metas</th>
             <th>Matriculas</th>
             <th>Roteiro</th>
@@ -15,12 +16,13 @@
             <th>Quantidade Matriculas</th>
         </tr>
         <tr>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
+            <td><input type="text" [(ngModel)]="descricao"></td>
+            <td><input type="text">{{descricao2}}</td>
+            <td><input type="text" [(ngModel)]="metas"></td>
+            <td><input type="text" [(ngModel)]="matriculas"></td>
+            <td><input type="text" [(ngModel)]="roteiro"></td>
+            <td><input type="text" [(ngModel)]="monitores"></td>
+            <td><input type="text" [(ngModel)]="numeroMatriculas"></td>
         </tr>
     
 </table>
