@@ -16,7 +16,6 @@ export class RoteirosComponent implements OnInit {
   roteiro: Roteiro = new Roteiro();
   roteiros: Roteiro[] = [];
   bloco: BlocoDeQuestoes = new BlocoDeQuestoes();
-  questao: Questao = new Questao();
   roteiroJaExiste: boolean = false;
   altBloco: boolean = false;
   altQuestao: boolean = false;
@@ -102,13 +101,11 @@ export class RoteirosComponent implements OnInit {
     this.altBloco = !this.altBloco;
   }
 
-  adicionarQuestao(roteiro: Roteiro, bloco: BlocoDeQuestoes, questao: Questao): void{
-    if(this.semDescricao(questao.pergunta)) return alert("Não foi escolhido uma pergunta para a questão");
-    else{
-      bloco.questoes.push(questao);
-      this.atualizarRoteiro(roteiro);
-      this.questao = new Questao();
-    }
+  adicionarQuestao(roteiro: Roteiro, bloco: BlocoDeQuestoes): void{
+    var questao = new Questao();
+    questao.pergunta = (bloco.questoes.length + 1).toString();
+    bloco.questoes.push(questao);
+    this.atualizarRoteiro(roteiro);
   }
 
   removerQuestao(roteiro: Roteiro, bloco: BlocoDeQuestoes, questao: Questao) : void{

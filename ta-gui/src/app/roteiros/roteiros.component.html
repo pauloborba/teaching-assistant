@@ -41,24 +41,12 @@
                       </tr>
                     </table>
                 </td>
-                <td>
-                    <table>
-                      <tr>
-                        <td><label>Pergunta </label></td>
-                        <td><input [(ngModel)]="questao.pergunta"></td>
-                        <td><button type="button" name="button" (click)="adicionarQuestao(a, b, questao)">Adicionar questao</button></td>
-                      </tr>
-                      <tr>
-                        <td><label>Dica </label></td>
-                        <td><input [(ngModel)]="questao.dica"></td>
-                      </tr>
-                    </table>
-                  </td>
                   <td><select *ngIf="altBloco" [(ngModel)]="b.tipo" size="1">
                     <option value="Sequencial">Sequencial</option>
                     <option value="Paralelo">Paralelo</option>
                   </select></td>
                   <td *ngIf="altBloco" ><button (click)= "atualizarBloco(a)">Att</button></td>
+                  <td><button (click)="adicionarQuestao(a, b)">Adicionar questao</button></td>
                   <td><button (click) = alterarBloco()>Alterar bloco</button></td>
                   <td><button (click) = "removerBloco(a, b)">Remover bloco</button></td>
             </tr>
