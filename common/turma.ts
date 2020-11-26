@@ -57,7 +57,7 @@ export class Turma {
 
         //Criando atributos para alunos
         let cpfList = ["123", "456", "789", "135"]
-        let nomeList = ["João", "Laís", "Gabi", "Erick"]
+        let nomeList = ["João", "Lais", "Gabi", "Erick"]
         let emailList = ["jcp@cin", "lpm@cin", "gcb@cin", "eoc@cin"]
 
         //Criando alunos
