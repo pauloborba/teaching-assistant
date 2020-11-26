@@ -13,8 +13,11 @@
 <ul *ngFor="let a of roteiros">
     <li>
         <h3 name="roteirolist" >{{a.descricao}}</h3>
+        <select [(ngModel)]="descricaoTurma">
+          <option *ngFor="let turma of stubTurmas.getTurmas()" value = "{{turma}}">{{turma}}</option>
+        </select>
+        <button (click) = "cadastroNaTurma(descricaoTurma, a)">Cadastrar</button>
         <h4>Cadastrar roteiro na turma </h4>
-
         <h4>Blocos de questões</h4>
         <table>
             <tr *ngIf="a.blocos.length > 0">
@@ -69,6 +72,6 @@
             </tr>
         </table>
     </li>
-    <li><button (click)="deletarRoteiro(a)">Deletar</button></li>
+    <li><button (click)="deletarRoteiro(a.descricao)">Deletar</button></li>
 </ul>
 </html>

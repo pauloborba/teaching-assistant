@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Roteiro } from '../../../../ta-server/roteiro';
+import { Roteiro } from '../../../../common/roteiro';
 import { BlocoDeQuestoes } from '../../../../ta-server/blocodequestoes';
 import { Questao } from '../../../../ta-server/questao';
 import { RoteiroService } from './roteiro.service';
+import { StubTurmas } from './stubTurmas';
+
 
 @Component({
   selector: 'app-roteiros',
@@ -18,8 +20,15 @@ export class RoteirosComponent implements OnInit {
   roteiroJaExiste: boolean = false;
   altBloco: boolean = false;
   altQuestao: boolean = false;
+  descricaoTurma: string;
+  stubTurmas: StubTurmas = new StubTurmas();
 
   constructor(private roteiroService: RoteiroService) {}
+
+  cadastroNaTurma(descricao: string, roteiro: Roteiro): void {
+    this.stubTurmas.cadastroRoteiro(descricao, roteiro);
+    console.log(this.stubTurmas.getTurma(descricao).getRoteiros());
+  }
 
   ngOnInit() {
     this.roteiroService.getRoteiros().subscribe( as => { this.roteiros = as;}, msg => { alert(msg.message); });
@@ -54,7 +63,8 @@ export class RoteirosComponent implements OnInit {
     this.roteiroService.deletar(descricao).subscribe(
       ar => {
         if (ar){
-          var index = this.roteiros.indexOf(ar);
+          var result: Roteiro = this.roteiros.find(a => a.descricao == descricao);
+          var index = this.roteiros.indexOf(result);
           this.roteiros.splice(index, 1);
         } else  alert("Erro ao remover o roteiro");
           }
