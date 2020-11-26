@@ -12,7 +12,7 @@
             <th>e-mail</th>
             <th>Média</th>
         </tr>
-        <tr *ngFor="let a of alunos" [style.background-color]="a.color">
+        <tr name="alunolist" *ngFor="let a of alunos" [style.background-color]="a.color">
             <td>{{a.nome}}</td>
             <td name="cpflist">{{a.cpf}}</td>
             <td>{{a.email}}</td>
