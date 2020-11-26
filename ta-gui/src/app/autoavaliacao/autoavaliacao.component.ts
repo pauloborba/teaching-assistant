@@ -132,7 +132,7 @@ export class AutoavaliacaoComponent implements OnInit {
 
   atualizarAutoavaliacao(cpf: string, descricaoTurma: string, autoavaliacoes: Avaliacao[]): void {
     this.aaService.atualizar(cpf, descricaoTurma, autoavaliacoes).subscribe(
-      (a) => { if (a == null){ alert("Erro ao tentar atualizar auto-avaliação! Por favor, contate os administradores do sistema.");} else{console.log('test',a );}  },
+      (a) => { if (a == null){ alert("Erro ao tentar atualizar auto-avaliação! Por favor, contate os administradores do sistema.");} else{alert(a)}  },
       (msg) => { alert(msg.message); }
    );
   }

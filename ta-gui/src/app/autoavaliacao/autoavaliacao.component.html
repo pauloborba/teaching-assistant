@@ -1,6 +1,6 @@
 <table>
     <tr>
-      <td><button (click)="setShowContent()" class="botoes-menu">Cadastrar</button></td>
+      <td name="cadastrar"><button (click)="setShowContent()" class="botoes-menu">Cadastrar</button></td>
       <td><button (click)="notificarAutoAvaliacao(matricula)" class="botoes-menu">Notificar</button></td>
       <td><button routerLink="/discrepantes" class="botoes-menu" >Discrepantes</button></td>
       
@@ -21,7 +21,7 @@
           <p *ngIf="turmaObrigatorio" class="mensagem-de-erro">*Campo obrigatório</p>
         </div>
         <div class="container">
-          <button (click)="preencherAutoavaliacao(cpf,descricaoTurma); setShowGrades(cpf,descricaoTurma)" class="submit-button">Preencher auto avaliação</button>
+          <button (click)="preencherAutoavaliacao(cpf,descricaoTurma); setShowGrades(cpf,descricaoTurma)" class="submit-button" name="preencher-autoavaliacao">Preencher auto avaliação</button>
         </div>
       </td>
     </tr> 
@@ -41,10 +41,10 @@
       <h2>Auto Avaliações</h2>
       <table>
         <tr>
-          <th *ngFor="let a of autoavaliacoes" class="header data">{{a.meta}}</th>
+          <th *ngFor="let a of autoavaliacoes" class="header data" name="metaslist">{{a.meta}}</th>
         </tr>
         <tr>
-          <td *ngFor="let a of autoavaliacoes let in=index" lass="data" class="nota avaliacao-container data"><input [(ngModel)]="autoavaliacoes[in].nota" (change)="atualizarAutoavaliacao(cpf, descricaoTurma, autoavaliacoes)" class="input-table" align="center"></td>
+          <td *ngFor="let a of autoavaliacoes let in=index" lass="data" class="nota avaliacao-container data" name="notaslist" id="{{autoavaliacoes[in].meta}}"><input [(ngModel)]="autoavaliacoes[in].nota" (change)="atualizarAutoavaliacao(cpf, descricaoTurma, autoavaliacoes)" class="input-table" align="center" id="{{autoavaliacoes[in].meta}}"></td>
         </tr>
       </table>
   </div>

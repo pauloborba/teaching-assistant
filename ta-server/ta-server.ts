@@ -28,7 +28,7 @@ aluno2.email = 'eunice@';
 
 let autoavaliacao1 = new Avaliacao();
 autoavaliacao1.meta = 'entender requisitos';
-autoavaliacao1.nota = 'MANA';
+autoavaliacao1.nota = '';
 
 let autoavaliacao2 = new Avaliacao();
 autoavaliacao2.meta = 'gerencia de configuração';

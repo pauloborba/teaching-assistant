@@ -4,13 +4,18 @@ Feature: As a estudante usuário do sistema teaching assistant
 
 
 Scenario: adicionar novas notas de auto-avaliação
-    Given eu estou na página de "auto-avaliacao"
-	And eu logo no sistema com CPF "123" e turma "ESS"
-	And eu vejo que não possuo nota para a meta de "entender requisitos"
-	When eu seleciono para preencher as auto-avaliações
-	And eu preencho nota "7" para a meta "entender requisitos"
-    # And eu preencho nota “6” para a meta “elicitar requisitos”
-	# And eu preencho nota “8” para a meta “refatorar código com qualidade”
-	# And eu seleciono para armazenar as notas
-	Then eu posso ver uma mensagem  de confirmação de armazenamento dos dados 
-	And eu posso ver que possuo nota "7" para a meta de "entender requistos"
+    Given eu estou na página de auto-avaliacao
+    Given eu busco no sistema por CPF "123" e turma "ESS"
+    Given eu vejo que não possuo nota para a meta de "entender requisitos"
+    When eu preencho nota "7" para a meta "entender requisitos"
+    Then eu posso ver um alerta de confirmação de armazenamento dos dados 
+    Then eu posso ver que possuo nota "7" para a meta de "entender requistos"
+
+
+
+Scenario: adicionar novos conceitos de auto-avaliação
+	Given o sistema não possui nenhuma nota de auto-avaliação na meta "entender requisitos" para o aluno com CPF "123" na turma "ESS"
+    When eu adiciono a nota "7" a meta "entender requisitos" ao aluno com CPF "123" na turma "ESS"
+	Then a nota "7" para a meta "entender requisitos" do aluno com CPF "123" na turma "ESS" é salvo no sistema
+    # And a nota do aluno com CPF "123" na turma "ESS" agora é “7” para a meta “entender requisitos”
+
