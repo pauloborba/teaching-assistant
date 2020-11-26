@@ -17,6 +17,7 @@ export class RoteirosComponent implements OnInit {
   questao: Questao = new Questao();
   roteiroJaExiste: boolean = false;
   altBloco: boolean = false;
+  altQuestao: boolean = false;
 
   constructor(private roteiroService: RoteiroService) {}
 
