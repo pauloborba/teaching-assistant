@@ -22,10 +22,11 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     Then(/^Eu vejo a linha da cor do aluno com CPF "(\d*)" na cor "([^\"]*)"$/, async (cpf, cor) => {
         var allcpfs: ElementArrayFinder = element.all(by.name('cpflist'));
-        var samecpfs = allcpfs.filter(elem => {
-            elem.getText().then(text => text === cpf) && elem.getCssValue('background-color').then(color => color === '#FFFFFF')
-        });
+        var samecpfs = allcpfs.filter(elem => elem.getText().then(text => text === cpf));
         await samecpfs.then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
+        // await samecpfs.then(elems => expect(elems[0].getCssValue('background-color').then(color => color === 'white')));
+        var samecolor = samecpfs.filter(elem => elem.getCssValue('background-color').then(color => color === cor));
+        await samecolor.then(elems => expect(Promise.resolve(elems.length)).to.eventually.equal(1));
         // await expect(samecpfs.getCssValue('background-color')).to.eventually.equal('white');
         // await samecpfs.then(elems => Promise.resolve(elems.length));
         // await samecpfs.then(elems => expect(Promise.resolve(elems.length)).toBe('white'));
