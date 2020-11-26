@@ -4,9 +4,10 @@ import { Observable } from 'rxjs';
 import { retry, map } from 'rxjs/operators';
 
 import { Turma } from '../../../../common/turma';
+import { Aluno } from '../../../../common/aluno';
 
 @Injectable()
-export class AlunoService {
+export class MetasService {
 
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   private taURL = 'http://localhost:3000';
@@ -27,5 +28,20 @@ export class AlunoService {
                  retry(2)
                );
   }
+
+  getAlunos(): Observable<Aluno[]> {
+    return this.http.get<Aluno[]>(this.taURL + "/metasalunos")
+      .pipe(
+        retry(2)
+      );
+  }
+
+  getMediaTurma(): Observable<Number> {
+    return this.http.get<Number>(this.taURL + "/mediaturma")
+      .pipe(
+        retry(2)
+      );
+  }
+
 
 }

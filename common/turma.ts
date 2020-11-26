@@ -10,8 +10,15 @@ export class Turma {
     monitores: Aluno[] = [];
     numeroMatriculas: number = 0;
 
+    // Stub
+
     getNumMatriculas(): number {
-        return this.numeroMatriculas
+        let total = 0;
+        for (let i = 0; i < this.matriculas.length; i++) {
+            total++;
+        }
+        this.numeroMatriculas = total;
+        return this.numeroMatriculas;
     }
 
     getNumAprovados(): number {
@@ -23,10 +30,24 @@ export class Turma {
     }
 
     getMedia(): number {
-        return 0;
+        let soma = 0.0;
+        let total = 0;
+
+        for (let i = 0; i < this.matriculas.length; i++) {
+            soma = soma + Number(this.matriculas[i].getMediaGeral());
+            total = total + 1;
+        }
+
+        return (soma/total);
     }
 
     getMatricula(cpf: string): Matricula {
+        
+        for (let i = 0; i < this.matriculas.length; i++) {
+            if (this.matriculas[i].aluno.cpf == cpf) {
+                return this.matriculas[i];
+            }
+        }
         return null;
     }
 

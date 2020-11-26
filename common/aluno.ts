@@ -2,6 +2,7 @@ export class Aluno {
     nome: String;
     cpf: String;
     email: String;
+    matriculas: String[] = [];
 
     getNome(): String {
         return this.nome
@@ -13,5 +14,8 @@ export class Aluno {
 
     getEmail(): String {
         return this.email
+    }
+    getMatriculas(): String[] {
+        return this.matriculas;
     }
 }

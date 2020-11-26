@@ -3,12 +3,14 @@ import bodyParser = require("body-parser");
 
 import {Aluno} from '../common/aluno';
 import {CadastroDeAlunos} from './cadastrodealunos'; 
-import {Turmas} from './turmas'
+// import {Turmas} from './turmas'
+import { Turma } from '../common/turma';
 import {Matricula} from '../common/matricula'
 
 var taserver = express();
 
 var cadastro: CadastroDeAlunos = new CadastroDeAlunos();
+var turma: Turma = new Turma();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -20,8 +22,16 @@ taserver.use(allowCrossDomain);
 
 taserver.use(bodyParser.json());
 
-taserver.get('/alunos', function (req: express.Request, res: express.Response) {
+taserver.get('/', function (req: express.Request, res: express.Response) {
+    res.send("Servidor online");
+})
 
+taserver.get('/alunos', function (req: express.Request, res: express.Response) {
+    res.send(JSON.stringify(cadastro.getAlunos()));
+})
+
+taserver.get('/metasalunos', function (req: express.Request, res: express.Response) {
+    res.send(JSON.stringify(cadastro.getMetasAlunos()));
 })
 
 //recebe um identificador de turma e retorna a mesma
