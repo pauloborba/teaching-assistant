@@ -67,7 +67,7 @@ export class Turma {
             alunosList[i].cpf = cpfList[i]
             alunosList[i].nome = nomeList[i]
             alunosList[i].email = emailList[i]
-            //console.log(alunosList[i])
+           
         } 
 
         //Array de matriculas que será retornado e sua inicialização e atribuicao de aluno
@@ -75,7 +75,7 @@ export class Turma {
         for(let i=0; i<4; i++){
             res.push(new Matricula())
             res[i].aluno = alunosList[i]
-            //console.log(res[i])
+           
         }
 
         //Criando atributos para Avaliacao
@@ -117,8 +117,6 @@ export class Turma {
             }
 
             //Aluno com discrepancia
-            console.log("RES[0]")
-            console.log(res[0])
 
             for(let i=0; i<3; i++){
                 res[0].avaliacoes.push(new Avaliacao())
@@ -130,17 +128,12 @@ export class Turma {
              } 
 
             
-            //res[0].autoAvaliacoes[0].nota = "MA"
-            console.log("MATRICULA RETORNADA")
-            console.log(res)
             return res
 
         //Cenário com autoavaliação não realizada por 1 aluno e com 1 aluno com discrepância
         }else if(this.descricao=="ESS 2019.1"){
-            console.log("ESNTROU EM ELSE IF DE TURMA ESS 2019.1")
             for(let i=2; i<res.length; i++){
                 for(let j=0; j<avaliacoes.length; j++){
-                    console.log("numdeuerro")
                     res[i].avaliacoes = avaliacoes
                     res[i].avaliacoes[j].nota = "MA"
                     res[i].autoAvaliacoes = autoavaliacoes
@@ -154,7 +147,6 @@ export class Turma {
                 res[1].avaliacoes.push(new Avaliacao())
                 res[1].avaliacoes[i].meta = metasList[i%3]
                 res[1].avaliacoes[i].nota = "MPA"
-                console.log("numdeuuu")
              } 
 
             //Aluno com discrepancia

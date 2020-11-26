@@ -14,7 +14,6 @@ export class DiscrepantesService {
   constructor(private http: HttpClient) {}
 
   getTurma(descricao: string): Observable<Turma> {
-    console.log("chegou no get do service")
     return this.http.get<Turma>(this.taURL + `/turma/${descricao}`)
               .pipe(
                   retry(2)

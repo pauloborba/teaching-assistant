@@ -33,7 +33,6 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response){
 taserver.get('/turma/:descricao', function (req: express.Request, res: express.Response){
     let turma = turmas.getTurma(req.params.descricao)
     res.send(turma)
-    //res.send(JSON.stringify(cadastro.getAlunos()));
 })
 
 //recebe um identificador de turma e de aluno e retorna uma matricula

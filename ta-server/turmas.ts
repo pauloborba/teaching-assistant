@@ -23,13 +23,10 @@ export class Turmas {
     }
 
     getTurma(descricao: string): Turma{
-        console.log("GETTURMA")
-        //console.log(descricao)
         if(descricao=="ESS 2018.1"){
             var turma = new Turma()
             turma.descricao = "ESS 2018.1"
             turma.metas = ["Requisitos", "Gerência de Configuração", "Testes"]
-            console.log(turma.descricao)
             return turma
     
         }else if (descricao=="ESS 2018.2"){
@@ -39,7 +36,6 @@ export class Turmas {
             return turma
 
         }else if(descricao=="ESS 2019.1"){
-            console.log("ENTROU EM GETTURMA DE ESS 2019.1")
             var turma = new Turma()
             turma.descricao = "ESS 2019.1"
             turma.metas = ["Requisitos", "Gerência de Configuração", "Testes"]
