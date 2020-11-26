@@ -5,7 +5,7 @@
 
 <table>
     <tr>
-       <th *ngFor="let a of header; let x = index">{{header[x]}}</th>
+       <th *ngFor="let a of cabecalho; let x = index">{{cabecalho[x]}}</th>
        <th name="meta" class= "biggerTh" *ngFor="let a of metas; let x = index">{{metas[x]}} </th>
     </tr>
 
@@ -18,7 +18,7 @@
          <table>
             <tr>
              <td id={{a.getAluno().getCpf()}} name="avaliacao">Avaliação: {{nota(true, a, meta)}}</td>
-             <td name="auto-avaliacao">Autoavaliação: {{nota(false, a, meta)}}</td> 
+             <td  id={{a.getAluno().getCpf()}} name="auto-avaliacao">Autoavaliação: {{nota(false, a, meta)}}</td> 
             </tr>
           
          </table>
@@ -26,14 +26,15 @@
      </tr>
 </table>
 
-<table class="painel" *ngIf= "clickedBtm" >
+<table class="painel" *ngIf= "clicouNoBotao" >
    <tr>
       <th class="painel-th">Autoavaliações discrepantes</th>
       <th class="painel-th"> Porcentagem de Autoavaliações discrepantes</th>
    </tr>
 
    <tr>
-      <td>{{totalDiscrepantes}}</td>
-      <td>{{porcentagemDiscrepantes}}%</td>
+      <td name= "totalDiscrepantes" >{{totalDiscrepantes}}</td>
+      <td  name= "porcentagemDiscrepantes">{{porcentagemDiscrepantes}}%</td>
+      
    </tr>
 </table>
