@@ -77,7 +77,6 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response){
 //recebe um endereço de email e envia a notificação para fazer a auto-avaliação
 taserver.post('/notificar', function (req: express.Request, res: express.Response){
     let objectNotification = req.body;
-    console.log(objectNotification);
     let notificationSent: boolean;
     for (var i = 0; i < objectNotification.length; i++) {
         let to: string = objectNotification[i].email;
