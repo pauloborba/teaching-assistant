@@ -1,15 +1,15 @@
 <table>
     <tr>
         <td><label>Nome </label></td>
-        <td><input [(ngModel)]="roteiro.descricao" name="namebox"></td>
-        <td><button (click)="criarRoteiro(roteiro)">Adicionar</button></td>
+        <td><input [(ngModel)]="roteiro.descricao" name="descricaobox"></td>
+        <td><button (click)="criarRoteiro(roteiro)" name="addRoteiro">Adicionar</button></td>
     </tr>
 </table>
 
 <h2>Roteiros</h2>
-<ul *ngFor="let a of roteiros" name="roteirolist">
+<ul *ngFor="let a of roteiros">
     <li>
-        <h3>{{a.descricao}}</h3>
+        <h3 name="roteirolist" >{{a.descricao}}</h3>
         <h4>Cadastrar roteiro na turma </h4>
 
         <h4>Blocos de questões</h4>
@@ -19,7 +19,7 @@
                 <th>Questões</th>
             </tr>
             <tr *ngFor="let b of a.blocos">
-                <td>{{b.tipo}}</td>
+                <td name = "blocolist">{{b.tipo}}</td>
                 <td>
                     <ol *ngFor="let c of questoes">
                         <li>{{c.pergunta}}</li>
