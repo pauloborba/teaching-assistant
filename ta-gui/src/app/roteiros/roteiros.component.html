@@ -9,6 +9,7 @@
 </table>
 
 <h2>Roteiros</h2>
+<button *ngIf="!altQuestao" (click) = "alterarQuestao()">Alterar questoes</button>
 <ul *ngFor="let a of roteiros">
     <li>
         <h3 name="roteirolist" >{{a.descricao}}</h3>
@@ -31,19 +32,40 @@
                       <tr *ngFor="let c of b.questoes">
                           <td>{{c.pergunta}}</td>
                           <td>{{c.dica}}</td>
+                          <td *ngIf="altQuestao"><button (click) = "removerQuestao(a, b, c)">Remover questao</button></td>
+                          <td *ngIf="altQuestao"><input [(ngModel)]="c.pergunta"></td>
+                          <td *ngIf="altQuestao"><input [(ngModel)]="c.dica"></td>
                       </tr>
                     </table>
                 </td>
+                <td>
+                    <table>
+                      <tr>
+                        <td><label>Pergunta </label></td>
+                        <td><input [(ngModel)]="questao.pergunta"></td>
+                        <td><button type="button" name="button" (click)="adicionarQuestao(a, b, questao)">Adicionar questao</button></td>
+                      </tr>
+                      <tr>
+                        <td><label>Dica </label></td>
+                        <td><input [(ngModel)]="questao.dica"></td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td><select *ngIf="altBloco" [(ngModel)]="b.tipo" size="1">
+                    <option value="Sequencial">Sequencial</option>
+                    <option value="Paralelo">Paralelo</option>
+                  </select></td>
+                  <td *ngIf="altBloco" ><button (click)= "atualizarBloco(a)">Att</button></td>
+                  <td><button (click) = alterarBloco()>Alterar bloco</button></td>
+                  <td><button (click) = "removerBloco(a, b)">Remover bloco</button></td>
             </tr>
             <tr>
               <td><select name="selectBloco" [(ngModel)]="bloco.tipo" size="1">
                 <option value="Sequencial">Sequencial</option>
                 <option value="Paralelo">Paralelo</option>
               </select></td>
-              <td *ngIf="altBloco" ><button (click)= "atualizarBloco(a)">Atualizar bloco</button></td>
-              <td><button (click) = alterarBloco()>Alterar bloco</button></td>
-              <td><button (click) = "removerBloco(a, b)">Remover bloco</button></td>
               <td><button (click)="adicionarBloco(a, bloco)">Adicionar bloco</button></td>
+              <td *ngIf="altQuestao"><button (click) = "atualizarQuestao(a)">Confirmar</button></td>
             </tr>
         </table>
     </li>
