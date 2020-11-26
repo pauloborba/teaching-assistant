@@ -14,7 +14,7 @@
         </tr>
         <tr *ngFor="let a of alunos" [style.background-color]="a.color">
             <td>{{a.nome}}</td>
-            <td>{{a.cpf}}</td>
+            <td name="cpflist">{{a.cpf}}</td>
             <td>{{a.email}}</td>
             <td>{{a.media}}</td>
         </tr>
