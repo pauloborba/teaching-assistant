@@ -36,7 +36,7 @@ export class AlunosComponent implements OnInit {
         this.matriculas = a.matriculas
         console.log(this.matriculas)
       },
-      (msg) => { alert("msg.message"); }
+      (msg) => { alert(msg.message); }
     )
     
     this.header = ["Nome", "CPF", "Email", "Status de Auto-Avaliação"]
