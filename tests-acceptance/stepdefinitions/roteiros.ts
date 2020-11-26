@@ -45,18 +45,18 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     When(/^Eu tento adicionar um roteiro de nome “(.*)”$/, async (descricao) => {
         await $("input[name='descricaobox']").sendKeys(<string> descricao);
-        await element(by.buttonText('Adicionar')).click();
+        await element(by.name('addRoteiro')).click();
     });
 
     When(/^Eu tento registrar um bloco do tipo "(.*)"$/, async (tipo) => {
       var select = element(by.name('selectBloco'));
       if(tipo === "Sequencial") await select.$('[value="Sequencial"]').click();
       else await select.$('[value="Paralelo"]').click();
-      await element(by.buttonText('Adicionar bloco')).click();
+      await element(by.name('addBloco')).click();
     });
 
     When(/^Eu tento remover o roteiro “(.*)”$/, async (descricao) => {
-        await element(by.buttonText('Deletar')).click();
+        await element(by.name('delRoteiro')).click();
     });
 
     Then(/^Eu vejo o roteiro “(.*)” na lista de roteiros$/, async (descricao) => {

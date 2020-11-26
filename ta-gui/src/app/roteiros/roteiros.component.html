@@ -67,11 +67,11 @@
                 <option value="Sequencial">Sequencial</option>
                 <option value="Paralelo">Paralelo</option>
               </select></td>
-              <td><button (click)="adicionarBloco(a, bloco)">Adicionar bloco</button></td>
+              <td><button (click)="adicionarBloco(a, bloco)" name ="addBloco">Adicionar bloco</button></td>
               <td *ngIf="altQuestao"><button (click) = "atualizarQuestao(a)">Confirmar</button></td>
             </tr>
         </table>
     </li>
-    <li><button (click)="deletarRoteiro(a.descricao)">Deletar</button></li>
+    <li><button (click)="deletarRoteiro(a.descricao)" name="delRoteiro">Deletar</button></li>
 </ul>
 </html>
