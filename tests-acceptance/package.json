@@ -2,7 +2,7 @@
   "name": "testes-acceptance",
   "description": "Testes de aceitação do teaching assistant",
   "scripts": {
-    "tsc": "echo $TEST_ESS",
+    "tsc": "./node_modules/typescript/bin/tsc",
     "test": "npm run tsc && protractor compiledCode/config/config.js",
     "webdriver-update": "webdriver-manager update",
     "webdriver-start": "webdriver-manager start"
