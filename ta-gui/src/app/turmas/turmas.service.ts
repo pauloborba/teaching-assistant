@@ -11,7 +11,7 @@ export class TurmasService {
     private url = "http://localhost:3000/notificacaoResultadoFinal"
 
     notificar(turma: Turma): Observable<Turma> {
-        return this.http.post<Turma>(this.url + "/" + turma.descricao,turma);
+        return this.http.post<Turma>(this.url ,turma);
             
     
     }

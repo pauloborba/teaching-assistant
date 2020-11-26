@@ -35,16 +35,21 @@ taserver.get('/turmas', function (req: express.Request, res: express.Response) {
 taserver.get('/matriculas', function (req: express.Request, res: express.Response) {
 
 })
-taserver.post('/notificacaoResultadoFinal/:descricao', function (req: express.Request, res: express.Response) {
+taserver.post('/notificacaoResultadoFinal/', function (req: express.Request, res: express.Response) {
    
+    var  reqTurma:Turma = <Turma> req.body;
    var turma:Turma = new Turma();
-   turma.descricao = req.params.descricao;
+   turma.descricao = reqTurma.descricao;
     // turma.descricao= req.body.descricao
 
 
-    if (notificacao.enviarNotificação(turma))
+    if (notificacao.enviarNotificação(turma)){
         console.log("Notificou turma " + turma.descricao)
-        res.send(turma);
+        res.send(reqTurma);
+    }
+    else{ 
+        res.send("Faltam informações da turma!")
+    }
 
 
 

@@ -6,6 +6,9 @@ export class NotificacaoNotas {
   emailSender: EmailSender = new EmailSender();
 
   enviarNotificação(turma: Turma): string {
+    if(turma.descricao===undefined || turma.descricao===null || turma.descricao==="" ){
+      return null;
+    }
     var porcentagensDeConceitoDasMetasMap: Map<String, Map<string, number>> = this.gerarPercentsDeMetas(turma);
     var porcentagensTextMap: Map<String, String> = this.porcentagensDeConceitosText(porcentagensDeConceitoDasMetasMap, turma);
     var mediaTurma: number = turma.getMedia();

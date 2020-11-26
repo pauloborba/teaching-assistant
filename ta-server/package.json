@@ -4,7 +4,7 @@
   "description": "Servidor do teaching assistant",
   "main": "ta-server.js",
   "scripts": {
-    "test": "npm run tsc && jasmine --config=./spec/support/jasmine.json",
+    "test": "tsc && jasmine --config=./spec/support/jasmine.json",
     "tsc": "./node_modules/typescript/bin/tsc",
     "start": "tsc && node compiledCode/ta-server/ta-server.js"
   },
