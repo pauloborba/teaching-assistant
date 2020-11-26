@@ -1,6 +1,6 @@
 export class EmailSender {
   
-  enviarEmail(from: String, to: String, subject: String, message: String): boolean {
+  enviarEmail(from: string, to: string, subject: string, message: string): boolean {
     return true;
   }
 

@@ -3,42 +3,43 @@ import { Roteiro } from '../ta-server/roteiro';
 import { Aluno } from './aluno';
 
 export class Turma {
-    descricao: string = "";
-    metas: string[] = [];
-    matriculas: Matricula[] = [];
-    roteiros: Roteiro[] = [];
-    monitores: Aluno[] = [];
-    numeroMatriculas: number = 0;
+    descrição: string = ""
+    metas: string[] = []
+    matriculas: Matricula[] = []
+    roteiros: Roteiro[] = []
+    monitores: Aluno[] = []
+    numeroMatriculas: number = 0
+
 
     getNumMatriculas(): number {
         return this.numeroMatriculas
     }
 
-    getNumAprovados(): number {
-        return 0;
+    getNumAprovados(): number{
+        
     }
 
-    getNumReprovados(): number {
-        return 0;
+    getNumReprovados(): number{
+
     }
 
-    getMedia(): number {
-        return 0;
+    getMedia(): number{
+
     }
 
-    getMatricula(cpf: string): Matricula {
-        return null;
+    getMatricula(cpf:string): Matricula{ 
+
     }
 
-    getRoteiros(): Roteiro[] {
-        return [];
+    getRoteiros(): Roteiro[]{
+        
     }
-
+    
     getMonitores(): Aluno[] {
-        return [];
+
     }
 
-    getPercentual(meta: string, conceito: string): number {
-        return 0;
+    getPercentual(meta: string, conceito: string): number{
+
     }
 }
