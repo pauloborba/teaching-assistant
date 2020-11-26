@@ -17,5 +17,4 @@ Scenario: adicionar novos conceitos de auto-avaliação
 	Given o sistema não possui nenhuma nota de auto-avaliação na meta "entender requisitos" para o aluno com CPF "123" na turma "ESS"
     When eu adiciono a nota "7" a meta "entender requisitos" ao aluno com CPF "123" na turma "ESS"
 	Then a nota "7" para a meta "entender requisitos" do aluno com CPF "123" na turma "ESS" é salvo no sistema
-    # And a nota do aluno com CPF "123" na turma "ESS" agora é “7” para a meta “entender requisitos”
 

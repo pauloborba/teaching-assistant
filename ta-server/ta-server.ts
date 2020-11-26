@@ -133,7 +133,6 @@ taserver.put('/autoavalicoes/atualizar/', function (req: express.Request, res: e
     let autoavaliacoesenviadas = JSON.stringify(autoavaliacoes);
 
     if (atualizacao === autoavaliacoesenviadas) {
-      console.log('é igual');
       res.send({"success": "A autoavaliacao foi atualizada com sucesso"});
     } else {
       res.send({"failure": "A autoavaliacao não pode ser atualizada"});

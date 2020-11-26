@@ -83,7 +83,6 @@ export class AutoavaliacaoComponent implements OnInit {
      if(cpf && descricaoTurma){
        this.aaService.getMetas(descricaoTurma).subscribe(
          me => {
-           console.log('me', me);
            this.metas = me;
          },
          msg => { alert(msg.message) }
@@ -137,11 +136,5 @@ export class AutoavaliacaoComponent implements OnInit {
    );
   }
 
-  //  atualizarAutoavaliacao(matricula: Matricula, autoavaliacoes: Avaliacao[]): void {
-  //   this.aaService.atualizar(this.matricula, autoavaliacoes).subscribe(
-  //     (a) => { if (a == null){ alert("Erro ao tentar atualizar auto-avaliação! Por favor, contate os administradores do sistema.");} else{console.log('teste', a);}  },
-  //     (msg) => { alert(msg.message); }
-  //  );
-  // }
 	notificarAutoAvaliacao(matricula: Matricula): void { }
 }

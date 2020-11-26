@@ -11,7 +11,7 @@
       <td class="pesquisar-matricula">
         <div class="container">
           <p>CPF</p>
-          <td class="meta"><input [(ngModel)]="cpf" name="cpf" required class="input-form"></td>
+          <td class="meta"><input [(ngModel)]="cpf" name="cpf" required class="input-form" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"></td>
           <p *ngIf="cpfObrigatorio" class="mensagem-de-erro">*Campo obrigatório</p>
           <p *ngIf="matriculaNaoEncontrada" class="mensagem-de-erro">*Matricula não encontrada</p>
         </div>
