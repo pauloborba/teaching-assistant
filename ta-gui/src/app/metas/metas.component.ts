@@ -26,7 +26,6 @@ export class MetasComponent implements OnInit {
           alert(msg.message);
         }
       );
-    
   }
 
   atualizarAluno(aluno: Aluno): void {

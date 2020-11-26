@@ -10,6 +10,8 @@ export class Stub {
 
   criarStubAlunos() {
 
+    this.alunos = [];
+
     var aluno: Aluno = new Aluno();
 
     aluno.nome = 'João';
