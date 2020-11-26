@@ -13,6 +13,7 @@ export class RoteirosComponent implements OnInit {
   roteiro: Roteiro = new Roteiro();
   roteiros: Roteiro[] = [];
   bloco: BlocoDeQuestoes = new BlocoDeQuestoes();
+  roteiroJaExiste: boolean = false;
 
   constructor(private roteiroService: RoteiroService) {}
 
@@ -34,7 +35,7 @@ export class RoteirosComponent implements OnInit {
               if(ar){
                 this.roteiros.push(ar);
                 this.roteiro = new Roteiro();
-              }
+              } else this.roteiroJaExiste = true;
             },
             msg => { alert(msg.message); }
           );

@@ -3,6 +3,7 @@
         <td><label>Nome </label></td>
         <td><input [(ngModel)]="roteiro.descricao" name="descricaobox"></td>
         <td><button (click)="criarRoteiro(roteiro)" name="addRoteiro">Adicionar</button></td>
+        <td *ngIf="roteiroJaExiste">Roteiro já cadastrado</td>
     </tr>
 </table>
 
