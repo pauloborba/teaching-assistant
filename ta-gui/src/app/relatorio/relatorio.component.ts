@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Turma } from '../../../../common/turma';
 
+
 import { Observable } from 'rxjs';
 import { RelatorioService } from './relatorio.service';
 import { Roteiro } from '../../../../ta-server/roteiro';
@@ -15,28 +16,76 @@ import { Matricula } from '../../../../common/matricula';
   })
 export class RelatorioComponent implements OnInit{
 
+  turma: Turma;
+  roteiros: Roteiro[];
+  roteiro: Roteiro;
   media: Number;
   desvio: Number;
-  corr: Number;
-  
+  corr: String;
+
   constructor(private service: RelatorioService) {
    }
   
   ngOnInit() {
-    
     // @ts-ignore
-    this.turma = this.service.getTurma(descricao);
+    this.turma = this.service.getTurma('ess')
+    .subscribe(
+      (as) => {
+        this.turma = as;
+        this.media = this.getMedia(this.turma);
+        this.desvio = this.getDesvio(this.turma);
+      }
+    );
+
   }
 
-  getMedia(turma, roteiro): Number {
-    return 0
+  getMedia(turma: Turma): Number {
+    let matriculas = turma.matriculas;
+    let qtdMatriculas = matriculas.length
+    let somaDuracao = 0
+    let medias = []
+    let count = 0
+    let total = 0;
+
+    matriculas.forEach(matricula => {
+      somaDuracao = 0;
+      count = 0;
+      matricula.respostasDeRoteiros['respostasDeQuestoes'].forEach(questao => {
+        somaDuracao += questao.duracao;
+        count += 1;
+      });
+      medias.push(somaDuracao/count);
+      });
+
+    for(var i = 0; i < medias.length; i++) {
+        total += medias[i];
+    }
+    var media = total / medias.length;
+
+    return media
   }
 
-  getDesvio(turma, roteiro): Number {
-    return 0
-  }
+  getDesvio(turma: Turma): Number {
+    let matriculas = this.turma.matriculas;
+    let qtdMatriculas = matriculas.length;
+    let media = this.getMedia(turma);
+    let desvio = 0;
+    let count = 0
 
-  getCorr(turma, roteiro): Number {
+    matriculas.forEach(matricula => {
+      matricula.respostasDeRoteiros['respostasDeQuestoes'].forEach(questao => {
+        // @ts-ignore
+        desvio += Math.abs(questao.duracao - media);
+        count += 1;
+      })
+
+      })
+
+    return desvio/count
+
+    }
+
+  getCorr(turma): Number {
     return 0
   }
 
