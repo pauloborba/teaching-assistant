@@ -7,6 +7,7 @@ import { RelatorioService } from './relatorio.service';
 import { Roteiro } from '../../../../ta-server/roteiro';
 import { BlocoDeQuestoes } from '../../../../ta-server/blocodequestoes';
 import { Matricula } from '../../../../common/matricula';
+import { Statistics } from "statistics.js";
 
 @Component({
     selector: 'app-relatorio',
@@ -21,7 +22,7 @@ export class RelatorioComponent implements OnInit{
   roteiro: Roteiro;
   media: Number;
   desvio: Number;
-  corr: String;
+  corr: Number;
 
   constructor(private service: RelatorioService) {
    }
@@ -34,6 +35,7 @@ export class RelatorioComponent implements OnInit{
         this.turma = as;
         this.media = this.getMedia(this.turma);
         this.desvio = this.getDesvio(this.turma);
+        this.corr = this.getCorr(this.turma);
       }
     );
 
@@ -86,7 +88,31 @@ export class RelatorioComponent implements OnInit{
     }
 
   getCorr(turma): Number {
-    return 0
+    let matriculas = this.turma.matriculas;
+    let measurements = [];
+
+    let vars = {
+      duracao: 'metric',
+      correcao: 'metric'
+    };
+
+    matriculas.forEach(matricula => {
+      matricula.respostasDeRoteiros['respostasDeQuestoes'].forEach(questao => {
+        if(questao.correcao == 'Errado'){
+          measurements.push({duracao:questao.duracao, correcao: 0});
+        }
+        else if (questao.correcao == 'Certo'){
+          measurements.push({duracao:questao.duracao, correcao: 1});
+        }
+      })
+      console.log(measurements);
+
+      })
+
+    let stats = new Statistics(measurements, vars);
+    var r = stats.correlationCoefficient('duracao', 'correcao');
+    
+    return r.correlationCoefficient.toFixed(2)
   }
 
 }
