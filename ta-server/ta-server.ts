@@ -123,6 +123,8 @@ taserver.get('/matriculas/', function (req: express.Request, res: express.Respon
 })
 
 taserver.put('/autoavalicoes/atualizar/', function (req: express.Request, res: express.Response) {
+  console.log('test', req.body.autoavaliacoes);
+  console.log('test2', req.body.cpf);
     let autoavaliacoes: Avaliacao[] = req.body.autoavaliacoes;
     let cpf: string = req.body.cpf;
     let descricaoTurma: string = req.body.descricaoTurma;

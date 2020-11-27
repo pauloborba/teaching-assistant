@@ -9,7 +9,7 @@ Scenario: adicionar novas notas de auto-avaliação
     Given eu vejo que não possuo nota para a meta de "entender requisitos"
     When eu preencho nota "7" para a meta "entender requisitos"
     Then eu posso ver um alerta de confirmação de armazenamento dos dados 
-    Then eu posso ver que possuo nota "7" para a meta de "entender requistos"
+    Then eu posso ver que possuo nota "7" para a meta de "entender requisitos"
 
 
 

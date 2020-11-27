@@ -44,7 +44,7 @@
           <th *ngFor="let a of autoavaliacoes" class="header data" name="metaslist">{{a.meta}}</th>
         </tr>
         <tr>
-          <td *ngFor="let a of autoavaliacoes let in=index" lass="data" class="nota avaliacao-container data" name="notaslist" id="{{autoavaliacoes[in].meta}}"><input [(ngModel)]="autoavaliacoes[in].nota" (change)="atualizarAutoavaliacao(cpf, descricaoTurma, autoavaliacoes)" class="input-table" align="center" id="{{autoavaliacoes[in].meta}}"></td>
+          <td *ngFor="let a of autoavaliacoes let in=index" lass="data" class="nota avaliacao-container data" name="notaslist"><input [(ngModel)]="autoavaliacoes[in].nota" (change)="atualizarAutoavaliacao(cpf, descricaoTurma, autoavaliacoes)" class="input-table" align="center" id="{{autoavaliacoes[in].meta}}"></td>
         </tr>
       </table>
   </div>

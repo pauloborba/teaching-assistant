@@ -1,3 +1,4 @@
+import { error } from 'console';
 import { defineSupportCode} from 'cucumber';
 import { browser, $, element, ElementArrayFinder, by } from 'protractor';
 import { protractor } from 'protractor/built/ptor';
@@ -9,11 +10,11 @@ let base_url = "http://localhost:3000/";
 var {setDefaultTimeout} = require('cucumber');
 setDefaultTimeout(60 * 1000);
 
-async function getNotaBox(meta) {
-    let listaNotas: ElementArrayFinder =  element.all(by.name('notaslist'));
+async function getNotaBox(meta, nota) {
+    // let listaNotas: ElementArrayFinder =  element.all(by.name('notaslist'));
     
-    let metaSelecionada: any = await listaNotas.filter(elem => elem.getAttribute('id') === meta).first();
-    let notaSelecionada: any = await metaSelecionada.element(by.id(meta));
+    // let metaSelecionada: any = element(by.id(meta));
+    let notaSelecionada: any = await element(by.id(meta.toString())).getAttribute('value') === nota.toString();
     return notaSelecionada;
 
 
@@ -23,10 +24,10 @@ async function getNotaBox(meta) {
     // await expect(metaSelecionada.element(by.id(meta)).getAttribute('value').toMatch(nota));
 };
 
-async function getNota (meta, nota){
-    let input  = await getNotaBox(meta);
-    return input.getAttribute('value').toMatch(nota);
-}
+// async function getNota (meta, nota){
+//      await getNotaBox(meta);
+//     // return input.getAttribute('value').toMatch(nota);
+// }
 
 defineSupportCode(function ({ Given, When, Then }) {
     Given(/^eu estou na página de auto-avaliacao$/, async () => {
@@ -43,13 +44,13 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
     Given(/^eu vejo que não possuo nota para a meta de "([^\"]*)"$/, async (meta) => {
-         await getNota(meta, '');
+         await getNotaBox(meta, '');
     });
 
     When(/^eu preencho nota "([^\"]*)" para a meta "([^\"]*)"$/, async (nota, meta) => {
-        await getNota(meta, nota);
-        let input = await getNotaBox(meta);
-        await input.sendKeys(protractor.Key.ENTER);
+        await getNotaBox(meta, nota);
+        let metaSelecionada: any = await element(by.id(meta.toString()));
+        await metaSelecionada.sendKeys(protractor.Key.ENTER);
 
     });
 
@@ -59,7 +60,7 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
     Then(/^eu posso ver que possuo nota "([^\"]*)" para a meta de "([^\"]*)"$/, async (nota, meta) => {
-        await getNota(meta, nota);
+        await getNotaBox(meta, nota);
     });
 
 
@@ -68,38 +69,45 @@ defineSupportCode(function ({ Given, When, Then }) {
         await request.get(base_url + `matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${turma.toString().toLowerCase()}`)
                  .then(body => {
                      expect(JSON.parse(body).autoAvaliacoes.find(av => av.meta === meta.toString()).nota === '')
-                 }
-                );
+                }
+                ).catch(error => {throw error});
                     
      });
  
      When(/^eu adiciono a nota "([^\"]*)" a meta "([^\"]*)" ao aluno com CPF "(\d*)" na turma "([^\"]*)"$/, async (nota, meta, cpf, turma) => {
-        const mat = await request.get(base_url + `matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${turma.toString().toLowerCase()}`)
-                 .then(body => {return JSON.parse(body)});
-        let auto = mat.autoAvaliacoes;
-        let av = {"meta": meta, "nota" : nota};
-        let a = auto.find(av => av.meta === meta)
-        if(a){
-            a.nota = nota;
-            a.meta = meta;
-        }
-        else{
-            auto.push(av);
-        }
-        let body = {autoavalicoes: auto, cpf: cpf, descricaoTurma: turma}
-        var options:any = {method: 'PUT', uri: (base_url + "autoavalicoes/atualizar/"), body: body, json: true};
-        await request(options)
-            .then(body => 
-                expect(JSON.stringify(body)).to.equal(
-                    '{"success":"A autoavaliacao foi atualizada com sucesso"}'));
+        const matricula = await request.get(base_url + `matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${turma.toString().toLowerCase()}`)
+                 .then(body => {return JSON.parse(body)}).catch(error => {throw error});
+        if(matricula){
+
+            let auto = matricula.autoAvaliacoes;
+            let a = auto.find(av => av.meta === meta);
+
+            if(a){
+                a.nota = nota;
+                a.meta = meta;
+            }
+            else{
+                let av = {"meta": meta, "nota" : nota};
+                a = auto.push(av);
+            }
+
+            let body = {autoavaliacoes: auto, cpf: cpf.toString().toLowerCase(), descricaoTurma: turma.toString().toLowerCase()}
+
+            var options:any = {method: 'PUT', uri: (base_url + "autoavalicoes/atualizar/"), body: body, json: true};
+
+            await request(options)
+                .then(body => 
+                    expect(JSON.stringify(body)).to.equal(
+                        '{"success":"A autoavaliacao foi atualizada com sucesso"}')).catch(error => {throw error});
+        }  
      });
  
      Then(/^a nota "([^\"]*)" para a meta "([^\"]*)" do aluno com CPF "(\d*)" na turma "([^\"]*)" é salvo no sistema$/, async (nota, meta, cpf,turma) => {
-        await request.get(base_url + `matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${turma.toString().toLowerCase()}`)
-        .then(body => {return JSON.parse(body)});
-        let resposta = `{"meta":"${meta}","nota": ${nota}`;
-        await request.get(base_url + "alunos")
-                      .then(body => expect(body.autoAvaliacoes.includes(resposta)).to.equal(true));
+        let matricula = await request.get(base_url + `matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${turma.toString().toLowerCase()}`)
+        .then(body => {return JSON.parse(body)}).catch(error => {throw error});
+        let auto = matricula.autoAvaliacoes;
+        let a = auto.find(av => av.meta === meta);
+        expect(a.nota === nota.toString())
      });
  
 })
