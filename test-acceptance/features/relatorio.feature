@@ -1,41 +1,29 @@
 Feature: Relatório de informações (média, desvio, etc.) sobre o tempo levado para responder os roteiros, correlacionando com erros e acertos.
 
 Cenário: relatório com preenchimento vazio
-Given nenhum aluno preencheu o roteiro
-When ele entrar na “tela de relatório sobre os roteiros”
-Then ele visualiza o campo média com o valor ‘Não calculada’
-Then o campo desvio com o valor ’Não calculado’  
-Then gráficos de barras com pouco destaque e com uma mensagem de fundo ‘Não informado’ 
+Given o aluno está na pagina inicial
+Given o sistema tem "0" matriculas
+When o aluno entrar na tela de relatório sobre os roteiros
+Then ele visualiza o campo média com o valor em branco
+Then o campo desvio com o valor em branco  
+Then o campo de correlacao com o valor em branco
 
-Cenário: relatório com preenchimento parcial
-Given o sistema tem os alunos “Gabriel” e “Marcos”
-Given o aluno “Gabriel” respondeu em “120m”
-Given o aluno “Marcos” respondeu em “240m”
-Given a média de preenchimento foi “180m”
-Given o desvio da média foi de “60”
-When ele entrar na “tela de relatório sobre os roteiros”
-Then ele visualiza o campo média com o valor “180 m”
-Then o desvio da média foi “60”
-Then O valor d
 
 Cenário: relatório com preenchimento total
-And o sistema tem os alunos “Gabriel” e “Marcos”
-And o aluno “Gabriel” respondeu em “120m”
-And o aluno “Marcos” respondeu em “240m”
-And a média de preenchimento foi “180m”
-And o desvio da média foi de “60”
-When ele entrar na “tela de relatório sobre os roteiros”
-Then ele visualiza o campo média com o valor "180m"
-And o desvio da média foi “60”
-
-Cenário:  relatório com informações detalhadas
-And o sistema tem os alunos “Gabriel” e “Marcos”
-And o aluno “Gabriel” respondeu em “120m”
-And o aluno “Marcos” respondeu em “240m”
-And a média de preenchimento foi “180m”
-And o desvio da média foi de “60”
-When ele entrar na “tela de relatório sobre os roteiros”
-And expande as informações que estão em detalhes
-Then ele visualiza o campo média com o valor “180m”
-And o desvio da média com “60”
-And um gráfico relacionando o tempo de resposta e a taxa de acerto das questões
+Given o aluno está na pagina de roteiros
+Given o sistema tem "2" matriculas
+Given a matricula "1" respondeu a questao "1" em "2" miniutos
+Given a questao "1" da matricula "1" está com o campo "correcao" igual a "Errado"
+Given a matricula "1" respondeu a questao "2" em "7" miniutos
+Given a questao "2" da matricula "1" está com o campo "correcao" igual a "Certo"
+Given a matricula "2" respondeu a questao "1" em "1" miniutos
+Given a questao "1" da matricula "2" está com o campo "correcao" igual a "Errado"
+Given a matricula "1" respondeu a questao "2" em "6" miniutos
+Given a questao "2" da matricula "2" está com o campo "correcao" igual a "Certo"
+Given a média de preenchimento foi "4"
+Given o desvio da média foi de "2.5"
+Given a correlacao foi de "0.98"
+When ele entrar na tela de relatório sobre os roteiros
+Then ele visualiza o campo média com o valor "4"
+Then ele visualiza o campo desvio da média com o valor "2.5"
+Then ele visualiza o campo corelacao com o valor "0.98"
