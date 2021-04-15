@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,8 @@ import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
+import { RelatorioComponent } from './relatorio/relatorio.component';
+import { RelatorioService } from './relatorio/relatorio.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
     AlunosComponent,
     AutoavaliacaoComponent,
     MonitoresComponent,
-    RoteirosComponent
+    RoteirosComponent,
+    RelatorioComponent
   ],
   imports: [
     BrowserModule,
@@ -49,10 +53,14 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
       path: 'roteiros',
       component: RoteirosComponent
     },
+    {
+      path: 'relatorio',
+      component: RelatorioComponent
+    }
     
-  ])
+  ]),HttpClientModule
   ],
-  providers: [],
+  providers: [RelatorioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
