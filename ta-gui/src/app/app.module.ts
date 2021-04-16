@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,7 +14,9 @@ import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component'
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
 import { AlunoService } from './alunos/alunos.service';
-import { HttpClientModule } from '@angular/common/http';
+import { RelatorioComponent } from './relatorio/relatorio.component';
+import { RelatorioService } from './relatorio/relatorio.service';
+import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
 
 @NgModule({
   declarations: [
@@ -24,13 +27,15 @@ import { HttpClientModule } from '@angular/common/http';
     AlunosComponent,
     AutoavaliacaoComponent,
     MonitoresComponent,
-    RoteirosComponent
+    RoteirosComponent,
+    RelatorioComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([{
 
       path: 'metas',
@@ -52,10 +57,17 @@ import { HttpClientModule } from '@angular/common/http';
       path: 'roteiros',
       component: RoteirosComponent
     },
-    
+    {
+      path: 'relatorio',
+      component: RelatorioComponent
+    },
+    {
+      path: 'comparacao-de-desempenho',
+      component: ComparacaoDeDesempenhoComponent
+    }
   ])
   ],
-  providers: [AlunoService],
+  providers: [AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -16,11 +16,20 @@ export class Turmas {
         return null;
     }
     
-    compararTurmas(turmas: Turma []): any{
-        return null;
+    getResumos(descricoes: string[]): any[] {
+        let resumos: any[] = [];
+        descricoes.forEach(descricao => {
+            const turma = this.getTurma(descricao);
+            const media = turma.getMedia();
+            const reprovacao = turma.getNumReprovados() / turma.getNumMatriculas();
+            resumos.push({ descricao, media, reprovacao });
+        });
+
+        return resumos;
     }
 
     getTurma(descricao: string): Turma{
-        return null;
+        const turma = new Turma(descricao);
+        return turma;
     }
 }
