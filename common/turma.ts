@@ -1,12 +1,12 @@
 import { Matricula } from './matricula';
-import { Roteiro } from '../ta-server/roteiro';
+import { Matricula } from './agendamentoRoteiro';
 import { Aluno } from './aluno';
 
 export class Turma {
     descricao: string = "";
     metas: string[] = [];
     matriculas: Matricula[] = [];
-    roteiros: Roteiro[] = [];
+    agendamentos: AgendamentoRoteiro[] = [];
     monitores: Aluno[] = [];
     numeroMatriculas: number = 0;
 
@@ -30,7 +30,7 @@ export class Turma {
         return null;
     }
 
-    getRoteiros(): Roteiro[] {
+    getAgendamentoRoteiros(): Roteiro[] {
         return [];
     }
 
@@ -41,4 +41,7 @@ export class Turma {
     getPercentual(meta: string, conceito: string): number {
         return 0;
     }
+	addAgendamento(ar: AgendamentoRoteiro){
+		agendamentos.push(ar);
+	}
 }
