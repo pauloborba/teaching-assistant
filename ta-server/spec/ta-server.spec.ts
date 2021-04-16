@@ -1,14 +1,24 @@
-import request = require('request-promise');
+import request = require("request-promise");
+import { closeServer } from '../ta-server';
 
-const URLBase = 'http://localhost:3000/';
+var base_url = "http://localhost:3000/";
 
-describe('O servidor', () => {
-    let servidor: any;
-
-    beforeAll(() => servidor = require('../ta-server'));
-
-    afterAll(() => servidor.closeServer());
-
+describe("O servidor", () => {
+    var server:any;
+    beforeAll(() => {server = require('../ta-server')});
+    afterAll(() => {server.closeServer()});
+  
+    it("envia emails para os alunos", () => {
+        var options:any = {method: 'POST', uri: (base_url + "notificar"), body:[{email: 'joao@cin.ufpe.br', meta: ['Requisitos', 'Refatoração']}], json: true};
+        return request(options)
+            .then(body => 
+                expect(body).toEqual({success: 'Notificações foram enviadas'})
+            )
+            .catch(e => 
+                expect(e).toEqual(null)
+            );
+    });
+  
     it('retorna resumos de turmas', () => {
         const descricoes: string = [ '2017.2', '2019.1' ].join(',');
         const resposta: any = [
@@ -17,7 +27,7 @@ describe('O servidor', () => {
         ];
 
         const options: any = {
-            uri: URLBase + 'comparacao-de-desempenho',
+            uri: base_url + 'comparacao-de-desempenho',
             qs: {
                 'turmas': descricoes
             },

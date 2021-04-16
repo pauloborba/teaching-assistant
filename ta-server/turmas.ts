@@ -29,7 +29,7 @@ export class Turmas {
     }
 
     getTurma(descricao: string): Turma{
-        const turma = new Turma(descricao);
-        return turma;
+      var result: Turma = this.turmas.find(a => a.descricao == descricao);
+        return result;
     }
 }

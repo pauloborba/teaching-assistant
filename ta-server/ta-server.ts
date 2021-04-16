@@ -5,7 +5,7 @@ import {Aluno} from '../common/aluno';
 import {CadastroDeAlunos} from './cadastrodealunos'; 
 import {Turmas} from './turmas'
 import {Matricula} from '../common/matricula'
-import { Turma } from '../common/turma';
+import { Turma } from '../common/turma'
 import { Roteiro } from './roteiro';
 import { BlocoDeQuestoes } from './blocodequestoes';
 import { Questao } from './questao';
@@ -13,6 +13,46 @@ import { RespostaDeRoteiro } from './respostaderoteiro';
 import { RespostaDeQuestao } from './respostadequestao';
 
 var taserver = express();
+// Stub para popular o front-end com alunos de uma turma
+var stub_turma1 = new Turma();
+var stub_turma2 = new Turma();
+stub_turma1.descricao = "ESS";
+stub_turma2.descricao = "Compiladores";
+stub_turma1.metas = ["Requisitos", "Refatoração"];
+stub_turma2.metas = ["Meta1", "Meta2"]
+var stub_matricula1 = new Matricula();
+var stub_matricula2 = new Matricula();
+var stub_aluno1 = new Aluno();
+var stub_aluno2 = new Aluno();
+stub_aluno1.nome = "João";
+stub_aluno1.cpf = "123";
+stub_aluno1.email = "joao@cin.ufpe.br";
+stub_aluno2.nome = "Maria";
+stub_aluno2.cpf = "456";
+stub_aluno2.email = "maria@cin.ufpe.br";
+stub_matricula1.aluno = stub_aluno1;
+stub_matricula2.aluno = stub_aluno2;
+var stub_autoavaliacao1 = new Avaliacao();
+var stub_autoavaliacao2 = new Avaliacao();
+var stub_autoavaliacao3 = new Avaliacao();
+var stub_autoavaliacao4 = new Avaliacao();
+stub_autoavaliacao1.meta = "Requisitos";
+stub_autoavaliacao1.nota = "";
+stub_autoavaliacao2.meta = "Refatoração";
+stub_autoavaliacao2.nota = "";
+stub_autoavaliacao3.meta = "Requisitos";
+stub_autoavaliacao3.nota = "MA";
+stub_autoavaliacao4.meta = "Refatoração";
+stub_autoavaliacao4.nota = "";
+stub_matricula1.autoAvaliacoes = [stub_autoavaliacao1, stub_autoavaliacao2];
+stub_matricula2.autoAvaliacoes = [stub_autoavaliacao3, stub_autoavaliacao4];
+stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
+stub_turma2.matriculas = [stub_matricula2];
+var sender = new EmailSender();
+
+
+var turmas: Turmas = new Turmas();
+turmas.turmas = [stub_turma1, stub_turma2];
 
 var cadastro: CadastroDeAlunos = new CadastroDeAlunos();
 const turmas: Turmas = new Turmas();
@@ -120,13 +160,31 @@ function stub(descricao: String) {
 
 //recebe um identificador de turma e retorna a mesma
 taserver.get('/turmas', function (req: express.Request, res: express.Response){
-    
-    let descricao: String = req.query.descricao;
-    let turma: Turma;
+    let descricaoTurma: string = req.query.descricaoTurma;
+    let turma: Turma = turmas.getTurma(descricaoTurma);
+    res.send(turma);
+})
 
-    turma = stub(descricao)
-
-    res.send(JSON.stringify(turma));
+//recebe um endereço de email e envia a notificação para fazer a auto-avaliação
+taserver.post('/notificar', function (req: express.Request, res: express.Response){
+    let objectNotification = req.body;
+    let notificationSent: boolean;
+    for (var i = 0; i < objectNotification.length; i++) {
+        let to: string = objectNotification[i].email;
+        let meta: string = objectNotification[i].meta;
+        let from: string = "professor@cin.ufpe.br";
+        let subject: string = "Notificação de auto-avaliação";
+        let message: string = "Seu professor está requisitando que você realize sua auto-avaliação da meta " + meta;
+        notificationSent = sender.enviarEmail(from, to, subject, message);
+        if (notificationSent === false) {
+            break;
+        }
+    }
+    if (notificationSent === true) {
+        res.send({"success": "Notificações foram enviadas"})
+    } else {
+        res.send({"failure": "Notificações não foram enviadas"})
+    }
 })
 
 //recebe um identificador de turma e de aluno e retorna uma matricula

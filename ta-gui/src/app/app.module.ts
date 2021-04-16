@@ -13,13 +13,15 @@ import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
+
+import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
 import { AlunoService } from './alunos/alunos.service';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from './relatorio/relatorio.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
 
 @NgModule({
-  declarations: [
+  declarations: [ 
     AppComponent,
     ComparacaoDeDesempenhoComponent,
     TurmasComponent,
@@ -67,7 +69,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     }
   ])
   ],
-  providers: [AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
+  providers: [AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
