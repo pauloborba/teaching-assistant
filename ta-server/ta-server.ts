@@ -71,7 +71,7 @@ function stub(descricao: String) {
     matricula2.respostasDeRoteiros = respostasRoteiro2
     
     
-    let turma20 = new Turma();
+    let turma20 = new Turma("desc");
     // @ts-ignore
     turma20.descricao = descricao;
     turma20.numeroMatriculas = 2
