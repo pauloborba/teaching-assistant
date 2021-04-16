@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { Aluno } from '../../../../common/aluno';
 import { Matricula } from '../../../../common/matricula';
 import { Avaliacao } from '../../../../ta-server/avaliacao';
@@ -37,6 +37,7 @@ export class AutoavaliacaoComponent implements OnInit {
   }
 
   cadastrarAutoAvaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void { }
+
 	notificarAutoAvaliacao(): void {
     var toNotify = [];
     for (var i = 0; i < this.matriculas.length; i++) {

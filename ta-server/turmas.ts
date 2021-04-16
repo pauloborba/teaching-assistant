@@ -1,4 +1,6 @@
 import { Turma } from '../common/turma';
+import { Matricula } from '../common/matricula';
+import { Avaliacao } from './avaliacao';
 
 export class Turmas {
     turmas: Turma[ ] = [ ]

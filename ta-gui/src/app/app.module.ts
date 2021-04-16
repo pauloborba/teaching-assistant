@@ -13,6 +13,9 @@ import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
+import { DiscrepantesComponent } from './discrepantes/discrepantes.component';
+import { DiscrepantesService } from '../app/discrepantes/discrepantes.service';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
 import { AlunoService } from './alunos/alunos.service';
@@ -30,6 +33,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     AutoavaliacaoComponent,
     MonitoresComponent,
     RoteirosComponent,
+    DiscrepantesComponent,
     RelatorioComponent
   ],
   imports: [
@@ -60,6 +64,10 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
       component: RoteirosComponent
     },
     {
+      path: 'discrepantes',
+      component: DiscrepantesComponent
+    },
+    {
       path: 'relatorio',
       component: RelatorioComponent
     },
@@ -69,7 +77,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     }
   ])
   ],
-  providers: [AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
+  providers: [DiscrepantsService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

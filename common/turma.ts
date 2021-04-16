@@ -1,6 +1,7 @@
 import { Matricula } from './matricula';
 import { Roteiro } from '../ta-server/roteiro';
 import { Aluno } from './aluno';
+import { Avaliacao } from '../ta-server/avaliacao';
 
 export class Turma {
     descricao: string = "";
@@ -10,25 +11,18 @@ export class Turma {
     monitores: Aluno[] = [];
     numeroMatriculas: number = 0;
 
-    constructor(descricao: string) {
-        this.descricao = descricao;
+    ngOnInit() {
+        this.descricao = "";
+        this.metas = [];
+        this.matriculas = [];
+        this.roteiros = [];
+        this.monitores = [];
+        this.numeroMatriculas = 0;
     }
-
+  
     getNumMatriculas(): number {
-        switch (this.descricao) {
-            case '2017.2':
-                return 40;
-            case '2018.1':
-                return 50;
-            case '2018.2':
-                return 40;
-            case '2019.1':
-                return 40;
-            case '2019.2':
-                return 50;
-            default:
-                return 50;
-        }
+        return this.numeroMatriculas
+
     }
     
     getNumAprovados(): number {
@@ -84,6 +78,7 @@ export class Turma {
     getPercentual(meta: string, conceito: string): number {
         return 0;
     }
+
   
     getMatriculas(): Matricula[] {
         return this.matriculas;

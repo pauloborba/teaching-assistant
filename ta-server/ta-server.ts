@@ -55,6 +55,7 @@ var turmas: Turmas = new Turmas();
 turmas.turmas = [stub_turma1, stub_turma2];
 
 var cadastro: CadastroDeAlunos = new CadastroDeAlunos();
+
 const turmas: Turmas = new Turmas();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
