@@ -13,6 +13,7 @@ import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
+import { AlunoService } from './alunos/alunos.service';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from './relatorio/relatorio.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
@@ -32,6 +33,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([{
@@ -65,7 +67,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     }
   ])
   ],
-  providers: [RelatorioService, ComparacaoDeDesempenhoService],
+  providers: [AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
