@@ -1,0 +1,98 @@
+body{
+  font-family: 'Source Sans Pro', sans-serif;
+  height: fit-content;
+
+}
+
+table{
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+th{
+  text-transform: capitalize;
+}
+
+h2{
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.avaliacao-container{
+    padding: 0.8rem;
+    text-align: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.header {
+    background-color: #3399ff;
+    color: #ffffff;
+}
+  
+.data {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.pesquisar-matricula{
+  display: flex;
+  align-items: flex-start;
+}
+
+.input-table{
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  min-height: 1.1rem;
+  text-transform: uppercase;
+  width: 50%;
+  text-align: center;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.nota{
+  width: 0.7rem;
+  text-transform: uppercase;
+}
+
+.botoes-menu{
+  background-color: #3399ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  min-height: 2rem;
+  -webkit-appearance: none;
+  font-style: bold;
+  cursor: pointer;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.mensagem-de-erro{
+  color: red;
+  font-size: 0.9rem;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.submit-button{
+  align-self: center;
+  border: none;
+  background-color: #2172eb;
+  color: #ffffff;
+  min-height: 1.5rem;
+  border-radius: 4px;
+  margin-left: 0.4rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  margin-top: 3.2rem;
+}
+
+.input-form{
+  height: 1.4rem;
+  text-transform: uppercase;
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  min-height: 1.1rem;
+}
+

@@ -1,18 +1,30 @@
-<div>
+<div id="botoes">
     <button><a>Nova Meta</a></button>
-    <button><a>Clonar</a></button>
-</div>
+    <button><a (click) = toggleDisplayMainButton()>Clonar</a></button>
+    <div *ngIf = 'isShow'>
+        <div>
+            <p>Clonar de</p>
+               
+            <select [(ngModel)]='turmaOrigem' (change)= 'getMetas($event.target.value, "origem")'> 
+                <option *ngFor="let turma of turmasDescricao" [value]="turma" >
+                  {{turma}}
+                </option>
+            </select> 
 
-<div>
-    <table>
-        <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>e-mail</th>
-            <th>Média</th>
-        </tr>
-        <tr>
-            <!-- alunos aqui -->
-        </tr>
-    </table>
+            <p>para</p>
+            
+            <select [(ngModel)]='turmaDestino' (change)= 'getMetas($event.target.value, "destino")'> 
+                  <option *ngFor="let turma of turmasDescricao" [value]="turma">
+                    {{turma}}
+                  </option>
+                </select>
+        </div>
+
+        <div>
+            <button (click) = toggleDisplayShowClone() [disabled] = "!(turmaOrigem && turmaDestino)">Clonar</button>
+            <button (click) = toggleDisplayHide()>Cancelar</button>
+        </div>
+        
+    </div>
+   
 </div>
