@@ -1,0 +1,40 @@
+<h3>Turma:</h3>
+<input name="turmabox" class= "input" [(ngModel)]="nomeTurma"> 
+<button name= "ok"(click)="carregarMatriculas()">OK</button>
+
+
+<table>
+    <tr>
+       <th *ngFor="let a of cabecalho; let x = index">{{cabecalho[x]}}</th>
+       <th name="meta" class= "biggerTh" *ngFor="let a of metas; let x = index">{{metas[x]}} </th>
+    </tr>
+
+    <tr name= "matricula"[ngClass] = "corDaLinha(a)" *ngFor="let a of matriculas; let x = index">
+        <td name="nomelist">{{a.getAluno().getNome()}}</td>
+        <td name="cpflist">{{a.getAluno().getCpf()}}</td>
+        <td>{{a.getAluno().getEmail()}}</td>
+
+        <td *ngFor="let meta of turma.metas; let x = index">
+         <table>
+            <tr>
+             <td id={{a.getAluno().getCpf()}} name="avaliacao">Avaliação: {{notaDaMeta(true, a, meta)}}</td>
+             <td  id={{a.getAluno().getCpf()}} name="auto-avaliacao">Autoavaliação: {{notaDaMeta(false, a, meta)}}</td> 
+            </tr>
+          
+         </table>
+        </td>
+     </tr>
+</table>
+
+<table class="painel" *ngIf= "clicouNoBotao" >
+   <tr>
+      <th class="painel-th">Autoavaliações discrepantes</th>
+      <th class="painel-th"> Porcentagem de Autoavaliações discrepantes</th>
+   </tr>
+
+   <tr>
+      <td name= "totalDiscrepantes" >{{totalDiscrepantes}}</td>
+      <td  name= "porcentagemDiscrepantes">{{porcentagemDiscrepantes}}%</td>
+      
+   </tr>
+</table>

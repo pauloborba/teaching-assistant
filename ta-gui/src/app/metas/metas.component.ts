@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Turma } from '../../../../common/turma';
 import { TurmasService } from '../turmas/turmasService';
+import { Aluno } from '../../../../common/aluno';
 
 @Component({
   selector: 'app-turmas',
