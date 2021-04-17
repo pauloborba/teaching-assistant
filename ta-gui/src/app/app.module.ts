@@ -14,6 +14,7 @@ import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component'
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
 
+import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
 import { AdicionarTurmaComponent } from './turmas/adicionar-turma/adicionar-turma.component';
 import { EditarTurmaComponent } from './turmas/editar-turma/editar-turma.component';
 import { AdicionarTurmaService } from './turmas/adicionar-turma/adicionar-turma.service';
@@ -28,7 +29,6 @@ import { AlunoService } from './alunos/alunos.service';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from './relatorio/relatorio.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
-
 
 @NgModule({
   declarations: [ 
@@ -50,8 +50,9 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    HttpClientModule, 
     HttpClientModule,
-    RouterModule.forRoot([{
+  RouterModule.forRoot([{
 
       path: 'metas',
       component: MetasComponent
@@ -94,7 +95,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     }
   ])
   ],
-  providers: [RoteiroService, DiscrepantsService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
+  providers: [AutoavaliacaoService, RoteiroService, DiscrepantsService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

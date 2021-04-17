@@ -4,8 +4,7 @@ import { Matricula } from '../common/matricula';
 import { Avaliacao } from './avaliacao';
 
 export class Turmas {
-    turmas: Turma[ ] = [ ]
-
+    turmas: Turma[] = [];
 
     cadastrarTurma(turma: Turma): Turma{
         var aux = null;
@@ -39,7 +38,11 @@ export class Turmas {
     }
 
     getTurma(descricao: string): Turma{
-      var result: Turma = this.turmas.find(a => a.descricao == descricao);
-      return result;
+        let turma: Turma = this.turmas.find(turma => turma.descricao == descricao);
+        return turma;
+    }
+
+    getTurmas(){
+        return this.turmas;
     }
 }

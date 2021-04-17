@@ -2,6 +2,7 @@ import express = require('express');
 import bodyParser = require("body-parser");
 
 
+import { Avaliacao } from './avaliacao';
 import {Aluno} from '../common/aluno';
 import {CadastroDeAlunos} from './cadastrodealunos'; 
 import {Turmas} from './turmas'
@@ -89,9 +90,12 @@ var turmas: Turmas = new Turmas();
 turmas.turmas = [stub_turma1, stub_turma2];
 
 var cadastro: CadastroDeAlunos = new CadastroDeAlunos();
+
+var conjTurmas: Turmas = new Turmas();
+
+
 var cadastroRoteiro: CadastroDeRoteiros = new CadastroDeRoteiros();
 
-const turmas: Turmas = new Turmas();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -108,8 +112,46 @@ var server = taserver.listen(3000, function () {
     console.log('Example app listening on port 3000!')
 })
 
-taserver.get('/alunos', function (req: express.Request, res: express.Response) {
-=======
+taserver.get('/metas/', function (req: express.Request, res: express.Response){
+  let conjTurmas: Turmas = turmas;
+  let descricaoTurma: string = req.query.descricaoTurma;
+  let turma: Turma = conjTurmas.getTurma(descricaoTurma);
+  let metas = turma.getMetas();
+  res.send(metas);
+    
+})
+
+//recebe um identificador de turma e de aluno e retorna uma matricula
+taserver.get('/matriculas/', function (req: express.Request, res: express.Response){
+    let cpf: string = req.query.cpf;
+    let descricaoTurma: string = req.query.descricaoTurma;
+    
+    let turma: Turma = turmas.getTurma(descricaoTurma);
+    let matricula: Matricula = turma.getMatricula(cpf);
+    res.send(matricula);
+})
+
+taserver.put('/autoavalicoes/atualizar/', function (req: express.Request, res: express.Response) {
+  console.log('test', req.body.autoavaliacoes);
+  console.log('test2', req.body.cpf);
+    let autoavaliacoes: Avaliacao[] = req.body.autoavaliacoes;
+    let cpf: string = req.body.cpf;
+    let descricaoTurma: string = req.body.descricaoTurma;
+
+    let turma: Turma = turmas.getTurma(descricaoTurma);
+    let matricula: Matricula = turma.getMatricula(cpf);
+    let atualizacao = JSON.stringify(matricula.atualizarAutoAvaliacoes(autoavaliacoes));
+    let autoavaliacoesenviadas = JSON.stringify(autoavaliacoes);
+
+    if (atualizacao === autoavaliacoesenviadas) {
+      res.send({"success": "A autoavaliacao foi atualizada com sucesso"});
+    } else {
+      res.send({"failure": "A autoavaliacao não pode ser atualizada"});
+    }
+})
+
+
+taserver.get('/alunos', function (req: express.Request, res: express.Response) {})
 
 taserver.get('/roteiros', function (req: express.Request, res: express.Response){
   res.send(JSON.stringify(cadastroRoteiro.getRoteiros()));
@@ -166,7 +208,7 @@ taserver.post('/adicionar-turma', function (req: express.Request, res: express.R
 
 
 function closeServer(): void {
-    server.close();
+server.close();
 }
 
 
