@@ -13,6 +13,11 @@ import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
+
+import { AdicionarTurmaComponent } from './turmas/adicionar-turma/adicionar-turma.component';
+import { EditarTurmaComponent } from './turmas/editar-turma/editar-turma.component';
+import { AdicionarTurmaService } from './turmas/adicionar-turma/adicionar-turma.service';
+
 import { RoteiroService } from './roteiros/roteiro.service';
 import { DiscrepantesComponent } from './discrepantes/discrepantes.component';
 import { DiscrepantesService } from '../app/discrepantes/discrepantes.service';
@@ -24,6 +29,7 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from './relatorio/relatorio.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
 
+
 @NgModule({
   declarations: [ 
     AppComponent,
@@ -34,6 +40,8 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     AutoavaliacaoComponent,
     MonitoresComponent,
     RoteirosComponent,
+    AdicionarTurmaComponent,
+    EditarTurmaComponent
     DiscrepantesComponent,
     RelatorioComponent
   ],
@@ -63,6 +71,14 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     {
       path: 'roteiros',
       component: RoteirosComponent
+    },
+    {
+      path: 'adicionar-turma',
+      component: AdicionarTurmaComponent
+    },
+    {
+      path: 'editar-turma',
+      component: EditarTurmaComponent
     },
     {
       path: 'discrepantes',

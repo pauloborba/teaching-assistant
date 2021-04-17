@@ -2,6 +2,10 @@ import express = require('express');
 import bodyParser = require("body-parser");
 
 
+import {Aluno} from '../common/aluno';
+import {CadastroDeAlunos} from './cadastrodealunos'; 
+import {Turmas} from './turmas'
+import {Turma} from '../common/turma'
 import {Roteiro} from '../common/roteiro'
 import {CadastroDeRoteiros} from './cadastroderoteiros';
 import {Matricula} from '../common/matricula'
@@ -54,6 +58,36 @@ var sender = new EmailSender();
 var turmas: Turmas = new Turmas();
 turmas.turmas = [stub_turma1, stub_turma2];
 
+var cadastroTurma: Turmas = new Turmas();
+
+
+// stub para turmas
+var stub_turma1 = new Turma();
+var stub_turma2 = new Turma();
+stub_turma1.descricao = "ESS";
+stub_turma2.descricao = "Compiladores";
+stub_turma1.metas = ["Requisitos", "Refatoração"];
+stub_turma2.metas = ["Meta1", "Meta2"]
+var stub_matricula1 = new Matricula();
+var stub_matricula2 = new Matricula();
+var stub_aluno1 = new Aluno();
+var stub_aluno2 = new Aluno();
+stub_aluno1.nome = "João";
+stub_aluno1.cpf = "123";
+stub_aluno1.email = "joao@cin.ufpe.br";
+stub_aluno2.nome = "Maria";
+stub_aluno2.cpf = "456";
+stub_aluno2.email = "maria@cin.ufpe.br";
+stub_matricula1.aluno = stub_aluno1;
+stub_matricula2.aluno = stub_aluno2;
+stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
+stub_turma2.matriculas = [stub_matricula2];
+
+
+
+var turmas: Turmas = new Turmas();
+turmas.turmas = [stub_turma1, stub_turma2];
+
 var cadastro: CadastroDeAlunos = new CadastroDeAlunos();
 var cadastroRoteiro: CadastroDeRoteiros = new CadastroDeRoteiros();
 
@@ -69,6 +103,13 @@ taserver.use(allowCrossDomain);
 
 taserver.use(bodyParser.json());
 
+
+var server = taserver.listen(3000, function () {
+    console.log('Example app listening on port 3000!')
+})
+
+taserver.get('/alunos', function (req: express.Request, res: express.Response) {
+=======
 
 taserver.get('/roteiros', function (req: express.Request, res: express.Response){
   res.send(JSON.stringify(cadastroRoteiro.getRoteiros()));
@@ -104,17 +145,29 @@ taserver.delete('/roteiro/:descricao', function (req: express.Request, res: expr
   }
 })
 
-taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: express.Response) {
+taserver.post('/adicionar-turma', function (req: express.Request, res: express.Response){
+    var turma: Turma = <Turma> req.body;
+    turma = cadastroTurma.cadastrarTurma(turma);
+    //let descricaoTurma: string = req.query.descricaoTurma;
+    console.log("adicionou");
+    //console.log(descricaoTurma);
+    if(turma){
+        res.send({"sucess": "A turma foi criada com suceso"});
+    } else {
+        res.send({"failure": "A turma não foi cadastrada"});
+    }
+});
+
+  taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: express.Response) {
     const descricoes: string[] = req.query.turmas.split(',');
     res.send(JSON.stringify(turmas.getResumos(descricoes)));
 });
 
-var server = taserver.listen(3000, function () {
-    console.log('Example app listening on port 3000!')
-})
+
 
 function closeServer(): void {
     server.close();
 }
+
 
 export { server, closeServer }

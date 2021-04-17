@@ -11,7 +11,16 @@ export class Turma {
     monitores: Aluno[] = [];
     numeroMatriculas: number = 0;
 
-    constructor() {
+
+    copyFrom(from:Turma): void{
+        this.descricao = from.descricao;
+        this.metas = from.metas;
+        this.matriculas = from.matriculas;
+        this.roteiros = from.roteiros;
+        this.monitores = from.monitores;
+        this.numeroMatriculas = from.numeroMatriculas;
+    
+     constructor() {
       this.descricao = "";
       this.metas = [];
       this.matriculas = [];
@@ -76,6 +85,7 @@ export class Turma {
     }
 
     getMonitores(): Aluno[] {
+    
         return [];
     }
 
