@@ -21,6 +21,7 @@ export class Matricula{
     getMonitor(): Aluno {
         return this.monitor;      
     }
+
     getRespostasDeRoteiros(): RespostaDeRoteiro[]{
         return this.respostasDeRoteiros;
     }
@@ -41,3 +42,5 @@ export class Matricula{
         return this.autoAvaliacoes;
     }
 }
+
+

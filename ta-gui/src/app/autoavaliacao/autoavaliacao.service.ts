@@ -48,5 +48,12 @@ export class AutoavaliacaoService {
     );
   }
 
-}
 
+  getTurmas(descricaoTurma: string): Observable<Turma> {
+    return this.http.get<Turma>(this.taURL + "/turmas/?descricaoTurma=" + descricaoTurma).pipe(retry(2));
+  }
+
+  notificar(objectAlunoMeta: object): Observable<String> {
+    return this.http.post<string>(this.taURL + "/notificar", objectAlunoMeta).pipe(retry(2));
+  }
+}
