@@ -6,6 +6,10 @@ import { Avaliacao } from "../ta-server/avaliacao"
 export class Turmas {
     turmas: Turma[] = [];
 
+    constructor(){       
+       
+    }
+
     cadastrarTurma(turma: Turma): Turma{
         var aux = null;
         aux = new Turma();
@@ -39,11 +43,17 @@ export class Turmas {
     //tenho que usar o get turmas e procurar a turma
 
     getTurma(descricao: string): Turma{
-        let turma: Turma = this.turmas.find(turma => turma.descricao == descricao);
+        const turma = this.turmas.find(t => t.descricao === descricao)
         return turma;
     }
 
-    getTurmas(){
+    getTurmas(): Turma[]{
         return this.turmas;
     }
-}
+
+    getDescricoes(): string[]{
+        const descricoes = this.turmas.map(turma => turma.descricao);
+        return descricoes;
+    }
+
+} 

@@ -7,6 +7,7 @@ import { TurmasService } from './turmas.service'
   templateUrl: './turmas.component.html',
   styleUrls: ['./turmas.component.css']
 })
+
 export class TurmasComponent implements OnInit {
   // constructor(private turmaService: TurmasService) { }
   constructor(private service: TurmasService) { }
@@ -99,4 +100,5 @@ export class TurmasComponent implements OnInit {
     
     this.opcaoSelecionada = 'ultimas-quatro';
   }
+
 }

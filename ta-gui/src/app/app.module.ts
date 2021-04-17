@@ -13,6 +13,8 @@ import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
+import { TurmasService } from './turmas/turmasService';
+
 import { AlunoService } from './alunos/alunos.service';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -53,16 +55,18 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    HttpClientModule, 
     HttpClientModule,
   RouterModule.forRoot([{
-
       path: 'metas',
       component: MetasComponent
     },
     {
       path:'alunos',
       component: AlunosComponent
+    },
+    {
+      path:'turma',
+      component: TurmasComponent
     },
     {
       path: 'auto-avaliacao',
@@ -98,7 +102,8 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     }
   ])
   ],
-  providers: [AlunoService, AutoavaliacaoService, RoteiroService, DiscrepantsService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
+
+  providers: [TurmasService, AlunoService, AutoavaliacaoService, RoteiroService, DiscrepantsService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

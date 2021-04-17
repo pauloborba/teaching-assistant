@@ -1,5 +1,6 @@
 import express = require('express');
 import bodyParser = require("body-parser");
+import turmaRotas from "./turmas/turmas.api";
 import { Turma } from '../common/turma'
 import { Turmas } from './turmas'
 
@@ -117,6 +118,8 @@ taserver.get('/alunos', function (req: express.Request, res: express.Response) {
 var server = taserver.listen(3000, function () {
     console.log('Example app listening on port 3000!')
 })
+
+taserver.use("/turmas", turmaRotas);
 
 taserver.get('/matriculas', function (req: express.Request, res: express.Response) {})
 
