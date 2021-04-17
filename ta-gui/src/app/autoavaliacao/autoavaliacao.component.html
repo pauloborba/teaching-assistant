@@ -1,7 +1,65 @@
-<table>
+
+<html>
+  <table>
     <tr>
       <td><button (click)="cadastrarAutoAvaliacao(matricula, avaliacoes)">Cadastrar</button></td>
-      <td><button (click)="notificarAutoAvaliacao(matricula)">Notificar</button></td>
+      <td><button name="notificar" (click)="setNotificar()">Notificar</button></td>
       <td><button routerLink="/discrepantes" >Discrepantes</button></td>
     </tr>
+</table>
+
+
+<table *ngIf="notificar">
+  <tr>
+    <th>Turma</th>
+  </tr>
+  <tr>
+    <td><input [(ngModel)]="descricaoTurma" name="descricaoTurma"></td>
+    <td><button name="selecionar" (click)="showTurmas(descricaoTurma)">Selecionar</button></td>
+  </tr>
+</table>
+<div *ngIf="erro_turma">
+  <tr name="erro">Você não forneceu o nome de uma turma existente</tr>
+</div>
+
+<div *ngIf="show_turmas">
+  <h2>Metas</h2>
+  <table>
+      <tr>
+        <th>Solicitar</th>
+        <th>Metas</th>
+     </tr>
+    <tr *ngFor="let a of turma.metas">
+      <input type="checkbox" value='{{a}}' (click)="selected(a)">
+      <td>{{a}}</td>
+   </tr>
+   <tr>
+    <td><button name="notificarEmail" (click)="notificarAutoAvaliacao()">Notificar</button></td>
+   </tr>
   </table>
+</div>
+
+<div *ngIf="confirmacao">
+  <tr name="confirmacao">Notificação enviada para os alunos!</tr>
+</div>
+<div *ngIf="erro">
+  <tr name="erro">Nenhuma meta foi selecionada</tr>
+</div>
+
+<div *ngIf="show_matriculas">
+  <h2>Alunos</h2>
+  <table>
+      <tr>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>E-mail</th>
+        <th *ngFor="let a of turma.metas">{{a}}</th>
+     </tr>
+    <tr *ngFor="let matricula of matriculas">
+      <td>{{matricula.aluno.nome}}</td>
+      <td>{{matricula.aluno.cpf}}</td>
+      <td>{{matricula.aluno.email}}</td>
+      <td *ngFor="let a of matricula.autoAvaliacoes">{{a.nota}}</td>
+   </tr>
+  </table>
+</div>
