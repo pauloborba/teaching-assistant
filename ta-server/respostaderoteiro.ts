@@ -1,10 +1,10 @@
-import { Roteiro } from "./roteiro";
+import { Roteiro } from "../common/roteiro";
 import { RespostaDeQuestao } from "./respostadequestao"
 
 export class RespostaDeRoteiro {
     nota: String;
-    roteiro: Roteiro
-    respostasDeQuestoes: RespostaDeQuestao[] = []
+    roteiro: Roteiro;
+    respostasDeQuestoes: RespostaDeQuestao[] = [];
 
     getNota(): String{
         return this.nota
