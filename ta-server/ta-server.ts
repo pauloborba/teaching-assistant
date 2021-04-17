@@ -1,7 +1,9 @@
 import express = require('express');
 import bodyParser = require("body-parser");
+import { Turma } from '../common/turma'
+import { Turmas } from './turmas'
 
-
+import { NotificacaoNotas } from './notificacaoNotas';
 import { Avaliacao } from './avaliacao';
 import {Aluno} from '../common/aluno';
 import {CadastroDeAlunos} from './cadastrodealunos'; 
@@ -90,7 +92,8 @@ var turmas: Turmas = new Turmas();
 turmas.turmas = [stub_turma1, stub_turma2];
 
 var cadastro: CadastroDeAlunos = new CadastroDeAlunos();
-
+var notificacao: NotificacaoNotas = new NotificacaoNotas();
+var turmas: Turmas = new Turmas();
 var conjTurmas: Turmas = new Turmas();
 
 
@@ -103,14 +106,19 @@ var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 }
+
+
 taserver.use(allowCrossDomain);
 
 taserver.use(bodyParser.json());
 
+taserver.get('/alunos', function (req: express.Request, res: express.Response) {})
 
 var server = taserver.listen(3000, function () {
     console.log('Example app listening on port 3000!')
 })
+
+taserver.get('/matriculas', function (req: express.Request, res: express.Response) {})
 
 taserver.get('/metas/', function (req: express.Request, res: express.Response){
   let conjTurmas: Turmas = turmas;
@@ -119,6 +127,22 @@ taserver.get('/metas/', function (req: express.Request, res: express.Response){
   let metas = turma.getMetas();
   res.send(metas);    
 })
+
+taserver.post('/notificacaoResultadoFinal/', function (req: express.Request, res: express.Response) {
+   
+    var  reqTurma:Turma = <Turma> req.body;
+   var turma:Turma = new Turma();
+   turma.descricao = reqTurma.descricao;
+    // turma.descricao= req.body.descricao
+
+
+    if (notificacao.enviarNotificação(turma)){
+        console.log("Notificou turma " + turma.descricao)
+        res.send(reqTurma);
+    }
+    else{ 
+        res.send("Faltam informações da turma!")
+    }
 
 taserver.get('/turma/:descricao', function (req: express.Request, res: express.Response){
     var turmas = new Turmas();
@@ -211,12 +235,8 @@ taserver.post('/adicionar-turma', function (req: express.Request, res: express.R
     const descricoes: string[] = req.query.turmas.split(',');
     res.send(JSON.stringify(turmas.getResumos(descricoes)));
 });
-
-
-
 function closeServer(): void {
 server.close();
 }
-
-
+  
 export { server, closeServer }

@@ -11,7 +11,6 @@ export class Turma {
     monitores: Aluno[] = [];
     numeroMatriculas: number = 0;
 
-
     copyFrom(from:Turma): void{
         this.descricao = from.descricao;
         this.metas = from.metas;
@@ -20,7 +19,7 @@ export class Turma {
         this.monitores = from.monitores;
         this.numeroMatriculas = from.numeroMatriculas;
     
-     constructor() {
+    constructor() {
       this.descricao = "";
       this.metas = [];
       this.matriculas = [];
@@ -45,8 +44,8 @@ export class Turma {
         return 0;
     }
 
-    getMedia(): number{
-        return 0;
+    getMedia(): number {
+        return 7;
     }
    
     getMatricula(cpf:string): Matricula{ 
@@ -75,7 +74,4 @@ export class Turma {
         return this.metas;
     }
 
-    getMatriculas(): Matricula[] {
-        return this.matriculas;
-    }
 }

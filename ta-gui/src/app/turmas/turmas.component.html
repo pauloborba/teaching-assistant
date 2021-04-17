@@ -7,6 +7,7 @@
 </div>
 
 <!-- Lista de turmas e suas médias -->
+
 <table id="turmas">
         <tr>
             <th>Ações</th>
@@ -18,13 +19,13 @@
             <th>Quantidade Matriculas</th>
         </tr>
 
-    </thead>
-    <tbody>
-        <tr name="turma" *ngFor="let turma of turmas">
-            <td name="descricao">{{ turma.descricao }}</td>
-            <td name="media">{{ turma.getMedia() }}</td>
-        </tr>
-    </tbody>
+    <tr *ngFor="let t of turmas">
+        <td>{{t.descricao}}</td>
+        <td>{{t.getMedia()}}</td>
+        <td><button (click)="notificarTurma(t)">Notificar</button></td>
+
+     </tr>
+   
 </table>
 
 <div *ngIf="modalAtivo === 'opcoes'" class="modal">

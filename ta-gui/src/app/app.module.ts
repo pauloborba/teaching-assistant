@@ -49,6 +49,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,

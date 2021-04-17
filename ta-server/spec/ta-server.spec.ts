@@ -1,6 +1,6 @@
 import request = require("request-promise");
-import { closeServer } from '../ta-server';
-
+import { Turma } from "../../common/turma";
+import { closeServer } from "../ta-server";
 var base_url = "http://localhost:3000/";
 let descricaoTurma = 'ESS';
 
@@ -12,6 +12,26 @@ describe("O servidor", () => {
     
     afterAll(() => {server.closeServer()});
    
+
+  it("não envia email caso não haja informações sobre a descrição da turma",() =>{
+    var turma: Turma = new Turma();
+    turma.descricao="";
+    var options: any = { method: 'POST', uri:notUrl, body:  turma,json:true}
+    return request.post(options).then(body=>
+        expect(body).toEqual("Faltam informações da turma!"))
+        .catch(e=> 
+            expect(e).toEqual(null))
+});
+  
+it("envia email normalmente",() =>{
+    var turma: Turma = new Turma();
+    turma.descricao="32131";
+    var options: any = { method: 'POST', uri:notUrl, body:  turma,json:true}
+    return request.post(options).then(body=>
+        expect(body).toEqual(turma))
+        .catch(e=> 
+            expect(e).toEqual(null))
+});
 
     it("retorna turma com base na descricao", () => {
         var turmaJson = '{"descricao":"ESS 2020.1","metas":[],"matriculas":[{"avaliacoes":[],"autoAvaliacoes":[{"meta":"testes","nota":"MPA"},{"meta":"requisitos","nota":"MANA"},{"meta":"Gerencia de Projetos","nota":"MA"}],"respostasDeRoteiros":[],"aluno":{"nome":"Carlos Eduardo","cpf":"123","email":"c@gmail"}},{"avaliacoes":[],"autoAvaliacoes":[{"meta":"testes","nota":"MPA"},{"meta":"requisitos","nota":"MANA"},{"meta":"Gerencia de Projetos","nota":""}],"respostasDeRoteiros":[],"aluno":{"nome":"Carimbo da Silva","cpf":"321","email":"cs@gmail"}},{"avaliacoes":[],"autoAvaliacoes":[{"meta":"Gerencia de Projetos","nota":""},{"meta":"Gerencia de Projetos","nota":""},{"meta":"Gerencia de Projetos","nota":""}],"respostasDeRoteiros":[],"aluno":{"nome":"Macaule Cauque","cpf":"231","email":"m@gmail"}}],"roteiros":[],"monitores":[],"numeroMatriculas":0}'
