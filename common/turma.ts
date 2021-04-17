@@ -1,6 +1,7 @@
 import { Matricula } from './matricula';
-import { Roteiro } from '../ta-server/roteiro';
+import { Roteiro } from './roteiro';
 import { Aluno } from './aluno';
+import { Avaliacao } from '../ta-server/avaliacao';
 
 export class Turma {
     descricao: string = "";
@@ -18,22 +19,61 @@ export class Turma {
         this.roteiros = from.roteiros;
         this.monitores = from.monitores;
         this.numeroMatriculas = from.numeroMatriculas;
+    
+     constructor() {
+      this.descricao = "";
+      this.metas = [];
+      this.matriculas = [];
+      this.roteiros = [];
+      this.monitores = [];
+      this.numeroMatriculas = 0;
+    }
+
+    addRoteiro(roteiro: Roteiro): void {
+      this.roteiros.push(roteiro);
     }
 
     getNumMatriculas(): number {
         return this.numeroMatriculas
-    }
 
+    }
+    
     getNumAprovados(): number {
         return 0;
     }
-
+    
     getNumReprovados(): number {
-        return 0;
+        switch (this.descricao) {
+            case '2017.2':
+                return 12;
+            case '2018.1':
+                return 10;
+            case '2018.2':
+                return 6;
+            case '2019.1':
+                return 4;
+            case '2019.2':
+                return 5;
+            default:
+                return 6;
+        }
     }
 
     getMedia(): number {
-        return 0;
+        switch (this.descricao) {
+            case '2017.2':
+                return 6.7;
+            case '2018.1':
+                return 7.3;
+            case '2018.2':
+                return 7.1;
+            case '2019.1':
+                return 6.8;
+            case '2019.2':
+                return 7.8;
+            default:
+                return 8;
+        }
     }
 
     getMatricula(cpf: string): Matricula {
@@ -41,7 +81,7 @@ export class Turma {
     }
 
     getRoteiros(): Roteiro[] {
-        return [];
+        return this.roteiros;
     }
 
     getMonitores(): Aluno[] {
@@ -51,5 +91,9 @@ export class Turma {
 
     getPercentual(meta: string, conceito: string): number {
         return 0;
+    }
+
+    getMatriculas(): Matricula[] {
+        return this.matriculas;
     }
 }

@@ -1,3 +1,46 @@
-<table>
-    
-</table>
+<div class="alunos-container" >
+   <div class="alunos-cadastro">
+      <h1>Cadastro de alunos</h1>
+      <table class="alunos-form">
+         <tr>
+            <td><label class="test-class">Nome </label></td>
+            <td><input [(ngModel)]="aluno.nome" name="namebox"></td>
+         </tr>
+         <tr>
+            <td><label>CPF </label></td>
+            <td><input  placeholder="Ex.: 000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" [(ngModel)]="aluno.cpf" name="cpfbox"></td>
+         </tr>
+         <tr>
+            <td><label>Email </label></td>
+            <td><input [(ngModel)]="aluno.email"></td>
+         </tr>
+      </table>
+      <div class="aluno-repetido" *ngIf="cpfduplicado">
+         <p> Já existe um aluno com esse CPF!</p> 
+         <p> Por favor, tente novamente!</p>
+      </div>
+      <div class="button-div">
+         <button class="alunos-button" (click)="criarAluno(aluno)">Adicionar</button>
+      </div>
+   </div>
+   <div class="alunos-cadastrados">
+      <h1>Lista de alunos cadastrados</h1>
+      <table class="alunos-table"> 
+         <tr class="table-cabecario" *ngIf="alunos.length > 0"> 
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Email</th>
+            <div class="espaco">
+            </div>
+         </tr>
+         <tr class="table-list" *ngFor="let a of alunos" name="alunolist">
+            <td name="nomelist">{{a.nome}}</td>
+            <td name="cpflist">{{a.cpf}}</td>
+            <td>{{a.email}}</td>
+            <div class="alunos-editar">
+               <img (click)="removerAluno(a)" src="./../../assets/icons/delete.png" alt="">
+            </div>
+         </tr>
+      </table>
+   </div>
+</div>
