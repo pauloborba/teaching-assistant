@@ -12,3 +12,120 @@
     background-color: orange;
 }
 
+.alunos-container{
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alunos-cadastro{
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.alunos-form{
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.button-div{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.alunos-button{
+  color: black;
+  background-color: #f1f1f1;
+  border-radius:5px;
+  text-align: center;
+  border:none;
+  cursor: pointer;
+  font-size: 16px;
+  padding:  16px 30px;
+}
+
+.alunos-button:hover{
+  background-color: #4eb1ba;
+  color: white;
+}
+
+.alunos-cadastrados{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.alunos-table{
+  width: 80%;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.table-cabecario { 
+  background-color: #4eb1ba;
+  width: 90%;
+  justify-content: space-between;
+  display: flex;
+  height: 40px;
+  align-items: center;
+}
+
+.table-cabecario th{
+  width: 100%;
+  text-align: center;
+} 
+
+.table-list{ 
+  width: 90%;
+  justify-content: space-between;
+  display: flex;
+
+}
+
+.table-list td{
+  width: 100%;
+  background-color:#f1f1f1;
+  text-align: center;
+  height: 30px;
+  padding-top: 10px;
+  border-bottom: 0.5px solid #c9c9c9;
+} 
+
+.alunos-editar{
+  display:flex;
+  align-items: center;
+  width: 150px;
+  justify-content: space-around;
+  background-color:#f1f1f1;
+  border-bottom: 0.5px solid #c9c9c9;
+}
+.espaco{
+  width: 150px;
+}
+.alunos-editar img{
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.alunos-editar img:hover{
+  transform: scale(1.5);
+}
+
+.aluno-repetido{
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

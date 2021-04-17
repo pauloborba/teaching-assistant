@@ -3,23 +3,38 @@ import { Turma } from '../../../../common/turma';
 import { Aluno } from '../../../../common/aluno';
 import { AlunoService } from './alunos.service';
 import { Matricula } from '../../../../common/matricula';
+
 @Component({
-  selector: 'app-alunos',
+  selector: 'app-root',
   templateUrl: './alunos.component.html',
   styleUrls: ['./alunos.component.css']
 })
-export class AlunosComponent implements OnInit {
 
+export class AlunosComponent implements OnInit {
   nomeTurma: string = ""
   turma: Turma
   matriculas: Matricula[] = []
   header: String[] = []
   metas: String[] = []
+  aluno: Aluno = new Aluno();
+  alunos: Aluno[] = [];
+  cpfduplicado: boolean = false;
 
   constructor(private alunoService: AlunoService) { }
 
-  ngOnInit() {
-
+  criarAluno(a: Aluno): void {
+    this.alunoService.criar(a)
+      .subscribe(
+        ar => {
+          if (ar) {
+            this.alunos.push(ar);
+            this.aluno = new Aluno();
+          } else {
+            this.cpfduplicado = true;
+          }
+        },
+        msg => { alert(msg.message); }
+      );
   }
 
   carregarMatriculas() {
@@ -75,6 +90,23 @@ export class AlunosComponent implements OnInit {
       return "iniciadoMasNaoConcluido";
     }
     return "naoIniciado";
+  }
+
+  removerAluno(a: Aluno): void {
+    this.alunoService.remover(a)
+      .subscribe(a => {
+        if (a) {
+          this.alunos = this.alunos.filter(b => b.cpf !== a.cpf);
+        }
+      })
+  }
+
+  ngOnInit(): void {
+    this.alunoService.getAlunos()
+      .subscribe(
+        as => { this.alunos = as; },
+        msg => { alert(msg.message); }
+      );
   }
 
 }

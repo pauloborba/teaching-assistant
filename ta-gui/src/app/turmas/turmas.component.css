@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#turmas{
+    border: 1px solid #ddd;
+    
+}
+
+#turmas tr:nth-child(even){background-color: #f2f2f2;}
+
+#turmas tr:hover{
+    background-color: #ddd;
+}
+
+#turmas th{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 5px;
+    padding-right: 10px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#turmas td{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+
+.adc{
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.adc:hover{
+    background-color: #265a27;
+}
+
+.mg-left{
+    margin-left: 0.5rem;
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 400px;
+    min-height: 280px;
+    padding: 20px 40px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    border-radius: 20px;
+    background-color: gainsboro;
+}
+
+.modal h3 {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: gray;
+}
+
+.modal button {
+    margin: 5px 0;
+    padding: 10px 0;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.modal button:hover:enabled {
+    border: 2px solid gray;
+}
+
+.modal > button {
+    width: 80%;
+}
+
+.modal > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: 10px 0;
+}
+
+.modal > div button {
+    width: 45%;
+}
+
+.ativo {
+    background-color: gray !important;
+    color: white;
+}
