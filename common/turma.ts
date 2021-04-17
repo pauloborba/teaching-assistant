@@ -7,7 +7,7 @@ export class Turma {
     descricao: string = "";
     metas: string[] = [];
     matriculas: Matricula[] = [];
-    roteiros: Roteiro[] = [];
+    agendamentos: AgendamentoRoteiro[] = [];
     monitores: Aluno[] = [];
     numeroMatriculas: number = 0;
 
@@ -57,6 +57,8 @@ export class Turma {
         return this.matriculas;
     }
 
+    getAgendamentoRoteiros(): Roteiro[] {
+        return [];
 
     getRoteiros(): Roteiro[] {
         return this.roteiros;
@@ -78,6 +80,10 @@ export class Turma {
     getPercentual(meta: string, conceito: string): number{
         return 0;
     }
+      
+	addAgendamento(ar: AgendamentoRoteiro){
+		agendamentos.push(ar);
+	}
 
     addMetas(metasClonadas: string[]){
         this.metas = this.metas.concat(metasClonadas);
