@@ -1,8 +1,12 @@
 export class Aluno {
-    nome: string;
-    cpf: string;
-    email: string;
+    nome: String;
+    cpf: String;
+    email: String;
     metas: Map<string,string>;
+    
+    getNome(): String {
+        return this.nome
+    }
   
     constructor() {
       this.clean();
@@ -35,4 +39,4 @@ export class Aluno {
         this.metas[key] = from[key];
       }
     }
-  }
+}

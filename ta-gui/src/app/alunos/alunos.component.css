@@ -1,3 +1,17 @@
+.concluido{
+    background-color: green;
+    color: white;
+}
+
+.iniciadoMasNaoConcluido{
+    background-color: blue;
+    color: white;
+}
+
+.naoIniciado{
+    background-color: orange;
+}
+
 .alunos-container{
   height: auto;
   width: 100%;

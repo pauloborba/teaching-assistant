@@ -5,16 +5,24 @@ import { retry, map, catchError } from 'rxjs/operators';
 
 
 import { Aluno } from '../../../../common/aluno';
+import { Turma } from '../../../../common/turma';
 // import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class AlunoService {
 
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  private headers = new HttpHeaders({'Content-Type': 'application/json'});
   private taURL = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
+  getTurma(turma: string): Observable<Turma> {
+    return this.http.get<Turma>(this.taURL + `/turma/${turma}`)
+              .pipe(
+                  retry(2)
+              );
+  }
+  
   criar(aluno: Aluno): Observable<Aluno> {
     return this.http.post<any>(this.taURL + "/aluno", aluno, { headers: this.headers })
       .pipe(

@@ -117,10 +117,17 @@ taserver.get('/metas/', function (req: express.Request, res: express.Response){
   let descricaoTurma: string = req.query.descricaoTurma;
   let turma: Turma = conjTurmas.getTurma(descricaoTurma);
   let metas = turma.getMetas();
-  res.send(metas);
-    
+  res.send(metas);    
 })
 
+taserver.get('/turma/:descricao', function (req: express.Request, res: express.Response){
+    var turmas = new Turmas();
+    let turma = new Turma();
+    turma = turmas.getTurma(req.params.descricao)
+    res.send(turma)
+    //res.send(JSON.stringify(cadastro.getAlunos()));
+})
+    
 //recebe um identificador de turma e de aluno e retorna uma matricula
 taserver.get('/matriculas/', function (req: express.Request, res: express.Response){
     let cpf: string = req.query.cpf;

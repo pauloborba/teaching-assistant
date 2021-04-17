@@ -1,7 +1,7 @@
 import { Aluno } from '../common/aluno';
 import { Turma } from '../common/turma';
-import { Matricula } from '../common/matricula';
-import { Avaliacao } from './avaliacao';
+import { Matricula } from '../common/matricula'
+import { Avaliacao } from "../ta-server/avaliacao"
 
 export class Turmas {
     turmas: Turma[] = [];
@@ -36,6 +36,7 @@ export class Turmas {
 
         return resumos;
     }
+    //tenho que usar o get turmas e procurar a turma
 
     getTurma(descricao: string): Turma{
         let turma: Turma = this.turmas.find(turma => turma.descricao == descricao);

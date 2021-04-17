@@ -54,6 +54,10 @@ export class Turma {
         return matricula;
     }
 
+    getMatriculas(): Matricula [] {
+        return this.matriculas;
+    }
+
 
     getRoteiros(): Roteiro[] {
         return this.roteiros;
