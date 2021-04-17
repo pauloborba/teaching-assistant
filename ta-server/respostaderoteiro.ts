@@ -1,4 +1,4 @@
-import { Roteiro } from "./roteiro";
+import { Roteiro } from "../common/roteiro";
 import { RespostaDeQuestao } from "./respostadequestao"
 
 export class RespostaDeRoteiro {

@@ -13,6 +13,7 @@ import { AlunosComponent } from './alunos/alunos.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
+import { RoteiroService } from './roteiros/roteiro.service';
 import { DiscrepantesComponent } from './discrepantes/discrepantes.component';
 import { DiscrepantesService } from '../app/discrepantes/discrepantes.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -77,7 +78,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     }
   ])
   ],
-  providers: [DiscrepantsService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
+  providers: [RoteiroService, DiscrepantsService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

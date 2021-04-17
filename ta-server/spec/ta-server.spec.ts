@@ -11,6 +11,43 @@ describe("O servidor", () => {
 
   afterAll(() => {server.closeServer()});
 
+
+  it("cadastro de roteiros", () => {
+    var options:any = {method: 'POST', uri: (base_url + "roteiro"), body:{descricao:"Roteiro de testes", blocos:[]}, json: true};
+    return request(options)
+             .then(body =>
+                expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"})
+             ).catch(e =>
+                expect(e).toEqual(null)
+             )
+  });
+
+  it("não cadastra roteiros com mesmo nome", () => {
+    var roteiro1 = {"json":{"descricao":"Roteiro de requisitos","blocos":[{"tipo":"Sequencial","questoes":[]}]}};
+    var roteiro2 = {"json":{"descricao":"Roteiro de requisitos","blocos":[{"tipo":"Paralelo","questoes":[]}]}};
+    var resposta1 = '{"descricao":"Roteiro de requisitos","blocos":[{"tipo":"Sequencial","questoes":[]}]}';
+    var resposta2 = '{"descricao":"Roteiro de requisitos","blocos":[{"tipo":"Paralelo","questoes":[]}]}';
+
+    return request.post(base_url + "roteiro", roteiro1)
+             .then(body => {
+                expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
+                return request.post(base_url + "roteiro", roteiro2)
+                         .then(body => {
+                            expect(body).toEqual({failure: "O roteiro não pode ser cadastrado"});
+                            return request.get(base_url + "roteiros")
+                                     .then(body => {
+                                        expect(body).toContain(resposta1);
+                                        expect(body).not.toContain(resposta2);
+                                      });
+                          });
+              })
+              .catch(err => {
+                 expect(err).toEqual(null)
+              });
+ })
+
+});
+
   it("retorna turma com base na descricao", () => {
     var turmaJson = '{"descricao":"ESS 2018.1","metas":["Requisitos","Gerência de Configuração","Testes"],"matriculas":[],"roteiros":[],"monitores":[],"numeroMatriculas":0}'
 
