@@ -1,9 +1,9 @@
 import express = require('express');
 import bodyParser = require("body-parser");
+
 import turmaRotas from "./turmas/turmas.api";
 import { Turma } from '../common/turma'
 import { Turmas } from './turmas'
-
 import { NotificacaoNotas } from './notificacaoNotas';
 import { Avaliacao } from './avaliacao';
 import {Aluno} from '../common/aluno';
@@ -117,7 +117,8 @@ taserver.get('/matriculas', function (req: express.Request, res: express.Respons
 
 taserver.get('/metas/', function (req: express.Request, res: express.Response){
   let conjTurmas: Turmas = turmas;
-  let descricaoTurma: string = req.query.descricaoTurma;
+  let descricaoTurma: string = <string> req.query.descricaoTurma;
+  //let descricaoTurma: string = "ess";
   let turma: Turma = conjTurmas.getTurma(descricaoTurma);
   let metas = turma.getMetas();
   res.send(metas);    
@@ -150,9 +151,11 @@ taserver.get('/turma/:descricao', function (req: express.Request, res: express.R
     
 //recebe um identificador de turma e de aluno e retorna uma matricula
 taserver.get('/matriculas/', function (req: express.Request, res: express.Response){
-    let cpf: string = req.query.cpf;
-    let descricaoTurma: string = req.query.descricaoTurma;
-    
+    let cpf: string = <string> req.query.cpf;
+    //let cpf: string = "111";
+    let descricaoTurma: string = <string> req.query.descricaoTurma;
+    //let descricaoTurma: string = "ess"
+
     let turma: Turma = turmas.getTurma(descricaoTurma);
     let matricula: Matricula = turma.getMatricula(cpf);
     res.send(matricula);
@@ -176,9 +179,6 @@ taserver.put('/autoavalicoes/atualizar/', function (req: express.Request, res: e
       res.send({"failure": "A autoavaliacao não pode ser atualizada"});
     }
 })
-
-
-taserver.get('/alunos', function (req: express.Request, res: express.Response) {})
 
 // taserver.get('/roteiros', function (req: express.Request, res: express.Response){
 //   res.send(JSON.stringify(cadastroRoteiro.getRoteiros()));
@@ -228,7 +228,8 @@ taserver.post('/adicionar-turma', function (req: express.Request, res: express.R
 });
 
   taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: express.Response) {
-    const descricoes: string[] = req.query.turmas.split(',');
+    const desc: string = <string> req.query.turmas
+    const descricoes: string[] = desc.split(',')
     res.send(JSON.stringify(turmas.getResumos(descricoes)));
 });
 

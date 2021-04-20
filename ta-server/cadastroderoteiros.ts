@@ -36,4 +36,8 @@ export class CadastroDeRoteiros{
          }
        }
 
+       getRoteiros(): Roteiro[]{
+         return this.roteiros;
+       }
+
 }
