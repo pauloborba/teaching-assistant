@@ -15,6 +15,7 @@ import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from './relatorio/relatorio.service';
+import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RelatorioService } from './relatorio/relatorio.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
     RouterModule.forRoot([{
 
       path: 'metas',
@@ -56,11 +58,14 @@ import { RelatorioService } from './relatorio/relatorio.service';
     {
       path: 'relatorio',
       component: RelatorioComponent
+    },
+    {
+      path: 'comparacao-de-desempenho',
+      component: ComparacaoDeDesempenhoComponent
     }
-    
-  ]),HttpClientModule
+  ])
   ],
-  providers: [RelatorioService],
+  providers: [RelatorioService, ComparacaoDeDesempenhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
