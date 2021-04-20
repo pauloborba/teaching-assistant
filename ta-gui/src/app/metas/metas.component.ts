@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-// Comentado pois não existe Aluno em common ainda
 import { Aluno } from '../../../../common/aluno';
 
 @Component({

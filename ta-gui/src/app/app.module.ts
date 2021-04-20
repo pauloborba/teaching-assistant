@@ -16,6 +16,7 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from './relatorio/relatorio.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
+import { AlunoService } from './alunos/alunos.service';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     }
   ])
   ],
-  providers: [RelatorioService, ComparacaoDeDesempenhoService],
+  providers: [RelatorioService, ComparacaoDeDesempenhoService, AlunoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
