@@ -105,8 +105,6 @@ taserver.use(allowCrossDomain);
 
 taserver.use(bodyParser.json());
 
-taserver.get('/alunos', function (req: express.Request, res: express.Response) {})
-
 var server = taserver.listen(3000, function () {
     console.log('Example app listening on port 3000!')
 })
@@ -232,6 +230,41 @@ taserver.post('/adicionar-turma', function (req: express.Request, res: express.R
     const descricoes: string[] = desc.split(',')
     res.send(JSON.stringify(turmas.getResumos(descricoes)));
 });
+
+taserver.get('/alunos', function (req: express.Request, res: express.Response) {
+  res.send(JSON.stringify(cadastro.getAlunos()));
+})
+
+taserver.post('/aluno', function (req: express.Request, res: express.Response) {
+  var aluno: Aluno = <Aluno> req.body; //verificar se é mesmo Aluno!
+  aluno = cadastro.cadastrar(aluno);
+  if (aluno) {
+    res.send({"success": "O aluno foi cadastrado com sucesso"});
+  } else {
+    res.send({"failure": "O aluno não pode ser cadastrado"});
+  }
+})
+
+taserver.put('/aluno', function (req: express.Request, res: express.Response) {
+  var aluno: Aluno = <Aluno> req.body;
+  aluno = cadastro.atualizar(aluno);
+  if (aluno) {
+    res.send({"success": "O aluno foi atualizado com sucesso"});
+  } else {
+    res.send({"failure": "O aluno não pode ser atualizado"});
+  }
+})
+
+taserver.delete('/aluno', function(req: express.Request, res: express.Response){
+  let aluno: string = req.query.id.toString();
+  var removido = cadastro.remover(aluno);
+  if (removido) {
+    res.send({"success": "O aluno foi removido com sucesso"});
+  } else {
+    res.send({"failure": "O aluno não pode ser removido"});
+  }
+})
+
 
   function closeServer(): void {
     server.close();
