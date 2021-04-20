@@ -7,14 +7,10 @@ import { Turmas } from './turmas'
 import { NotificacaoNotas } from './notificacaoNotas';
 import { Avaliacao } from './avaliacao';
 import {Aluno} from '../common/aluno';
-import {CadastroDeAlunos} from './cadastrodealunos'; 
-import {Turmas} from './turmas'
-import {Turma} from '../common/turma'
+import {CadastroDeAlunos} from './cadastrodealunos';
 import {Roteiro} from '../common/roteiro'
 import {CadastroDeRoteiros} from './cadastroderoteiros';
 import {Matricula} from '../common/matricula'
-import { Turma } from '../common/turma'
-import { Roteiro } from './roteiro';
 import { BlocoDeQuestoes } from './blocodequestoes';
 import { Questao } from './questao';
 import { RespostaDeRoteiro } from './respostaderoteiro';
@@ -22,8 +18,8 @@ import { RespostaDeQuestao } from './respostadequestao';
 
 var taserver = express();
 // Stub para popular o front-end com alunos de uma turma
-var stub_turma1 = new Turma();
-var stub_turma2 = new Turma();
+var stub_turma1 = new Turma("");
+var stub_turma2 = new Turma("");
 stub_turma1.descricao = "ESS";
 stub_turma2.descricao = "Compiladores";
 stub_turma1.metas = ["Requisitos", "Refatoração"];
@@ -56,7 +52,7 @@ stub_matricula1.autoAvaliacoes = [stub_autoavaliacao1, stub_autoavaliacao2];
 stub_matricula2.autoAvaliacoes = [stub_autoavaliacao3, stub_autoavaliacao4];
 stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
 stub_turma2.matriculas = [stub_matricula2];
-var sender = new EmailSender();
+// var sender = new EmailSender();
 
 
 var turmas: Turmas = new Turmas();
@@ -66,8 +62,8 @@ var cadastroTurma: Turmas = new Turmas();
 
 
 // stub para turmas
-var stub_turma1 = new Turma();
-var stub_turma2 = new Turma();
+var stub_turma1 = new Turma("");
+var stub_turma2 = new Turma("");
 stub_turma1.descricao = "ESS";
 stub_turma2.descricao = "Compiladores";
 stub_turma1.metas = ["Requisitos", "Refatoração"];
@@ -89,13 +85,9 @@ stub_turma2.matriculas = [stub_matricula2];
 
 
 
-var turmas: Turmas = new Turmas();
-turmas.turmas = [stub_turma1, stub_turma2];
-
 var cadastro: CadastroDeAlunos = new CadastroDeAlunos();
 var notificacao: NotificacaoNotas = new NotificacaoNotas();
 var turmas: Turmas = new Turmas();
-var conjTurmas: Turmas = new Turmas();
 
 
 var cadastroRoteiro: CadastroDeRoteiros = new CadastroDeRoteiros();
@@ -106,7 +98,7 @@ var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
-}
+};
 
 
 taserver.use(allowCrossDomain);
@@ -134,7 +126,7 @@ taserver.get('/metas/', function (req: express.Request, res: express.Response){
 taserver.post('/notificacaoResultadoFinal/', function (req: express.Request, res: express.Response) {
    
     var  reqTurma:Turma = <Turma> req.body;
-   var turma:Turma = new Turma();
+   var turma:Turma = new Turma("");
    turma.descricao = reqTurma.descricao;
     // turma.descricao= req.body.descricao
 
@@ -146,10 +138,11 @@ taserver.post('/notificacaoResultadoFinal/', function (req: express.Request, res
     else{ 
         res.send("Faltam informações da turma!")
     }
+  });
 
 taserver.get('/turma/:descricao', function (req: express.Request, res: express.Response){
     var turmas = new Turmas();
-    let turma = new Turma();
+    let turma = new Turma("");
     turma = turmas.getTurma(req.params.descricao)
     res.send(turma)
     //res.send(JSON.stringify(cadastro.getAlunos()));
@@ -187,9 +180,9 @@ taserver.put('/autoavalicoes/atualizar/', function (req: express.Request, res: e
 
 taserver.get('/alunos', function (req: express.Request, res: express.Response) {})
 
-taserver.get('/roteiros', function (req: express.Request, res: express.Response){
-  res.send(JSON.stringify(cadastroRoteiro.getRoteiros()));
-})
+// taserver.get('/roteiros', function (req: express.Request, res: express.Response){
+//   res.send(JSON.stringify(cadastroRoteiro.getRoteiros()));
+// })
 
 taserver.post('/roteiro', function (req: express.Request, res: express.Response) {
   var roteiro: Roteiro = <Roteiro> req.body;
@@ -238,8 +231,10 @@ taserver.post('/adicionar-turma', function (req: express.Request, res: express.R
     const descricoes: string[] = req.query.turmas.split(',');
     res.send(JSON.stringify(turmas.getResumos(descricoes)));
 });
-function closeServer(): void {
-server.close();
-}
+
+  function closeServer(): void {
+    server.close();
+  };
+
   
 export { server, closeServer }

@@ -7,7 +7,7 @@ export class Turma {
     descricao: string = "";
     metas: string[] = [];
     matriculas: Matricula[] = [];
-    agendamentos: AgendamentoRoteiro[] = [];
+    roteiros: Roteiro[] = [];
     monitores: Aluno[] = [];
     numeroMatriculas: number = 0;
 
@@ -18,9 +18,10 @@ export class Turma {
         this.roteiros = from.roteiros;
         this.monitores = from.monitores;
         this.numeroMatriculas = from.numeroMatriculas;
+    }
     
-    constructor() {
-      this.descricao = "";
+    constructor(desc: string) {
+      this.descricao = desc;
       this.metas = [];
       this.matriculas = [];
       this.roteiros = [];
@@ -33,7 +34,8 @@ export class Turma {
     }
 
     getNumMatriculas(): number {
-        return this.numeroMatriculas
+        return this.numeroMatriculas;
+    }
 
 
     getNumAprovados(): number{
@@ -59,13 +61,10 @@ export class Turma {
 
     getAgendamentoRoteiros(): Roteiro[] {
         return [];
+    }
 
     getRoteiros(): Roteiro[] {
         return this.roteiros;
-    }
-    
-    getMetas(): string[]{
-        return this.metas;
     }
 
     getDescricao(): string{
@@ -81,9 +80,9 @@ export class Turma {
         return 0;
     }
       
-	addAgendamento(ar: AgendamentoRoteiro){
-		agendamentos.push(ar);
-	}
+	// addAgendamento(ar: AgendamentoRoteiro){
+	// 	agendamentos.push(ar);
+	// }
 
     addMetas(metasClonadas: string[]){
         this.metas = this.metas.concat(metasClonadas);

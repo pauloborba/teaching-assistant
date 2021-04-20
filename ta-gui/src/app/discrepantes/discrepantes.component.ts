@@ -40,7 +40,7 @@ export class DiscrepantesComponent implements OnInit {
 
         (a) => { 
 
-          this.turma = new Turma()
+          this.turma = new Turma("")
           this.turma.descricao = a.descricao
           this.turma.metas = a.metas
           this.matriculas = this.turma.getMatriculas() 

@@ -3,7 +3,7 @@
   <table>
     <tr>
       <td name="cadastrar"><button (click)="setShowContent()" class="botoes-menu">Cadastrar</button></td>
-      <td><button (click)="notificarAutoAvaliacao(matricula)" class="botoes-menu">Notificar</button></td>
+      <td><button (click)="notificarAutoAvaliacao()" class="botoes-menu">Notificar</button></td>
       <td><button routerLink="/discrepantes" class="botoes-menu" >Discrepantes</button></td>
       
     </tr>
@@ -43,10 +43,10 @@
       <h2>Auto Avaliações</h2>
       <table>
         <tr>
-          <th *ngFor="let a of autoavaliacoes" class="header data" name="metaslist">{{a.meta}}</th>
+          <th *ngFor="let a of auto_avaliacoes" class="header data" name="metaslist">{{a.meta}}</th>
         </tr>
         <tr>
-          <td *ngFor="let a of autoavaliacoes let in=index" lass="data" class="nota avaliacao-container data" name="notaslist"><input [(ngModel)]="autoavaliacoes[in].nota" (change)="atualizarAutoavaliacao(cpf, descricaoTurma, autoavaliacoes)" class="input-table" align="center" id="{{autoavaliacoes[in].meta}}"></td>
+          <td *ngFor="let a of auto_avaliacoes let in=index" lass="data" class="nota avaliacao-container data" name="notaslist"><input [(ngModel)]="auto_avaliacoes[in].nota" (change)="atualizarAutoavaliacao(cpf, descricaoTurma, auto_avaliacoes)" class="input-table" align="center" id="{{auto_avaliacoes[in].meta}}"></td>
         </tr>
       </table>
   </div>

@@ -30,7 +30,7 @@ export class CadastroDeRoteiros{
          if(result){
            var index = this.roteiros.indexOf(result);
            this.roteiros.splice(index, 1);
-           return result;
+           return result.descricao;
          } else {
            return null;
          }

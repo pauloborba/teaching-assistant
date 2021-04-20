@@ -8,13 +8,13 @@ describe('Turmas:', () => {
         let descricoes: string[];
         let resumos: any[];
 
-        beforeAll(() => {
-            descricoes = [ '2017.2', '2018.1', '2018.2', '2019.1', '2019.2' ];
-            descricoes.forEach(descricao => turmas.cadastrarTurma(new Turma(descricao)));
-            resumos = turmas.getResumos(descricoes);
-        });
+        // beforeAll(() => {
+        //     descricoes = [ '2017.2', '2018.1', '2018.2', '2019.1', '2019.2' ];
+        //     descricoes.forEach(descricao => turmas.cadastrarTurma(new Turma(descricao)));
+        //     resumos = turmas.getResumos(descricoes);
+        // });
 
-        afterAll(() => descricoes.forEach(descricao => turmas.removerTurma(descricao)));
+        // afterAll(() => descricoes.forEach(descricao => turmas.removerTurma(descricao)));
         
         it('retorna resumos com descrição, média e índice de reprovação', () => {
             resumos.forEach(resumo => {

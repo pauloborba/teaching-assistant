@@ -10,10 +10,8 @@ export class StubTurmas {
     }
 
     init(){
-      var turma = new Turma();
-      turma.descricao = "2019.1";
-      var turma1 = new Turma();
-      turma1.descricao = "2019.2";
+      var turma = new Turma("2019.1");
+      var turma1 = new Turma("2019.2");
       this.turmas.push(turma);
       this.turmas.push(turma1);
     }

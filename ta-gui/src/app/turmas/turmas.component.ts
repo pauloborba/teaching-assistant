@@ -18,11 +18,9 @@ export class TurmasComponent implements OnInit {
   opcaoSelecionada: string = '';
 
   ngOnInit() {
-    var turma: Turma = new Turma();
-    turma.descricao = "23e1321";
+    var turma: Turma = new Turma("23e1321");
     this.turmas.push(turma);
-    turma = new Turma();
-    turma.descricao="32fkds"
+    turma = new Turma("32fkds");
     this.turmas.push(turma)
 
   }

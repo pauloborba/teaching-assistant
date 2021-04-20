@@ -7,6 +7,7 @@ import { Avaliacao } from '../../../../ta-server/avaliacao';
 import { Turmas } from '../../../../ta-server/turmas';
 import { Turma } from '../../../../common/turma';
 import { AutoavaliacaoService } from './autoavaliacao.service';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-autoavaliacao',
@@ -47,8 +48,7 @@ export class AutoavaliacaoComponent implements OnInit {
   erro_turma: boolean = false;
   selectedMetas: string[] = [];
   index = -1;
-
-  constructor(private aaService: AutoavaliacaoService) { }
+  metas: string[] = [];
 
   setShowContent(): void{
     this.showContent = true;
@@ -108,7 +108,7 @@ export class AutoavaliacaoComponent implements OnInit {
            this.matricula.autoAvaliacoes = ma.autoAvaliacoes;
            this.matricula.avaliacoes = ma.avaliacoes;
            this.avaliacoes = this.matricula.getAvaliacoes();
-           this.autoavaliacoes = this.adicionarMetas(this.metas, this.matricula.getAutoAvaliacoes());
+           this.auto_avaliacoes = this.adicionarMetas(this.metas, this.matricula.getAutoAvaliacoes());
           },
           msg => { alert(msg.message) }
        );
@@ -184,7 +184,7 @@ export class AutoavaliacaoComponent implements OnInit {
       this.show_turmas = true;
       this.show_matriculas = true;
       this.aaService.getTurmas(descricaoTurma).subscribe(as => {
-        this.turma = new Turma();
+        this.turma = new Turma("");
         this.turma.descricao = as.descricao;
         this.turma.metas = as.metas;
         this.matriculas = as.matriculas;

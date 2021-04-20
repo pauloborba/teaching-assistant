@@ -16,8 +16,6 @@ import { RoteirosComponent } from './roteiros/roteiros.component';
 import { TurmasService } from './turmas/turmasService';
 
 import { AlunoService } from './alunos/alunos.service';
-import { HttpClientModule } from '@angular/common/http';
-
 import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
 import { AdicionarTurmaComponent } from './turmas/adicionar-turma/adicionar-turma.component';
 import { EditarTurmaComponent } from './turmas/editar-turma/editar-turma.component';
@@ -26,10 +24,6 @@ import { AdicionarTurmaService } from './turmas/adicionar-turma/adicionar-turma.
 import { RoteiroService } from './roteiros/roteiro.service';
 import { DiscrepantesComponent } from './discrepantes/discrepantes.component';
 import { DiscrepantesService } from '../app/discrepantes/discrepantes.service';
-import { HttpClientModule } from '@angular/common/http';
-
-import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
-import { AlunoService } from './alunos/alunos.service';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from './relatorio/relatorio.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
@@ -45,7 +39,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     MonitoresComponent,
     RoteirosComponent,
     AdicionarTurmaComponent,
-    EditarTurmaComponent
+    EditarTurmaComponent,
     DiscrepantesComponent,
     RelatorioComponent
   ],
@@ -103,7 +97,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
   ])
   ],
 
-  providers: [TurmasService, AlunoService, AutoavaliacaoService, RoteiroService, DiscrepantsService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
+  providers: [TurmasService, AlunoService, AutoavaliacaoService, RoteiroService, DiscrepantesService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
