@@ -62,7 +62,7 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
     Then(/^I can see an error message$/, async () => {
-        var allmsgs : ElementArrayFinder = element.all(by.name('msgcpfexistente'));
+        var allmsgs : ElementArrayFinder = element.all(by.className('aluno-repetido'));
         await assertTamanhoEqual(allmsgs,1);
     });
 

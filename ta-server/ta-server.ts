@@ -63,7 +63,7 @@ taserver.delete('/aluno', function(req: express.Request, res: express.Response){
 
 //recebe um identificador de turma e retorna a mesma
 taserver.get('/turmas', function (req: express.Request, res: express.Response){
-    let descricao: string = req.query.descricao;
+    let descricao: string = <string> req.query.descricao;
     let turma: Turma = turmas.getTurma(descricao);
     res.send(turma);
 })
@@ -74,7 +74,7 @@ taserver.get('/matriculas', function (req: express.Request, res: express.Respons
 })
 
 taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: express.Response) {
-    const descricoes: string[] = req.query.turmas.split(',');
+    const descricoes: string[] = (<string> req.query.turmas).split(',');
     res.send(JSON.stringify(turmas.getResumos(descricoes)));
 });
 

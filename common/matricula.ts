@@ -7,7 +7,7 @@ export class Matricula{
     avaliacoes: Avaliacao[] = []
     autoAvaliacoes: Avaliacao[] = []
     monitor: Aluno
-    // respostasDeRoteiros: RespostaDeRoteiro[] = []
+    respostasDeRoteiros: RespostaDeRoteiro[] = []
     
     getAluno(): Aluno{
         return this.aluno
@@ -21,7 +21,7 @@ export class Matricula{
     getMonitor(): Aluno {
         return this.monitor      
     }
-    // getRespostasDeRoteiros(): RespostaDeRoteiro[]{
-    //     return this.respostasDeRoteiros
-    // }
+    getRespostasDeRoteiros(): RespostaDeRoteiro[]{
+        return this.respostasDeRoteiros
+    }
 }
