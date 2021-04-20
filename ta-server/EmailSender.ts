@@ -1,6 +1,7 @@
 export class EmailSender {
   
-  enviarEmail(from: String, to: String, subject: String, message: String): boolean {
+  enviarEmail(from: string, to: string, subject: string, message: string): boolean {
+    console.log("Mensagem de email de " + from + " para " + to + "\n" + subject + "\n" + message + "\n\n")
     return true;
   }
 
