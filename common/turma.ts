@@ -3,6 +3,12 @@ import { Roteiro } from './roteiro';
 import { Aluno } from './aluno';
 import { Avaliacao } from '../ta-server/avaliacao';
 
+interface StatusNotificacao {
+    nome: String;
+    cpf: String;
+    notificado: boolean;
+}
+
 export class Turma {
     descricao: string = "";
     metas: string[] = [];
@@ -10,6 +16,7 @@ export class Turma {
     roteiros: Roteiro[] = [];
     monitores: Aluno[] = [];
     numeroMatriculas: number = 0;
+    statusNotificacao: StatusNotificacao[] = [];
 
     copyFrom(from:Turma): void{
         this.descricao = from.descricao;
@@ -18,6 +25,7 @@ export class Turma {
         this.roteiros = from.roteiros;
         this.monitores = from.monitores;
         this.numeroMatriculas = from.numeroMatriculas;
+        this.statusNotificacao = from.statusNotificacao;
     }
     
     constructor(desc: string) {
@@ -27,6 +35,7 @@ export class Turma {
       this.roteiros = [];
       this.monitores = [];
       this.numeroMatriculas = 0;
+      this.statusNotificacao = [];
     }
 
     addRoteiro(roteiro: Roteiro): void {
@@ -90,5 +99,14 @@ export class Turma {
 
     getMetas(): string[]{
         return this.metas;
+    }
+
+    // Métodos para manusear os status das notificações
+    getStatusNotificacao(): StatusNotificacao[] {
+        return this.statusNotificacao
+    }
+
+    setStatusNotificacao(statusNotificacao): void {
+        this.statusNotificacao = statusNotificacao;
     }
 }

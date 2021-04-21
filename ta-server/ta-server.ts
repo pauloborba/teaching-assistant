@@ -124,19 +124,23 @@ taserver.get('/metas/', function (req: express.Request, res: express.Response){
 
 taserver.post('/notificacaoResultadoFinal/', function (req: express.Request, res: express.Response) {
    
-    var  reqTurma:Turma = <Turma> req.body;
+  var  reqTurma:Turma = <Turma> req.body;
    var turma:Turma = new Turma("");
    turma.descricao = reqTurma.descricao;
     // turma.descricao= req.body.descricao
 
+    console.log("Notificou turma " + turma.descricao);
+    // Implementação antiga
+    
+    // if (notificacao.enviarNotificação(turma)){
+    //     console.log("Notificou turma " + turma.descricao)
+    //     res.send(reqTurma);
+    // }
+    // else{ 
+    //     res.send("Faltam informações da turma!")
+    // }
 
-    if (notificacao.enviarNotificação(turma)){
-        console.log("Notificou turma " + turma.descricao)
-        res.send(reqTurma);
-    }
-    else{ 
-        res.send("Faltam informações da turma!")
-    }
+    res.send(notificacao.enviarNotificação(turma)) // Nova implementação: retorna o array de alunos com o parâmetro "notificado"
   });
 
 taserver.get('/turma/:descricao', function (req: express.Request, res: express.Response){

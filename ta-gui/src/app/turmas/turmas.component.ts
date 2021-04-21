@@ -32,7 +32,7 @@ export class TurmasComponent implements OnInit {
       {
         next: r => {
           if (r) {
-            alert("Turma notificada!")
+            return r; // Retorna a resposta que contém o array de alunos notificados
           }
           else {
             alert("Erro ao notificar turma!")
@@ -89,13 +89,13 @@ export class TurmasComponent implements OnInit {
     this.turmasEscolhidas = this.turmas.map(turma => turma.descricao);
     this.opcaoSelecionada = 'todas';
   }
-  
+
   selecionarUltimasQuatro(): void {
     this.turmasEscolhidas = [];
     for (let i = this.turmas.length - 1; this.turmasEscolhidas.length < 4; i--) {
       this.turmasEscolhidas.push(this.turmas[i].descricao);
     }
-    
+
     this.opcaoSelecionada = 'ultimas-quatro';
   }
 
