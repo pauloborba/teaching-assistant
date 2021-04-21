@@ -91,6 +91,12 @@ taserver.post('/notificar', function (req: express.Request, res: express.Respons
     } else {
         res.send({"failure": "Notificações não foram enviadas"})
     }
+   
+})
+
+taserver.get('/turma/:descricao', function (req: express.Request, res: express.Response){
+    let turma = turmas.getTurma(req.params.descricao)
+    res.send(turma)
 })
 
 //recebe um identificador de turma e de aluno e retorna uma matricula

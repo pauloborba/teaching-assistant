@@ -1,7 +1,9 @@
-<table>
+
+<html>
+  <table>
     <tr>
       <td><button (click)="cadastrarAutoAvaliacao(matricula, avaliacoes)">Cadastrar</button></td>
-      <td><button name="notificar" (click)="setNotificar()">Notificar</button></td>
+      <td><button name="notificar" (click)="notificarAutoAvaliacao(matricula)">Notificar</button></td>
       <td><button routerLink="/discrepantes" >Discrepantes</button></td>
     </tr>
 </table>
@@ -61,3 +63,8 @@
    </tr>
   </table>
 </div>
+
+  <router-outlet></router-outlet>
+
+
+</html>

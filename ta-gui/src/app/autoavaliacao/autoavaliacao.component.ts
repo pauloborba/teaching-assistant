@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { Aluno } from '../../../../common/aluno';
 import { Matricula } from '../../../../common/matricula';
 import { Avaliacao } from '../../../../ta-server/avaliacao';
@@ -30,7 +30,7 @@ export class AutoavaliacaoComponent implements OnInit {
   selectedMetas: string[] = [];
   index = -1;
 
-  constructor(private aaService: AutoavaliacaoService) { }
+  constructor(private aaService: AutoavaliacaoService, private router: Router) { }
 
   ngOnInit() {
 
@@ -92,4 +92,4 @@ export class AutoavaliacaoComponent implements OnInit {
       }
     }
   }
-}
+} 
