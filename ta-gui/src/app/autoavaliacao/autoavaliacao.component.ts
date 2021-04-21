@@ -74,8 +74,7 @@ export class AutoavaliacaoComponent implements OnInit {
       this.show_turmas = true;
       this.show_matriculas = true;
       this.aaService.getTurmas(descricaoTurma).subscribe(as => {
-        this.turma = new Turma();
-        this.turma.descricao = as.descricao;
+        this.turma = new Turma(as.descricao);
         this.turma.metas = as.metas;
         this.matriculas = as.matriculas;
       }, msg => {alert(msg.message);});
