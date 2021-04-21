@@ -24,6 +24,15 @@ export class Turma {
       this.roteiros.push(roteiro);
     }
 
+    copyFrom(from:Turma): void{
+        this.descricao = from.descricao;
+        this.metas = from.metas;
+        this.matriculas = from.matriculas;
+        this.roteiros = from.roteiros;
+        this.monitores = from.monitores;
+        this.numeroMatriculas = from.numeroMatriculas;
+    }
+
     getNumMatriculas(): number {
         return this.numeroMatriculas
     }
@@ -49,6 +58,7 @@ export class Turma {
     }
 
     getMonitores(): Aluno[] {
+    
         return [];
     }
 

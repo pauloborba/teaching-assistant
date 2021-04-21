@@ -21,6 +21,9 @@ import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
 import { DiscrepantesComponent } from './discrepantes/discrepantes.component';
 import { DiscrepantesService } from '../app/discrepantes/discrepantes.service';
 import { RoteiroService } from './roteiros/roteiro.service';
+import { AdicionarTurmaComponent } from './turmas/adicionar-turma/adicionar-turma.component';
+import { EditarTurmaComponent } from './turmas/editar-turma/editar-turma.component';
+import { AdicionarTurmaService } from './turmas/adicionar-turma/adicionar-turma.service';
 
 @NgModule({
   declarations: [ 
@@ -34,6 +37,8 @@ import { RoteiroService } from './roteiros/roteiro.service';
     RoteirosComponent,
     RelatorioComponent,
     DiscrepantesComponent,
+    AdicionarTurmaComponent,
+    EditarTurmaComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +77,15 @@ import { RoteiroService } from './roteiros/roteiro.service';
     {
       path: 'discrepantes',
       component: DiscrepantesComponent
-    }
+    },
+    {
+      path: 'adicionar-turma',
+      component: AdicionarTurmaComponent
+    },
+    {
+      path: 'editar-turma',
+      component: EditarTurmaComponent
+    },
   ])
   ],
   providers: [RelatorioService, ComparacaoDeDesempenhoService, AlunoService, AutoavaliacaoService, DiscrepantesService, RoteiroService],

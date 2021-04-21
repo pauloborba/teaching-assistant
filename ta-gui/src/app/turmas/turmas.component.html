@@ -2,22 +2,37 @@
 
 <!-- Botões para cadastrar, remover, atualizar e comparar turmas -->
 <div id="botoes">
-    <button name="botao-adicionar-turma" (click)="adicionarTurma()">Adicionar Turma</button>
+    <button routerLink="/adicionar-turma" class="adc" >+ Adicionar Turma</button>
     <button name="botao-opcoes-comparacao" (click)="mostrarOpcoesComparacao()">Comparar Turmas</button>
+    
 </div>
 
 <!-- Lista de turmas e suas médias -->
-<table>
+<table id="turmas">
     <thead>
         <tr>
-            <th>Turma</th>
-            <th>Média</th>
+            <th>Ações</th>
+            <th>Descrição</th>
+            <th>Metas</th>
+            <th>Matriculas</th>
+            <th>Roteiro</th>
+            <th>Monitores</th>
+            <th>Quantidade Matriculas</th>
         </tr>
     </thead>
     <tbody>
         <tr name="turma" *ngFor="let turma of turmas">
             <td name="descricao">{{ turma.descricao }}</td>
             <td name="media">{{ turma.getMedia() }}</td>
+        </tr>
+        <tr>
+            <td><button routerLink="/editar-turma" class="adc">Editar</button> <button class="adc mg-left">Excluir</button></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
     </tbody>
 </table>

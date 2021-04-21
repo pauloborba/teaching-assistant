@@ -1,3 +1,4 @@
+import { Aluno } from '../common/aluno';
 import { Turma } from '../common/turma';
 import { Matricula } from '../common/matricula';
 import { Avaliacao } from './avaliacao';
@@ -7,15 +8,22 @@ export class Turmas {
 
 
     cadastrarTurma(turma: Turma): Turma{
-        return null;
+        var aux = null;
+        aux = new Turma();
+        aux.copyFrom(turma);
+        this.turmas.push(aux);
+        return aux;
     }
 
-    removerTurma(descricao: string): Turma{
-        return null;
+    removerTurma(turma: Turma): Turma{
+        var aux:Turma = this.turmas.find(a => a.descricao == turma.descricao);
+        return  aux;
     }
 
     atualizarTurma(turma: Turma): Turma{
-        return null;
+        var aux:Turma = this.turmas.find(a => a.descricao == turma.descricao);
+        if(aux) aux.copyFrom(turma)
+        return aux;
     }
     
     getResumos(descricoes: string[]): any[] {
