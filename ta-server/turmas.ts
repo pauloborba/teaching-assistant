@@ -20,9 +20,11 @@ export class Turmas {
         let resumos: any[] = [];
         descricoes.forEach(descricao => {
             const turma = this.getTurma(descricao);
-            const media = turma.getMedia();
-            const reprovacao = turma.getNumReprovados() / turma.getNumMatriculas();
-            resumos.push({ descricao, media, reprovacao });
+            if (turma) {
+                const media = turma.getMedia();
+                const reprovacao = turma.getNumReprovados() / turma.getNumMatriculas();
+                resumos.push({ descricao, media, reprovacao });
+            }
         });
 
         return resumos;

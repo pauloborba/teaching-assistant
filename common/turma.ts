@@ -15,20 +15,7 @@ export class Turma {
     }
 
     getNumMatriculas(): number {
-        switch (this.descricao) {
-            case '2017.2':
-                return 40;
-            case '2018.1':
-                return 50;
-            case '2018.2':
-                return 40;
-            case '2019.1':
-                return 40;
-            case '2019.2':
-                return 50;
-            default:
-                return 50;
-        }
+        return 0;
     }
     
     getNumAprovados(): number {
@@ -36,37 +23,11 @@ export class Turma {
     }
     
     getNumReprovados(): number {
-        switch (this.descricao) {
-            case '2017.2':
-                return 12;
-            case '2018.1':
-                return 10;
-            case '2018.2':
-                return 6;
-            case '2019.1':
-                return 4;
-            case '2019.2':
-                return 5;
-            default:
-                return 6;
-        }
+        return 0;
     }
 
     getMedia(): number {
-        switch (this.descricao) {
-            case '2017.2':
-                return 6.7;
-            case '2018.1':
-                return 7.3;
-            case '2018.2':
-                return 7.1;
-            case '2019.1':
-                return 6.8;
-            case '2019.2':
-                return 7.8;
-            default:
-                return 8;
-        }
+        return 0;
     }
 
     getMatricula(cpf: string): Matricula {
