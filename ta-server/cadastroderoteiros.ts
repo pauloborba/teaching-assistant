@@ -3,6 +3,10 @@ import  {Roteiro } from '../common/roteiro'
 export class CadastroDeRoteiros{
        roteiros: Roteiro[] = [];
 
+       getRoteiros(): Roteiro[] {
+         return this.roteiros;
+       }
+
        cadastrarRoteiro (roteiro: Roteiro): Roteiro{
          var result = null;
          if(this.roteiroNaoCadastrado(roteiro.descricao)){
@@ -30,7 +34,7 @@ export class CadastroDeRoteiros{
          if(result){
            var index = this.roteiros.indexOf(result);
            this.roteiros.splice(index, 1);
-           return result;
+           return result.descricao;
          } else {
            return null;
          }

@@ -1,4 +1,5 @@
 import request = require("request-promise");
+import { Roteiro } from "../../common/roteiro";
 import { closeServer } from '../ta-server';
 
 var base_url = "http://localhost:3000/";
@@ -72,21 +73,19 @@ describe("O servidor", () => {
   });
 
   it("não cadastra roteiros com mesmo nome", () => {
-    var roteiro1 = {"json":{"descricao":"Roteiro de requisitos","blocos":[{"tipo":"Sequencial","questoes":[]}]}};
-    var roteiro2 = {"json":{"descricao":"Roteiro de requisitos","blocos":[{"tipo":"Paralelo","questoes":[]}]}};
-    var resposta1 = '{"descricao":"Roteiro de requisitos","blocos":[{"tipo":"Sequencial","questoes":[]}]}';
-    var resposta2 = '{"descricao":"Roteiro de requisitos","blocos":[{"tipo":"Paralelo","questoes":[]}]}';
+    var roteiro1: any = { "descricao": "Roteiro de requisitos", "blocos": [{ "tipo": "Sequencial", "questoes": [] }] };
+    var roteiro2: any = { "descricao": "Roteiro de requisitos", "blocos": [{ "tipo": "Paralelo", "questoes": [] }] };
 
-    return request.post(base_url + "roteiro", roteiro1)
+    return request.post(base_url + "roteiro", { json: roteiro1 })
              .then(body => {
                 expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
-                return request.post(base_url + "roteiro", roteiro2)
+                 return request.post(base_url + "roteiro", { json: roteiro2 })
                          .then(body => {
                             expect(body).toEqual({failure: "O roteiro não pode ser cadastrado"});
                             return request.get(base_url + "roteiros")
                                      .then(body => {
-                                        expect(body).toContain(resposta1);
-                                        expect(body).not.toContain(resposta2);
+                                        expect(JSON.parse(body)).toContain(roteiro1);
+                                        expect(JSON.parse(body)).not.toContain(roteiro2);
                                       });
                           });
               })

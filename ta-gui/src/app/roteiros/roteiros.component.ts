@@ -4,7 +4,6 @@ import { Roteiro } from '../../../../common/roteiro';
 import { BlocoDeQuestoes } from '../../../../ta-server/blocodequestoes';
 import { Questao } from '../../../../ta-server/questao';
 import { RoteiroService } from './roteiro.service';
-import { StubTurmas } from './stubTurmas';
 
 
 @Component({
@@ -20,13 +19,11 @@ export class RoteirosComponent implements OnInit {
   altBloco: boolean = false;
   altQuestao: boolean = false;
   descricaoTurma: string;
-  stubTurmas: StubTurmas = new StubTurmas();
 
   constructor(private roteiroService: RoteiroService) {}
 
   cadastroNaTurma(descricao: string, roteiro: Roteiro): void {
-    this.stubTurmas.cadastroRoteiro(descricao, roteiro);
-    console.log(this.stubTurmas.getTurma(descricao).getRoteiros());
+    //this.turmasService.associarRoteiro(descricao, roteiro);
   }
 
   ngOnInit() {

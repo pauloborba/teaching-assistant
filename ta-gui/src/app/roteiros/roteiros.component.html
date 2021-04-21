@@ -14,7 +14,7 @@
     <li>
         <h3 name="roteirolist" >{{a.descricao}}</h3>
         <select [(ngModel)]="descricaoTurma">
-          <option *ngFor="let turma of stubTurmas.getTurmas()" value = "{{turma}}">{{turma}}</option>
+          <!-- <option *ngFor="let turma of this.turmasService.getTurmas()" value = "{{turma}}">{{turma}}</option> -->
         </select>
         <button (click) = "cadastroNaTurma(descricaoTurma, a)">Cadastrar</button>
         <h4>Cadastrar roteiro na turma </h4>
