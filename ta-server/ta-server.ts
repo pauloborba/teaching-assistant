@@ -2,23 +2,25 @@ import express = require('express');
 import bodyParser = require("body-parser");
 
 import {Aluno} from '../common/aluno';
-import {CadastroDeAlunos} from './cadastrodealunos'; 
+import {CadastroDeAlunos} from './cadastrodealunos';
 import {Turmas} from './turmas'
 import {Matricula} from '../common/matricula'
 import { Turma } from '../common/turma';
-import { Roteiro } from './roteiro';
 import { BlocoDeQuestoes } from './blocodequestoes';
 import { Questao } from './questao';
 import { RespostaDeRoteiro } from './respostaderoteiro';
 import { RespostaDeQuestao } from './respostadequestao';
 import { Avaliacao } from './avaliacao';
 import { EmailSender } from './EmailSender';
+import {Roteiro} from '../common/roteiro'
+import {CadastroDeRoteiros} from './cadastroderoteiros';
 
 var taserver = express();
 
 var cadastro: CadastroDeAlunos = new CadastroDeAlunos();
 const turmas: Turmas = new Turmas();
 var sender = new EmailSender();
+var cadastroRoteiro: CadastroDeRoteiros = new CadastroDeRoteiros();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -108,6 +110,40 @@ taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: e
     const descricoes: string[] = (<string> req.query.turmas).split(',');
     res.send(JSON.stringify(turmas.getResumos(descricoes)));
 });
+
+taserver.get('/roteiros', function (req: express.Request, res: express.Response){
+  res.send(JSON.stringify(cadastroRoteiro.getRoteiros()));
+})
+
+taserver.post('/roteiro', function (req: express.Request, res: express.Response) {
+  var roteiro: Roteiro = <Roteiro> req.body;
+  roteiro = cadastroRoteiro.cadastrarRoteiro(roteiro);
+  if (roteiro) {
+    res.send({"success": "O roteiro foi cadastrado com sucesso"});
+  } else {
+    res.send({"failure": "O roteiro não pode ser cadastrado"});
+  }
+})
+
+taserver.put('/roteiro', function (req: express.Request, res: express.Response) {
+  var roteiro: Roteiro = <Roteiro> req.body;
+  roteiro = cadastroRoteiro.atualizarRoteiro(roteiro);
+  if (roteiro) {
+    res.send({"success": "O roteiro foi atualizado com sucesso"});
+  } else {
+    res.send({"failure": "O roteiro não pode ser atualizado"});
+  }
+})
+
+taserver.delete('/roteiro/:descricao', function (req: express.Request, res: express.Response) {
+  var descricao: string = <string> req.params.descricao;
+  descricao = cadastroRoteiro.removerRoteiro(descricao);
+  if (descricao) {
+    res.send({"success": "O roteiro foi removido com sucesso"});
+  } else {
+    res.send({"failure": "O roteiro não pode ser removido"});
+  }
+})
 
 var server = taserver.listen(3000, function () {
     console.log('Example app listening on port 3000!')

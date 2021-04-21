@@ -20,6 +20,7 @@ import { AlunoService } from './alunos/alunos.service';
 import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
 import { DiscrepantesComponent } from './discrepantes/discrepantes.component';
 import { DiscrepantesService } from '../app/discrepantes/discrepantes.service';
+import { RoteiroService } from './roteiros/roteiro.service';
 
 @NgModule({
   declarations: [ 
@@ -74,7 +75,7 @@ import { DiscrepantesService } from '../app/discrepantes/discrepantes.service';
     }
   ])
   ],
-  providers: [RelatorioService, ComparacaoDeDesempenhoService, AlunoService, AutoavaliacaoService, DiscrepantesService],
+  providers: [RelatorioService, ComparacaoDeDesempenhoService, AlunoService, AutoavaliacaoService, DiscrepantesService, RoteiroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

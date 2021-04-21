@@ -1,17 +1,23 @@
+<html (mousemove)="onMove()">
 <table>
     <tr>
         <td><label>Nome </label></td>
-        <td><input [(ngModel)]="roteiro.descricao" name="namebox"></td>
-        <td><button (click)="criarRoteiro(roteiro)">Adicionar</button></td>
+        <td><input [(ngModel)]="roteiro.descricao" name="descricaobox"></td>
+        <td><button (click)="criarRoteiro(roteiro)" name="addRoteiro">Adicionar</button></td>
+        <td *ngIf="roteiroJaExiste" name="erroRoteiro">Roteiro já cadastrado</td>
     </tr>
 </table>
 
 <h2>Roteiros</h2>
-<ul *ngFor="let a of roteiros" name="roteirolist">
+<button *ngIf="!altQuestao" (click) = "alterarQuestao()">Alterar questoes</button>
+<ul *ngFor="let a of roteiros">
     <li>
-        <h3>{{a.descricao}}</h3>
+        <h3 name="roteirolist" >{{a.descricao}}</h3>
+        <select [(ngModel)]="descricaoTurma">
+          <option *ngFor="let turma of stubTurmas.getTurmas()" value = "{{turma}}">{{turma}}</option>
+        </select>
+        <button (click) = "cadastroNaTurma(descricaoTurma, a)">Cadastrar</button>
         <h4>Cadastrar roteiro na turma </h4>
-
         <h4>Blocos de questões</h4>
         <table>
             <tr *ngIf="a.blocos.length > 0">
@@ -19,14 +25,41 @@
                 <th>Questões</th>
             </tr>
             <tr *ngFor="let b of a.blocos">
-                <td>{{b.tipo}}</td>
+                <td name = "blocolist">{{b.tipo}}</td>
                 <td>
-                    <ol *ngFor="let c of questoes">
-                        <li>{{c.pergunta}}</li>
-                    </ol>
+                    <table>
+                      <tr *ngIf="b.questoes.length > 0">
+                        <th>Pergunta</th>
+                        <th>Dica</th>
+                      </tr>
+                      <tr *ngFor="let c of b.questoes">
+                          <td>{{c.pergunta}}</td>
+                          <td>{{c.dica}}</td>
+                          <td *ngIf="altQuestao"><button (click) = "removerQuestao(a, b, c)">Remover questao</button></td>
+                          <td *ngIf="altQuestao"><input [(ngModel)]="c.pergunta"></td>
+                          <td *ngIf="altQuestao"><input [(ngModel)]="c.dica"></td>
+                      </tr>
+                    </table>
                 </td>
+                  <td><select *ngIf="altBloco" [(ngModel)]="b.tipo" size="1">
+                    <option value="Sequencial">Sequencial</option>
+                    <option value="Paralelo">Paralelo</option>
+                  </select></td>
+                  <td *ngIf="altBloco" ><button (click)= "atualizarBloco(a)">Att</button></td>
+                  <td><button (click)="adicionarQuestao(a, b)">Adicionar questao</button></td>
+                  <td><button (click) = alterarBloco()>Alterar bloco</button></td>
+                  <td><button (click) = "removerBloco(a, b)">Remover bloco</button></td>
+            </tr>
+            <tr>
+              <td><select name="selectBloco" [(ngModel)]="bloco.tipo" size="1">
+                <option value="Sequencial">Sequencial</option>
+                <option value="Paralelo">Paralelo</option>
+              </select></td>
+              <td><button (click)="adicionarBloco(a, bloco)" name ="addBloco">Adicionar bloco</button></td>
+              <td *ngIf="altQuestao"><button (click) = "atualizarQuestao(a)">Confirmar</button></td>
             </tr>
         </table>
     </li>
-    <li><button (click)="deletarRoteiro(a)">Deletar</button></li>
+    <li><button (click)="deletarRoteiro(a.descricao)" name="delRoteiro">Deletar</button></li>
 </ul>
+</html>

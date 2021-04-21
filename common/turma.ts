@@ -1,5 +1,5 @@
 import { Matricula } from './matricula';
-import { Roteiro } from '../ta-server/roteiro';
+import { Roteiro } from './roteiro';
 import { Aluno } from './aluno';
 import { Avaliacao } from '../ta-server/avaliacao';
 
@@ -13,17 +13,17 @@ export class Turma {
 
     constructor(descricao: string) {
         this.descricao = descricao;
+      this.metas = [];
+      this.matriculas = [];
+      this.roteiros = [];
+      this.monitores = [];
+      this.numeroMatriculas = 0;
     }
 
-    ngOnInit() {
-        this.descricao = "";
-        this.metas = [];
-        this.matriculas = [];
-        this.roteiros = [];
-        this.monitores = [];
-        this.numeroMatriculas = 0;
+    addRoteiro(roteiro: Roteiro): void {
+      this.roteiros.push(roteiro);
     }
-  
+
     getNumMatriculas(): number {
         return this.numeroMatriculas
     }
@@ -45,7 +45,7 @@ export class Turma {
     }
 
     getRoteiros(): Roteiro[] {
-        return [];
+        return this.roteiros;
     }
 
     getMonitores(): Aluno[] {
