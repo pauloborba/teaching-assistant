@@ -2,12 +2,54 @@
 <html>
   <table>
     <tr>
-      <td><button (click)="cadastrarAutoAvaliacao(matricula, avaliacoes)">Cadastrar</button></td>
-      <td><button name="notificar" (click)="notificarAutoAvaliacao()">Notificar</button></td>
-      <td><button routerLink="/discrepantes" >Discrepantes</button></td>
+      <td name="cadastrar"><button (click)="setShowContent()" class="botoes-menu">Cadastrar</button></td>
+      <td><button (click)="notificarAutoAvaliacao()" class="botoes-menu">Notificar</button></td>
+      <td><button routerLink="/discrepantes" class="botoes-menu" >Discrepantes</button></td>
     </tr>
 </table>
 
+  <table *ngIf="showContent">
+    <tr>
+      <td class="pesquisar-matricula">
+        <div class="container">
+          <p>CPF</p>
+          <td class="meta"><input [(ngModel)]="cpf" name="cpf" required class="input-form" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"></td>
+          <p *ngIf="cpfObrigatorio" class="mensagem-de-erro">*Campo obrigatório</p>
+          <p *ngIf="matriculaNaoEncontrada" class="mensagem-de-erro">*Matricula não encontrada</p>
+        </div>
+        <div class="container">
+          <p>Turma</p>
+          <td class="meta"><input [(ngModel)]="descricaoTurma" name="descricaoTurma" required class="input-form"></td>
+          <p *ngIf="turmaObrigatorio" class="mensagem-de-erro">*Campo obrigatório</p>
+        </div>
+        <div class="container">
+          <button (click)="preencherAutoavaliacao(cpf,descricaoTurma); setShowGrades(cpf,descricaoTurma)" class="submit-button" name="preencher-autoavaliacao">Preencher auto avaliação</button>
+        </div>
+      </td>
+    </tr> 
+    
+  </table>
+
+  <div *ngIf="showGrades && matricula">
+    <h2>Avaliações do professor</h2>
+      <table>
+        <tr >
+            <th *ngFor="let a of avaliacoes" class="header data">{{a.meta}}</th>
+        </tr> 
+        <tr>
+          <td *ngFor="let a of avaliacoes" class="data avaliacao-container">{{a.nota}}</td>
+        </tr>
+      </table>
+      <h2>Auto Avaliações</h2>
+      <table>
+        <tr>
+          <th *ngFor="let a of autoavaliacoes" class="header data" name="metaslist">{{a.meta}}</th>
+        </tr>
+        <tr>
+          <td *ngFor="let a of autoavaliacoes let in=index" lass="data" class="nota avaliacao-container data" name="notaslist"><input [(ngModel)]="autoavaliacoes[in].nota" (change)="atualizarAutoavaliacao(cpf, descricaoTurma, autoavaliacoes)" class="input-table" align="center" id="{{autoavaliacoes[in].meta}}"></td>
+        </tr>
+      </table>
+  </div>
 
 <table *ngIf="notificar">
   <tr>

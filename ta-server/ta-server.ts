@@ -1,11 +1,11 @@
 import express = require('express');
 import bodyParser = require("body-parser");
 
-import {Aluno} from '../common/aluno';
-import {CadastroDeAlunos} from './cadastrodealunos';
-import {Turmas} from './turmas'
-import {Matricula} from '../common/matricula'
-import { Turma } from '../common/turma';
+import { Aluno } from '../common/aluno';
+import { CadastroDeAlunos } from './cadastrodealunos'; 
+import { Turmas } from './turmas'
+import { Turma } from '../common/turma'
+import { Matricula } from '../common/matricula'
 import { BlocoDeQuestoes } from './blocodequestoes';
 import { Questao } from './questao';
 import { RespostaDeRoteiro } from './respostaderoteiro';
@@ -22,6 +22,7 @@ const turmas: Turmas = new Turmas();
 var sender = new EmailSender();
 var cadastroRoteiro: CadastroDeRoteiros = new CadastroDeRoteiros();
 var cadastroTurma: Turmas = new Turmas();
+var conjTurmas: Turmas = new Turmas();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -102,9 +103,42 @@ taserver.get('/turma/:descricao', function (req: express.Request, res: express.R
     res.send(turma)
 })
 
-//recebe um identificador de turma e de aluno e retorna uma matricula
-taserver.get('/matriculas', function (req: express.Request, res: express.Response){
+taserver.get('/metas/', function (req: express.Request, res: express.Response){
+  let conjTurmas: Turmas = turmas;
+  let descricaoTurma: string = req.query.descricaoTurma;
+  let turma: Turma = conjTurmas.getTurma(descricaoTurma);
+  let metas = turma.getMetas();
+  res.send(metas);
+    
+})
 
+//recebe um identificador de turma e de aluno e retorna uma matricula
+taserver.get('/matriculas/', function (req: express.Request, res: express.Response){
+    let cpf: string = req.query.cpf;
+    let descricaoTurma: string = req.query.descricaoTurma;
+    
+    let turma: Turma = turmas.getTurma(descricaoTurma);
+    let matricula: Matricula = turma.getMatricula(cpf);
+    res.send(matricula);
+})
+
+taserver.put('/autoavalicoes/atualizar/', function (req: express.Request, res: express.Response) {
+  console.log('test', req.body.autoavaliacoes);
+  console.log('test2', req.body.cpf);
+    let autoavaliacoes: Avaliacao[] = req.body.autoavaliacoes;
+    let cpf: string = req.body.cpf;
+    let descricaoTurma: string = req.body.descricaoTurma;
+
+    let turma: Turma = turmas.getTurma(descricaoTurma);
+    let matricula: Matricula = turma.getMatricula(cpf);
+    let atualizacao = JSON.stringify(matricula.atualizarAutoAvaliacoes(autoavaliacoes));
+    let autoavaliacoesenviadas = JSON.stringify(autoavaliacoes);
+
+    if (atualizacao === autoavaliacoesenviadas) {
+      res.send({"success": "A autoavaliacao foi atualizada com sucesso"});
+    } else {
+      res.send({"failure": "A autoavaliacao não pode ser atualizada"});
+    }
 })
 
 taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: express.Response) {
@@ -168,8 +202,7 @@ var server = taserver.listen(3000, function () {
 })
   
 function closeServer(): void {
-    server.close();
+server.close();
 }
 
-  
 export { server, closeServer }

@@ -36,37 +36,41 @@ export class Turma {
     getNumMatriculas(): number {
         return this.numeroMatriculas
     }
-    
-    getNumAprovados(): number {
-        return 0;
-    }
-    
-    getNumReprovados(): number {
+
+    getNumAprovados(): number{
         return 0;
     }
 
-    getMedia(): number {
+    getNumReprovados(): number{
         return 0;
     }
 
-    getMatricula(cpf: string): Matricula {
-        return null;
+    getMedia(): number{
+        return 0;
+    }
+
+    getMatricula(cpf:string): Matricula{ 
+        let matricula: Matricula = this.matriculas.find(matricula => matricula.getAluno().cpf == cpf);
+        return matricula;
     }
 
     getRoteiros(): Roteiro[] {
         return this.roteiros;
     }
-
-    getMonitores(): Aluno[] {
     
+    getMonitores(): Aluno[] {
         return [];
     }
 
-    getPercentual(meta: string, conceito: string): number {
+    getPercentual(meta: string, conceito: string): number{
         return 0;
     }
 
     getMatriculas(): Matricula[]{
         return this.matriculas;
+    }
+
+    getMetas(): string[]{
+        return this.metas;
     }
 }

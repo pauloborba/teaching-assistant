@@ -88,7 +88,7 @@ import { AdicionarTurmaService } from './turmas/adicionar-turma/adicionar-turma.
     },
   ])
   ],
-  providers: [RelatorioService, ComparacaoDeDesempenhoService, AlunoService, AutoavaliacaoService, DiscrepantesService, RoteiroService],
+  providers: [RelatorioService, ComparacaoDeDesempenhoService, AlunoService, AutoavaliacaoService, DiscrepantesService, RoteiroService, AutoavaliacaoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

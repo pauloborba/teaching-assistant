@@ -27,4 +27,33 @@ export class AutoavaliacaoService {
   notificar(objectAlunoMeta: object): Observable<String> {
     return this.http.post<string>(this.taURL + "/notificar", objectAlunoMeta).pipe(retry(2));
   }
+
+  getMetas(descricaoTurma: string): Observable<string[]>{
+    let getUrl = this.taURL + `/metas?descricaoTurma=${descricaoTurma.toString().toLowerCase()}`;
+    let response = this.http.get<string[]>(getUrl, { headers: this.headers })
+    .pipe(
+      retry(2),
+    );
+    return response;
+  }
+
+  getMatricula(cpf: string, descricaoTurma: string): Observable<Matricula>{
+
+    let getUrl = this.taURL + `/matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${descricaoTurma.toString().toLowerCase()}`;
+    let response = this.http.get<Matricula>(getUrl, { headers: this.headers })
+    .pipe(
+      retry(2),
+    );
+    return response;
+  }
+
+  atualizar(cpf: string, descricaoTurma: string, autoavaliacoes: Avaliacao[]): Observable<Avaliacao[]>{
+    return this.http.put<any>(this.taURL + "/autoavalicoes/atualizar", JSON.stringify({"cpf": cpf, "descricaoTurma": descricaoTurma, "autoavaliacoes": autoavaliacoes}),  {headers: this.headers})
+    .pipe(
+      retry(2),
+      map(res => {if (res.success) {return res.success;} else {return null}})
+    );
+  }
+
 }
+
