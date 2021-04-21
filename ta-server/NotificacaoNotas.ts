@@ -2,26 +2,37 @@ import { Turma } from '../common/turma'
 import { EmailSender } from './EmailSender'
 import { Matricula } from '../common/matricula'
 
+// Interface para criar um array de alunos notificados
+interface StatusNotificacao {
+  nome: String;
+  cpf: String;
+  notificado: boolean;
+}
+
 export class NotificacaoNotas {
   emailSender: EmailSender = new EmailSender();
 
-  enviarNotificação(turma: Turma): string {
+  enviarNotificação(turma: Turma): StatusNotificacao[] {
     if(turma.descricao===undefined || turma.descricao===null || turma.descricao==="" ){
       return null;
     }
     var porcentagensDeConceitoDasMetasMap: Map<String, Map<string, number>> = this.gerarPercentsDeMetas(turma);
     var porcentagensTextMap: Map<String, String> = this.porcentagensDeConceitosText(porcentagensDeConceitoDasMetasMap, turma);
     var mediaTurma: number = turma.getMedia();
+    let statusNotificacao: StatusNotificacao[]; // Cria array para gerir alunos notificados
     for (let matricula of turma.matriculas) {
       var texto: string = /*this.conceitosDasMetasDoAluno(matricula) +*/ this.ressaltarDiferencasMetas(matricula, porcentagensTextMap) + 
       this.ressaltarDiferencaMedia(matricula,mediaTurma);
+      console.log("Enviando email para : " + matricula.aluno.email);
 
-      console.log("Enviando email para : " + matricula.aluno.email )
-      if(this.emailSender.enviarEmail(matricula.aluno.email, "", texto) == false){
-        return null;
+      // Insere aluno no array com o atributo notificado
+      if(this.emailSender.enviarEmail(matricula.aluno.email, "", texto) == true){
+        statusNotificacao.push({ nome: matricula.aluno.nome, cpf: matricula.aluno.cpf, notificado: true}); 
+      } else {
+        statusNotificacao.push({ nome: matricula.aluno.nome, cpf: matricula.aluno.cpf, notificado: false});
       }
     }
-    return "Turma notificada!";
+    return statusNotificacao;
   }
 
   ressaltarDiferencasMetas(matricula: Matricula, porcentagensTextMap: Map<String, String>): string {
