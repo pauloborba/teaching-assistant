@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdicionarTurmaService } from './adicionar-turma.service'
 import { Matricula } from '../../../../../common/matricula';
 import { Aluno } from '../../../../../common/aluno'
-import { Roteiro } from '../../../../../ta-server/roteiro'
+import { Roteiro } from '../../../../../common/roteiro'
 import { Turma } from '../../../../../common/turma'
  
 @Component({
@@ -23,7 +23,7 @@ export class AdicionarTurmaComponent implements OnInit {
   descricao2:string;
   teste:string;
 
-  turma: Turma = new Turma();
+  turma: Turma = new Turma("");
   turmas: Turma[] = [];
 
   
@@ -36,7 +36,7 @@ export class AdicionarTurmaComponent implements OnInit {
     this.atService.adicionarTurmaServe(a).subscribe(
       data => {
         let a = this.turmas.push(data)
-        this.turma = new Turma();
+        this.turma = new Turma("");
         console.log("valor: " + a)
       },
       error => console.log(error),

@@ -9,14 +9,14 @@ export class Turmas {
 
     cadastrarTurma(turma: Turma): Turma{
         var aux = null;
-        aux = new Turma();
+        aux = new Turma("");
         aux.copyFrom(turma);
         this.turmas.push(aux);
         return aux;
     }
 
-    removerTurma(turma: Turma): Turma{
-        var aux:Turma = this.turmas.find(a => a.descricao == turma.descricao);
+    removerTurma(descricaoTurma: string): Turma{
+        var aux:Turma = this.turmas.find(a => a.descricao == descricaoTurma);
         return  aux;
     }
 
