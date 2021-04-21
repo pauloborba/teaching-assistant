@@ -26,7 +26,21 @@
         <td><button (click)="notificarTurma(t)">Notificar</button></td>
 
      </tr>
-   
+
+</table>
+
+
+<table id="turmas" *ngFor="let t of turmas">
+  <tr>
+    <th>Turma {{t.descricao}}</th>
+    <th>Nome</th>
+    <th>Notificado</th>
+  </tr>
+  <tr *ngFor="let s of t.statusNotificacao">
+    <td></td>
+    <td>{{s.nome}}</td>
+    <td>{{s.notificado}}</td>
+  </tr>
 </table>
 
 <div *ngIf="modalAtivo === 'opcoes'" class="modal">

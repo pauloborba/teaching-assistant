@@ -32,6 +32,7 @@ export class TurmasComponent implements OnInit {
       {
         next: r => {
           if (r) {
+            console.log(r)
             return r; // Retorna a resposta que contém o array de alunos notificados
           }
           else {
