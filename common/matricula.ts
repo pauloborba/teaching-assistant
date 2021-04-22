@@ -1,6 +1,6 @@
 import { Aluno } from "./aluno"
-import { Avaliacao } from "../ta-server/avaliacao"
-import { RespostaDeRoteiro } from "../ta-server/respostaderoteiro"
+import { Avaliacao } from "../common/avaliacao"
+import { RespostaDeRoteiro } from "../common/respostaderoteiro"
 
 export class Matricula{
     aluno: Aluno;

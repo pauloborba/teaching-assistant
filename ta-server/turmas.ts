@@ -1,7 +1,7 @@
 import { Aluno } from '../common/aluno';
 import { Turma } from '../common/turma';
 import { Matricula } from '../common/matricula';
-import { Avaliacao } from './avaliacao';
+import { Avaliacao } from '../common/avaliacao';
 
 export class Turmas {
     turmas: Turma[] = [];

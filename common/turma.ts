@@ -1,7 +1,7 @@
 import { Matricula } from './matricula';
 import { Roteiro } from './roteiro';
 import { Aluno } from './aluno';
-import { Avaliacao } from '../ta-server/avaliacao';
+import { Avaliacao } from './avaliacao';
 
 export class Turma {
     descricao: string = "";

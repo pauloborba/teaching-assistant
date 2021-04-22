@@ -5,7 +5,7 @@ import { Turma } from '../../../../common/turma';
 import { Observable } from 'rxjs';
 import { RelatorioService } from './relatorio.service';
 import { Roteiro } from '../../../../common/roteiro';
-import { BlocoDeQuestoes } from '../../../../ta-server/blocodequestoes';
+import { BlocoDeQuestoes } from '../../../../common/blocodequestoes';
 import { Matricula } from '../../../../common/matricula';
 import { Statistics } from "statistics.js";
 

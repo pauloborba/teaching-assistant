@@ -1,4 +1,4 @@
-import { BlocoDeQuestoes } from "../ta-server/blocodequestoes"
+import { BlocoDeQuestoes } from "./blocodequestoes"
 
 export class Roteiro {
     descricao: string;

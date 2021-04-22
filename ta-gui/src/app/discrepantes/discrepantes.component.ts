@@ -3,7 +3,7 @@ import {Matricula} from '../../../../common/matricula'
 import {Turma} from '../../../../common/turma'
 import {DiscrepantesService} from './discrepantes.service'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Avaliacao } from '../../../../ta-server/avaliacao';
+import { Avaliacao } from '../../../../common/avaliacao';
 
 
 @Component({

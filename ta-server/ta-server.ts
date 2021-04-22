@@ -7,11 +7,11 @@ import { CadastroDeAlunos } from './cadastrodealunos';
 import { Turmas } from './turmas'
 import { Turma } from '../common/turma'
 import { Matricula } from '../common/matricula'
-import { BlocoDeQuestoes } from './blocodequestoes';
-import { Questao } from './questao';
-import { RespostaDeRoteiro } from './respostaderoteiro';
-import { RespostaDeQuestao } from './respostadequestao';
-import { Avaliacao } from './avaliacao';
+import { BlocoDeQuestoes } from '../common/blocodequestoes';
+import { Questao } from '../common/questao';
+import { RespostaDeRoteiro } from '../common/respostaderoteiro';
+import { RespostaDeQuestao } from '../common/respostadequestao';
+import { Avaliacao } from '../common/avaliacao';
 import { EmailSender } from './EmailSender';
 import {Roteiro} from '../common/roteiro'
 import {CadastroDeRoteiros} from './cadastroderoteiros';

@@ -5,8 +5,8 @@ import { retry, map } from 'rxjs/operators';
 
 import { Matricula } from '../../../../common/matricula';
 import { Aluno } from '../../../../common/aluno';
-import { RespostaDeRoteiro } from '../../../../ta-server/respostaderoteiro';
-import { Avaliacao } from '../../../../ta-server/avaliacao';
+import { RespostaDeRoteiro } from '../../../../common/respostaderoteiro';
+import { Avaliacao } from '../../../../common/avaliacao';
 import { Turma } from '../../../../common/turma';
 import { Turmas } from '../../../../ta-server/turmas';
 

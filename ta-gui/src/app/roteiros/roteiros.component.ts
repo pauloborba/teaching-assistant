@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Roteiro } from '../../../../common/roteiro';
-import { BlocoDeQuestoes } from '../../../../ta-server/blocodequestoes';
-import { Questao } from '../../../../ta-server/questao';
+import { BlocoDeQuestoes } from '../../../../common/blocodequestoes';
+import { Questao } from '../../../../common/questao';
 import { RoteiroService } from './roteiro.service';
 
 

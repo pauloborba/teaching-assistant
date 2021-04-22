@@ -1,6 +1,6 @@
 import { CadastroDeRoteiros } from '../cadastroderoteiros';
 import { Roteiro } from '../../common/roteiro';
-import { BlocoDeQuestoes } from '../blocodequestoes';
+import { BlocoDeQuestoes } from '../../common/blocodequestoes';
 
 describe("O cadastro de roteiros", () => {
   var cadastro: CadastroDeRoteiros;
