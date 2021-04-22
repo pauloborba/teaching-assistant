@@ -38,7 +38,7 @@ export class AlunosComponent implements OnInit {
   }
 
   carregarMatriculas() {
-    
+
     this.metas = []
     let achou: boolean = false;
     //Chamando autoavaliacao.service que faz a req pro server para pegar a turma indicada pelo usuário
@@ -57,35 +57,35 @@ export class AlunosComponent implements OnInit {
     let fezAlgumaQuestao: boolean = false;
     let fezTodasQuestoes: boolean = false;
     let autoAvaliacoesFeitas: number = 0;
-    
+
     //Checa se foi feita a autoavaliacao de todas as meta
     matricula.autoAvaliacoes.forEach((autoAvaliacao) => {
-      
-      if (autoAvaliacao.nota != "" && autoAvaliacoesFeitas == (matricula.autoAvaliacoes.length-1) && fezAlgumaQuestao) {
+
+      if (autoAvaliacao.nota != "" && autoAvaliacoesFeitas == (matricula.autoAvaliacoes.length - 1) && fezAlgumaQuestao) {
         autoAvaliacoesFeitas++;
         fezTodasQuestoes = true;
       } else if (autoAvaliacao.nota != "") {
         autoAvaliacoesFeitas++;
         fezAlgumaQuestao = true;
-      } else{
+      } else {
         autoAvaliacoesFeitas++;
       }
     })
-    if(fezTodasQuestoes){
+    if (fezTodasQuestoes) {
       return "concluido";
-    } else if(fezAlgumaQuestao) {
+    } else if (fezAlgumaQuestao) {
       return "iniciado mas nao concluido";
     }
     return "nao iniciado";
   }
 
 
-  corDoBloco(matricula: Matricula): String{
+  corDoBloco(matricula: Matricula): String {
     let status: String = "";
     status = this.statusDeAutoAvaliacao(matricula);
-    if(status=="concluido"){
+    if (status == "concluido") {
       return "concluido";
-    } else if(status=="iniciado mas nao concluido") {
+    } else if (status == "iniciado mas nao concluido") {
       return "iniciadoMasNaoConcluido";
     }
     return "naoIniciado";

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Aluno } from '../../../../common/aluno';
+import { Matricula } from '../../../../common/matricula';
 import { Turma } from '../../../../common/turma';
 import { TurmasService } from './turmas.service'
 
@@ -18,21 +20,37 @@ export class TurmasComponent implements OnInit {
   opcaoSelecionada: string = '';
 
   ngOnInit() {
-    var turma: Turma = new Turma("23e1321");
-    this.turmas.push(turma);
-    turma = new Turma("32fkds");
-    this.turmas.push(turma)
+    var stub_turma1 = new Turma("");
+    var stub_turma2 = new Turma("");
+    stub_turma1.descricao = "ESS";
+    stub_turma2.descricao = "Compiladores";
+    var stub_matricula1 = new Matricula();
+    var stub_matricula2 = new Matricula();
+    var stub_aluno1 = new Aluno();
+    var stub_aluno2 = new Aluno();
+    stub_aluno1.nome = "João";
+    stub_aluno1.cpf = "123";
+    stub_aluno1.email = "joao@cin.ufpe.br";
+    stub_aluno2.nome = "Maria";
+    stub_aluno2.cpf = "456";
+    stub_aluno2.email = "maria@cin.ufpe.br";
+    stub_matricula1.aluno = stub_aluno1;
+    stub_matricula2.aluno = stub_aluno2;
+    stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
+    stub_turma2.matriculas = [stub_matricula2];
+    this.turmas.push(stub_turma1);
+    this.turmas.push(stub_turma2);
 
   }
 
 
-  notificarTurma(turma: Turma) :void {
+  notificarTurma(turma: Turma): void {
     alert(turma.descricao)
     this.service.notificar(turma).subscribe(
       {
         next: r => {
           if (r) {
-            console.log(r)
+            turma.statusNotificacao = r;
             return r; // Retorna a resposta que contém o array de alunos notificados
           }
           else {

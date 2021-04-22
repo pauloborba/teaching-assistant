@@ -18,7 +18,7 @@ export class Turma {
     numeroMatriculas: number = 0;
     statusNotificacao: StatusNotificacao[] = [];
 
-    copyFrom(from:Turma): void{
+    copyFrom(from: Turma): void {
         this.descricao = from.descricao;
         this.metas = from.metas;
         this.matriculas = from.matriculas;
@@ -27,19 +27,19 @@ export class Turma {
         this.numeroMatriculas = from.numeroMatriculas;
         this.statusNotificacao = from.statusNotificacao;
     }
-    
+
     constructor(desc: string) {
-      this.descricao = desc;
-      this.metas = [];
-      this.matriculas = [];
-      this.roteiros = [];
-      this.monitores = [];
-      this.numeroMatriculas = 0;
-      this.statusNotificacao = [];
+        this.descricao = desc;
+        this.metas = [];
+        this.matriculas = [];
+        this.roteiros = [];
+        this.monitores = [];
+        this.numeroMatriculas = 0;
+        this.statusNotificacao = [];
     }
 
     addRoteiro(roteiro: Roteiro): void {
-      this.roteiros.push(roteiro);
+        this.roteiros.push(roteiro);
     }
 
     getNumMatriculas(): number {
@@ -47,24 +47,24 @@ export class Turma {
     }
 
 
-    getNumAprovados(): number{
+    getNumAprovados(): number {
         return 0;
     }
 
-    getNumReprovados(): number{
+    getNumReprovados(): number {
         return 0;
     }
 
     getMedia(): number {
         return 7;
     }
-   
-    getMatricula(cpf:string): Matricula{ 
+
+    getMatricula(cpf: string): Matricula {
         let matricula: Matricula = this.matriculas.find(matricula => matricula.getAluno().cpf == cpf);
         return matricula;
     }
 
-    getMatriculas(): Matricula [] {
+    getMatriculas(): Matricula[] {
         return this.matriculas;
     }
 
@@ -76,7 +76,7 @@ export class Turma {
         return this.roteiros;
     }
 
-    getDescricao(): string{
+    getDescricao(): string {
         return this.descricao;
     }
 
@@ -85,19 +85,19 @@ export class Turma {
         return [];
     }
 
-    getPercentual(meta: string, conceito: string): number{
+    getPercentual(meta: string, conceito: string): number {
         return 0;
     }
-      
-	// addAgendamento(ar: AgendamentoRoteiro){
-	// 	agendamentos.push(ar);
-	// }
 
-    addMetas(metasClonadas: string[]){
+    // addAgendamento(ar: AgendamentoRoteiro){
+    // 	agendamentos.push(ar);
+    // }
+
+    addMetas(metasClonadas: string[]) {
         this.metas = this.metas.concat(metasClonadas);
     }
 
-    getMetas(): string[]{
+    getMetas(): string[] {
         return this.metas;
     }
 
@@ -106,7 +106,7 @@ export class Turma {
         return this.statusNotificacao
     }
 
-    setStatusNotificacao(statusNotificacao): void {
+    setStatusNotificacao(statusNotificacao: StatusNotificacao[]): void {
         this.statusNotificacao = statusNotificacao;
     }
 }

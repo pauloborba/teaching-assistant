@@ -10,64 +10,58 @@
 <!-- Lista de turmas e suas médias -->
 
 <table id="turmas">
-        <tr>
-            <th>Ações</th>
-            <th>Descrição</th>
-            <th>Metas</th>
-            <th>Matriculas</th>
-            <th>Roteiro</th>
-            <th>Monitores</th>
-            <th>Quantidade Matriculas</th>
-        </tr>
+    <tr>
+        <th>Ações</th>
+        <th>Descrição</th>
+        <th>Metas</th>
+        <th>Matriculas</th>
+        <th>Roteiro</th>
+        <th>Monitores</th>
+        <th>Quantidade Matriculas</th>
+    </tr>
 
     <tr *ngFor="let t of turmas">
         <td>{{t.descricao}}</td>
         <td>{{t.getMedia()}}</td>
         <td><button (click)="notificarTurma(t)">Notificar</button></td>
 
-     </tr>
+    </tr>
 
 </table>
 
 
 <table id="turmas" *ngFor="let t of turmas">
-  <tr>
-    <th>Turma {{t.descricao}}</th>
-    <th>Nome</th>
-    <th>Notificado</th>
-  </tr>
-  <tr *ngFor="let s of t.statusNotificacao">
-    <td></td>
-    <td>{{s.nome}}</td>
-    <td>{{s.notificado}}</td>
-  </tr>
+    <tr>
+        <th></th>
+        <th>Turma {{t.descricao}}</th>
+        <th>Nome</th>
+        <th>Notificado</th>
+    </tr>
+    <tr *ngFor="let s of t.statusNotificacao">
+        <td></td>
+        <td></td>
+        <td>{{s.nome}}</td>
+        <td>{{s.notificado}}</td>
+    </tr>
 </table>
 
 <div *ngIf="modalAtivo === 'opcoes'" class="modal">
     <h3>Opções de Comparação</h3>
-    <button
-        name="botao-todas-turmas"
-        (click)="selecionarTodas()"
-        [ngClass]="{ ativo: opcaoSelecionada === 'todas' }">
-            Todas as Turmas
+    <button name="botao-todas-turmas" (click)="selecionarTodas()" [ngClass]="{ ativo: opcaoSelecionada === 'todas' }">
+        Todas as Turmas
     </button>
 
-    <button
-        name="botao-ultimas-quatro-turmas"
-        *ngIf="turmas.length >= 4"
-        (click)="selecionarUltimasQuatro()"
+    <button name="botao-ultimas-quatro-turmas" *ngIf="turmas.length >= 4" (click)="selecionarUltimasQuatro()"
         [ngClass]="{ ativo: opcaoSelecionada === 'ultimas-quatro' }">
-            Últimas 4 Turmas
+        Últimas 4 Turmas
     </button>
 
     <button name="botao-escolher-turmas" (click)="mostrarTurmas()">Escolher Turmas</button>
 
     <div>
-        <button
-            name="botao-confirmar"
-            [routerLink]="['/comparacao-de-desempenho']"
+        <button name="botao-confirmar" [routerLink]="['/comparacao-de-desempenho']"
             [queryParams]="{ turmas: turmasEscolhidas.join(',') }">
-                Confirmar
+            Confirmar
         </button>
 
         <button (click)="esconderModal()">Voltar</button>
@@ -76,19 +70,14 @@
 
 <div *ngIf="modalAtivo === 'turmas'" class="modal">
     <h3>Turmas Disponíveis</h3>
-    <button
-        *ngFor="let turma of turmas"
-        (click)="atualizarTurmasEscolhidas(turma.descricao)"
+    <button *ngFor="let turma of turmas" (click)="atualizarTurmasEscolhidas(turma.descricao)"
         [ngClass]="{ ativo: turmasEscolhidas.includes(turma.descricao) }">
-            {{ turma.descricao }}
+        {{ turma.descricao }}
     </button>
     <div>
-        <button
-            name="botao-confirmar"
-            [disabled]="turmasEscolhidas.length < 2"
-            [routerLink]="['/comparacao-de-desempenho']"
-            [queryParams]="{ turmas: turmasEscolhidas.join(',') }">
-                Confirmar
+        <button name="botao-confirmar" [disabled]="turmasEscolhidas.length < 2"
+            [routerLink]="['/comparacao-de-desempenho']" [queryParams]="{ turmas: turmasEscolhidas.join(',') }">
+            Confirmar
         </button>
 
         <button (click)="esconderModal()">Voltar</button>

@@ -13,23 +13,30 @@ export class NotificacaoNotas {
   emailSender: EmailSender = new EmailSender();
 
   enviarNotificação(turma: Turma): StatusNotificacao[] {
-    if(turma.descricao===undefined || turma.descricao===null || turma.descricao==="" ){
+    console.log(turma)
+    if (turma.descricao === undefined || turma.descricao === null || turma.descricao === "") {
       return null;
     }
     var porcentagensDeConceitoDasMetasMap: Map<String, Map<string, number>> = this.gerarPercentsDeMetas(turma);
     var porcentagensTextMap: Map<String, String> = this.porcentagensDeConceitosText(porcentagensDeConceitoDasMetasMap, turma);
     var mediaTurma: number = turma.getMedia();
-    let statusNotificacao: StatusNotificacao[]; // Cria array para gerir alunos notificados
+    let statusNotificacao = new Array<StatusNotificacao>() // Cria array para gerir alunos notificados
+    console.log(typeof statusNotificacao)
     for (let matricula of turma.matriculas) {
-      var texto: string = /*this.conceitosDasMetasDoAluno(matricula) +*/ this.ressaltarDiferencasMetas(matricula, porcentagensTextMap) + 
-      this.ressaltarDiferencaMedia(matricula,mediaTurma);
+      var texto: string = /*this.conceitosDasMetasDoAluno(matricula) +*/ this.ressaltarDiferencasMetas(matricula, porcentagensTextMap) +
+        this.ressaltarDiferencaMedia(matricula, mediaTurma);
       console.log("Enviando email para : " + matricula.aluno.email);
 
       // Insere aluno no array com o atributo notificado
-      if(this.emailSender.enviarEmail(matricula.aluno.email, "", texto) == true){
-        statusNotificacao.push({ nome: matricula.aluno.nome, cpf: matricula.aluno.cpf, notificado: true}); 
-      } else {
-        statusNotificacao.push({ nome: matricula.aluno.nome, cpf: matricula.aluno.cpf, notificado: false});
+      const status = turma.statusNotificacao.filter((s) => s.cpf == matricula.aluno.cpf);
+
+      if (!status[0].notificado) {
+        if (this.emailSender.enviarEmail(matricula.aluno.email, "", texto) == true) {
+          statusNotificacao.push({ nome: matricula.aluno.nome, cpf: matricula.aluno.cpf, notificado: true });
+        } else {
+          statusNotificacao.push({ nome: matricula.aluno.nome, cpf: matricula.aluno.cpf, notificado: false });
+        }
+        console.log(statusNotificacao)
       }
     }
     return statusNotificacao;
@@ -45,10 +52,10 @@ export class NotificacaoNotas {
     }
     return texto;
   }
-  ressaltarDiferencaMedia(matricula: Matricula, mediaTurma: number ) : string{
-    var texto: string ="" ;
-    texto = "Sua média: " + matricula.getMedia() + " \n" + 
-    "Média da turma: " + mediaTurma;
+  ressaltarDiferencaMedia(matricula: Matricula, mediaTurma: number): string {
+    var texto: string = "";
+    texto = "Sua média: " + matricula.getMedia() + " \n" +
+      "Média da turma: " + mediaTurma;
     return texto;
   }
   porcentagensDeConceitosText(porcentagens: Map<String, Map<string, number>>, turma: Turma): Map<String, String> {
