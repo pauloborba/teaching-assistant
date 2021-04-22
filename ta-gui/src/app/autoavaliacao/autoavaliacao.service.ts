@@ -8,7 +8,6 @@ import { Aluno } from '../../../../common/aluno';
 import { RespostaDeRoteiro } from '../../../../common/respostaderoteiro';
 import { Avaliacao } from '../../../../common/avaliacao';
 import { Turma } from '../../../../common/turma';
-import { Turmas } from '../../../../ta-server/turmas';
 
 @Injectable()
 export class AutoavaliacaoService {

@@ -6,7 +6,6 @@ import { retry, map } from 'rxjs/operators';
 import { Matricula } from '../../../../../common/matricula';
 import { Aluno } from '../../../../../common/aluno';
 import { Turma } from '../../../../../common/turma';
-import { Turmas } from '../../../../../ta-server/turmas'; 
 import { Roteiro } from '../../../../../common/roteiro';
 
 @Injectable()

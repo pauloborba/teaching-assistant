@@ -1,4 +1,4 @@
-import  {Roteiro } from '../common/roteiro'
+import  {Roteiro } from '../../common/roteiro'
 
 export class CadastroDeRoteiros{
        roteiros: Roteiro[] = [];

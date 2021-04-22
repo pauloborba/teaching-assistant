@@ -3,8 +3,8 @@ import bodyParser = require("body-parser");
 import turmaRotas from "./turmas/turmas.api";
 
 import { Aluno } from '../common/aluno';
-import { CadastroDeAlunos } from './cadastrodealunos'; 
-import { Turmas } from './turmas'
+import { CadastroDeAlunos } from './repos/cadastrodealunos'; 
+import { Turmas } from './repos/turmas'
 import { Turma } from '../common/turma'
 import { Matricula } from '../common/matricula'
 import { BlocoDeQuestoes } from '../common/blocodequestoes';
@@ -14,7 +14,7 @@ import { RespostaDeQuestao } from '../common/respostadequestao';
 import { Avaliacao } from '../common/avaliacao';
 import { EmailSender } from './EmailSender';
 import {Roteiro} from '../common/roteiro'
-import {CadastroDeRoteiros} from './cadastroderoteiros';
+import {CadastroDeRoteiros} from './repos/cadastroderoteiros';
 import { NotificacaoNotas } from './notificacaoNotas';
 
 var taserver = express();

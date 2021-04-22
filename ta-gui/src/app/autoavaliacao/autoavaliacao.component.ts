@@ -5,7 +5,6 @@ import { NgModule } from '@angular/core';
 import { Aluno } from '../../../../common/aluno';
 import { Matricula } from '../../../../common/matricula';
 import { Avaliacao } from '../../../../common/avaliacao';
-import { Turmas } from '../../../../ta-server/turmas';
 import { Turma } from '../../../../common/turma';
 import { AutoavaliacaoService } from './autoavaliacao.service';
 

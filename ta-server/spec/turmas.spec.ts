@@ -1,5 +1,5 @@
 import { Turma } from '../../common/turma';
-import { Turmas } from '../turmas';
+import { Turmas } from '../repos/turmas';
 
 describe('Turmas:', () => {
     const turmas: Turmas = new Turmas();

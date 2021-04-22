@@ -1,6 +1,6 @@
 import { Request, response, Response, Router } from 'express';
 import { Turma } from '../../common/turma';
-import { Turmas } from '../turmas';
+import { Turmas } from '../repos/turmas';
 
 const turmaRotas = Router();
 

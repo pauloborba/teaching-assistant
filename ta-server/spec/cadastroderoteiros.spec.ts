@@ -1,4 +1,4 @@
-import { CadastroDeRoteiros } from '../cadastroderoteiros';
+import { CadastroDeRoteiros } from '../repos/cadastroderoteiros';
 import { Roteiro } from '../../common/roteiro';
 import { BlocoDeQuestoes } from '../../common/blocodequestoes';
 
