@@ -62,7 +62,7 @@ export class AlunosComponent implements OnInit {
     this.alunoService.getTurma(this.nomeTurma).subscribe(
 
       (a) => {
-        this.turma = new Turma()
+        this.turma = new Turma("")
         this.turma.descricao = a.descricao
         this.matriculas = a.matriculas
       },
