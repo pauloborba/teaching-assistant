@@ -39,6 +39,11 @@ export class Turmas {
         return resumos;
     }
 
+    compararTurmas(turmas: Turma[]): any {
+        return null;
+    }
+
+    //tenho que usar o get turmas e procurar a turma
     getTurma(descricao: string): Turma{
         let turma: Turma = this.turmas.find(turma => turma.descricao == descricao);
         return turma;

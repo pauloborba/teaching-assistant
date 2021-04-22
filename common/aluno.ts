@@ -8,6 +8,10 @@ export class Aluno {
       this.clean();
     }
   
+    getNome(): String {
+        return this.nome
+    }
+
     clean(): void {
       this.nome = "";
       this.cpf = "";
@@ -35,4 +39,4 @@ export class Aluno {
         this.metas[key] = from[key];
       }
     }
-  }
+}

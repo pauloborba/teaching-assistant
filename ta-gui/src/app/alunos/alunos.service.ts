@@ -5,7 +5,7 @@ import { retry, map, catchError } from 'rxjs/operators';
 
 
 import { Aluno } from '../../../../common/aluno';
-// import 'rxjs/add/operator/toPromise';
+import { Turma } from '../../../../common/turma';
 
 @Injectable()
 export class AlunoService {
@@ -45,6 +45,13 @@ export class AlunoService {
       .pipe(
         retry(2)
       );
+  }
+
+  getTurma(turma: string): Observable<Turma> {
+    return this.http.get<Turma>(this.taURL + `/turma/${turma}`)
+              .pipe(
+                  retry(2)
+              );
   }
 
 }
