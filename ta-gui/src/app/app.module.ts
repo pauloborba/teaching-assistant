@@ -24,6 +24,7 @@ import { RoteiroService } from './roteiros/roteiro.service';
 import { AdicionarTurmaComponent } from './turmas/adicionar-turma/adicionar-turma.component';
 import { EditarTurmaComponent } from './turmas/editar-turma/editar-turma.component';
 import { AdicionarTurmaService } from './turmas/adicionar-turma/adicionar-turma.service';
+import { TurmasService } from './turmas/turmasService';
 
 @NgModule({
   declarations: [ 
@@ -53,6 +54,10 @@ import { AdicionarTurmaService } from './turmas/adicionar-turma/adicionar-turma.
     {
       path:'alunos',
       component: AlunosComponent
+    },
+    {
+      path:'turma',
+      component: TurmasComponent
     },
     {
       path: 'auto-avaliacao',
@@ -88,7 +93,7 @@ import { AdicionarTurmaService } from './turmas/adicionar-turma/adicionar-turma.
     },
   ])
   ],
-  providers: [RelatorioService, ComparacaoDeDesempenhoService, AlunoService, AutoavaliacaoService, DiscrepantesService, RoteiroService, AutoavaliacaoService],
+  providers: [RelatorioService, ComparacaoDeDesempenhoService, AlunoService, AutoavaliacaoService, DiscrepantesService, RoteiroService, AutoavaliacaoService, TurmasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

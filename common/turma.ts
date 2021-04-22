@@ -57,7 +57,11 @@ export class Turma {
     getRoteiros(): Roteiro[] {
         return this.roteiros;
     }
-    
+
+    getDescricao(): string{
+        return this.descricao;
+    }
+
     getMonitores(): Aluno[] {
         return [];
     }
@@ -72,5 +76,9 @@ export class Turma {
 
     getMetas(): string[]{
         return this.metas;
+    }
+
+    addMetas(metasClonadas: string[]){
+        this.metas = this.metas.concat(metasClonadas);
     }
 }

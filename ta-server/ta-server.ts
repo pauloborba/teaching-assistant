@@ -1,5 +1,6 @@
 import express = require('express');
 import bodyParser = require("body-parser");
+import turmaRotas from "./turmas/turmas.api";
 
 import { Aluno } from '../common/aluno';
 import { CadastroDeAlunos } from './cadastrodealunos'; 
@@ -127,6 +128,8 @@ taserver.post('/notificacaoResultadoFinal/', function (req: express.Request, res
         res.send("Faltam informações da turma!")
     }
 })
+
+taserver.use("/turmas", turmaRotas);
 
 //recebe um identificador de turma e de aluno e retorna uma matricula
 taserver.get('/matriculas/', function (req: express.Request, res: express.Response){
