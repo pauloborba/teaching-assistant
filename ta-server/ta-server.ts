@@ -116,12 +116,8 @@ taserver.get('/metas/', function (req: express.Request, res: express.Response){
 })
 
 taserver.post('/notificacaoResultadoFinal/', function (req: express.Request, res: express.Response) {
-   
     var  reqTurma:Turma = <Turma> req.body;
-   var turma:Turma = new Turma();
-   turma.descricao = reqTurma.descricao;
-    // turma.descricao= req.body.descricao
-
+   var turma:Turma = new Turma(reqTurma.descricao);
 
     if (notificacao.enviarNotificação(turma)){
         console.log("Notificou turma " + turma.descricao)

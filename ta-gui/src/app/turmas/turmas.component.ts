@@ -18,12 +18,6 @@ export class TurmasComponent implements OnInit {
   constructor(private service: TurmasService) { }
 
   ngOnInit() {
-    var turma: Turma = new Turma();
-    turma.descricao = "23e1321";
-    this.turmas.push(turma);
-    turma = new Turma();
-    turma.descricao="32fkds"
-    this.turmas.push(turma)
 
   }
 

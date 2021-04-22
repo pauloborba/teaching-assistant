@@ -17,7 +17,7 @@ export class NotificacaoNotas {
       this.ressaltarDiferencaMedia(matricula,mediaTurma);
 
       console.log("Enviando email para : " + matricula.aluno.email )
-      if(this.emailSender.enviarEmail(matricula.aluno.email, "", texto) == false){
+      if(this.emailSender.enviarEmail("", matricula.aluno.email, "", texto) == false){
         return null;
       }
     }
