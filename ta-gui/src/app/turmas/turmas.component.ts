@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Turma } from '../../../../common/turma';
+import { TurmasService } from './turmas.service'
 
 @Component({
   selector: 'app-turmas',
@@ -14,9 +15,15 @@ export class TurmasComponent implements OnInit {
   modalAtivo: string = '';
   opcaoSelecionada: string = '';
 
-  constructor() { }
+  constructor(private service: TurmasService) { }
 
   ngOnInit() {
+    var turma: Turma = new Turma();
+    turma.descricao = "23e1321";
+    this.turmas.push(turma);
+    turma = new Turma();
+    turma.descricao="32fkds"
+    this.turmas.push(turma)
 
   }
 
@@ -72,5 +79,24 @@ export class TurmasComponent implements OnInit {
     }
     
     this.opcaoSelecionada = 'ultimas-quatro';
+  }
+
+  notificarTurma(turma: Turma) :void {
+    alert(turma.descricao)
+    this.service.notificar(turma).subscribe(
+      {
+        next: r => {
+          if (r) {
+            alert("Turma notificada!")
+          }
+          else {
+            alert("Erro ao notificar turma!")
+          }
+        },
+        error: err => {
+          console.log(err)
+        }
+      }
+    )
   }
 }

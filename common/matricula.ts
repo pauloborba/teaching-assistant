@@ -40,4 +40,8 @@ export class Matricula{
         })
         return this.autoAvaliacoes;
     }
+
+    getMedia(): number{
+        return 0;
+    }
 }

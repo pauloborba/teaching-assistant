@@ -14,6 +14,7 @@ import { Avaliacao } from './avaliacao';
 import { EmailSender } from './EmailSender';
 import {Roteiro} from '../common/roteiro'
 import {CadastroDeRoteiros} from './cadastroderoteiros';
+import { NotificacaoNotas } from './notificacaoNotas';
 
 var taserver = express();
 
@@ -23,6 +24,7 @@ var sender = new EmailSender();
 var cadastroRoteiro: CadastroDeRoteiros = new CadastroDeRoteiros();
 var cadastroTurma: Turmas = new Turmas();
 var conjTurmas: Turmas = new Turmas();
+var notificacao: NotificacaoNotas = new NotificacaoNotas();
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
@@ -30,6 +32,7 @@ var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 }
+
 taserver.use(allowCrossDomain);
 
 taserver.use(bodyParser.json());
@@ -110,6 +113,23 @@ taserver.get('/metas/', function (req: express.Request, res: express.Response){
   let metas = turma ? turma.getMetas() : [];
   res.send(metas);
     
+})
+
+taserver.post('/notificacaoResultadoFinal/', function (req: express.Request, res: express.Response) {
+   
+    var  reqTurma:Turma = <Turma> req.body;
+   var turma:Turma = new Turma();
+   turma.descricao = reqTurma.descricao;
+    // turma.descricao= req.body.descricao
+
+
+    if (notificacao.enviarNotificação(turma)){
+        console.log("Notificou turma " + turma.descricao)
+        res.send(reqTurma);
+    }
+    else{ 
+        res.send("Faltam informações da turma!")
+    }
 })
 
 //recebe um identificador de turma e de aluno e retorna uma matricula
@@ -200,7 +220,7 @@ taserver.get('adicionar-turma', function (req: express.Request, res: express.Res
 var server = taserver.listen(3000, function () {
     console.log('Example app listening on port 3000!')
 })
-  
+
 function closeServer(): void {
 server.close();
 }

@@ -24,6 +24,7 @@
         <tr name="turma" *ngFor="let turma of turmas">
             <td name="descricao">{{ turma.descricao }}</td>
             <td name="media">{{ turma.getMedia() }}</td>
+            <td><button (click)="notificarTurma(turma)">Notificar</button></td>
         </tr>
         <tr>
             <td><button routerLink="/editar-turma" class="adc">Editar</button> <button class="adc mg-left">Excluir</button></td>
