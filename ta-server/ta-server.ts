@@ -15,11 +15,12 @@ import { BlocoDeQuestoes } from './blocodequestoes';
 import { Questao } from './questao';
 import { RespostaDeRoteiro } from './respostaderoteiro';
 import { RespostaDeQuestao } from './respostadequestao';
+import { ImportacaoDeNotas } from './importacaodenotas';
 
-var taserver = express();
+ var taserver = express();/*
 // Stub para popular o front-end com alunos de uma turma
-var stub_turma1 = new Turma("");
-var stub_turma2 = new Turma("");
+var stub_turma1 = new Turma();
+var stub_turma2 = new Turma();
 stub_turma1.descricao = "ESS";
 stub_turma2.descricao = "Compiladores";
 stub_turma1.metas = ["Requisitos", "Refatoração"];
@@ -53,12 +54,7 @@ stub_matricula2.autoAvaliacoes = [stub_autoavaliacao3, stub_autoavaliacao4];
 stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
 stub_turma2.matriculas = [stub_matricula2];
 // var sender = new EmailSender();
-
-
-var turmas: Turmas = new Turmas();
-turmas.turmas = [stub_turma1, stub_turma2];
-
-var cadastroTurma: Turmas = new Turmas();
+*/
 
 
 // stub para turmas
@@ -80,6 +76,13 @@ stub_aluno2.cpf = "456";
 stub_aluno2.email = "maria@cin.ufpe.br";
 stub_matricula1.aluno = stub_aluno1;
 stub_matricula2.aluno = stub_aluno2;
+let stub_avalicao = new Avaliacao;
+stub_avalicao.setMeta("Meta1");
+stub_avalicao.setNota("");
+let stub_avalicao1 = new Avaliacao;
+stub_avalicao1.setMeta("Meta2");
+stub_avalicao1.setNota("");
+stub_matricula2.avaliacoes = [stub_avalicao,stub_avalicao1];
 stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
 stub_turma2.matriculas = [stub_matricula2];
 
@@ -87,8 +90,10 @@ stub_turma2.matriculas = [stub_matricula2];
 
 var cadastro: CadastroDeAlunos = new CadastroDeAlunos();
 var notificacao: NotificacaoNotas = new NotificacaoNotas();
+var importacao: ImportacaoDeNotas = new ImportacaoDeNotas();
 var turmas: Turmas = new Turmas();
-
+turmas.turmas = [stub_turma1, stub_turma2];
+var cadastroTurma: Turmas = new Turmas();
 
 var cadastroRoteiro: CadastroDeRoteiros = new CadastroDeRoteiros();
 
@@ -139,8 +144,15 @@ taserver.post('/notificacaoResultadoFinal/', function (req: express.Request, res
     }
   });
 
+taserver.get('/turmass', function (req: express.Request, res: express.Response){  
+ // let turma = new Turmas();
+  let desc: string[] = turmas.getDescricoes()
+ // turma = turmas;
+  res.send(desc);
+})
+
 taserver.get('/turma/:descricao', function (req: express.Request, res: express.Response){
-    var turmas = new Turmas();
+    //var turmas = new Turmas();
     let turma = new Turma("");
     turma = turmas.getTurma(req.params.descricao)
     res.send(turma)
@@ -223,7 +235,7 @@ taserver.post('/adicionar-turma', function (req: express.Request, res: express.R
     } else {
         res.send({"failure": "A turma não foi cadastrada"});
     }
-});
+})
 
   taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: express.Response) {
     const desc: string = <string> req.query.turmas
@@ -266,9 +278,28 @@ taserver.delete('/aluno', function(req: express.Request, res: express.Response){
 })
 
 
-  function closeServer(): void {
-    server.close();
-  };
+taserver.put('/importacaodenota', function (req: express.Request, res: express.Response) {
+  let planilha = req.body;
+  let avaliacoes = importacao.metaGroup(planilha);
+  let turma: Turma = turmas.getTurma("Compiladores");
+  console.log('test3',turma);
+  let ok: boolean = false;
+  ok = importacao.importar(turma,avaliacoes)
+  if (ok) {
+     res.send({"success": "A planilha foi importada com sucesso"});
+  } else {
+     res.send({"failure": "A planilha não foi importada"});
+  }
+});
 
+taserver.get('/importacaodenota', function(req: express.Request, res: express.Response) {
+  let tturma = turmas.getTurma(<string> req.query.turma);
+  let volta = tturma.gethasNotas();
+  res.send(volta)
+});
+
+function closeServer(): void {
+server.close();
+}
   
 export { server, closeServer }

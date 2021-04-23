@@ -28,6 +28,8 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from './relatorio/relatorio.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
 
+import { SheetImportService} from './import/SheetImportService'
+
 @NgModule({
   declarations: [ 
     AppComponent,
@@ -97,7 +99,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
   ])
   ],
 
-  providers: [TurmasService, AlunoService, AutoavaliacaoService, RoteiroService, DiscrepantesService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
+  providers: [TurmasService, AlunoService, AutoavaliacaoService, RoteiroService, DiscrepantesService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService,SheetImportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

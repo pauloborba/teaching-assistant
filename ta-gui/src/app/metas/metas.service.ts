@@ -22,7 +22,7 @@ export class AlunoService {
   }
 
   getTurmas(): Observable<Turma[]> {
-    return this.http.get<Turma[]>(this.taURL + "/turma")
+    return this.http.get<Turma[]>(this.taURL + "/turmass")
               .pipe(
                  retry(2)
                );

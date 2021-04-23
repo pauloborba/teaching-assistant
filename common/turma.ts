@@ -6,25 +6,27 @@ import { Avaliacao } from '../ta-server/avaliacao';
 export class Turma {
     descricao: string = "";
     metas: string[] = [];
+    metaTipo: string
     matriculas: Matricula[] = [];
     roteiros: Roteiro[] = [];
     monitores: Aluno[] = [];
     numeroMatriculas: number = 0;
+    hasNotas = false;
 
     copyFrom(from:Turma): void{
         this.descricao = from.descricao;
         this.metas = from.metas;
         this.matriculas = from.matriculas;
-        this.roteiros = from.roteiros;
+        //this.metaTipo = from.metaTipo;
         this.monitores = from.monitores;
         this.numeroMatriculas = from.numeroMatriculas;
     }
-    
     constructor(desc: string) {
-      this.descricao = desc;
+      this.descricao = "";
       this.metas = [];
       this.matriculas = [];
       this.roteiros = [];
+      //this.metaTipo = "";
       this.monitores = [];
       this.numeroMatriculas = 0;
     }
@@ -66,6 +68,7 @@ export class Turma {
     getRoteiros(): Roteiro[] {
         return this.roteiros;
     }
+    
 
     getDescricao(): string{
         return this.descricao;
@@ -80,7 +83,7 @@ export class Turma {
         return 0;
     }
       
-	// addAgendamento(ar: AgendamentoRoteiro){
+	 //addAgendamento(ar: AgendamentoRoteiro){
 	// 	agendamentos.push(ar);
 	// }
 
@@ -90,5 +93,22 @@ export class Turma {
 
     getMetas(): string[]{
         return this.metas;
+    }
+
+    atualizaravaliacoes(cpf:string, notas: Avaliacao[]): boolean {
+        let exist: boolean = false;
+        let matricula = this.getMatricula(cpf)
+        if(matricula){
+            let confirm = matricula.atualizarAvaliacoes(notas);
+            if(confirm){
+                this.hasNotas = true
+            }
+            return true;
+        }
+        return exist
+    }
+
+    gethasNotas(){
+        return this.hasNotas
     }
 }

@@ -13,7 +13,7 @@ export class TurmasService {
   constructor(private http: HttpClient) {}
 
   getTurmas(): Observable<string[]> {
-    return this.http.get<string[]>(this.taURL + "/")
+    return this.http.get<string[]>(this.taURL + "s")
               .pipe(
                  retry(2)
                );

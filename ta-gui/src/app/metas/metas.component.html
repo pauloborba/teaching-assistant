@@ -26,5 +26,20 @@
         </div>
         
     </div>
+    <a (click) = "toggleDisplayImport()" class="botao">Importar Planilha</a>
+    <div *ngIf = 'isShowImport'>
+      <div class="form-group">
+        <label for="file">Arquivo da planilha: </label>
+        <input type="file"
+               id="file"
+               (change)="uparArquivo($event.target.files)">
+      </div>
+      <div id=import>
+      <p>Coluna que será importada</p>
+      <input class= "input"[(ngModel)]="col" name="colInput">
+      <p>Caso uma coluna não seja selecionada, a planilha inteira será importada por padrão</p> 
+      </div>
+      <a (click) = "enviarPlanilha()" class="botao" >Upload</a>
+    </div>
    
 </div>

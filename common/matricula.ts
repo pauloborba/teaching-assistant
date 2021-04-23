@@ -26,6 +26,19 @@ export class Matricula{
         return this.respostasDeRoteiros;
     }
 
+    atualizarAvaliacoes(avaliacoes: Avaliacao[]): boolean{
+        avaliacoes.forEach((avaliacao) => {
+            const metaCheck = this.avaliacoes.find(av => av.meta == avaliacao.meta);
+            if(metaCheck){
+                metaCheck.setNota(avaliacao.nota);
+            }
+            else{
+                return false;
+            }
+        })
+        return true;
+    }
+
     atualizarAutoAvaliacoes(autoAvaliacoesAtualizadas: Avaliacao[]): Avaliacao[] {
         autoAvaliacoesAtualizadas.map((avaliacao) => {
             const metaExistente = this.autoAvaliacoes.find(av => av.meta == avaliacao.meta);

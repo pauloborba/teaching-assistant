@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Turma } from '../../../../common/turma';
 import { TurmasService } from '../turmas/turmasService';
 import { Aluno } from '../../../../common/aluno';
+import { SheetImportService} from '../import/SheetImportService'
 
 @Component({
   selector: 'app-turmas',
@@ -10,7 +11,7 @@ import { Aluno } from '../../../../common/aluno';
   styleUrls: ['./metas.component.css']
 })
 export class MetasComponent implements OnInit {
-  //turmas: Turma[] = [];
+  turmas: Turma[] = [];
   turmasDescricao: string[] =[];
   metasTurma: string[] = [];
   turmaDestino: string;
@@ -19,8 +20,10 @@ export class MetasComponent implements OnInit {
   metasOrigem: string[] = [];
   metasDiscrepantes: string[];
   metasIguais: string[];
+  confirm = false;
+  col = -1;
 
-  constructor(private turmasService: TurmasService) { //erro aqui!
+  constructor(private turmasService: TurmasService,private sheetImportService: SheetImportService) { //erro aqui!
   }
 
   ngOnInit() {
@@ -95,5 +98,93 @@ batata(){
      );
   }
 
+  //Métodos de Importação de Planilha
+  //Apenas arquivos .csv
+  
+  isShowImport = false;
+  curTurma = "Compiladores";
+  arquivo = null;
+  texto = "";
+
+  toggleDisplayImport() {
+    this.isShowImport = !this.isShowImport;
+  }
+
+  textof(texto){
+    this.texto = texto;
+  }
+
+  uparArquivo(arquivo:FileList){
+    this.arquivo = arquivo.item(0);
+    let read = new FileReader
+    read.readAsText(this.arquivo);
+    read.onload = () => this.textof(read.result)
+    console.log(this.texto);
+    if(this.confirm != true){
+      this.sheetImportService.hasnota("Compiladores")
+      .subscribe(
+        a => {
+          console.log(a);
+          if(a == true){
+            alert("Essa turma já possui notas preenchidas, importar uma planilha pode sobrescreve-las")
+            this.confirm = true;
+          }
+          else{
+            this.confirm = true;
+          }
+        }
+      );
+      }
+  }
+
+   paraJSON(csv,col){
+    let convJSON = [];
+    let lines = csv.split("\r\n");
+    let header = lines[0].split(",");
+  
+    for(let i = 1; i < lines.length; i++){
+      let mergedLine = {};
+      let currentline=lines[i].split(",");
+  
+      for(let j = 0; j < header.length; j++){
+        mergedLine[header[j]] = currentline[j];
+      }
+      if(col != -1){
+        for(let a = 1;a < header.length;a++){
+          if(a != col){
+          delete mergedLine[header[col]];
+          }
+        }
+      }
+      convJSON.push(mergedLine);
+  
+    }
+    console.log(JSON.parse(JSON.stringify(convJSON)));
+    return JSON.parse(JSON.stringify(convJSON)); 
+  }
+
+  
+
+  enviarPlanilha(){
+    console.log(this.arquivo);
+    let sheetJSON = this.paraJSON(this.texto,this.col);
+    this.sheetImportService.atualizar(this.curTurma,sheetJSON)
+    .subscribe(
+      a => { 
+        if (a == null){ 
+          alert("");
+          this.confirm = false
+        } 
+        else{
+          alert(a)
+          this.confirm = false
+        }  
+      },
+      msg => { alert(msg.message); }
+     );
+  }
+
 }
+
+
 
