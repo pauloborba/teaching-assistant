@@ -100,7 +100,7 @@ defineSupportCode(function ({ Given, When, Then }) {
 
 
     Given(/^o sistema não possui nenhuma nota de auto-avaliação na meta "([^\"]*)" para o aluno com CPF "(\d*)" na turma "([^\"]*)"$/, async (meta,cpf, turma) => {
-        await request.get(base_url + `matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${turma.toString().toLowerCase()}`)
+        await request.get(base_url + `turmas/matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${turma.toString().toLowerCase()}`)
                  .then(body => {
                      expect(JSON.parse(body).autoAvaliacoes.find(av => av.meta === meta.toString()).nota === '')
                 }
@@ -109,7 +109,7 @@ defineSupportCode(function ({ Given, When, Then }) {
      });
  
      When(/^eu adiciono a nota "([^\"]*)" a meta "([^\"]*)" ao aluno com CPF "(\d*)" na turma "([^\"]*)"$/, async (nota, meta, cpf, turma) => {
-        const matricula = await request.get(base_url + `matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${turma.toString().toLowerCase()}`)
+        const matricula = await request.get(base_url + `turmas/matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${turma.toString().toLowerCase()}`)
                  .then(body => {return JSON.parse(body)}).catch(error => {throw error});
         if(matricula){
 
@@ -127,7 +127,7 @@ defineSupportCode(function ({ Given, When, Then }) {
 
             let body = {autoavaliacoes: auto, cpf: cpf.toString().toLowerCase(), descricaoTurma: turma.toString().toLowerCase()}
 
-            var options:any = {method: 'PUT', uri: (base_url + "autoavalicoes/atualizar/"), body: body, json: true};
+            var options:any = {method: 'PUT', uri: (base_url + "auto-avalicoes"), body: body, json: true};
 
             await request(options)
                 .then(body => 
@@ -137,7 +137,7 @@ defineSupportCode(function ({ Given, When, Then }) {
      });
  
      Then(/^a nota "([^\"]*)" para a meta "([^\"]*)" do aluno com CPF "(\d*)" na turma "([^\"]*)" é salvo no sistema$/, async (nota, meta, cpf,turma) => {
-        let matricula = await request.get(base_url + `matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${turma.toString().toLowerCase()}`)
+        let matricula = await request.get(base_url + `turmas/matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${turma.toString().toLowerCase()}`)
         .then(body => {return JSON.parse(body)}).catch(error => {throw error});
         let auto = matricula.autoAvaliacoes;
         let a = auto.find(av => av.meta === meta);

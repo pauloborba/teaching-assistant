@@ -86,18 +86,18 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     When(/^Eu registro o roteiro "(.*)" sem blocos$/, async (descricao) => {
     let roteiro = {"descricao": descricao, "blocos" : []};
-    var options:any = {method: 'POST', uri: (base_url + "roteiro"), body:roteiro, json: true};
+    var options:any = {method: 'POST', uri: (base_url + "roteiros"), body:roteiro, json: true};
     await request(options).then(body => expect(JSON.stringify(body)).to.equal('{"success":"O roteiro foi cadastrado com sucesso"}'));
     });
 
     When(/^Eu cadastro um bloco "(.*)" com a questão "(.*)" no roteiro "(.*)"$/, async (tipo, pergunta, descricao) => {
     let roteiro = {"descricao": descricao, "blocos" : [{"tipo": tipo,"questoes":[{"pergunta": pergunta,"dica":""}]}]};
-    var options:any = {method: 'PUT', uri: (base_url + "roteiro"), body:roteiro, json: true};
+    var options:any = {method: 'PUT', uri: (base_url + "roteiros"), body:roteiro, json: true};
     await request(options).then(body => expect(JSON.stringify(body)).to.equal('{"success":"O roteiro foi atualizado com sucesso"}'));
     });
 
     When(/^Eu deleto o roteiro "(.*)"$/, async (descricao) => {
-    var options:any = {method: 'DELETE', uri: (base_url + "roteiro/" + descricao)};
+    var options:any = {method: 'DELETE', uri: (base_url + "roteiros/" + descricao)};
     await request(options).then(body => expect(body).to.equal('{"success":"O roteiro foi removido com sucesso"}'));
     });
 

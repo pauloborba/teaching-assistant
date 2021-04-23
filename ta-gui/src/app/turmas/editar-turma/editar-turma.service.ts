@@ -19,7 +19,7 @@ export class EditarTurmaService {
   // methods go herea
  // metas: string, matricula:Matricula, roteiro:Roteiro, monitores:Aluno, numeroMatricula: number &metas=" + metas
   editarTurmaServe(descricaoTurma: string,): Observable<string> {
-    return this.http.put<string>(this.taURL + "/editar-turma/?descricaoTurma=" + descricaoTurma , {headers: this.headers});
+    return this.http.put<string>(this.taURL + "/turmas/" + descricaoTurma , {headers: this.headers});
 
   }
 

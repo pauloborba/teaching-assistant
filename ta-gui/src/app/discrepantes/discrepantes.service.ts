@@ -14,7 +14,7 @@ export class DiscrepantesService {
   constructor(private http: HttpClient) {}
 
   getTurma(descricao: string): Observable<Turma> {
-    return this.http.get<Turma>(this.taURL + `/turma/${descricao}`)
+    return this.http.get<Turma>(this.taURL + `/turmas/${descricao}`)
               .pipe(
                   retry(2)
               );

@@ -5,7 +5,7 @@ import { Turma } from "../../common/turma";
 
 var base_url = "http://localhost:3000/";
 let descricaoTurma = 'ESS';
-var notUrl = "http://localhost:3000/notificacaoResultadoFinal";
+var notUrl = "http://localhost:3000/notificacoes/resultado-final";
 
 describe("O servidor", () => {
     var server:any;
@@ -20,7 +20,7 @@ describe("O servidor", () => {
         ];
 
         const options: any = {
-            uri: base_url + 'comparacao-de-desempenho',
+            uri: base_url + 'relatorios/comparacao-de-desempenho',
             qs: {
                 'turmas': descricoes
             },
@@ -40,7 +40,7 @@ describe("O servidor", () => {
     });
   
     it("envia emails para os alunos", () => {
-        var options:any = {method: 'POST', uri: (base_url + "notificar"), body:[{email: 'joao@cin.ufpe.br', meta: ['Requisitos', 'Refatoração']}], json: true};
+        var options:any = {method: 'POST', uri: (base_url + "notificacoes/auto-avaliacao"), body:[{email: 'joao@cin.ufpe.br', meta: ['Requisitos', 'Refatoração']}], json: true};
         return request(options)
             .then(body => 
                 expect(body).toEqual({success: 'Notificações foram enviadas'})
@@ -54,7 +54,7 @@ describe("O servidor", () => {
     var turmaJson = '{"descricao":"ESS 2018.1","metas":["Requisitos","Gerência de Configuração","Testes"],"matriculas":[],"roteiros":[],"monitores":[],"numeroMatriculas":0}'
 
 
-    return request.get(base_url + "turma/ESS%202018.1")
+    return request.get(base_url + "turmas/ESS%202018.1")
             .then(body => {
                console.log("OLHA O BODYYYYY: " + body)
                expect(body).toBe(turmaJson)
@@ -66,7 +66,7 @@ describe("O servidor", () => {
   })
 
   it("cadastro de roteiros", () => {
-    var options:any = {method: 'POST', uri: (base_url + "roteiro"), body:{descricao:"Roteiro de testes", blocos:[]}, json: true};
+    var options:any = {method: 'POST', uri: (base_url + "roteiros"), body:{descricao:"Roteiro de testes", blocos:[]}, json: true};
     return request(options)
              .then(body =>
                 expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"})
@@ -79,10 +79,10 @@ describe("O servidor", () => {
     var roteiro1: any = { "descricao": "Roteiro de requisitos", "blocos": [{ "tipo": "Sequencial", "questoes": [] }] };
     var roteiro2: any = { "descricao": "Roteiro de requisitos", "blocos": [{ "tipo": "Paralelo", "questoes": [] }] };
 
-    return request.post(base_url + "roteiro", { json: roteiro1 })
+    return request.post(base_url + "roteiros", { json: roteiro1 })
              .then(body => {
                 expect(body).toEqual({success: "O roteiro foi cadastrado com sucesso"});
-                 return request.post(base_url + "roteiro", { json: roteiro2 })
+                 return request.post(base_url + "roteiros", { json: roteiro2 })
                          .then(body => {
                             expect(body).toEqual({failure: "O roteiro não pode ser cadastrado"});
                             return request.get(base_url + "roteiros")
@@ -101,7 +101,7 @@ describe("O servidor", () => {
 
     let res = '["gerencia de configuração","refatorar código com qualidade","entender requisitos","especificar requisitos","elicitar requisitos"]';
 
-    return request.get(base_url + `metas?descricaoTurma=${descricaoTurma.toString().toLowerCase()}`)
+    return request.get(base_url + `turmas/${descricaoTurma.toString().toLowerCase()}/metas`)
             .then(body => {
 
                expect(body).toContain(res)
@@ -116,7 +116,7 @@ describe("O servidor", () => {
         var turmaJson = '{"descricao":"ESS 2020.1","metas":[],"matriculas":[{"avaliacoes":[],"autoAvaliacoes":[{"meta":"testes","nota":"MPA"},{"meta":"requisitos","nota":"MANA"},{"meta":"Gerencia de Projetos","nota":"MA"}],"respostasDeRoteiros":[],"aluno":{"nome":"Carlos Eduardo","cpf":"123","email":"c@gmail"}},{"avaliacoes":[],"autoAvaliacoes":[{"meta":"testes","nota":"MPA"},{"meta":"requisitos","nota":"MANA"},{"meta":"Gerencia de Projetos","nota":""}],"respostasDeRoteiros":[],"aluno":{"nome":"Carimbo da Silva","cpf":"321","email":"cs@gmail"}},{"avaliacoes":[],"autoAvaliacoes":[{"meta":"Gerencia de Projetos","nota":""},{"meta":"Gerencia de Projetos","nota":""},{"meta":"Gerencia de Projetos","nota":""}],"respostasDeRoteiros":[],"aluno":{"nome":"Macaule Cauque","cpf":"231","email":"m@gmail"}}],"roteiros":[],"monitores":[],"numeroMatriculas":0}'
         
 
-        return request.get(base_url + "turma/ESS%202020.1")
+        return request.get(base_url + "turmas/ESS%202020.1")
                 .then(body => {
                    expect(body).toBe(turmaJson)
                 })

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class TurmasService {
     constructor(private http: HttpClient) { }
-    private url = "http://localhost:3000/notificacaoResultadoFinal"
+    private url = "http://localhost:3000/notificacoes/resultado-final"
 
     notificar(turma: Turma): Observable<Turma> {
         return this.http.post<Turma>(this.url ,turma);

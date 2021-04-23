@@ -14,6 +14,6 @@ export class ComparacaoDeDesempenhoService {
             params: (new HttpParams).set('turmas', descricoes.join(','))
         };
 
-        return this.http.get<any>(this.URLServidor + '/comparacao-de-desempenho', options).pipe(retry(2));
+        return this.http.get<any>(this.URLServidor + '/relatorios/comparacao-de-desempenho', options).pipe(retry(2));
     }
 }

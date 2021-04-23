@@ -16,7 +16,7 @@ export class AlunoService {
   constructor(private http: HttpClient) { }
 
   criar(aluno: Aluno): Observable<Aluno> {
-    return this.http.post<any>(this.taURL + "/aluno", aluno, { headers: this.headers })
+    return this.http.post<any>(this.taURL + "/alunos", aluno, { headers: this.headers })
       .pipe(
         retry(2),
         map(res => { if (res.success) { return aluno; } else { return null; } })
@@ -24,7 +24,7 @@ export class AlunoService {
   }
 
   atualizar(aluno: Aluno): Observable<Aluno> {
-    return this.http.put<any>(this.taURL + "/aluno", JSON.stringify(aluno), { headers: this.headers })
+    return this.http.put<any>(this.taURL + "/alunos", JSON.stringify(aluno), { headers: this.headers })
       .pipe( 
         retry(2),
         map(res => { if (res.success) { return aluno; } else { return null; } })
@@ -32,7 +32,7 @@ export class AlunoService {
   }
 
   remover(aluno: Aluno): Observable<Aluno> {
-    return this.http.delete<any>(this.taURL + `/aluno/?id=${aluno.cpf.toString()}`, { headers: this.headers })
+    return this.http.delete<any>(this.taURL + `/alunos/?id=${aluno.cpf.toString()}`, { headers: this.headers })
       .pipe(
         retry(2),
         map(res => { if (res.success) { return aluno; } else { return null; } })
@@ -48,7 +48,7 @@ export class AlunoService {
   }
 
   getTurma(turma: string): Observable<Turma> {
-    return this.http.get<Turma>(this.taURL + `/turma/${turma}`)
+    return this.http.get<Turma>(this.taURL + `/turmas/${turma}`)
               .pipe(
                   retry(2)
               );

@@ -15,14 +15,14 @@ export class AlunoService {
 
 
   atualizar(turma: Turma): Observable<Turma> {
-    return this.http.put<any>(this.taURL + "/aluno",JSON.stringify(turma), {headers: this.headers})          .pipe( 
+    return this.http.put<any>(this.taURL + "/alunos",JSON.stringify(turma), {headers: this.headers})          .pipe( 
                 retry(2),
                 map( res => {if (res.success) {return turma;} else {return null;}} )
               ); 
   }
 
   getTurmas(): Observable<Turma[]> {
-    return this.http.get<Turma[]>(this.taURL + "/turma")
+    return this.http.get<Turma[]>(this.taURL + "/turmas")
               .pipe(
                  retry(2)
                );

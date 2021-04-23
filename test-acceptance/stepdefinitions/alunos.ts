@@ -74,7 +74,7 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     When(/^I register the student "([^\"]*)" with CPF "(\d*)"$/, async (name, cpf) => {
         let aluno = {"nome": name, "cpf" : cpf, "email":""};
-        var options:any = {method: 'POST', uri: (base_url + "aluno"), body:aluno, json: true};
+        var options:any = {method: 'POST', uri: (base_url + "alunos"), body:aluno, json: true};
         await request(options)
               .then(body => 
                    expect(JSON.stringify(body)).to.equal(

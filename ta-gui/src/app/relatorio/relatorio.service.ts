@@ -14,7 +14,7 @@ export class RelatorioService {
   constructor(private http: HttpClient) {}
 
   getTurma(descricao: string): Observable<Turma> {
-    return this.http.get<Turma>(this.taURL + `/turmas?descricao=${descricao}`)
+    return this.http.get<Turma>(this.taURL + `/turmas/${descricao}`)
               .pipe(
                  retry(2)
                );

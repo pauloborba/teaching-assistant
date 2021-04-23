@@ -3,7 +3,7 @@ import { Roteiro } from '../../common/roteiro';
 import { BlocoDeQuestoes } from '../../common/blocodequestoes';
 
 describe("O cadastro de roteiros", () => {
-  var cadastro: CadastroDeRoteiros;
+  var cadastro: CadastroDeRoteiros = new CadastroDeRoteiros();
 
   function cadastrarRoteiro(descricao:string) {
     var roteiro: Roteiro = new Roteiro();
@@ -18,7 +18,7 @@ describe("O cadastro de roteiros", () => {
     return roteiro;
   }
 
-  beforeEach(() => cadastro = new CadastroDeRoteiros())
+  afterEach(() => cadastro.getRoteiros().forEach((roteiro: Roteiro) => cadastro.removerRoteiro(roteiro.descricao)))
 
   it("cadastra roteiro", () => {
     cadastrarRoteiro("Roteiro de requisitos");

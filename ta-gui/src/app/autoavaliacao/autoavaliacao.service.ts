@@ -20,15 +20,15 @@ export class AutoavaliacaoService {
   // methods go here
 
   getTurmas(descricaoTurma: string): Observable<Turma> {
-    return this.http.get<Turma>(this.taURL + "/turmas/?descricao=" + descricaoTurma).pipe(retry(2));
+    return this.http.get<Turma>(this.taURL + "/turmas/" + descricaoTurma).pipe(retry(2));
   }
 
   notificar(objectAlunoMeta: object): Observable<String> {
-    return this.http.post<string>(this.taURL + "/notificar", objectAlunoMeta).pipe(retry(2));
+    return this.http.post<string>(this.taURL + "/notificacoes/auto-avaliacao", objectAlunoMeta).pipe(retry(2));
   }
 
   getMetas(descricaoTurma: string): Observable<string[]>{
-    let getUrl = this.taURL + `/metas?descricaoTurma=${descricaoTurma.toString().toLowerCase()}`;
+    let getUrl = this.taURL + `/turmas/${descricaoTurma.toString().toLowerCase()}/metas`;
     let response = this.http.get<string[]>(getUrl, { headers: this.headers })
     .pipe(
       retry(2),
@@ -38,7 +38,7 @@ export class AutoavaliacaoService {
 
   getMatricula(cpf: string, descricaoTurma: string): Observable<Matricula>{
 
-    let getUrl = this.taURL + `/matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${descricaoTurma.toString().toLowerCase()}`;
+    let getUrl = this.taURL + `/turmas/matriculas?cpf=${cpf.toString().toLowerCase()}&&descricaoTurma=${descricaoTurma.toString().toLowerCase()}`;
     let response = this.http.get<Matricula>(getUrl, { headers: this.headers })
     .pipe(
       retry(2),
@@ -47,7 +47,7 @@ export class AutoavaliacaoService {
   }
 
   atualizar(cpf: string, descricaoTurma: string, autoavaliacoes: Avaliacao[]): Observable<Avaliacao[]>{
-    return this.http.put<any>(this.taURL + "/autoavalicoes/atualizar", JSON.stringify({"cpf": cpf, "descricaoTurma": descricaoTurma, "autoavaliacoes": autoavaliacoes}),  {headers: this.headers})
+    return this.http.put<any>(this.taURL + "/auto-avalicoes", JSON.stringify({"cpf": cpf, "descricaoTurma": descricaoTurma, "autoavaliacoes": autoavaliacoes}),  {headers: this.headers})
     .pipe(
       retry(2),
       map(res => {if (res.success) {return res.success;} else {return null}})

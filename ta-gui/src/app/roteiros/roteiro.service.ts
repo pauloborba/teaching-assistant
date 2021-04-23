@@ -13,7 +13,7 @@ export class RoteiroService {
   constructor(private http: HttpClient) {}
 
   criar(roteiro: Roteiro): Observable<Roteiro> {
-    return this.http.post<any>(this.taURL + "/roteiro", roteiro, {headers: this.headers})
+    return this.http.post<any>(this.taURL + "/roteiros", roteiro, {headers: this.headers})
              .pipe(
                 retry(2),
                 map( res => {if (res.success) {return roteiro;} else {return null;}} )
@@ -21,14 +21,14 @@ export class RoteiroService {
   }
 
   atualizar(roteiro: Roteiro): Observable<Roteiro> {
-  return this.http.put<any>(this.taURL + "/roteiro", JSON.stringify(roteiro), {headers: this.headers})
+  return this.http.put<any>(this.taURL + "/roteiros", JSON.stringify(roteiro), {headers: this.headers})
             .pipe(
               retry(2),
               map( res => {if (res.success) {return roteiro;} else {return null;}} ));
   }
 
   deletar(descricao: string): Observable<{}> {
-  return this.http.delete(this.taURL + "/roteiro/" + descricao, {headers: this.headers})
+  return this.http.delete(this.taURL + "/roteiros/" + descricao, {headers: this.headers})
           .pipe();
 }
 

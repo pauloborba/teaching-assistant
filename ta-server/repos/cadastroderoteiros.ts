@@ -1,10 +1,10 @@
 import  {Roteiro } from '../../common/roteiro'
 
 export class CadastroDeRoteiros{
-       roteiros: Roteiro[] = [];
+       private static roteiros: Roteiro[] = [];
 
        getRoteiros(): Roteiro[] {
-         return this.roteiros;
+         return CadastroDeRoteiros.roteiros;
        }
 
        cadastrarRoteiro (roteiro: Roteiro): Roteiro{
@@ -12,13 +12,13 @@ export class CadastroDeRoteiros{
          if(this.roteiroNaoCadastrado(roteiro.descricao)){
            result = new Roteiro();
            result.copyFrom(roteiro);
-           this.roteiros.push(result);
+           CadastroDeRoteiros.roteiros.push(result);
          }
          return result;
        }
 
        atualizarRoteiro(roteiro: Roteiro): Roteiro{
-         var result: Roteiro = this.roteiros.find(a => a.descricao == roteiro.descricao);
+         var result: Roteiro = CadastroDeRoteiros.roteiros.find(a => a.descricao == roteiro.descricao);
          if (result){
            result.copyFrom(roteiro);
          }
@@ -26,14 +26,14 @@ export class CadastroDeRoteiros{
        }
 
        roteiroNaoCadastrado(descricao: string): boolean {
-         return !this.roteiros.find(a => a.descricao == descricao);
+         return !CadastroDeRoteiros.roteiros.find(a => a.descricao == descricao);
        }
 
        removerRoteiro (descricao: string): string{
-         var result: Roteiro = this.roteiros.find(a => a.descricao == descricao);
+         var result: Roteiro = CadastroDeRoteiros.roteiros.find(a => a.descricao == descricao);
          if(result){
-           var index = this.roteiros.indexOf(result);
-           this.roteiros.splice(index, 1);
+           var index = CadastroDeRoteiros.roteiros.indexOf(result);
+           CadastroDeRoteiros.roteiros.splice(index, 1);
            return result.descricao;
          } else {
            return null;

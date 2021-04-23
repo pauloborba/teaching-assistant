@@ -20,6 +20,6 @@ export class AdicionarTurmaService {
   // methods go herea
  // metas: string, matricula:Matricula, roteiro:Roteiro, monitores:Aluno, numeroMatricula: number &metas=" + metas
   adicionarTurmaServe(turma: Turma,): Observable<Turma> {
-    return this.http.post<any>(this.taURL + "/adicionar-turma/?descricaoTurma=" + turma , {headers: this.headers}) ;;
+    return this.http.post<any>(this.taURL + "/turmas/" + turma , {headers: this.headers}) ;;
   }
 }
