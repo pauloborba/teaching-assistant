@@ -1,21 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Turma } from '../../../../common/turma';
-
-
-import { Observable } from 'rxjs';
-import { RelatorioService } from './relatorio.service';
-import { Roteiro } from '../../../../common/roteiro';
-import { BlocoDeQuestoes } from '../../../../common/blocodequestoes';
-import { Matricula } from '../../../../common/matricula';
 import { Statistics } from "statistics.js";
+import { Turma } from '../../../../common/turma';
+import { RelatoriosService } from './relatorios.service';
+import { Roteiro } from '../../../../common/roteiro';
 
 @Component({
     selector: 'app-relatorio',
-    templateUrl: './relatorio.component.html',
-    styleUrls: ['./relatorio.component.css'],
-    providers: [RelatorioService]
+    templateUrl: './relatorios.component.html',
+    styleUrls: ['./relatorios.component.css'],
+    providers: [RelatoriosService]
   })
-export class RelatorioComponent implements OnInit{
+export class RelatoriosComponent implements OnInit{
 
   turma: Turma;
   roteiros: Roteiro[];
@@ -24,9 +19,9 @@ export class RelatorioComponent implements OnInit{
   desvio: Number;
   corr: Number;
 
-  constructor(private service: RelatorioService) {
+  constructor(private service: RelatoriosService) {
    }
-  
+
   ngOnInit() {
     // @ts-ignore
     this.turma = this.service.getTurma('ess')
@@ -111,7 +106,7 @@ export class RelatorioComponent implements OnInit{
 
     let stats = new Statistics(measurements, vars);
     var r = stats.correlationCoefficient('duracao', 'correcao');
-    
+
     return r.correlationCoefficient.toFixed(2)
   }
 

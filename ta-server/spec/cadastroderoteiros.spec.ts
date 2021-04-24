@@ -1,9 +1,9 @@
-import { CadastroDeRoteiros } from '../repos/cadastroderoteiros';
+import { Roteiros } from '../repos/roteiros';
 import { Roteiro } from '../../common/roteiro';
-import { BlocoDeQuestoes } from '../../common/blocodequestoes';
+import { BlocoDeQuestoes } from '../../common/blocoDeQuestoes';
 
 describe("O cadastro de roteiros", () => {
-  var cadastro: CadastroDeRoteiros = new CadastroDeRoteiros();
+  var cadastro: Roteiros = new Roteiros();
 
   function cadastrarRoteiro(descricao:string) {
     var roteiro: Roteiro = new Roteiro();

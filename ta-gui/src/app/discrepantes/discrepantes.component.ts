@@ -10,7 +10,7 @@ import { Avaliacao } from '../../../../common/avaliacao';
   selector: 'app-discrepantes',
   templateUrl: './discrepantes.component.html',
   styleUrls: ['./discrepantes.component.css']
-  
+
 })
 export class DiscrepantesComponent implements OnInit {
 
@@ -23,7 +23,7 @@ export class DiscrepantesComponent implements OnInit {
   porcentagemDiscrepantes = 0
   totalRealizouAutoAvaliacao = 0
   clicouNoBotao = false
-  
+
 
   constructor(private discrepantesService: DiscrepantesService) { }
 
@@ -34,36 +34,37 @@ export class DiscrepantesComponent implements OnInit {
     this.porcentagemDiscrepantes = 0
     this.totalRealizouAutoAvaliacao = 0
     this.metas = []
-    
+
       //Chamando autoavaliacao.service que faz a req pro server para pegar a turma indicada pelo usuário
       this.discrepantesService.getTurma(this.nomeTurma).subscribe(
 
-        (a) => { 
+        (a) => {
 
-          this.turma = new Turma(a.descricao)
+          this.turma = new Turma()
+          this.turma.descricao = a.descricao;
           this.turma.metas = a.metas
-          this.matriculas = this.turma.getMatriculas() 
+          this.matriculas = this.turma.matriculas
           this.turma.metas.forEach( meta => {
             this.metas.push(meta)
           })
-         
+
           this.carregarTotalDiscrepantes()
           this.carregarPorcentagemDiscrepantes()
-          
+
         },
         (msg) => { alert(msg.message); }
 
       )
-      
+
       //Configurando cabecalho
       this.cabecalho = ["Nome", "CPF", "Email"]
-     
+
   }
 
 
   carregarTotalDiscrepantes(){
-      //Intera pelas matriculas da turma 
-      this.turma.getMatriculas().forEach((matricula) =>{
+      //Intera pelas matriculas da turma
+      this.turma.matriculas.forEach((matricula) =>{
 
         //Checa se o aluno completou as autoaliações
         if(matricula.avaliacoes.length==matricula.autoAvaliacoes.length){
@@ -88,12 +89,12 @@ export class DiscrepantesComponent implements OnInit {
     this.clicouNoBotao = true
 
   }
-  
+
   corDaLinha(matricula: Matricula): String{
     //Checa se foi feita a autoavaliacao de todas as metas
     if(matricula.avaliacoes.length==matricula.autoAvaliacoes.length){
 
-      //Checa se matricula possui autoavaliação discrepante 
+      //Checa se matricula possui autoavaliação discrepante
       if(this.matriculaDiscrepancia(matricula)){
         return "discrepante"
       }else{
@@ -104,7 +105,7 @@ export class DiscrepantesComponent implements OnInit {
     }else{
       return "incompleta"
     }
-   
+
   }
 
   matriculaDiscrepancia(matricula: Matricula):boolean{
@@ -112,10 +113,10 @@ export class DiscrepantesComponent implements OnInit {
 
       //Itera pelas avaliações da matriculas
       matricula.avaliacoes.forEach((avaliacao) => {
-        
+
           //Procura a autoavaliação correspondente a essa matricula
           let autoavaliacao = matricula.autoAvaliacoes.find(autoavaliacao => autoavaliacao.meta == avaliacao.meta);
-         
+
           if(avaliacao.nota=="MANA" && autoavaliacao.nota=="MPA"){
               discrepantes++
           }else if(avaliacao.nota=="MANA" && autoavaliacao.nota=="MA"){
@@ -148,8 +149,7 @@ export class DiscrepantesComponent implements OnInit {
       return null
     }
     }
-  
 
-  
+
+
 }
-

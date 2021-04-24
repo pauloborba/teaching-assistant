@@ -1,6 +1,4 @@
 import request = require("request-promise");
-import { Roteiro } from "../../common/roteiro";
-import { closeServer } from '../ta-server';
 import { Turma } from "../../common/turma";
 
 var base_url = "http://localhost:3000/";
@@ -126,7 +124,7 @@ describe("O servidor", () => {
       })
 
 it("não envia email caso não haja informações sobre a descrição da turma",() =>{
-    var turma: Turma = new Turma("");
+    var turma: Turma = new Turma();
     var options: any = { method: 'POST', uri:notUrl, body:  turma,json:true}
     return request.post(options).then(body=>
         expect(body).toEqual("Faltam informações da turma!"))
@@ -135,7 +133,8 @@ it("não envia email caso não haja informações sobre a descrição da turma",
 }
 );
 it("envia email normalmente",() =>{
-    var turma: Turma = new Turma("32131");
+    var turma: Turma = new Turma();
+    turma.descricao = "32131";
     var options: any = { method: 'POST', uri:notUrl, body:  turma,json:true}
     return request.post(options).then(body=>
         expect(body).toEqual(turma))
@@ -145,4 +144,3 @@ it("envia email normalmente",() =>{
 );
 
     })
-

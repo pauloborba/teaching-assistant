@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Roteiro } from '../../../../common/roteiro';
-import { BlocoDeQuestoes } from '../../../../common/blocodequestoes';
+import { BlocoDeQuestoes } from '../../../../common/blocoDeQuestoes';
 import { Questao } from '../../../../common/questao';
-import { RoteiroService } from './roteiro.service';
+import { RoteirosService } from './roteiros.service';
 
 
 @Component({
@@ -20,14 +20,14 @@ export class RoteirosComponent implements OnInit {
   altQuestao: boolean = false;
   descricaoTurma: string;
 
-  constructor(private roteiroService: RoteiroService) {}
+  constructor(private roteirosService: RoteirosService) {}
 
   cadastroNaTurma(descricao: string, roteiro: Roteiro): void {
     //this.turmasService.associarRoteiro(descricao, roteiro);
   }
 
   ngOnInit() {
-    this.roteiroService.getRoteiros().subscribe( as => { this.roteiros = as;}, msg => { alert(msg.message); });
+    this.roteirosService.getRoteiros().subscribe( as => { this.roteiros = as;}, msg => { alert(msg.message); });
   }
 
   semDescricao(descricao: string) : boolean{
@@ -42,7 +42,7 @@ export class RoteirosComponent implements OnInit {
   criarRoteiro(roteiro: Roteiro): void {
     if(this.semDescricao(roteiro.descricao)) return alert("Roteiro sem nome");
     else{
-      this.roteiroService.criar(roteiro)
+      this.roteirosService.criar(roteiro)
           .subscribe(
             ar => {
               if(ar){
@@ -55,11 +55,11 @@ export class RoteirosComponent implements OnInit {
         }
   }
 
-  deletarRoteiro(descricao: string): void {
-    this.roteiroService.deletar(descricao).subscribe(
+  deletarRoteiro(r: Roteiro): void {
+    this.roteirosService.remover(r).subscribe(
       ar => {
         if (ar){
-          var result: Roteiro = this.roteiros.find(a => a.descricao == descricao);
+          var result: Roteiro = this.roteiros.find(a => a.descricao == r.descricao);
           var index = this.roteiros.indexOf(result);
           this.roteiros.splice(index, 1);
         } else  alert("Erro ao remover o roteiro");
@@ -68,7 +68,7 @@ export class RoteirosComponent implements OnInit {
   }
 
   atualizarRoteiro(roteiro: Roteiro): void {
-    this.roteiroService.atualizar(roteiro).subscribe(
+    this.roteirosService.atualizar(roteiro).subscribe(
            (a) => { if (a == null) alert("Erro ao atualizar o roteiro"); },
            (msg) => { alert(msg.message); }
   );

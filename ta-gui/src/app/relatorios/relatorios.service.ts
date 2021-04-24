@@ -6,7 +6,7 @@ import { retry, map } from 'rxjs/operators';
 import { Turma } from '../../../../common/turma';
 
 @Injectable()
-export class RelatorioService {
+export class RelatoriosService {
 
   private headers = new HttpHeaders({'Content-Type': 'application/json'});
   private taURL = 'http://localhost:3000';

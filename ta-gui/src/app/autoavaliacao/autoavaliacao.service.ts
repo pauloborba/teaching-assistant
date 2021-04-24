@@ -5,7 +5,7 @@ import { retry, map } from 'rxjs/operators';
 
 import { Matricula } from '../../../../common/matricula';
 import { Aluno } from '../../../../common/aluno';
-import { RespostaDeRoteiro } from '../../../../common/respostaderoteiro';
+import { RespostaDeRoteiro } from '../../../../common/respostaDeRoteiro';
 import { Avaliacao } from '../../../../common/avaliacao';
 import { Turma } from '../../../../common/turma';
 
@@ -55,4 +55,3 @@ export class AutoavaliacaoService {
   }
 
 }
-

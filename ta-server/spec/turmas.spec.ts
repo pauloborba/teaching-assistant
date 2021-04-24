@@ -10,7 +10,11 @@ describe('Turmas:', () => {
 
         beforeAll(() => {
             descricoes = [ '2017.2', '2018.1', '2018.2', '2019.1', '2019.2' ];
-            descricoes.forEach(descricao => turmas.cadastrarTurma(new Turma(descricao)));
+            descricoes.forEach(descricao => {
+                const turma = new Turma();
+                turma.descricao = descricao;
+                turmas.cadastrarTurma(turma);
+            });
             resumos = turmas.getResumos(descricoes);
         });
 
@@ -44,7 +48,8 @@ describe('Turmas:', () => {
         var turmas: Turmas = new Turmas()
 
         it("retorna turma correta com base na descricao", () => {
-            var turma = new Turma("ESS 2018.1")
+            var turma = new Turma()
+            turma.descricao = "ESS 2018.1";
             turma.metas = ["Requisitos", "Gerência de Configuração", "Testes"]
             expect(turmas.getTurma("ESS 2018.1")).toEqual(turma)
         })

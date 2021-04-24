@@ -22,7 +22,7 @@ export class AutoavaliacaoComponent implements OnInit {
   cpfObrigatorio: boolean = false;
   turmaObrigatorio: boolean = false;
   matriculaNaoEncontrada: boolean = false;
-  
+
   turma: Turma;
   avaliacoes: Avaliacao[] = [];
   matriculas: Matricula[];
@@ -40,8 +40,8 @@ export class AutoavaliacaoComponent implements OnInit {
   autoavaliacoes: Avaliacao[] = [];
   metas: string[] = [];
 
-  constructor(private aaService: AutoavaliacaoService, private router: Router) { }
- 
+  constructor(private aaService: AutoavaliacaoService) { }
+
   ngOnInit(): void {
     console.log('onInit');
   }
@@ -61,8 +61,8 @@ export class AutoavaliacaoComponent implements OnInit {
       const metaExistente = avaliacoes.find(avaliacao => avaliacao.meta === meta);
       if(!metaExistente){
         const av = new Avaliacao();
-        av.setMeta(meta);
-        av.setNota('');
+        av.meta = meta;
+        av.nota = '';
         avaliacoes.push(av);
       }
     })
@@ -83,7 +83,7 @@ export class AutoavaliacaoComponent implements OnInit {
      else{
       this.turmaObrigatorio = false;
      }
-     
+
      if(cpf && descricaoTurma){
        this.aaService.getMetas(descricaoTurma).subscribe(
          me => {
@@ -103,13 +103,13 @@ export class AutoavaliacaoComponent implements OnInit {
            this.matricula = new Matricula();
            this.matricula.autoAvaliacoes = ma.autoAvaliacoes;
            this.matricula.avaliacoes = ma.avaliacoes;
-           this.avaliacoes = this.matricula.getAvaliacoes();
-           this.autoavaliacoes = this.adicionarMetas(this.metas, this.matricula.getAutoAvaliacoes());
+           this.avaliacoes = this.matricula.avaliacoes;
+           this.autoavaliacoes = this.adicionarMetas(this.metas, this.matricula.avaliacoes);
           },
           msg => { alert(msg.message) }
        );
 
-      
+
       // this.aaService.getTurma(descricaoTurma).subscribe(
       //   tu => {
       //     this.turma = new Turma();
@@ -127,7 +127,7 @@ export class AutoavaliacaoComponent implements OnInit {
       //     this.autoavaliacoes = this.adicionarMetas(this.turma.metas, this.matricula.autoAvaliacoes);
       //     this.matricula.autoAvaliacoes = this.autoavaliacoes;
       //     this.avaliacoes = this.matricula.avaliacoes;
-      // }, 
+      // },
       //   msg => { alert(msg.message) }
       // );
      }
@@ -140,7 +140,6 @@ export class AutoavaliacaoComponent implements OnInit {
    );
   }
 
-  cadastrarAutoAvaliacao(matricula: Matricula, avaliacoes: Avaliacao[]): void { }
 	notificarAutoAvaliacao(): void {
     var toNotify = [];
     for (var i = 0; i < this.matriculas.length; i++) {
@@ -166,10 +165,6 @@ export class AutoavaliacaoComponent implements OnInit {
     }
   }
 
-  setNotificar(): void {
-    this.notificar = true;
-  }
-
   showTurmas(descricaoTurma: string): void {
     console.log(descricaoTurma);
     if (!descricaoTurma) {
@@ -178,7 +173,8 @@ export class AutoavaliacaoComponent implements OnInit {
       this.show_turmas = true;
       this.show_matriculas = true;
       this.aaService.getTurmas(descricaoTurma).subscribe(as => {
-        this.turma = new Turma(as.descricao);
+        this.turma = new Turma();
+        this.turma.descricao = as.descricao;
         this.turma.metas = as.metas;
         this.matriculas = as.matriculas;
       }, msg => {alert(msg.message);});

@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { Turma } from '../../common/turma';
-import { EmailSender } from '../EmailSender';
+import { EmailSender } from '../emailSender';
 import { NotificacaoNotas } from '../notificacaoNotas';
 
 const notificacoesRoute = Router();
@@ -17,7 +17,7 @@ notificacoesRoute.post('/auto-avaliacao', function (req: Request, res: Response)
         let from: string = "professor@cin.ufpe.br";
         let subject: string = "Notificação de auto-avaliação";
         let message: string = "Seu professor está requisitando que você realize sua auto-avaliação da meta " + meta;
-        notificationSent = sender.enviarEmail(from, to, subject, message);
+        notificationSent = sender.enviarEmail(to, subject, message, from);
         if (notificationSent === false) {
             break;
         }
@@ -32,9 +32,10 @@ notificacoesRoute.post('/auto-avaliacao', function (req: Request, res: Response)
 
 notificacoesRoute.post('/resultado-final/', function (req: Request, res: Response) {
     var  reqTurma:Turma = <Turma> req.body;
-   var turma:Turma = new Turma(reqTurma.descricao);
+    var turma:Turma = new Turma();
+    turma.descricao = reqTurma.descricao;
 
-    if (notificacao.enviarNotificação(turma)){
+    if (notificacao.enviarNotificacao(turma)){
         console.log("Notificou turma " + turma.descricao)
         res.send(reqTurma);
     }

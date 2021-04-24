@@ -1,64 +1,52 @@
-
 <html>
-
   <head>
     <title>Teaching Assistant</title>
   </head>
-  
-  <body>
 
+  <body>
     <div>
       <h1>Teaching Assistant</h1>
-  
+
       <nav>
-          <ul>
-            <li>
-              <a name ='turmas' routerLink='/turmas' routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-              true}" class="link">
-                Turma
-                <i class="fas fa-users"></i>
-              </a>
-            </li>
-            <li>
-              <a name ='alunos' routerLink='/alunos' routerLinkActive="active"[routerLinkActiveOptions]="{exact:
-              true}" class="link">
-                Alunos
-                <i class="fas fa-user"></i>
-              </a>
-            </li>
-            <li>
-              <a name ='roteiros' routerLink='/roteiros' routerLinkActive="active"[routerLinkActiveOptions]="{exact:
-              true}" class="link">
-                Roteiros
-                <i class="fas fa-scroll"></i>
-              </a>
-            </li>
-            <li>
-              <a name ='auto-avaliacao' routerLink='/auto-avaliacao' routerLinkActive="active"[routerLinkActiveOptions]="{exact:
-                true}" class="link">
-                Auto-avaliacao
-                <i class="fas fa-pen"></i>
-              </a>
-            </li>
-            <li>
-              <a name ='metas' routerLink='/metas' routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-              true}" class="link">
-                Metas
-                <i class="fas fa-award"></i>
-              </a>
-            </li>
-            <li>
-              <a name ='metas' routerLink='/relatorio' routerLinkActive="active" [routerLinkActiveOptions]="{exact:
-              true}" class="link">
-                Relatorio
-                <i class="fas fa-award"></i>
-              </a>
-            </li>
-          </ul>
+        <ul>
+          <li>
+            <a routerLink='/alunos' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="link">
+              Alunos
+              <i class="fas fa-user"></i>
+            </a>
+          </li>
+
+          <li>
+            <a routerLink='/turmas' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="link">
+              Turmas
+              <i class="fas fa-users"></i>
+            </a>
+          </li>
+
+          <li>
+            <a routerLink='/relatorios' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="link">
+              Relatórios
+              <i class="fas fa-chart-pie"></i>
+            </a>
+          </li>
+
+          <li>
+            <a routerLink='/auto-avaliacao' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="link">
+              Auto-avaliação
+              <i class="fas fa-pen"></i>
+            </a>
+          </li>
+
+          <li>
+            <a routerLink='/roteiros' routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="link">
+              Roteiros
+              <i class="fas fa-scroll"></i>
+            </a>
+          </li>
+        </ul>
       </nav>
     </div>
-  </body>
-  
 
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
+  </body>
 </html>

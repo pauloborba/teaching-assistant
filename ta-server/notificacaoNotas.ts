@@ -1,23 +1,23 @@
 import { Turma } from '../common/turma'
-import { EmailSender } from './EmailSender'
+import { EmailSender } from './emailSender'
 import { Matricula } from '../common/matricula'
 
 export class NotificacaoNotas {
   emailSender: EmailSender = new EmailSender();
 
-  enviarNotificação(turma: Turma): string {
+  enviarNotificacao(turma: Turma): string {
     if(turma.descricao===undefined || turma.descricao===null || turma.descricao==="" ){
       return null;
     }
     var porcentagensDeConceitoDasMetasMap: Map<String, Map<string, number>> = this.gerarPercentsDeMetas(turma);
     var porcentagensTextMap: Map<String, String> = this.porcentagensDeConceitosText(porcentagensDeConceitoDasMetasMap, turma);
-    var mediaTurma: number = turma.getMedia();
+    var mediaTurma: number = turma.media;
     for (let matricula of turma.matriculas) {
       var texto: string = /*this.conceitosDasMetasDoAluno(matricula) +*/ this.ressaltarDiferencasMetas(matricula, porcentagensTextMap) + 
       this.ressaltarDiferencaMedia(matricula,mediaTurma);
 
       console.log("Enviando email para : " + matricula.aluno.email )
-      if(this.emailSender.enviarEmail("", matricula.aluno.email, "", texto) == false){
+      if(this.emailSender.enviarEmail(matricula.aluno.email, "", texto) == false){
         return null;
       }
     }
@@ -36,7 +36,7 @@ export class NotificacaoNotas {
   }
   ressaltarDiferencaMedia(matricula: Matricula, mediaTurma: number ) : string{
     var texto: string ="" ;
-    texto = "Sua média: " + matricula.getMedia() + " \n" + 
+    texto = "Sua média: " + matricula.media + " \n" +
     "Média da turma: " + mediaTurma;
     return texto;
   }
@@ -72,4 +72,3 @@ export class NotificacaoNotas {
   }
 
 }
-
