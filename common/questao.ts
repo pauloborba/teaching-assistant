@@ -1,9 +1,9 @@
 export class Questao {
-    pergunta: string;
-    dica: string;
+  pergunta: string = '';
+  dica: string = '';
 
-    constructor() {
-      this.pergunta = "";
-      this.dica = "";
-    }
+  copyFrom(questao: Questao): void {
+    this.pergunta = questao.pergunta;
+    this.dica = questao.dica;
+  }
 }
