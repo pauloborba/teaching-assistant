@@ -1,65 +1,70 @@
-<div class="alunos-container" >
-   <div class="alunos-cadastro">
-      <h1>Cadastro de alunos</h1>
-      <table class="alunos-form">
-         <tr>
-            <td><label class="test-class">Nome </label></td>
-            <td><input [(ngModel)]="aluno.nome" name="namebox"></td>
-         </tr>
-         <tr>
-            <td><label>CPF </label></td>
-            <td><input  placeholder="Ex.: 000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" [(ngModel)]="aluno.cpf" name="cpfbox"></td>
-         </tr>
-         <tr>
-            <td><label>Email </label></td>
-            <td><input [(ngModel)]="aluno.email"></td>
-         </tr>
-      </table>
-      <div class="aluno-repetido" *ngIf="cpfduplicado">
-         <p> Já existe um aluno com esse CPF!</p> 
-         <p> Por favor, tente novamente!</p>
-      </div>
-      <div class="button-div">
-         <button class="alunos-button" (click)="criarAluno(aluno)">Adicionar</button>
-      </div>
-   </div>
-   <div class="alunos-cadastrados">
-      <h1>Lista de alunos cadastrados</h1>
-      <table class="alunos-table"> 
-         <tr class="table-cabecario" *ngIf="alunos.length > 0"> 
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Email</th>
-            <div class="espaco">
-            </div>
-         </tr>
-         <tr class="table-list" *ngFor="let a of alunos" name="alunolist">
-            <td name="nomelist">{{a.nome}}</td>
-            <td name="cpflist">{{a.cpf}}</td>
-            <td>{{a.email}}</td>
-            <div class="alunos-editar">
-               <img (click)="removerAluno(a)" src="./../../assets/icons/delete.png" alt="">
-            </div>
-         </tr>
-      </table>
-   </div>
-</div>
+<div class="alunos-container" (mousemove)="cpfDuplicado=false">
+  <div class="alunos-cadastro">
+    <h1>Cadastro de alunos</h1>
 
-<h3>Turma:</h3>
-<input class= "input"[(ngModel)]="nomeTurma" name="turmabox"> 
-<button (click)="carregarMatriculas()" id="carregarMatricula">Ok</button>
-<h3 name="descricaoTurma">{{turma.descricao}}</h3>
-<table>
-     <tr *ngIf="matriculas.length > 0" name="turma">
-        <th>Nome</th>
-        <th>CPF</th>
-        <th>e-mail</th>
-        <th>Status de Auto Avaliacao</th>
-     </tr>
-     <tr *ngFor="let a of matriculas;" name="alunoList">
-        <td name="nomelist">{{a.aluno.nome}}</td>
-        <td name="cpflist">{{a.aluno.cpf}}</td>
-        <td>{{a.aluno.email}}</td>
-        <td [ngClass] = "corDoBloco(a)" name="statusList">{{statusDeAutoAvaliacao(a)}}</td>
-     </tr>
-</table>
+    <table>
+      <tr>
+        <td><label for="add-aluno-cpf">CPF</label></td>
+        <td><input id="add-aluno-cpf" placeholder="000.000.000-00" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" [(ngModel)]="aluno.cpf"></td>
+      </tr>
+      <tr>
+        <td><label for="add-aluno-nome">Nome</label></td>
+        <td><input id="add-aluno-nome" [(ngModel)]="aluno.nome"></td>
+      </tr>
+      <tr>
+        <td><label for="add-aluno-email">Email</label></td>
+        <td><input id="add-aluno-email" type="email" [(ngModel)]="aluno.email"></td>
+      </tr>
+      <tr>
+        <td>
+          <button class="add-aluno" (click)="criarAluno(aluno)">Adicionar</button>
+        </td>
+      </tr>
+    </table>
+    <div class="aluno-repetido" *ngIf="cpfDuplicado">
+         <span>
+           Já existe um aluno com esse CPF.<br>
+           Por favor, tente novamente.
+         </span>
+    </div>
+  </div>
+
+  <div class="alunos-cadastrados" *ngIf="alunos.length">
+    <h1>Lista de alunos cadastrados</h1>
+
+    <table class="alunos-table">
+      <thead>
+        <tr>
+          <th>CPF</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="aluno" *ngFor="let a of alunos">
+          <td class="aluno-cpf">{{a.cpf}}</td>
+
+          <td class="aluno-nome" *ngIf="alunoEditar.cpf !== a.cpf">{{a.nome}}</td>
+          <td class="aluno-nome" *ngIf="alunoEditar.cpf === a.cpf"><input [(ngModel)]="alunoEditar.nome"></td>
+
+          <td class="aluno-email" *ngIf="alunoEditar.cpf !== a.cpf">{{a.email}}</td>
+          <td class="aluno-email" *ngIf="alunoEditar.cpf === a.cpf"><input type="email" [(ngModel)]="alunoEditar.email"></td>
+
+          <td class="acoes" *ngIf="alunoEditar.cpf !== a.cpf">
+            <button name="editar-aluno" (click)="editarAluno(a)">Editar</button>
+            &nbsp;
+            <button name="remover-aluno" (click)="removerAluno(a)">Remover</button>
+          </td>
+          <td *ngIf="alunoEditar.cpf === a.cpf" class="acoes">
+            <button name="atualizar-aluno" (click)="atualizarAluno(a)">Salvar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!alunos.length">
+    <h3>Nenhum aluno cadastrado.</h3>
+  </div>
+</div>

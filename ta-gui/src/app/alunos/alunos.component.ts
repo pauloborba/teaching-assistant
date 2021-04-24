@@ -1,112 +1,69 @@
 import { Component, OnInit } from '@angular/core';
-import { Turma } from '../../../../common/turma';
 import { Aluno } from '../../../../common/aluno';
-import { AlunoService } from './alunos.service';
-import { Matricula } from '../../../../common/matricula';
+import { AlunosService } from './alunos.service';
+
 @Component({
-  selector: 'app-root',
+  selector: 'app-alunos',
   templateUrl: './alunos.component.html',
-  styleUrls: ['./alunos.component.css']
+  styleUrls: [ './alunos.component.css' ]
 })
-
 export class AlunosComponent implements OnInit {
-
-  aluno: Aluno = new Aluno();
   alunos: Aluno[] = [];
-  cpfduplicado: boolean = false;
-  nomeTurma: string = ""
-  turma: Turma
-  matriculas: Matricula[] = []
-  header: String[] = []
-  metas: String[] = []
+  aluno: Aluno = new Aluno();
+  cpfDuplicado: boolean = false;
+  alunoEditar: Aluno = new Aluno();
 
-  constructor(private alunoService: AlunoService) { }
+  constructor(private alunosService: AlunosService) { }
+
+  ngOnInit(): void {
+    this.alunosService.getAlunos()
+      .subscribe(
+        alunos => { this.alunos = alunos; },
+        msg => { alert(msg.message); }
+      );
+  }
 
   criarAluno(a: Aluno): void {
-    this.alunoService.criar(a)
+    this.alunosService.criar(a)
       .subscribe(
-        ar => {
-          if (ar) {
-            this.alunos.push(ar);
+        aluno => {
+          if (aluno) {
+            this.alunos.push(aluno);
             this.aluno = new Aluno();
           } else {
-            this.cpfduplicado = true;
+            this.cpfDuplicado = true;
           }
         },
         msg => { alert(msg.message); }
       );
   }
 
-  removerAluno(a: Aluno): void {
-    this.alunoService.remover(a)
-      .subscribe(a => {
-        if (a) {
-          this.alunos = this.alunos.filter(b => b.cpf !== a.cpf);
-        }
-      })
+  editarAluno(a: Aluno): void {
+    this.alunoEditar.copyFrom(a);
   }
 
-  ngOnInit(): void {
-    this.alunoService.getAlunos()
+  atualizarAluno(a: Aluno): void {
+    this.alunosService.atualizar(this.alunoEditar)
       .subscribe(
-        as => { this.alunos = as; },
-        msg => { alert(msg.message); }
+        aluno => {
+          if (aluno) {
+            this.alunoEditar = new Aluno();
+            Object.assign(a, aluno);
+          } else {
+            alert('O aluno não foi atualizado');
+          }
+        }
       );
   }
 
-  carregarMatriculas() {
-    
-    this.metas = []
-    let achou: boolean = false;
-    //Chamando autoavaliacao.service que faz a req pro server para pegar a turma indicada pelo usuário
-    this.alunoService.getTurma(this.nomeTurma).subscribe(
-
-      (a) => {
-        this.turma = new Turma("")
-        this.turma.descricao = a.descricao
-        this.matriculas = a.matriculas
-      },
-      (msg) => { alert(msg.message); }
-    )
-
+  removerAluno(a: Aluno): void {
+    this.alunosService.remover(a)
+      .subscribe(aluno => {
+        if (aluno) {
+          this.alunos = this.alunos.filter(a => a.cpf !== aluno.cpf);
+        } else {
+          alert('O aluno não foi removido');
+        }
+      });
   }
-
-  statusDeAutoAvaliacao(matricula: Matricula): String {
-    let fezAlgumaQuestao: boolean = false;
-    let fezTodasQuestoes: boolean = false;
-    let autoAvaliacoesFeitas: number = 0;
-    
-    //Checa se foi feita a autoavaliacao de todas as meta
-    matricula.autoAvaliacoes.forEach((autoAvaliacao) => {
-      
-      if (autoAvaliacao.nota != "" && autoAvaliacoesFeitas == (matricula.autoAvaliacoes.length-1) && fezAlgumaQuestao) {
-        autoAvaliacoesFeitas++;
-        fezTodasQuestoes = true;
-      } else if (autoAvaliacao.nota != "") {
-        autoAvaliacoesFeitas++;
-        fezAlgumaQuestao = true;
-      } else{
-        autoAvaliacoesFeitas++;
-      }
-    })
-    if(fezTodasQuestoes){
-      return "concluido";
-    } else if(fezAlgumaQuestao) {
-      return "iniciado mas nao concluido";
-    }
-    return "nao iniciado";
-  }
-
-
-  corDoBloco(matricula: Matricula): String{
-    let status: String = "";
-    status = this.statusDeAutoAvaliacao(matricula);
-    if(status=="concluido"){
-      return "concluido";
-    } else if(status=="iniciado mas nao concluido") {
-      return "iniciadoMasNaoConcluido";
-    }
-    return "naoIniciado";
-  }
-
 }

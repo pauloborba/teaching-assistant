@@ -1,4 +1,4 @@
-.alunos-container{
+.alunos-container {
   height: auto;
   width: 100%;
   display: flex;
@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.alunos-cadastro{
+.alunos-cadastro {
   width: 80%;
   display: flex;
   flex-direction: column;
@@ -14,36 +14,28 @@
   height: 100%;
 }
 
-.alunos-form{
-  width: 100%;
+.alunos-cadastro table {
   display: flex;
   justify-content: space-evenly;
 }
-.button-div{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-}
 
-.alunos-button{
+button.add-aluno {
   color: black;
   background-color: #f1f1f1;
-  border-radius:5px;
+  border-radius: 5px;
   text-align: center;
-  border:none;
+  border: none;
   cursor: pointer;
-  font-size: 16px;
-  padding:  16px 30px;
+  font-size: 14px;
+  padding: 6px 30px;
 }
 
-.alunos-button:hover{
+button.add-aluno:hover {
   background-color: #4eb1ba;
   color: white;
 }
 
-.alunos-cadastrados{
+.alunos-cadastrados {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -51,82 +43,33 @@
   padding-top: 20px;
 }
 
-.alunos-table{
-  width: 80%;
-  flex-direction: column;
-  align-items: center;
-  display: flex;
-}
-
-.table-cabecario { 
-  background-color: #4eb1ba;
-  width: 90%;
-  justify-content: space-between;
-  display: flex;
-  height: 40px;
-  align-items: center;
-}
-
-.table-cabecario th{
-  width: 100%;
+.alunos-table {
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
-} 
-
-.table-list{ 
-  width: 90%;
-  justify-content: space-between;
-  display: flex;
-
+  border-collapse: collapse;
 }
 
-.table-list td{
-  width: 100%;
-  background-color:#f1f1f1;
-  text-align: center;
-  height: 30px;
+.alunos-table td, .alunos-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.alunos-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.alunos-table tr:hover {
+  background-color: #ddd;
+}
+
+.alunos-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #4EB1BA;
+  color: white;
+}
+
+.aluno-repetido {
   padding-top: 10px;
-  border-bottom: 0.5px solid #c9c9c9;
-} 
-
-.alunos-editar{
-  display:flex;
-  align-items: center;
-  width: 150px;
-  justify-content: space-around;
-  background-color:#f1f1f1;
-  border-bottom: 0.5px solid #c9c9c9;
+  text-align: center;
 }
-.espaco{
-  width: 150px;
-}
-.alunos-editar img{
-  width: 15px;
-  height: 15px;
-  cursor: pointer;
-}
-
-.alunos-editar img:hover{
-  transform: scale(1.5);
-}
-
-.aluno-repetido{
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.concluido{
-    background-color: green;
-    color: white;
-}
-
-.iniciadoMasNaoConcluido{
-    background-color: blue;
-    color: white;
-}
-
-.naoIniciado{
-    background-color: orange;
-}
-

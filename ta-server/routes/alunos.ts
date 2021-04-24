@@ -1,42 +1,45 @@
 import { Request, Response, Router } from 'express';
 import { Aluno } from '../../common/aluno';
-import { CadastroDeAlunos } from '../repos/cadastrodealunos';
+import { Alunos } from '../repos/alunos';
 
 const alunosRoute = Router();
-const alunosRepo: CadastroDeAlunos = new CadastroDeAlunos();
+const alunosRepo: Alunos = new Alunos();
 
-alunosRoute.get('/', function (req: Request, res: Response) {
-  res.send(JSON.stringify(alunosRepo.getAlunos()));
-})
+alunosRoute.get('/', (req: Request, res: Response) => {
+  res.send(alunosRepo.getAlunos());
+});
 
-alunosRoute.post('/', function (req: Request, res: Response) {
-  var aluno: Aluno = <Aluno>req.body; //verificar se é mesmo Aluno!
-  aluno = alunosRepo.cadastrar(aluno);
-  if (aluno) {
-    res.send({ "success": "O aluno foi cadastrado com sucesso" });
+alunosRoute.get('/:id', (req: Request, res: Response) => {
+  const aluno: Aluno = alunosRepo.getAluno(req.params.id);
+  res.send(aluno || null);
+});
+
+alunosRoute.post('/', (req: Request, res: Response) => {
+  const aluno: Aluno = <Aluno>req.body;
+
+  if (alunosRepo.cadastrarAluno(aluno)) {
+    res.send({ 'success': 'O aluno foi cadastrado com sucesso' });
   } else {
-    res.send({ "failure": "O aluno não pode ser cadastrado" });
+    res.send({ 'failure': 'O aluno não foi cadastrado' });
   }
-})
+});
 
-alunosRoute.put('/', function (req: Request, res: Response) {
-  var aluno: Aluno = <Aluno>req.body;
-  aluno = alunosRepo.atualizar(aluno);
-  if (aluno) {
-    res.send({ "success": "O aluno foi atualizado com sucesso" });
-  } else {
-    res.send({ "failure": "O aluno não pode ser atualizado" });
-  }
-})
+alunosRoute.put('/', (req: Request, res: Response) => {
+  const aluno: Aluno = <Aluno>req.body;
 
-alunosRoute.delete('/', function (req: Request, res: Response) {
-  let aluno: string = req.query.id.toString();
-  var removido = alunosRepo.remover(aluno);
-  if (removido) {
-    res.send({ "success": "O aluno foi removido com sucesso" });
+  if (alunosRepo.atualizarAluno(aluno)) {
+    res.send({ 'success': 'O aluno foi atualizado com sucesso' });
   } else {
-    res.send({ "failure": "O aluno não pode ser removido" });
+    res.send({ 'failure': 'O aluno não foi atualizado' });
   }
-})
+});
+
+alunosRoute.delete('/:id', (req: Request, res: Response) => {
+  if (alunosRepo.removerAluno(req.params.id)) {
+    res.send({ 'success': 'O aluno foi removido com sucesso' });
+  } else {
+    res.send({ 'failure': 'O aluno não foi removido' });
+  }
+});
 
 export default alunosRoute;
