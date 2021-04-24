@@ -8,12 +8,13 @@ import request = require("request-promise");
 let base_url = "http://localhost:3000/";
 
 var {setDefaultTimeout} = require('cucumber');
+var path = require('path')
 setDefaultTimeout(60 * 1000);
 
-async function getNotaBox(meta, nota) {
-    let notaSelecionada: any = await element(by.id(meta.toString())).getAttribute('value') === nota.toString();
-    return notaSelecionada;
-};
+//async function getNotaBox(meta, nota) {
+//    let notaSelecionada: any = await element(by.id(meta.toString())).getAttribute('value') === nota.toString();
+//    return notaSelecionada;
+//};
 
 
 
@@ -25,33 +26,37 @@ defineSupportCode(function ({ Given, When, Then }) {
         await element(by.buttonText('Importar Planilha')).click();
     });
 
-    Given(/^no arquivo “test.csv” temos os alunos “Pedro” com as notas “8”, “8” e “10” and “Mariana” com as notas “9”, “7” e “10”$/, async () => {
-        await $("input[name='cpf']").sendKeys(<string> cpf);
-        await element(by.name('descricaoTurma')).sendKeys(<string> turma);
-        await element(by.name('preencher-autoavaliacao')).click();
+    Given(/^no arquivo “test.csv” temos os alunos “Pedro” com suas notas and “Mariana” com suas notas$/, async () => {
+       // await $("input[name='cpf']").sendKeys(<string> cpf);
+       // await element(by.name('descricaoTurma')).sendKeys(<string> turma);
+       // await element(by.name('preencher-autoavaliacao')).click();
     });
 
-    Given(/^não há notas dessa disciplina armazenadas no sistema$/, async (meta) => {
-        
-    });
-
-    When(/^eu importo a planilha “test.csv”$/, async (nota, meta) => {
-       
-
+    Given(/^não há notas dessa disciplina armazenadas no sistema$/, async () => {
+        //await expect(browser).not_to.switchTo().alert()
+        await request.get(base_url + `/importacaodenota?turma=ESS`)
+                 .then(body => {
+                     expect(body == false)
+                }
+                ).catch(error => {throw error});
     });
 
     When(/^eu importo a planilha “test.csv”$/, async () => {
-        
- 
+        var fileToUpload = '../stepdefinitions/test.csv',
+        absolutePath = path.resolve(__dirname, fileToUpload);
+  
+        element(by.css('input[type="file"]')).sendKeys(absolutePath);    
+        element(by.id('uploadButton')).click();
     });
 
-    Then(/^eu recebo confirmação do armazenamento das notas$/, async (nota, meta) => {
+
+    Then(/^eu recebo confirmação do armazenamento das notas$/, async () => {
         await expect(browser.switchTo().alert());
     });
 
 
 
-    Given(/^eu estou na página de notas da disciplina “ESS”$/, async () => {
+    /*Given(/^eu estou na página de notas da disciplina “ESS”$/, async () => {
         await browser.get("http://localhost:4200/");
         await expect(browser.getTitle()).to.eventually.equal('TaGui');
         await $("a[name='metas']").click();
@@ -67,13 +72,13 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
     When(/^eu importo a planilha “test.csv”$/, async (nota, meta) => {
-       
+        var fileToUpload = '../stepdefinitions/test.csv',
+        absolutePath = path.resolve(__dirname, fileToUpload);
+  
+        element(by.css('input[type="file"]')).sendKeys(absolutePath);    
+        //element(by.id('uploadButton')).click();
     });
 
-    When(/^eu importo a planilha “test.csv”$/, async () => {
-        
- 
-    });
 
     Then(/^uma mensagem é mostrada para o usuário perguntando se o usuário deseja sobrescrever os dados$/, async (nota, meta) => {
         await expect(browser.switchTo().alert());
@@ -102,17 +107,20 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
     When(/^eu importo a planilha “test.csv”$/, async (nota, meta) => {
+        var fileToUpload = '../stepdefinitions/test.csv',
+        absolutePath = path.resolve(__dirname, fileToUpload);
+  
+        element(by.css('input[type="file"]')).sendKeys(absolutePath);    
        
-
     });
 
     When(/^seleciono sua coluna de nota “1”$/, async () => {
-        
- 
+        element(by.name('colInput'))
+
     });
 
     Then(/^as notas da coluna 1 da planilha são registradas pelo sistema$/, async (nota, meta) => {
-       
+        element(by.id('uploadButton')).click();
     });
 
     Then(/^eu recebo confirmação do armazenamento das notas$/, async (nota, meta) => {
@@ -242,5 +250,5 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     Then(/^I see an error message$/, async () => {
         await $("tr[name='erro']");
-    });
+    });*/
 })

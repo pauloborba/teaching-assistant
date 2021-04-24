@@ -1,3 +1,5 @@
+Feature:
+
 Scenario:“Importação de planilha completa”
 Given eu estou na página de notas da disciplina “ESS” que possui os alunos “Pedro” e “Mariana”
 And no arquivo “planilha.csv” temos os alunos “Pedro” com as notas “8”, “8” e “10”
