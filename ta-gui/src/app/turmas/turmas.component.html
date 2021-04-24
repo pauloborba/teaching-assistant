@@ -1,96 +1,73 @@
-<input name="input-descricao" [(ngModel)]="descricaoNovaTurma">
+<div class="turmas-container" (mousemove)="turmaRepetida=false">
+  <div class="turmas-cadastro">
+    <h1>Cadastro de turmas</h1>
 
-<!-- Botões para cadastrar, remover, atualizar e comparar turmas -->
-<div id="botoes">
-    <button routerLink="/adicionar-turma" class="adc" >+ Adicionar Turma</button>
-    <button name="botao-opcoes-comparacao" (click)="mostrarOpcoesComparacao()">Comparar Turmas</button>
-    
-</div>
-
-<!-- Lista de turmas e suas médias -->
-<table id="turmas">
-    <thead>
-        <tr>
-            <th>Ações</th>
-            <th>Descrição</th>
-            <th>Metas</th>
-            <th>Matriculas</th>
-            <th>Roteiro</th>
-            <th>Monitores</th>
-            <th>Quantidade Matriculas</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr name="turma" *ngFor="let turma of turmas">
-            <td name="descricao">{{ turma.descricao }}</td>
-            <td name="media">{{ turma.getMedia() }}</td>
-            <td><button (click)="notificarTurma(turma)">Notificar</button></td>
-        </tr>
-        <tr>
-            <td><button routerLink="/editar-turma" class="adc">Editar</button> <button class="adc mg-left">Excluir</button></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
-
-<div *ngIf="modalAtivo === 'opcoes'" class="modal">
-    <h3>Opções de Comparação</h3>
-    <button
-        name="botao-todas-turmas"
-        (click)="selecionarTodas()"
-        [ngClass]="{ ativo: opcaoSelecionada === 'todas' }">
-            Todas as Turmas
-    </button>
-
-    <button
-        name="botao-ultimas-quatro-turmas"
-        *ngIf="turmas.length >= 4"
-        (click)="selecionarUltimasQuatro()"
-        [ngClass]="{ ativo: opcaoSelecionada === 'ultimas-quatro' }">
-            Últimas 4 Turmas
-    </button>
-
-    <button name="botao-escolher-turmas" (click)="mostrarTurmas()">Escolher Turmas</button>
-
-    <div>
-        <button
-            name="botao-confirmar"
-            [routerLink]="['/comparacao-de-desempenho']"
-            [queryParams]="{ turmas: turmasEscolhidas.join(',') }">
-                Confirmar
-        </button>
-
-        <button (click)="esconderModal()">Voltar</button>
+    <table>
+      <tr>
+        <td><label for="add-turma-descricao">Descrição</label></td>
+        <td><input id="add-turma-descricao" [(ngModel)]="turma.descricao"></td>
+      </tr>
+      <tr>
+        <td><label for="add-turma-metas">Metas</label></td>
+        <td><input id="add-turma-metas" placeholder="Meta 1, Meta 2, ..." [(ngModel)]="turmaMetas"></td>
+      </tr>
+      <tr>
+        <td><label for="add-turma-vagas">Vagas</label></td>
+        <td><input id="add-turma-vagas" type="number" [(ngModel)]="turma.vagas"></td>
+      </tr>
+      <tr>
+        <td>
+          <button class="add-turma" (click)="criarTurma()">Adicionar</button>
+        </td>
+      </tr>
+    </table>
+    <div class="turma-repetida" *ngIf="turmaRepetida">
+         <span>
+           Já existe uma turma com essa descrição.<br>
+           Por favor, tente novamente.
+         </span>
     </div>
-</div>
+  </div>
 
-<div *ngIf="modalAtivo === 'turmas'" class="modal">
-    <h3>Turmas Disponíveis</h3>
-    <button
-        *ngFor="let turma of turmas"
-        (click)="atualizarTurmasEscolhidas(turma.descricao)"
-        [ngClass]="{ ativo: turmasEscolhidas.includes(turma.descricao) }">
-            {{ turma.descricao }}
-    </button>
-    <div>
-        <button
-            name="botao-confirmar"
-            [disabled]="turmasEscolhidas.length < 2"
-            [routerLink]="['/comparacao-de-desempenho']"
-            [queryParams]="{ turmas: turmasEscolhidas.join(',') }">
-                Confirmar
-        </button>
+  <div class="turmas-cadastradas" *ngIf="turmas.length">
+    <h1>Lista de turmas cadastradas</h1>
 
-        <button (click)="esconderModal()">Voltar</button>
-    </div>
-</div>
+    <table class="turmas-table">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Metas</th>
+          <th>Vagas</th>
+          <th>Alunos</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="turma" *ngFor="let t of turmas">
+          <td class="turma-descricao">{{ t.descricao }}</td>
 
-<div name="modal-erro" *ngIf="modalAtivo === 'erro'" class="modal">
-    <h3>Não há turmas suficientes para comparar!</h3>
-    <button (click)="esconderModal()">Voltar</button>
+          <td class="turma-metas" *ngIf="turmaEditar.descricao !== t.descricao">{{ t.metas.join(', ') }}</td>
+          <td class="turma-metas" *ngIf="turmaEditar.descricao === t.descricao"><input [(ngModel)]="turmaEditarMetas"></td>
+
+          <td class="turma-vagas" *ngIf="turmaEditar.descricao !== t.descricao">{{ t.vagas }}</td>
+          <td class="turma-vagas" *ngIf="turmaEditar.descricao === t.descricao"><input type="number" [(ngModel)]="turmaEditar.vagas"></td>
+
+          <td class="turma-numMatriculas">{{ t.matriculas.length }}</td>
+
+          <td class="acoes" *ngIf="turmaEditar.descricao !== t.descricao">
+            <button name="editar-turma" (click)="editarTurma(t)">Editar</button>
+            &nbsp;
+            <button name="remover-turma" (click)="removerTurma(t)">Remover</button>
+          </td>
+          <td *ngIf="turmaEditar.descricao === t.descricao" class="acoes">
+            <button name="atualizar-turma" (click)="atualizarTurma(t)">Salvar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!turmas.length">
+    <h3>Nenhuma turma cadastrada.</h3>
+  </div>
 </div>

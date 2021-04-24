@@ -1,96 +1,90 @@
 import { Component, OnInit } from '@angular/core';
 import { Turma } from '../../../../common/turma';
-import { TurmasService } from './turmas.service'
+import { TurmasService } from './turmas.service';
 
 @Component({
   selector: 'app-turmas',
   templateUrl: './turmas.component.html',
-  styleUrls: ['./turmas.component.css']
+  styleUrls: [ './turmas.component.css' ]
 })
 export class TurmasComponent implements OnInit {
   turmas: Turma[] = [];
-  descricaoNovaTurma: string = '';
+  turma: Turma = new Turma();
+  turmaMetas: string = '';
+  turmaRepetida: boolean = false;
+  turmaEditar: Turma = new Turma();
+  turmaEditarMetas: string = '';
 
-  turmasEscolhidas: string[] = [];
-  modalAtivo: string = '';
-  opcaoSelecionada: string = '';
+  constructor(private turmasService: TurmasService) { }
 
-  constructor(private service: TurmasService) { }
-
-  ngOnInit() {
-
+  ngOnInit(): void {
+    this.turmasService.getTurmas()
+      .subscribe(
+        turmas => { this.turmas = turmas; },
+        msg => { alert(msg.message); }
+      );
   }
 
-  adicionarTurma(): void {
-    this.turmas.push(new Turma(this.descricaoNovaTurma));
-    this.descricaoNovaTurma = '';
-  }
+  criarTurma(): void {
+    this.turma.metas = this.splitMetas(this.turmaMetas);
 
-  mostrarOpcoesComparacao(): void {
-    if (this.turmas.length < 2) {
-      this.modalAtivo = 'erro';
-    } else {
-      this.modalAtivo = 'opcoes';
-      this.opcaoSelecionada = '';
-      this.turmasEscolhidas = [];
-    }
-  }
-
-  mostrarTurmas(): void {
-    this.modalAtivo = 'turmas';
-    this.turmasEscolhidas = [];
-  }
-
-  esconderModal(): void {
-    if (this.modalAtivo === 'turmas') {
-      this.mostrarOpcoesComparacao();
-    } else {
-      this.modalAtivo = '';
-    }
-  }
-
-  atualizarTurmasEscolhidas(descricao: string): void {
-    if (this.turmaNaoFoiEscolhida(descricao)) {
-      this.turmasEscolhidas.push(descricao);
-    } else {
-      this.turmasEscolhidas = this.turmasEscolhidas.filter(turma => turma !== descricao);
-    }
-  }
-
-  turmaNaoFoiEscolhida(descricao: string): boolean {
-    return !this.turmasEscolhidas.find(turma => turma === descricao);
-  }
-
-  selecionarTodas(): void {
-    this.turmasEscolhidas = this.turmas.map(turma => turma.descricao);
-    this.opcaoSelecionada = 'todas';
-  }
-  
-  selecionarUltimasQuatro(): void {
-    this.turmasEscolhidas = [];
-    for (let i = this.turmas.length - 1; this.turmasEscolhidas.length < 4; i--) {
-      this.turmasEscolhidas.push(this.turmas[i].descricao);
-    }
-    
-    this.opcaoSelecionada = 'ultimas-quatro';
-  }
-
-  notificarTurma(turma: Turma) :void {
-    alert(turma.descricao)
-    this.service.notificar(turma).subscribe(
-      {
-        next: r => {
-          if (r) {
-            alert("Turma notificada!")
-          }
-          else {
-            alert("Erro ao notificar turma!")
+    this.turmasService.criar(this.turma)
+      .subscribe(
+        turma => {
+          if (turma) {
+            this.turmas.push(turma);
+            this.turma = new Turma();
+            this.turmaMetas = '';
+          } else {
+            this.turmaRepetida = true;
           }
         },
-        error: err => {
-          console.log(err)
+        msg => { alert(msg.message); }
+      );
+  }
+
+  editarTurma(t: Turma): void {
+    this.turmaEditar.copyFrom(t);
+    this.turmaEditar.metas = [];
+    this.turmaEditarMetas = t.metas.join(', ');
+  }
+
+  atualizarTurma(t: Turma): void {
+    this.turmaEditar.metas = this.splitMetas(this.turmaEditarMetas);
+
+    this.turmasService.atualizar(this.turmaEditar)
+      .subscribe(
+        turma => {
+          if (turma) {
+            this.turmaEditar = new Turma();
+            this.turmaEditarMetas = '';
+            Object.assign(t, turma);
+          } else {
+            alert('A turma não foi atualizada');
+          }
         }
-      }
-    )
+      );
+  }
+
+  removerTurma(t: Turma): void {
+    this.turmasService.remover(t)
+      .subscribe(turma => {
+        if (turma) {
+          this.turmas = this.turmas.filter(t => t.descricao !== turma.descricao);
+        } else {
+          alert('A turma não foi removida');
+        }
+      });
+  }
+
+  private splitMetas(metasStr: string): string[] {
+    let metas: string[] = [];
+
+    metasStr.split(',').forEach((meta: string) => {
+      if (meta.trim())
+        metas.push(meta.trim());
+    });
+
+    return metas;
   }
 }

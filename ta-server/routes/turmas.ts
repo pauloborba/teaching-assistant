@@ -1,55 +1,45 @@
 import { Request, Response, Router } from 'express';
-import { Matricula } from '../../common/matricula';
 import { Turma } from '../../common/turma';
 import { Turmas } from '../repos/turmas';
 
 const turmasRoute = Router();
-const turmas: Turmas = new Turmas();
+const turmasRepo: Turmas = new Turmas();
 
-turmasRoute.get('/:descricao', function (req: Request, res: Response) {
-  let turma = turmas.getTurma(req.params.descricao)
-  res.send(turma)
-})
+turmasRoute.get('/', (req: Request, res: Response) => {
+  res.send(turmasRepo.getTurmas());
+});
 
-turmasRoute.post('/', function (req: Request, res: Response) {
-  var turma: Turma = <Turma>req.body;
-  turma = turmas.cadastrarTurma(turma);
-  if (turma) {
-    res.send({ "sucess": "A turma foi criada com suceso" });
+turmasRoute.get('/:id', (req: Request, res: Response) => {
+  const turma: Turma = turmasRepo.getTurma(req.params.id);
+  res.send(turma || null);
+});
+
+turmasRoute.post('/', (req: Request, res: Response) => {
+  const turma: Turma = <Turma>req.body;
+
+  if (turmasRepo.cadastrarTurma(turma)) {
+    res.send({ 'success': 'A turma foi cadastrada com sucesso' });
   } else {
-    res.send({ "failure": "A turma não foi cadastrada" });
+    res.send({ 'failure': 'A turma não foi cadastrada' });
   }
-})
-
-turmasRoute.get("/:id/metas", (req: Request, res: Response) => {
-  const { id } = req.params
-  const turma = turmas.getTurma(id);
-  res.send(turma ? turma.getMetas() : [])
-
 });
 
-turmasRoute.get("/", (req: Request, res: Response) => {
-  const descricoes = turmas.getDescricoes();
-  res.send(descricoes);
+turmasRoute.put('/', (req: Request, res: Response) => {
+  const turma: Turma = <Turma>req.body;
 
+  if (turmasRepo.atualizarTurma(turma)) {
+    res.send({ 'success': 'A turma foi atualizada com sucesso' });
+  } else {
+    res.send({ 'failure': 'A turma não foi atualizada' });
+  }
 });
 
-turmasRoute.post('/:id/metas', (req: Request, res: Response) => {
-  const { id } = req.params
-  const { metas } = req.body;
-  const turma = turmas.getTurma(id);
-  turma.addMetas(metas)
-  res.send(({ metas: turma.getMetas() }))
+turmasRoute.delete('/:id', (req: Request, res: Response) => {
+  if (turmasRepo.removerTurma(req.params.id)) {
+    res.send({ 'success': 'A turma foi removida com sucesso' });
+  } else {
+    res.send({ 'failure': 'A turma não foi removida' });
+  }
 });
-
-//recebe um identificador de turma e de aluno e retorna uma matricula
-turmasRoute.get('/matriculas/', function (req: Request, res: Response) {
-  let cpf: string = <string>req.query.cpf;
-  let descricaoTurma: string = <string>req.query.descricaoTurma;
-
-  let turma: Turma = turmas.getTurma(descricaoTurma);
-  let matricula: Matricula = turma ? turma.getMatricula(cpf) : null;
-  res.send(matricula);
-})
 
 export default turmasRoute;

@@ -1,61 +1,60 @@
-import { Aluno } from '../../common/aluno';
 import { Turma } from '../../common/turma';
-import { Matricula } from '../../common/matricula';
-import { Avaliacao } from '../../common/avaliacao';
 
 export class Turmas {
-    private static turmas: Turma[] = [];
+  private static turmas: Turma[] = [];
 
-    cadastrarTurma(turma: Turma): Turma{
-        var aux = null;
-        aux = new Turma("");
-        aux.copyFrom(turma);
-        Turmas.turmas.push(aux);
-        return aux;
+  getTurmas(): Turma[] {
+    return Turmas.turmas;
+  }
+
+  getTurma(descricao: string): Turma {
+    return Turmas.turmas.find(t => t.descricao === descricao);
+  }
+
+  cadastrarTurma(t: Turma): Turma {
+    const turma: Turma = new Turma();
+    turma.copyFrom(t);
+
+    if (turma.descricao && this.descricaoNaoCadastrada(turma.descricao)) {
+      Turmas.turmas.push(turma);
+      return turma;
     }
 
-    removerTurma(descricaoTurma: string): Turma{
-        var aux:Turma = Turmas.turmas.find(a => a.descricao == descricaoTurma);
-        return  aux;
-    }
+    return null;
+  }
 
-    atualizarTurma(turma: Turma): Turma{
-        var aux:Turma = Turmas.turmas.find(a => a.descricao == turma.descricao);
-        if(aux) aux.copyFrom(turma)
-        return aux;
-    }
-    
-    getResumos(descricoes: string[]): any[] {
-        let resumos: any[] = [];
-        descricoes.forEach(descricao => {
-            const turma = this.getTurma(descricao);
-            if (turma) {
-                const media = turma.getMedia();
-                const reprovacao = turma.getNumReprovados() / turma.getNumMatriculas();
-                resumos.push({ descricao, media, reprovacao });
-            }
-        });
+  atualizarTurma(t: Turma): Turma {
+    const turma: Turma = Turmas.turmas.find(u => u.descricao === t.descricao);
+    if (turma)
+      turma.copyFrom(t);
+    return turma;
+  }
 
-        return resumos;
+  removerTurma(descricaoTurma: string): Turma {
+    const turma: Turma = Turmas.turmas.find(t => t.descricao === descricaoTurma);
+    if (turma) {
+      Turmas.turmas = Turmas.turmas.filter(t => t.descricao !== turma.descricao);
+      return turma;
+    } else {
+      return null;
     }
+  }
 
-    compararTurmas(turmas: Turma[]): any {
-        return null;
-    }
+  getResumos(descricoes: string[]): any[] {
+    let resumos: any[] = [];
+    descricoes.forEach(descricao => {
+      const turma = this.getTurma(descricao);
+      if (turma) {
+        const media = turma.media;
+        const reprovacao = turma.numReprovados / turma.numMatriculas;
+        resumos.push({ descricao, media, reprovacao });
+      }
+    });
 
-    //tenho que usar o get turmas e procurar a turma
-    getTurma(descricao: string): Turma{
-        const turma = Turmas.turmas.find(t => t.descricao === descricao)
-        return turma;
-    }
+    return resumos;
+  }
 
-    getTurmas(): Turma[]{
-        return Turmas.turmas;
-    }
-
-    getDescricoes(): string[]{
-        const descricoes = Turmas.turmas.map(turma => turma.descricao);
-        return descricoes;
-    }
-
+  private descricaoNaoCadastrada(descricao: string): boolean {
+    return !Turmas.turmas.find(t => t.descricao === descricao);
+  }
 }
