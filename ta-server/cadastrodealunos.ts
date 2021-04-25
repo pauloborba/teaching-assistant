@@ -14,13 +14,15 @@ export class CadastroDeAlunos {
   }
 
   cadastarPlanilha(lista: Aluno[]): Aluno[] {
+    var falha: Aluno[] = [];
     for(const aluno of lista){
-      console.log(aluno.email);
       if (this.emailNaoCadastrado(<string> aluno.email)){
         this.alunos.push(aluno);
+      }else{
+        falha.push(aluno);
       }
     }
-    return this.alunos;
+    return falha;
   }
 
   remover(aluno: string): Aluno {

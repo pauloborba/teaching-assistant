@@ -267,12 +267,13 @@ taserver.delete('/aluno', function(req: express.Request, res: express.Response){
 
 taserver.post('/alunos', function(req: express.Request, res:express.Response){
   var lista: Aluno[] = <Aluno[]> req.body; // Se o body não vir com um array de aluno, ele percebe
-  lista = cadastro.cadastarPlanilha(lista);
-  console.log(lista);
+  var falhos = cadastro.cadastarPlanilha(lista);
   if (!lista) {
     res.send({"failure": "Falhou"});
   } else{
-    res.send({"success": "Sucesso"});
+    res.send({"success": `${falhos.length}`});
+    //Se ele adicionou todos, o servidor vai retornar 0;
+    //Se ele não adicionou pelo menos 1, o servidor vai retornar o número de não adicionados
   }
 });
 
