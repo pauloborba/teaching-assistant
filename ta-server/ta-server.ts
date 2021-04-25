@@ -269,9 +269,13 @@ taserver.post('/alunos', function(req: express.Request, res:express.Response){
   var lista: Aluno[] = <Aluno[]> req.body; // Se o body não vir com um array de aluno, ele percebe
   var falhos = cadastro.cadastarPlanilha(lista);
   if (!lista) {
-    res.send({"failure": "Falhou"});
+    res.send({"failure": "Houve um erro inesperado."});
   } else{
-    res.send({"success": `${falhos.length}`});
+    if(falhos.length == 0){
+      res.send({"success": `${falhos.length}`});
+    }else{
+      res.send({"repetidos": `${falhos.length}`})
+    }
     //Se ele adicionou todos, o servidor vai retornar 0;
     //Se ele não adicionou pelo menos 1, o servidor vai retornar o número de não adicionados
   }

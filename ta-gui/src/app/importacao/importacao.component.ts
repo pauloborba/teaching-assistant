@@ -35,11 +35,9 @@ export class ImportacaoComponent implements OnInit {
       .subscribe(
         ar => {
           if (ar != null) {
-            console.log(ar.length, alunos.length);
             if(ar.length == alunos.length){
               console.log("Deu muito certo :)");
             }else{
-              console.log("Deu mais ou menos certo");
               alert(`Dos alunos da planilha, já haviam ${ar.length} cadastrados.`);
             }
           } else {
@@ -81,6 +79,10 @@ export class ImportacaoComponent implements OnInit {
     csvLines = csvLines.slice(4, csvLines.length - 1);
     // Filtrar para que entrem apenas os alunos
     csvLines = csvLines.filter(element => element != ',,');
+    if(csvLines.length == 0){
+      alert('Foi selecionada uma planilha vazia.');
+      return;
+    }
     this.createAlunos(csvLines);
   }
 
@@ -92,6 +94,10 @@ export class ImportacaoComponent implements OnInit {
     var nomes = alunos.map((aluno) => aluno[0]);
     // Do mesmo array de alunos, criar um array com o email
     var emails = alunos.map((aluno) => aluno[1].split('::')[0].trim() + '@cin.ufpe.br');
+    if(emails.includes('@cin.ufpe.br')){
+      alert('A planilha não contém os dados de email de um ou mais alunos!');
+      return;
+    }
     // Array de alunos a ser retornado
     var ListaDeAlunos: Aluno[] = [];
     var cpf = '0';

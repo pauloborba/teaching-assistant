@@ -5,17 +5,15 @@ input{
 label{
     padding: 3px;
     border-radius: 8%;
-    background-color: #3399ff;
     margin: auto;
 }
 
 .menu{
     margin-left: 45%;
-    border: 3px solid;
-    border-color: #3399ff;
-    border-radius: 6px;
+
     font-style: bold;
     float: left;
+    text-justify: auto;
 }
 
 body{

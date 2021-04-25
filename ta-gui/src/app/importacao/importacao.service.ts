@@ -22,13 +22,12 @@ export class ImportacaoService {
         map(res => { 
           if (res.success) { 
             // Todos os alunos da planilha forma adicionados
-            if(res.success == 0){
               return alunos;
-            }else{
+          } else if(res.repetidos){
               // Vai retornar um array do tamanho do número de alunos que foi adicionado
-              return alunos.slice(0, res.success);
-            }
-          } else { 
+            return alunos.slice(0, res.repetidos);
+          }
+          else { 
             return null; 
           } 
         })
