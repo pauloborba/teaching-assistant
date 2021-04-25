@@ -4,7 +4,7 @@ import bodyParser = require("body-parser");
 import turmaRotas from "./turmas/turmas.api";
 import { Turma } from '../common/turma'
 import { Turmas } from './turmas'
-import { NotificacaoNotas } from './notificacaoNotas';
+import { NotificacaoNotas } from './NotificacaoNotas';
 import { Avaliacao } from './avaliacao';
 import {Aluno} from '../common/aluno';
 import {CadastroDeAlunos} from './cadastrodealunos';
@@ -243,7 +243,7 @@ taserver.post('/aluno', function (req: express.Request, res: express.Response) {
   } else {
     res.send({"failure": "O aluno não pode ser cadastrado"});
   }
-})
+});
 
 taserver.put('/aluno', function (req: express.Request, res: express.Response) {
   var aluno: Aluno = <Aluno> req.body;
@@ -253,7 +253,7 @@ taserver.put('/aluno', function (req: express.Request, res: express.Response) {
   } else {
     res.send({"failure": "O aluno não pode ser atualizado"});
   }
-})
+});
 
 taserver.delete('/aluno', function(req: express.Request, res: express.Response){
   let aluno: string = req.query.id.toString();
@@ -263,8 +263,18 @@ taserver.delete('/aluno', function(req: express.Request, res: express.Response){
   } else {
     res.send({"failure": "O aluno não pode ser removido"});
   }
-})
+});
 
+taserver.post('/alunos', function(req: express.Request, res:express.Response){
+  var lista: Aluno[] = <Aluno[]> req.body; // Se o body não vir com um array de aluno, ele percebe
+  lista = cadastro.cadastarPlanilha(lista);
+  console.log(lista);
+  if (!lista) {
+    res.send({"failure": "Falhou"});
+  } else{
+    res.send({"success": "Sucesso"});
+  }
+});
 
   function closeServer(): void {
     server.close();

@@ -27,6 +27,7 @@ import { DiscrepantesService } from '../app/discrepantes/discrepantes.service';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from './relatorio/relatorio.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
+import { ImportacaoComponent } from './importacao/importacao.component';
 
 @NgModule({
   declarations: [ 
@@ -41,7 +42,8 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     AdicionarTurmaComponent,
     EditarTurmaComponent,
     DiscrepantesComponent,
-    RelatorioComponent
+    RelatorioComponent,
+    ImportacaoComponent
   ],
   imports: [
     BrowserModule,
@@ -93,6 +95,10 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     {
       path: 'comparacao-de-desempenho',
       component: ComparacaoDeDesempenhoComponent
+    },
+    {
+      path: 'importacao',
+      component: ImportacaoComponent
     }
   ])
   ],
