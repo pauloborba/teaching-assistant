@@ -54,7 +54,7 @@
          <tr class="table-list" *ngFor="let a of alunos" name="alunolist">
             <td name="nomelist">{{a.nome}}</td>
             <td name="cpflist">{{a.cpf}}</td>
-            <td>{{a.email}}</td>
+            <td name="emaillist">{{a.email}}</td>
             <div class="alunos-editar">
                <img (click)="removerAluno(a)" src="./../../assets/icons/delete.png" alt="">
             </div>
