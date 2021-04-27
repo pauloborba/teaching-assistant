@@ -9,6 +9,13 @@ body {
   width: 100%;
 }
 
+.turma {
+  margin-top: 15px;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: auto;
+  padding:15px;
+}
 #turmas,
 #alunos-notificados {
   border: 1px solid #ddd;

@@ -28,23 +28,27 @@
 
 </table>
 
+<h4>Escolha a turma que deseja visualizar o status de notificações</h4>
+<button *ngFor="let t of turmas" id="{{ t.descricao }}"
+    (click)="visualizarStatusNotificacao($event)">{{t.descricao}}</button>
 
-<div *ngFor="let t of turmas">
-    <p *ngIf="novasNotificacoes">Aviso: essa turma possui novas notificaçöes</p>
-    <p *ngIf="!novasNotificacoes">Essa turma não possui notificações de notas a serem exibidas, pois todas as
+<div class="turma" *ngIf="turmaVisualizacao">
+    <h4>Turma {{turmaVisualizacao.descricao}}</h4>
+    <p *ngIf="novasNotificacoes">Aviso: essa turma possui novas notificações</p>
+    <p *ngIf="!novasNotificacoes && turmaVisualizacao.matriculas.length > 0">Essa turma não possui notificações de notas
+        a serem
+        exibidas, pois todas as
         notas enviadas já foram notificadas</p>
+    <p *ngIf="turmaVisualizacao.matriculas.length == 0">Essa turma não possui notificações de notas a serem
+        exibidas, pois nenhum aluno foi cadastrado nela</p>
 
     <table id="turmas">
         <td>
             <tr>
-                <th></th>
-                <th>Turma {{t.descricao}}</th>
                 <th>Nome</th>
                 <th>Notificado</th>
             </tr>
-            <tr *ngFor="let s of t.statusNotificacao">
-                <td></td>
-                <td></td>
+            <tr *ngFor="let s of turmaVisualizacao.statusNotificacao">
                 <td>{{s.nome}}</td>
                 <td *ngIf="s.notificado">Sim</td>
                 <td *ngIf="!s.notificado">Não</td>
@@ -52,6 +56,7 @@
         </td>
     </table>
 </div>
+
 <!-- <table id="turmas" *ngFor="let t of turmas">
     <tr>
         <th></th>

@@ -19,6 +19,7 @@ export class TurmasComponent implements OnInit {
   modalAtivo: string = '';
   opcaoSelecionada: string = '';
   novasNotificacoes: boolean = false;
+  turmaVisualizacao: Turma;
 
   ngOnInit() {
     var stub_turma1 = new Turma("");
@@ -43,28 +44,30 @@ export class TurmasComponent implements OnInit {
     stub_turma2.matriculas = [stub_matricula2];
     this.turmas.push(stub_turma1);
     // this.turmas.push(stub_turma2);
-
   }
 
+
+  visualizarStatusNotificacao(event) {
+    console.log('lkkk')
+    console.log(event)
+    const turma = this.turmas.filter((t) => t.descricao == event.target.id);
+    console.log(turma[0])
+    this.turmaVisualizacao = turma[0]
+  }
 
   notificarTurma(turma: Turma): void {
     alert(turma.descricao)
     this.service.notificar(turma).subscribe(
-      {
-        next: r => {
-          if (r) {
-            turma.statusNotificacao = r;
-            this.novasNotificacoes = true;
-            setTimeout(() => { this.novasNotificacoes = false }, 10000)
-            return r; // Retorna a resposta que contém o array de alunos notificados
-          }
-          else {
-            alert("Erro ao notificar turma!")
-          }
-        },
-        error: err => {
-          console.log(err)
+      res => {
+        if (res.length > 0) {
+          turma.statusNotificacao = res;
+          this.novasNotificacoes = true;
+          setTimeout(() => { this.novasNotificacoes = false }, 10000)
         }
+        // return res; // Retorna a resposta que contém o array de alunos notificados
+      },
+      err => {
+        console.log(err)
       }
     )
   }

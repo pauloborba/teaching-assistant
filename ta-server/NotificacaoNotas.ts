@@ -13,7 +13,6 @@ export class NotificacaoNotas {
   emailSender: EmailSender = new EmailSender();
 
   enviarNotificação(turma: Turma): StatusNotificacao[] {
-    console.log(turma)
     if (turma.descricao === undefined || turma.descricao === null || turma.descricao === "") {
       return null;
     }
@@ -21,7 +20,6 @@ export class NotificacaoNotas {
     var porcentagensTextMap: Map<String, String> = this.porcentagensDeConceitosText(porcentagensDeConceitoDasMetasMap, turma);
     var mediaTurma: number = turma.media;
     let statusNotificacao = new Array<StatusNotificacao>() // Cria array para gerir alunos notificados
-    console.log(typeof statusNotificacao)
     for (let matricula of turma.matriculas) {
       var texto: string = /*this.conceitosDasMetasDoAluno(matricula) +*/ this.ressaltarDiferencasMetas(matricula, porcentagensTextMap) +
         this.ressaltarDiferencaMedia(matricula, mediaTurma);
@@ -36,7 +34,6 @@ export class NotificacaoNotas {
         } else {
           statusNotificacao.push({ nome: matricula.aluno.nome, cpf: matricula.aluno.cpf, notificado: false });
         }
-        console.log(statusNotificacao);
       }
     }
     return statusNotificacao;
