@@ -24,13 +24,34 @@
         <td>{{t.descricao}}</td>
         <td>{{t.getMedia()}}</td>
         <td><button (click)="notificarTurma(t)">Notificar</button></td>
-
     </tr>
 
 </table>
 
 
-<table id="turmas" *ngFor="let t of turmas">
+<div *ngFor="let t of turmas">
+    <p *ngIf="novasNotificacoes">Atenção: essa turma possui novas notificaçöes</p>
+    <p *ngIf="!novasNotificacoes">Atenção: essa turma não possui notificações de notas a serem exibidas, pois todas as
+        notas enviadas já foram notificadas</p>
+
+    <table id="turmas">
+        <td>
+            <tr>
+                <th></th>
+                <th>Turma {{t.descricao}}</th>
+                <th>Nome</th>
+                <th>Notificado</th>
+            </tr>
+            <tr *ngFor="let s of t.statusNotificacao">
+                <td></td>
+                <td></td>
+                <td>{{s.nome}}</td>
+                <td>{{s.notificado}}</td>
+            </tr>
+        </td>
+    </table>
+</div>
+<!-- <table id="turmas" *ngFor="let t of turmas">
     <tr>
         <th></th>
         <th>Turma {{t.descricao}}</th>
@@ -43,7 +64,7 @@
         <td>{{s.nome}}</td>
         <td>{{s.notificado}}</td>
     </tr>
-</table>
+</table> -->
 
 <div *ngIf="modalAtivo === 'opcoes'" class="modal">
     <h3>Opções de Comparação</h3>

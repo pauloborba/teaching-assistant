@@ -18,6 +18,7 @@ export class TurmasComponent implements OnInit {
   turmasEscolhidas: string[] = [];
   modalAtivo: string = '';
   opcaoSelecionada: string = '';
+  novasNotificacoes: boolean = false;
 
   ngOnInit() {
     var stub_turma1 = new Turma("");
@@ -37,9 +38,11 @@ export class TurmasComponent implements OnInit {
     stub_matricula1.aluno = stub_aluno1;
     stub_matricula2.aluno = stub_aluno2;
     stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
+    stub_turma1.statusNotificacao = [{ nome: 'João', cpf: '123', notificado: false }, { nome: 'Maria', cpf: '456', notificado: false }]
+    // stub_turma2.statusNotificacao = [{ nome: 'João', cpf: '123', notificado: false }, { nome: 'Maria', cpf: '456', notificado: false }]
     stub_turma2.matriculas = [stub_matricula2];
     this.turmas.push(stub_turma1);
-    this.turmas.push(stub_turma2);
+    // this.turmas.push(stub_turma2);
 
   }
 
@@ -51,6 +54,8 @@ export class TurmasComponent implements OnInit {
         next: r => {
           if (r) {
             turma.statusNotificacao = r;
+            this.novasNotificacoes = true;
+            setTimeout(() => { this.novasNotificacoes = false }, 10000)
             return r; // Retorna a resposta que contém o array de alunos notificados
           }
           else {
@@ -117,5 +122,4 @@ export class TurmasComponent implements OnInit {
 
     this.opcaoSelecionada = 'ultimas-quatro';
   }
-
 }
