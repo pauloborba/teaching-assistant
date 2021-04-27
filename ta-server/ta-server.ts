@@ -126,8 +126,7 @@ taserver.post('/notificacaoResultadoFinal', function (req: express.Request, res:
   var reqTurma: Turma = <Turma>req.body;
   var turma: Turma = new Turma("");
   turma.descricao = reqTurma.descricao;
-  const r = notificacao.enviarNotificação(reqTurma)
-  console.log("oi" + r)
+  const r = notificacao.enviarNotificação(reqTurma);
   console.log("Notificou turma " + reqTurma.descricao);
   // Implementação antiga
 

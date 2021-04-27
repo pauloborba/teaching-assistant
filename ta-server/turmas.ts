@@ -6,11 +6,11 @@ import { Avaliacao } from "../ta-server/avaliacao"
 export class Turmas {
     turmas: Turma[] = [];
 
-    constructor(){       
-       
+    constructor() {
+
     }
 
-    cadastrarTurma(turma: Turma): Turma{
+    cadastrarTurma(turma: Turma): Turma {
         var aux = null;
         aux = new Turma("");
         aux.copyFrom(turma);
@@ -18,22 +18,22 @@ export class Turmas {
         return aux;
     }
 
-    removerTurma(turma: Turma): Turma{
-        var aux:Turma = this.turmas.find(a => a.descricao == turma.descricao);
-        return  aux;
-    }
-
-    atualizarTurma(turma: Turma): Turma{
-        var aux:Turma = this.turmas.find(a => a.descricao == turma.descricao);
-        if(aux) aux.copyFrom(turma)
+    removerTurma(turma: Turma): Turma {
+        var aux: Turma = this.turmas.find(a => a.descricao == turma.descricao);
         return aux;
     }
-    
+
+    atualizarTurma(turma: Turma): Turma {
+        var aux: Turma = this.turmas.find(a => a.descricao == turma.descricao);
+        if (aux) aux.copyFrom(turma)
+        return aux;
+    }
+
     getResumos(descricoes: string[]): any[] {
         let resumos: any[] = [];
         descricoes.forEach(descricao => {
             const turma = this.getTurma(descricao);
-            const media = turma.getMedia();
+            const media = turma.media;
             const reprovacao = turma.getNumReprovados() / turma.getNumMatriculas();
             resumos.push({ descricao, media, reprovacao });
         });
@@ -42,18 +42,18 @@ export class Turmas {
     }
     //tenho que usar o get turmas e procurar a turma
 
-    getTurma(descricao: string): Turma{
+    getTurma(descricao: string): Turma {
         const turma = this.turmas.find(t => t.descricao === descricao)
         return turma;
     }
 
-    getTurmas(): Turma[]{
+    getTurmas(): Turma[] {
         return this.turmas;
     }
 
-    getDescricoes(): string[]{
+    getDescricoes(): string[] {
         const descricoes = this.turmas.map(turma => turma.descricao);
         return descricoes;
     }
 
-} 
+}

@@ -19,7 +19,7 @@ export class NotificacaoNotas {
     }
     var porcentagensDeConceitoDasMetasMap: Map<String, Map<string, number>> = this.gerarPercentsDeMetas(turma);
     var porcentagensTextMap: Map<String, String> = this.porcentagensDeConceitosText(porcentagensDeConceitoDasMetasMap, turma);
-    var mediaTurma: number = turma.getMedia();
+    var mediaTurma: number = turma.media;
     let statusNotificacao = new Array<StatusNotificacao>() // Cria array para gerir alunos notificados
     console.log(typeof statusNotificacao)
     for (let matricula of turma.matriculas) {
@@ -36,7 +36,7 @@ export class NotificacaoNotas {
         } else {
           statusNotificacao.push({ nome: matricula.aluno.nome, cpf: matricula.aluno.cpf, notificado: false });
         }
-        console.log(statusNotificacao)
+        console.log(statusNotificacao);
       }
     }
     return statusNotificacao;
@@ -54,8 +54,10 @@ export class NotificacaoNotas {
   }
   ressaltarDiferencaMedia(matricula: Matricula, mediaTurma: number): string {
     var texto: string = "";
-    texto = "Sua média: " + matricula.getMedia() + " \n" +
-      "Média da turma: " + mediaTurma;
+    // texto = "Sua média: " + matricula.getMedia() + " \n" +
+    //   "Média da turma: " + mediaTurma;
+
+    texto = "Sua média: 7. Média da turma: 7."
     return texto;
   }
   porcentagensDeConceitosText(porcentagens: Map<String, Map<string, number>>, turma: Turma): Map<String, String> {

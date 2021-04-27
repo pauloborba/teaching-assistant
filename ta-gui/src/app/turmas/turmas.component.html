@@ -22,7 +22,7 @@
 
     <tr *ngFor="let t of turmas">
         <td>{{t.descricao}}</td>
-        <td>{{t.getMedia()}}</td>
+        <td>{{t.media}}</td>
         <td><button (click)="notificarTurma(t)">Notificar</button></td>
     </tr>
 
@@ -30,8 +30,8 @@
 
 
 <div *ngFor="let t of turmas">
-    <p *ngIf="novasNotificacoes">Atenção: essa turma possui novas notificaçöes</p>
-    <p *ngIf="!novasNotificacoes">Atenção: essa turma não possui notificações de notas a serem exibidas, pois todas as
+    <p *ngIf="novasNotificacoes">Aviso: essa turma possui novas notificaçöes</p>
+    <p *ngIf="!novasNotificacoes">Essa turma não possui notificações de notas a serem exibidas, pois todas as
         notas enviadas já foram notificadas</p>
 
     <table id="turmas">
@@ -46,7 +46,8 @@
                 <td></td>
                 <td></td>
                 <td>{{s.nome}}</td>
-                <td>{{s.notificado}}</td>
+                <td *ngIf="s.notificado">Sim</td>
+                <td *ngIf="!s.notificado">Não</td>
             </tr>
         </td>
     </table>

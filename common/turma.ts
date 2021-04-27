@@ -55,7 +55,7 @@ export class Turma {
         return 0;
     }
 
-    getMedia(): number {
+    get media(): number {
         return 7;
     }
 
