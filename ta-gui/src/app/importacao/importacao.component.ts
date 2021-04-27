@@ -92,14 +92,21 @@ export class ImportacaoComponent implements OnInit {
     var alunos = linhas.map((aluno) => aluno.split(',').slice(0, 2));
     // Desse array de alunos, criar um array com os nomes
     var nomes = alunos.map((aluno) => aluno[0]);
+    // Condição para alguma linha de nome vazio
+    /*if(nomes.includes('')){
+      alert('A planilha não contém o nome de um ou mais alunos!');
+      return;
+    }*/
     // Do mesmo array de alunos, criar um array com o email
     var emails = alunos.map((aluno) => aluno[1].split('::')[0].trim() + '@cin.ufpe.br');
+    // Condição para alguma linha de email vazia
     if(emails.includes('@cin.ufpe.br')){
       alert('A planilha não contém os dados de email de um ou mais alunos!');
       return;
     }
     // Array de alunos a ser retornado
     var ListaDeAlunos: Aluno[] = [];
+    // Uma forma de evitar muitas repetições de cpf
     var cpf = '0';
     for(var x = 0; x < nomes.length; x++){
       var a = new Aluno();
@@ -109,23 +116,12 @@ export class ImportacaoComponent implements OnInit {
       a.email = emails[x];
       ListaDeAlunos.push(a);
     }
-    this.enviarFinalmente(ListaDeAlunos);
+    this.EnviarAlunos(ListaDeAlunos);
   }
 
-  enviarFinalmente(alunos: Aluno[]){
+  EnviarAlunos(alunos: Aluno[]){
     this.enviarAlunos(alunos);
   }
 
-  clicou(){
-    var lista: Aluno[] = [];
-    var mario = new Aluno();
-    mario.email='34124';
-    lista.push(mario);
-    var joao = new Aluno();
-    joao.email='1241';
-    lista.push(joao); 
-    console.log(lista);
-    this.enviarAlunos(lista);
-  }
 }
 
