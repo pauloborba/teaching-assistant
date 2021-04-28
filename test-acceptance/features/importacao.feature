@@ -3,10 +3,10 @@ Feature:As a professor
         So that eu importe vários alunos de uma vez
 
 Scenario: Enviar uma planilha com dados de alunos já cadastrados
-Given eu estou na página de importar alunos
-Given os emails "lucas@cin.ufpe.br" e "alyson@cin.ufpe.br" estão presentes na lista de alunos cadastrados
-When eu escolho a opção de importar Alunos
-And seleciono a planilha "2020-3.csv"
+Given eu estou na página de alunos
+Given os alunos "Lucas" e "Alyson" de emails "lucas@cin.ufpe.br" e "alyson@cin.ufpe.br" estão presentes na lista de alunos cadastrados
+When eu vou para a página de importar alunos
+And eu seleciono a planilha "alunos_repetidos.csv"
 Then aparece um aviso avisando que "2" dos alunos já estavam cadastrados
 And eu vejo "lucas@cin.ufpe.br", "alyson@cin.ufpe.br", "gil@cin.ufpe.br", "maria@cin.ufpe.br", "claudia@cin.ufpe.br" e "joão@cin.ufpe.br" nos emails da lista de alunos 
 

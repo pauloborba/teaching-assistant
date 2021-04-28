@@ -5,7 +5,7 @@ export class Aluno {
     metas: Map<string,string>;
     
     getNome(): String {
-        return this.nome
+        return this.nome;
     }
   
     constructor() {

@@ -106,14 +106,15 @@ export class ImportacaoComponent implements OnInit {
     }
     // Array de alunos a ser retornado
     var ListaDeAlunos: Aluno[] = [];
-    // Uma forma de evitar muitas repetições de cpf
-    var cpf = '0';
+  
     for(var x = 0; x < nomes.length; x++){
       var a = new Aluno();
-      a.cpf = cpf;
-      cpf = String(Number(cpf) + 1);
+
+      // Setar o nome do aluno
       a.nome = nomes[x];
+      // Setar o email do aluno
       a.email = emails[x];
+      
       ListaDeAlunos.push(a);
     }
     this.EnviarAlunos(ListaDeAlunos);
