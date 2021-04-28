@@ -15,6 +15,15 @@ async function assertEmailExists(list, email) {
     await assertTamanhoEqual(sameEmail,1);
 }
 
+async function assertAllEmailexists(list, emails){
+    for(const email in emails){
+        if(!assertEmailExists(list, email)){
+            return false;
+        }
+    }
+    return true;
+}
+
 async function criarAluno(nome, email) {
     await $("input[name='namebox']").sendKeys(<string> nome);
     await $("input[name='emailbox']").sendKeys(<string> email);
@@ -32,9 +41,9 @@ defineSupportCode(function ({ Given, When, Then }) {
         await criarAluno(nome1, em1);
         // Criar Alyson
         await criarAluno(nome2, em2);
-        var allalunos : ElementArrayFinder = element.all(by.name('alunolist'));
-        await assertEmailExists(allalunos, em1);
-        await assertEmailExists(allalunos, em2);
+        var allAlunos : ElementArrayFinder = element.all(by.name('alunolist'));
+        await assertEmailExists(allAlunos, em1);
+        await assertEmailExists(allAlunos, em2);
     });
 
     When(/^eu vou para a página de importar alunos$/, async () => {
@@ -50,11 +59,14 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
     
     Then(/^aparece um aviso avisando que "(\d*)" dos alunos já estavam cadastrados$/, async (numero) => {
-        await expect(browser.switchTo().alert());
+        await browser.sleep(5000);
     });
     
-    Then(/^eu vejo "(\s*)", "(\s*)", "(\s*)", "(\s*)", "(\s*)" e "(\s*)" nos emails da lista de alunos$/, async (em1, em2, em3, em4, em5) => {
-        // tem todos os (\s*) nos alunos tudo
+    Then(/^eu vejo "(.*)", "(.*)", "(.*)", "(.*)", "(.*)" e "(.*)" nos emails da lista de alunos$/, async (em1, em2, em3, em4, em5, em6) => {
+        await browser.get("http://localhost:4200/alunos");
+        var allAlunos : ElementArrayFinder = element.all(by.name('alunolist'));
+        var allEmails : string[] = [<string> em1, <string> em2, <string> em3, <string> em4, <string> em5, <string> em6];
+        await assertAllEmailexists(allAlunos, allEmails);
     });
 
     
