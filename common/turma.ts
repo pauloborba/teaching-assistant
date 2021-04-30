@@ -52,8 +52,10 @@ export class Turma {
         return 7;
     }
    
-    getMatricula(cpf:string): Matricula{ 
-        let matricula: Matricula = this.matriculas.find(matricula => matricula.getAluno().cpf == cpf);
+    getMatricula(id:string): Matricula{ 
+        let matricula: Matricula = this.matriculas.find(
+            matricula => matricula.getAluno().cpf == id ||
+                         matricula.getAluno().nome == id);   
         return matricula;
     }
 
@@ -102,8 +104,9 @@ export class Turma {
             let confirm = matricula.atualizarAvaliacoes(notas);
             if(confirm){
                 this.hasNotas = true
+                exist = true;
             }
-            return true;
+            return exist;
         }
         return exist
     }

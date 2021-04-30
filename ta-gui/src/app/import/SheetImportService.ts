@@ -19,10 +19,10 @@ export class SheetImportService {
 
   
   atualizar(descricaoTurma: string, JSON): Observable<boolean>{
-    return this.http.put<any>(this.taURL + "/importacaodenota", JSON,  {headers: this.headers})
+    return this.http.put<any>(this.taURL + `/importacaodenota?turma=${descricaoTurma}`, JSON,  {headers: this.headers})
     .pipe(
       retry(2),
-      map(res => {if (res.success) {return res.success;} else {return null}})
+      map(res => {if (res.success) {return res.success;} else {return res.failure}})
     );
   }
 
@@ -30,8 +30,18 @@ export class SheetImportService {
   hasnota(descricaoTurma: string): Observable<boolean>{
     let getUrl = this.taURL + `/importacaodenota?turma=${descricaoTurma}`;
     console.log(getUrl);
-    let response = this.http.get<string[]>(getUrl, { headers: this.headers });
+    //let response = this.http.get<string[]>(getUrl, { headers: this.headers });
     return this.http.get<any>(getUrl,  {headers: this.headers})
+    .pipe(
+      retry(2),
+    );
+  }
+
+  getMatriculas(descricaoTurma: string): Observable<any>{
+    let getUrl = this.taURL + `/matriculas?turma=${descricaoTurma}`;
+    console.log(getUrl);
+    //let response = this.http.get<string[]>(getUrl, { headers: this.headers });
+    return this.http.get<Matricula[]>(getUrl,  {headers: this.headers})
     .pipe(
       retry(2),
     );

@@ -7,7 +7,8 @@ export let config: Config = {
     SELENIUM_PROMISE_MANAGER: false,
 
     capabilities: {
-        browserName: 'firefox'
+        browserName: 'firefox',
+        unexpectedAlertBehaviour: 'accept'
     },
 
     framework: 'custom',

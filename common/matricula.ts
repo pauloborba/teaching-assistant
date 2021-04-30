@@ -27,16 +27,17 @@ export class Matricula{
     }
 
     atualizarAvaliacoes(avaliacoes: Avaliacao[]): boolean{
+        let ok:boolean = true;
         avaliacoes.forEach((avaliacao) => {
             const metaCheck = this.avaliacoes.find(av => av.meta == avaliacao.meta);
             if(metaCheck){
                 metaCheck.setNota(avaliacao.nota);
             }
             else{
-                return false;
+                ok = false;
             }
         })
-        return true;
+        return ok;
     }
 
     atualizarAutoAvaliacoes(autoAvaliacoesAtualizadas: Avaliacao[]): Avaliacao[] {

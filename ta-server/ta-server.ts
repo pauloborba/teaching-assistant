@@ -62,7 +62,7 @@ var stub_turma1 = new Turma("");
 var stub_turma2 = new Turma("");
 stub_turma1.descricao = "ESS";
 stub_turma2.descricao = "Compiladores";
-stub_turma1.metas = ["Requisitos", "Refatoração"];
+stub_turma1.metas = ["Requisitos", "Ger. de Configuração", "Ger. de Projetos"];
 stub_turma2.metas = ["Meta1", "Meta2"]
 var stub_matricula1 = new Matricula();
 var stub_matricula2 = new Matricula();
@@ -77,12 +77,16 @@ stub_aluno2.email = "maria@cin.ufpe.br";
 stub_matricula1.aluno = stub_aluno1;
 stub_matricula2.aluno = stub_aluno2;
 let stub_avalicao = new Avaliacao;
-stub_avalicao.setMeta("Meta1");
+stub_avalicao.setMeta("Requisitos");
 stub_avalicao.setNota("");
 let stub_avalicao1 = new Avaliacao;
-stub_avalicao1.setMeta("Meta2");
+stub_avalicao1.setMeta("Ger. de Configuração");
 stub_avalicao1.setNota("");
-stub_matricula2.avaliacoes = [stub_avalicao,stub_avalicao1];
+let stub_avalicao2 = new Avaliacao;
+stub_avalicao2.setMeta("Ger. de Projetos");
+stub_avalicao2.setNota("");
+stub_matricula1.avaliacoes = [stub_avalicao,stub_avalicao1,stub_avalicao2];
+stub_matricula2.avaliacoes = [stub_avalicao,stub_avalicao1,stub_avalicao2];
 stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
 stub_turma2.matriculas = [stub_matricula2];
 
@@ -116,7 +120,12 @@ var server = taserver.listen(3000, function () {
 
 taserver.use("/turmas", turmaRotas);
 
-taserver.get('/matriculas', function (req: express.Request, res: express.Response) {})
+taserver.get('/matriculas', function (req: express.Request, res: express.Response) {
+  let descricaoTurma: string = <string> req.query.turma;
+let resposta = turmas.getTurma(descricaoTurma)
+res.send(resposta.getMatriculas())
+
+})
 
 taserver.get('/metas/', function (req: express.Request, res: express.Response){
   let conjTurmas: Turmas = turmas;
@@ -281,11 +290,12 @@ taserver.delete('/aluno', function(req: express.Request, res: express.Response){
 taserver.put('/importacaodenota', function (req: express.Request, res: express.Response) {
   let planilha = req.body;
   let avaliacoes = importacao.metaGroup(planilha);
-  let turma: Turma = turmas.getTurma("Compiladores");
-  console.log('test3',turma);
+  console.log (avaliacoes)
+  let turma = <string>req.query.turma;
+  //console.log('test3',turma);
   let ok: boolean = false;
-  ok = importacao.importar(turma,avaliacoes)
-  if (ok) {
+  ok = importacao.importar(turmas.getTurma(turma),avaliacoes)
+  if (ok == true) {
      res.send({"success": "A planilha foi importada com sucesso"});
   } else {
      res.send({"failure": "A planilha não foi importada"});

@@ -26,7 +26,7 @@
         </div>
         
     </div>
-    <a (click) = "toggleDisplayImport()" class="botao">Importar Planilha</a>
+    <a (click) = "toggleDisplayImport()" class="botao" name = "Importar Planilha">Importar Planilha</a>
     <div *ngIf = 'isShowImport'>
       <div class="form-group">
         <label for="file">Arquivo da planilha: </label>
@@ -34,12 +34,40 @@
                id="file"
                (change)="uparArquivo($event.target.files)">
       </div>
+
       <div id=import>
-      <p>Coluna que será importada</p>
-      <input class= "input"[(ngModel)]="col" name="colInput">
-      <p>Caso uma coluna não seja selecionada, a planilha inteira será importada por padrão</p> 
-      </div>
-      <a (click) = "enviarPlanilha()" class="botao" id= uploadButton >Upload</a>
+        <div id="inside">
+          <p>Coluna que contem a identificação do aluno:  </p>
+          <input class="input" [(ngModel)]="col1" name="colInput">
+  
+        </div>
+        <div id="inside">
+          <p>Coluna que será importada:  </p>
+          <input class="input" [(ngModel)]="col" name="colInput">
+        </div>
+        <div id="upload">
+          <p>Caso uma coluna não seja selecionada, a planilha inteira será importada por padrão</p>
+          <a (click)="enviarPlanilha()" class="botao" id=uploadButton>Upload</a>
+        </div>
     </div>
+
+    </div>
+    <div if="table">
+    <table>
+      <tr name="turma">
+        <th>Nome</th>
+        <th>Requisitos</th>
+        <th>Ger. de Configuração</th>
+        <th>Ger. de Projetos</th>
+     </tr>
+     <tr *ngFor="let a of matriculas;" name="alunoList">
+        <td name="nomelist">{{a.aluno.nome}}</td>
+        <td name="meta1list">{{a.avaliacoes[0].nota}}</td>
+        <td name="meta2list">{{a.avaliacoes[1].nota}}</td>
+        <td name="meta3list">{{a.avaliacoes[2].nota}}</td>
+        
+     </tr>
+    </table>
+  </div>
    
 </div>

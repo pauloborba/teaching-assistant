@@ -150,3 +150,14 @@ it("envia email normalmente",() =>{
                 expect(err).toBeNull();
             });
     });
+
+    it("importa planilhas corretamente", () => {
+        var options:any = {method: 'PUT', uri: (base_url + "importacaodenota"), body:[{cpf: "123", Meta1: "MA", Meta2: "MA", Meta3: "MPA"},{cpf: "456", Meta1: "MA", Meta2: "MPA", Meta3: "MA"}], json: true};
+        return request(options)
+            .then(body => 
+                expect(body).toEqual({success: "A planilha foi importada com sucesso"})
+            )
+            .catch(e => 
+                expect(e).toEqual(null)
+            );
+    });

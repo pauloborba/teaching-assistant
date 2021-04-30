@@ -4,6 +4,7 @@ import { Turma } from '../../../../common/turma';
 import { TurmasService } from '../turmas/turmasService';
 import { Aluno } from '../../../../common/aluno';
 import { SheetImportService} from '../import/SheetImportService'
+import { Matricula } from '../../../../common/matricula';
 
 @Component({
   selector: 'app-turmas',
@@ -22,6 +23,7 @@ export class MetasComponent implements OnInit {
   metasIguais: string[];
   confirm = false;
   col = -1;
+  col1 = 0;
 
   constructor(private turmasService: TurmasService,private sheetImportService: SheetImportService) { //erro aqui!
   }
@@ -36,6 +38,7 @@ export class MetasComponent implements OnInit {
                },
                msg => { alert(msg.message); }
               );
+    this.getmatriculas();         
   }
 
   isShow = false;
@@ -100,9 +103,9 @@ batata(){
 
   //Métodos de Importação de Planilha
   //Apenas arquivos .csv
-  
+  matriculas:Matricula[]=[]
   isShowImport = false;
-  curTurma = "Compiladores";
+  curTurma = "ESS";
   arquivo = null;
   texto = "";
 
@@ -121,7 +124,7 @@ batata(){
     read.onload = () => this.textof(read.result)
     console.log(this.texto);
     if(this.confirm != true){
-      this.sheetImportService.hasnota("Compiladores")
+      this.sheetImportService.hasnota(this.curTurma)
       .subscribe(
         a => {
           console.log(a);
@@ -137,14 +140,21 @@ batata(){
       }
   }
 
-   paraJSON(csv,col){
+   paraJSON(csv,col,col1){
     let convJSON = [];
     let lines = csv.split("\r\n");
     let header = lines[0].split(",");
+    let temp = header[0];
+    header[0] = header[col1];
+    header[col1] = temp;
+
   
     for(let i = 1; i < lines.length; i++){
       let mergedLine = {};
       let currentline=lines[i].split(",");
+      let temp = currentline[0];
+      currentline[0] = currentline[col1];
+      currentline[col1] = temp;
   
       for(let j = 0; j < header.length; j++){
         mergedLine[header[j]] = currentline[j];
@@ -163,22 +173,25 @@ batata(){
     return JSON.parse(JSON.stringify(convJSON)); 
   }
 
+  getmatriculas(){
+    this.sheetImportService.getMatriculas(this.curTurma)
+      .subscribe(
+        a => {
+          console.log(a);
+          this.matriculas = a;
+        }
+      );
+  }
   
 
   enviarPlanilha(){
     console.log(this.arquivo);
-    let sheetJSON = this.paraJSON(this.texto,this.col);
+    let sheetJSON = this.paraJSON(this.texto,this.col,this.col1);
     this.sheetImportService.atualizar(this.curTurma,sheetJSON)
     .subscribe(
       a => { 
-        if (a == null){ 
-          alert("");
-          this.confirm = false
-        } 
-        else{
           alert(a)
           this.confirm = false
-        }  
       },
       msg => { alert(msg.message); }
      );
