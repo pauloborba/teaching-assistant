@@ -21,25 +21,26 @@
     </tr>
 
     <tr *ngFor="let t of turmas">
-        <td>{{t.descricao}}</td>
+        <td id="turma-{{t.descricao}}">{{t.descricao}}</td>
         <td>{{t.media}}</td>
-        <td><button (click)="notificarTurma(t)">Notificar</button></td>
+        <td id="notificar-{{t.descricao}}"><button (click)="notificarTurma(t)">Notificar</button></td>
     </tr>
 
 </table>
 
 <h4>Escolha a turma que deseja visualizar o status de notificações</h4>
-<button *ngFor="let t of turmas" id="{{ t.descricao }}"
+<button *ngFor="let t of turmas" id="button-{{t.descricao}}"
     (click)="visualizarStatusNotificacao($event)">{{t.descricao}}</button>
 
 <div class="turma" *ngIf="turmaVisualizacao">
-    <h4>Turma {{turmaVisualizacao.descricao}}</h4>
-    <p *ngIf="novasNotificacoes">Aviso: essa turma possui novas notificações</p>
-    <p *ngIf="!novasNotificacoes && turmaVisualizacao.matriculas.length > 0">Essa turma não possui notificações de notas
+    <h4 id="{{turmaVisualizacao.descricao}}">Turma {{turmaVisualizacao.descricao}}</h4>
+    <p id="novaNotificacao" *ngIf="novasNotificacoes">Aviso: essa turma possui novas notificações</p>
+    <p id="notificacaoTodasNotasEnviadas"*ngIf="!novasNotificacoes && turmaVisualizacao.matriculas.length > 0">Essa turma não possui notificações de notas
         a serem
         exibidas, pois todas as
         notas enviadas já foram notificadas</p>
-    <p *ngIf="turmaVisualizacao.matriculas.length == 0">Essa turma não possui notificações de notas a serem
+    <p id="notificacaoTodosAlunosReceberam">Todos os alunos receberam todas as notas da disciplina</p>
+    <p id="notificacaoNenhumAluno" *ngIf="turmaVisualizacao.matriculas.length == 0">Essa turma não possui notificações de notas a serem
         exibidas, pois nenhum aluno foi cadastrado nela</p>
 
     <table id="turmas">
@@ -48,9 +49,9 @@
                 <th>Nome</th>
                 <th>Notificado</th>
             </tr>
-            <tr *ngFor="let s of turmaVisualizacao.statusNotificacao">
-                <td>{{s.nome}}</td>
-                <td *ngIf="s.notificado">Sim</td>
+            <tr name="aluno-turma" *ngFor="let s of turmaVisualizacao.statusNotificacao">
+                <td id="aluno-{{s.nome}}">{{s.nome}}</td>
+                <td id="notificado-{{s.nome}}" *ngIf="s.notificado">Sim</td>
                 <td *ngIf="!s.notificado">Não</td>
             </tr>
         </td>
