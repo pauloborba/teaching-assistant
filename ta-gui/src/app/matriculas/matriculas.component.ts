@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Aluno } from '../../../../common/aluno';
+import { Avaliacao } from '../../../../common/avaliacao';
 import { Matricula } from '../../../../common/matricula';
 import { Turma } from '../../../../common/turma';
 import { AlunosService } from '../alunos/alunos.service';
@@ -14,6 +15,7 @@ import { MatriculasService } from './matriculas.service';
 export class MatriculasComponent implements OnInit {
   matriculas: Matricula[] = [];
   matricula: Matricula = new Matricula();
+  turmaMetas: string[] = [];
   listaAlunos: Aluno[];
   listaTurmas: Turma[];
   alunoSelecionado: string = '';
@@ -51,9 +53,22 @@ export class MatriculasComponent implements OnInit {
 
   criarMatricula(matricula: Matricula): void {
     if(!matricula || this.descricaoTurmaSelecionada == '' || this.alunoSelecionado == '') return;
+    
+    var turmaSelecionadaMetas = this.turmaSelecionada.metas;
+
+    turmaSelecionadaMetas.forEach(meta => {
+      var avaliacao: Avaliacao = {
+        meta: meta,
+        nota: "",
+        copyFrom: null
+      }
+
+      matricula.avaliacoes.push(avaliacao);
+    });
+
     this.matriculasService.criar(matricula).subscribe(
       (matriculaAuxiliar) => {
-        if (matriculaAuxiliar) {
+        if (matriculaAuxiliar) {      
           this.turmaSelecionada.matriculas.push(matriculaAuxiliar);
           this.turmasService.atualizar(this.turmaSelecionada).subscribe(
             (turma) => {

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, retry } from 'rxjs/operators';
 
 import { Matricula } from '../../../../common/matricula';
+import { Avaliacao } from '../../../../common/avaliacao';
 
 @Injectable()
 export class MatriculasService {
@@ -41,9 +42,33 @@ export class MatriculasService {
         map(res => { if (res.success) { return matricula; } else { return null; } })
       );
   }
+  
+  atualizarNota(matricula: Matricula, avaliacao: Avaliacao): Observable<Matricula> {
+    console.log('chegou no att nota service');
+    
+    var objectToSend = {
+      "matricula": matricula,
+      "avaliacao": avaliacao
+    }
+
+    return this.http.put<any>(this.matriculasURL + '/nota', JSON.stringify(objectToSend), { headers: this.headers })
+      .pipe(
+        retry(2),
+        map(res => { if (res.success) { return matricula; } else { return null; } })
+      );
+  }
 
   remover(matricula: Matricula): Observable<Matricula> {
     return this.http.delete<any>(this.matriculasURL + `/${matricula. aluno.cpf}`, { headers: this.headers })
+      .pipe(
+        retry(2),
+        map(res => { if (res.success) { return matricula; } else { return null; } })
+      );
+  }
+
+  removerNota(matricula: Matricula, avaliacao: Avaliacao): Observable<Matricula> {
+    console.log('chamada no removerNota service');
+    return this.http.delete<any>(this.matriculasURL + `/removerNota/${matricula.aluno.cpf}/${avaliacao.meta}`, { headers: this.headers })
       .pipe(
         retry(2),
         map(res => { if (res.success) { return matricula; } else { return null; } })
