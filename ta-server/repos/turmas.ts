@@ -1,3 +1,4 @@
+import { RelatorioDeDesempenho } from './../../common/relatorioDesempenho';
 import { Turma } from '../../common/turma';
 
 export class Turmas {
@@ -9,6 +10,11 @@ export class Turmas {
 
   getTurma(descricao: string): Turma {
     return Turmas.turmas.find(t => t.descricao === descricao);
+  }
+
+  getRelatorioDeDesempenho(descricao: string): RelatorioDeDesempenho {
+    const turma = Turmas.turmas.find(t => t.descricao === descricao);
+    return turma.getRelatorioDesempenho();
   }
 
   cadastrarTurma(t: Turma): Turma {
