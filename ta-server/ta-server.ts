@@ -266,7 +266,8 @@ taserver.delete('/aluno', function(req: express.Request, res: express.Response){
 });
 
 taserver.post('/alunos', function(req: express.Request, res:express.Response){
-  var lista: Aluno[] = <Aluno[]> req.body; // Se o body não vir com um array de aluno, ele percebe
+  var lista: Aluno[] = <Aluno[]> req.body; 
+  // Se o body não vir com um array de aluno, ele percebe
   var sucessos = cadastro.cadastarPlanilha(lista);
   if (!lista) {
     res.send({"failure": "Houve um erro inesperado."});

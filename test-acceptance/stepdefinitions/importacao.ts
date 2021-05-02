@@ -78,7 +78,7 @@ defineSupportCode(function ({ Given, When, Then }) {
         await browser.sleep(1000);
         let alert = await browser.switchTo().alert();
         let texto = await alert.getText();
-        await expect(texto == `Dos alunos da planilha, já haviam ${numero} cadastrados.`);
+        await expect(texto).equal(`Dos alunos da planilha, já haviam ${numero} cadastrados.`);
         await alert.accept();
     });
     
@@ -102,10 +102,11 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
     Then(/^aparece uma mensagem de erro escrito "(.*)"$/, async (msg) => {
+        // Delay para o alert aparecer
         await browser.sleep(1000);
         let alert = await browser.switchTo().alert();
         let texto = await alert.getText();
-        await expect(texto == `${msg}`);
+        await expect(texto).equal(msg);
         await alert.accept();
     });
 

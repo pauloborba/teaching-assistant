@@ -5,7 +5,7 @@ export class CadastroDeAlunos {
 
   cadastrar(aluno: Aluno): Aluno {
     var result = null;
-    if (aluno.cpf=='' && this.emailNaoCadastrado(<string> aluno.email)) {
+    if ((aluno.cpf=='' || this.cpfNaoCadastrado(<string> aluno.cpf)) && this.emailNaoCadastrado(<string> aluno.email)) {
       result = new Aluno();
       result.copyFrom(aluno);
       this.alunos.push(result);

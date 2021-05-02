@@ -31,5 +31,5 @@ Given eu estou na página de alunos
 Given apenas a aluna de email "julia@cin.ufpe.br" está cadastrada
 When eu vou para a página de importar alunos
 And eu seleciono o arquivo de uma planilha de nome "sem-email.csv" que não tem os dados do email na coluna de logins
-Then aparece uma mensagem de erro escrito "planilha não contém os dados de email de um ou mais alunos!"
+Then aparece uma mensagem de erro escrito "A planilha não contém os dados de email de um ou mais alunos!"
 And na página de alunos, a aluna de email "julia@cin.ufpe.br" continua sendo a única cadastrada

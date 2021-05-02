@@ -97,11 +97,6 @@ export class ImportacaoComponent implements OnInit {
     var alunos = linhas.map((aluno) => aluno.split(',').slice(0, 2));
     // Desse array de alunos, criar um array com os nomes
     var nomes = alunos.map((aluno) => aluno[0]);
-    // Condição para alguma linha de nome vazio
-    /*if(nomes.includes('')){
-      alert('A planilha não contém o nome de um ou mais alunos!');
-      return;
-    }*/
     // Do mesmo array de alunos, criar um array com o email
     var emails = alunos.map((aluno) => aluno[1].split('::')[0].trim() + '@cin.ufpe.br');
     // Condição para alguma linha de email vazia
