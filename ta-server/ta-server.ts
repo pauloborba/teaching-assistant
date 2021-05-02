@@ -7,6 +7,8 @@ import autoAvaliacoesRoute from './routes/autoAvaliacoes';
 import roteirosRoute from './routes/roteiros';
 import relatoriosRoute from './routes/relatorios';
 import notificacoesRoute from './routes/notificacoes';
+import verificaPrazoRoute from './routes/verificaPrazo';
+
 
 const taServer = express();
 
@@ -26,13 +28,15 @@ taServer.use('/auto-avaliacoes', autoAvaliacoesRoute);
 taServer.use('/roteiros', roteirosRoute);
 taServer.use('/relatorios', relatoriosRoute);
 taServer.use('/notificacoes', notificacoesRoute);
-
+taServer.use('/verificaprazo', verificaPrazoRoute);
 const server = taServer.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
+
 
 function closeServer(): void {
   server.close();
 }
 
 export { server, closeServer };
+
