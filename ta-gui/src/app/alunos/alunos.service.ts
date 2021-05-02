@@ -40,12 +40,12 @@ export class AlunoService {
   }
 
   remover(aluno: Aluno): Observable<Aluno> {
-    return this.http.delete<any>(this.taURL + `/aluno/?id=${aluno.cpf.toString()}`, { headers: this.headers })
+    return this.http.delete<any>(this.taURL + `/aluno/?id=${aluno.email.toString()}`, { headers: this.headers })
       .pipe(
         retry(2),
         map(res => { if (res.success) { return aluno; } else { return null; } })
         // catchError(this.handleError('delete aluno'))
-      )
+      );
   }
 
   getAlunos(): Observable<Aluno[]> {

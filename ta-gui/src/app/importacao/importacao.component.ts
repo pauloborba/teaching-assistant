@@ -34,13 +34,18 @@ export class ImportacaoComponent implements OnInit {
     this.ImportacaoService.cadastrarAlunos(alunos)
       .subscribe(
         ar => {
+          // Caso de sucesso, para repetidos ou não
           if (ar != null) {
-            if(ar.length == alunos.length){
+            // Caso de sucesso para não repetidos
+            if(ar.length == 0){
               console.log("Deu muito certo :)");
             }else{
+              // Caso de sucesso para um número X de alunos
               alert(`Dos alunos da planilha, já haviam ${ar.length} cadastrados.`);
             }
-          } else {
+          }
+          // Caso de falha 
+          else {
             console.log('deu errado :(');
           }
         },

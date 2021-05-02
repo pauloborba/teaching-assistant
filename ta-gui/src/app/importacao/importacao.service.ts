@@ -20,12 +20,10 @@ export class ImportacaoService {
       .pipe(
         retry(2),
         map(res => { 
-          if (res.success) { 
-            // Todos os alunos da planilha forma adicionados
-              return alunos;
-          } else if(res.repetidos){
-              // Vai retornar um array do tamanho do número de alunos que foi adicionado
-            return alunos.slice(0, res.repetidos);
+          if (res.success) {
+            // Retorna o array de falhos
+            var falhos = alunos.filter(aluno => !res.success.map(alunoAux => alunoAux.email).includes(aluno.email));
+            return falhos;
           }
           else { 
             return null; 

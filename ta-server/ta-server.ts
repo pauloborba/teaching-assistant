@@ -225,7 +225,7 @@ taserver.post('/adicionar-turma', function (req: express.Request, res: express.R
     }
 });
 
-  taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: express.Response) {
+taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: express.Response) {
     const desc: string = <string> req.query.turmas
     const descricoes: string[] = desc.split(',')
     res.send(JSON.stringify(turmas.getResumos(descricoes)));
@@ -256,8 +256,8 @@ taserver.put('/aluno', function (req: express.Request, res: express.Response) {
 });
 
 taserver.delete('/aluno', function(req: express.Request, res: express.Response){
-  let aluno: string = req.query.id.toString();
-  var removido = cadastro.remover(aluno);
+  let aluno_email: string = req.query.id.toString();
+  var removido = cadastro.remover(aluno_email);
   if (removido) {
     res.send({"success": "O aluno foi removido com sucesso"});
   } else {
@@ -267,17 +267,12 @@ taserver.delete('/aluno', function(req: express.Request, res: express.Response){
 
 taserver.post('/alunos', function(req: express.Request, res:express.Response){
   var lista: Aluno[] = <Aluno[]> req.body; // Se o body não vir com um array de aluno, ele percebe
-  var falhos = cadastro.cadastarPlanilha(lista);
+  var sucessos = cadastro.cadastarPlanilha(lista);
   if (!lista) {
     res.send({"failure": "Houve um erro inesperado."});
   } else{
-    if(falhos.length == 0){
-      res.send({"success": `${falhos.length}`});
-    }else{
-      res.send({"repetidos": `${falhos.length}`})
-    }
-    //Se ele adicionou todos, o servidor vai retornar 0;
-    //Se ele não adicionou pelo menos 1, o servidor vai retornar o número de não adicionados
+    res.send({"success":sucessos});
+    //Se ele adicionou todos, o servidor vai retornar o array recebido
   }
 });
 

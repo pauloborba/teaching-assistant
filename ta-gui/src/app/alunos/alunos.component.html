@@ -12,7 +12,7 @@
      <tr *ngFor="let a of matriculas;" name="alunoList">
         <td name="nomelist">{{a.aluno.nome}}</td>
         <td name="cpflist">{{a.aluno.cpf}}</td>
-        <td>{{a.aluno.email}}</td>
+        <td name="">{{a.aluno.email}}</td>
         <td [ngClass] = "corDoBloco(a)" name="statusList">{{statusDeAutoAvaliacao(a)}}</td>
      </tr>
 </table>
@@ -30,7 +30,7 @@
          </tr>
          <tr>
             <td><label>Email </label></td>
-            <td><input [(ngModel)]="aluno.email"></td>
+            <td><input [(ngModel)]="aluno.email" name="emailbox"></td>
          </tr>
       </table>
       <div class="aluno-repetido" *ngIf="cpfduplicado">
@@ -38,7 +38,7 @@
          <p> Por favor, tente novamente!</p>
       </div>
       <div class="button-div">
-         <button class="alunos-button" (click)="criarAluno(aluno)">Adicionar</button>
+         <button class="alunos-button" (click)="criarAluno(aluno)" name="addAluno">Adicionar</button>
       </div>
    </div>
    <div class="alunos-cadastrados">
@@ -55,8 +55,8 @@
             <td name="nomelist">{{a.nome}}</td>
             <td name="cpflist">{{a.cpf}}</td>
             <td name="emaillist">{{a.email}}</td>
-            <div class="alunos-editar">
-               <img (click)="removerAluno(a)" src="./../../assets/icons/delete.png" alt="">
+            <div class="alunos-editar" name="alunos-editar">
+               <img (click)="removerAluno(a)" src="./../../assets/icons/delete.png" alt="" name="deletar-aluno">
             </div>
          </tr>
       </table>

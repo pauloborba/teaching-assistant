@@ -5,8 +5,7 @@ export class CadastroDeAlunos {
 
   cadastrar(aluno: Aluno): Aluno {
     var result = null;
-    if (aluno.cpf=='' || (this.cpfNaoCadastrado(<string> aluno.cpf) && 
-          this.emailNaoCadastrado(<string> aluno.email))) {
+    if (aluno.cpf=='' && this.emailNaoCadastrado(<string> aluno.email)) {
       result = new Aluno();
       result.copyFrom(aluno);
       this.alunos.push(result);
@@ -15,18 +14,19 @@ export class CadastroDeAlunos {
   }
 
   cadastarPlanilha(lista: Aluno[]): Aluno[] {
-    var falha: Aluno[] = [];
+    var sucessos: Aluno[] = [];
     for(const aluno of lista){
       let result = this.cadastrar(aluno);
-      if (result == null){
-        falha.push(aluno);
+      if (result != null){
+        sucessos.push(aluno);
       }
     }
-    return falha;
+    return sucessos;
   }
 
   remover(aluno: string): Aluno {
-    var result: Aluno = this.alunos.find(a => a.cpf == aluno);
+    var result: Aluno = this.alunos.find(a => a.email == aluno);
+    this.alunos.splice(this.alunos.indexOf(result), 1);
     return result;
   }
 
