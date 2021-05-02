@@ -18,7 +18,7 @@ export class MatriculasComponent implements OnInit {
   listaTurmas: Turma[];
   alunoSelecionado: string = '';
   descricaoTurmaSelecionada: string = '';
-  turmaSelecionada: Turma;
+  turmaSelecionada: Turma = new Turma();
   cpfDuplicado: boolean = false;
   turmaInexistente: boolean = false;
   matriculaEditar: Matricula = new Matricula();
@@ -33,6 +33,7 @@ export class MatriculasComponent implements OnInit {
     this.alunosService.getAlunos().subscribe(
       (alunos) => {
         this.listaAlunos = alunos;
+
       },
       (msg) => {
         alert(msg.message);
@@ -54,11 +55,10 @@ export class MatriculasComponent implements OnInit {
     this.matriculasService.criar(matricula).subscribe(
       (matriculaAuxiliar) => {
         if (matriculaAuxiliar) {
-          this.turmaSelecionada.matriculas.push(matriculaAuxiliar);
+          this.turmaSelecionada.matriculas.push(matricula);
           this.turmasService.atualizar(this.turmaSelecionada).subscribe(
             (turma) => {
               if (turma) {
-                // this.matriculas.push(matriculaAuxiliar);
                 this.matricula = new Matricula();
               } else {
                 console.log('Erro ao cadastrar aluno na turma');
@@ -84,9 +84,9 @@ export class MatriculasComponent implements OnInit {
       (turma) => turma.descricao == this.descricaoTurmaSelecionada
     );
     if (selecionada) {
-      this.turmaSelecionada = selecionada;
-      console.log(this.turmaSelecionada);
-      this.matriculas = [];
+      const selecionadaAux = new Turma();
+      selecionadaAux.copyFrom(selecionada);
+      this.turmaSelecionada = selecionadaAux;
       this.matriculas = this.turmaSelecionada.matriculas;
     }else{
       this.turmaInexistente = true;
@@ -98,6 +98,9 @@ export class MatriculasComponent implements OnInit {
       (aluno) => aluno.cpf == this.alunoSelecionado.split(' - ')[0]
     );
     this.matricula.aluno = selecionado;
+    this.matricula.media = Math.floor(Math.random()*10);
+    this.matricula.reprovadoPorFalta = Math.random() < 0.2;
+
   }
 
   editarMatricula(matricula: Matricula): void {
