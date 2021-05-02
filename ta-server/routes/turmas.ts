@@ -1,3 +1,4 @@
+import { RelatorioDeDesempenho } from './../../common/relatorioDesempenho';
 import { Request, Response, Router } from 'express';
 import { Turma } from '../../common/turma';
 import { Turmas } from '../repos/turmas';
@@ -12,6 +13,11 @@ turmasRoute.get('/', (req: Request, res: Response) => {
 turmasRoute.get('/:id', (req: Request, res: Response) => {
   const turma: Turma = turmasRepo.getTurma(req.params.id);
   res.send(turma || null);
+});
+
+turmasRoute.get('/relatorio-de-desempenho/:id', (req: Request, res: Response) => {
+  const relatorio: RelatorioDeDesempenho = turmasRepo.getRelatorioDeDesempenho(req.params.id);
+  res.send(relatorio || null);
 });
 
 turmasRoute.post('/', (req: Request, res: Response) => {
