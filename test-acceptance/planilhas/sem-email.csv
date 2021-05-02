@@ -2,12 +2,25 @@ Aluno,Logins,Monitor responsável
 "Digite, nessa coluna, o seu nome e sobrenome, como você prefere ser chamado; veja o exemplo abaixo"," Digite nessa coluna os seus logins, no seguinte formato: loginCIn :: loginGithub :: loginSlack","Monitor, digite nessa coluna os seus logins, no seguinte formato: loginCIn :: loginGithub :: loginSlack "
 Paulo Borba,phmb :: pauloborba :: phmb,phmb :: pauloborba :: phmb
 ,,
-Lucas,lucas :: lluc :: lluc,ejas :: eidsonsa :: ejas
-Alyson,alyson :: aaly :: aaly,ejas :: eidsonsa :: ejas
-Gil,gil :: ggil :: ggil,ejas :: eidsonsa :: ejas 
-Maria,maria :: mmar :: mmar,ejas :: eidsonsa :: ejas
-Claudia,claudia :: cclau :: cclau,mbmt::mrbelf::mbmt
-João,joao :: jjoa :: jjoa,mbmt::mrbelf::mbmt
+Alecsander Simões,avscgm :: :: avscgm@cin.ufpe.br,ejas :: eidsonsa :: ejas
+Alexandre Marotti,amft ::  :: amft,ejas :: eidsonsa :: ejas
+Anderson Carneiro, :: AndersonSheep :: AndersonCS,ejas :: eidsonsa :: ejas  
+André Soares, :: andre-sfilho :: Andre_S_Filho,ejas :: eidsonsa :: ejas
+Belchior Macêdo de França,bmf :: BelchiorFranca :: bmf,mbmt::mrbelf::mbmt
+Bruno Silva,bsc2 ::  :: bsc2,mbmt::mrbelf::mbmt
+Douglas Cavalcante, :: dxxglas :: dmc5,mbmt::mrbelf::mbmt
+Flávio Braga,fbsj :: FlavioBSJ :: fbsj,mbmt::mrbelf::mbmt
+Wendell Júnior, :: wrnx :: wjoj,mbmt::mrbelf::mbmt
+Pedro Ventura, :: linkarcadia :: pvc2,agcj2::aldibergjr::agcj2
+Lucas Asafe,lavn :: lucasasafe :: Asafe,agcj2::aldibergjr::agcj2
+Lucas Rodrigues,lrsv :: lucasrsv :: lrsv,phcl :: pedrohcaminha ::  phcl
+Pedro Arruda,phra :: pedrohrarruda :: phra,phcl :: pedrohcaminha ::  phcl
+Yuri Valença,yvc :: YuriValenca :: yvc,phcl :: pedrohcaminha ::  phcl
+Victória Célia,vccf :: vccf :: Victoria Celia,phcl :: pedrohcaminha ::  phcl
+Pedro Basílio,pcsb :: pedrocostab :: pcsb,acrc2::acrc2::artcastro
+Penélope Araújo,pmpa :: penelopearaujo :: penelope,acrc2::acrc2::artcastro
+Renato Alpes,rhas :: nopelands :: rhas,acrc2::acrc2::artcastro
+Tiago Campêlo,tscs2 :: tiago-ds :: tscs2,acrc2::acrc2::artcastro
 ,,
 ,,
 ,,
@@ -977,3 +990,4 @@ João,joao :: jjoa :: jjoa,mbmt::mrbelf::mbmt
 ,,
 ,,
 ,,
+,oi,
