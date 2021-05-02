@@ -55,8 +55,6 @@ matriculasRoute.delete('/:id', (req: Request, res: Response) => {
 });
 
 matriculasRoute.delete('/removerNota/:id/:meta', (req: Request, res: Response) => {
-  console.log('delete de nota');
-  
   if (matriculasRepo.removerNota(req.params.id, req.params.meta)) {
     res.send({ 'success': 'A Nota foi removida com sucesso' });
   } else {

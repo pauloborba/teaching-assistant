@@ -44,8 +44,6 @@ export class MatriculasService {
   }
   
   atualizarNota(matricula: Matricula, avaliacao: Avaliacao): Observable<Matricula> {
-    console.log('chegou no att nota service');
-    
     var objectToSend = {
       "matricula": matricula,
       "avaliacao": avaliacao
@@ -67,7 +65,6 @@ export class MatriculasService {
   }
 
   removerNota(matricula: Matricula, avaliacao: Avaliacao): Observable<Matricula> {
-    console.log('chamada no removerNota service');
     return this.http.delete<any>(this.matriculasURL + `/removerNota/${matricula.aluno.cpf}/${avaliacao.meta}`, { headers: this.headers })
       .pipe(
         retry(2),

@@ -75,9 +75,7 @@ export class MatriculasComponent implements OnInit {
               if (turma) {
                 // this.matriculas.push(matriculaAuxiliar);
                 this.matricula = new Matricula();
-              } else {
-                console.log('Erro ao cadastrar aluno na turma');
-              }
+              } 
             },
             (msg) => {
               alert(msg.message);
@@ -100,7 +98,6 @@ export class MatriculasComponent implements OnInit {
     );
     if (selecionada) {
       this.turmaSelecionada = selecionada;
-      console.log(this.turmaSelecionada);
       this.matriculas = [];
       this.matriculas = this.turmaSelecionada.matriculas;
     }else{

@@ -93,10 +93,6 @@ export class NotasComponent implements OnInit {
   }
   
   atualizarNota(m: Matricula, a: Avaliacao): void {
-    console.log('chegou no att nota do component');
-
-    console.log(this.avaliacaoEditar, m, a);
-    
     if(!this.avaliacaoEditar.nota){
         this.notaInvalida = true;
         return;
