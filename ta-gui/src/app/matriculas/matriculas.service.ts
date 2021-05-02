@@ -19,7 +19,7 @@ export class MatriculasService {
       );
   }
 
-  getAluno(cpf: string): Observable<Matricula> {
+  getMatricula(cpf: string): Observable<Matricula> {
     return this.http.get<Matricula>(this.matriculasURL + `/${cpf}`)
       .pipe(
         retry(2)
