@@ -1,4 +1,4 @@
 export class DateLimit {
     datainicio:string;
-    datafim:string;
+    datalimite:string;
   }

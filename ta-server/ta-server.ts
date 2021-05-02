@@ -7,7 +7,7 @@ import autoAvaliacoesRoute from './routes/autoAvaliacoes';
 import roteirosRoute from './routes/roteiros';
 import relatoriosRoute from './routes/relatorios';
 import notificacoesRoute from './routes/notificacoes';
-import verificaPrazoRoute from './routes/verificaPrazo';
+import verificaPrazoRoute from './routes/verificaPrazoRoute';
 
 
 const taServer = express();
