@@ -1,19 +1,29 @@
-<div class="turmas-container" (mousemove)="turmaRepetida=false">
+<div class="turmas-container" (mousemove)="turmaRepetida = false">
   <div class="turmas-cadastro">
     <h1>Cadastro de turmas</h1>
 
     <table>
       <tr>
         <td><label for="add-turma-descricao">Descrição</label></td>
-        <td><input id="add-turma-descricao" [(ngModel)]="turma.descricao"></td>
+        <td>
+          <input id="add-turma-descricao" [(ngModel)]="turma.descricao" />
+        </td>
       </tr>
       <tr>
         <td><label for="add-turma-metas">Metas</label></td>
-        <td><input id="add-turma-metas" placeholder="Meta 1, Meta 2, ..." [(ngModel)]="turmaMetas"></td>
+        <td>
+          <input
+            id="add-turma-metas"
+            placeholder="Meta 1, Meta 2, ..."
+            [(ngModel)]="turmaMetas"
+          />
+        </td>
       </tr>
       <tr>
         <td><label for="add-turma-vagas">Vagas</label></td>
-        <td><input id="add-turma-vagas" type="number" [(ngModel)]="turma.vagas"></td>
+        <td>
+          <input id="add-turma-vagas" type="number" [(ngModel)]="turma.vagas" />
+        </td>
       </tr>
       <tr>
         <td>
@@ -22,10 +32,10 @@
       </tr>
     </table>
     <div class="turma-repetida" *ngIf="turmaRepetida">
-         <span>
-           Já existe uma turma com essa descrição.<br>
-           Por favor, tente novamente.
-         </span>
+      <span>
+        Já existe uma turma com essa descrição.<br />
+        Por favor, tente novamente.
+      </span>
     </div>
   </div>
 
@@ -46,21 +56,43 @@
         <tr class="turma" *ngFor="let t of turmas">
           <td class="turma-descricao">{{ t.descricao }}</td>
 
-          <td class="turma-metas" *ngIf="turmaEditar.descricao !== t.descricao">{{ t.metas.join(', ') }}</td>
-          <td class="turma-metas" *ngIf="turmaEditar.descricao === t.descricao"><input [(ngModel)]="turmaEditarMetas"></td>
+          <td class="turma-metas" *ngIf="turmaEditar.descricao !== t.descricao">
+            {{ t.metas.join(", ") }}
+          </td>
+          <td class="turma-metas" *ngIf="turmaEditar.descricao === t.descricao">
+            <input [(ngModel)]="turmaEditarMetas" />
+          </td>
 
-          <td class="turma-vagas" *ngIf="turmaEditar.descricao !== t.descricao">{{ t.vagas }}</td>
-          <td class="turma-vagas" *ngIf="turmaEditar.descricao === t.descricao"><input type="number" [(ngModel)]="turmaEditar.vagas"></td>
+          <td class="turma-vagas" *ngIf="turmaEditar.descricao !== t.descricao">
+            {{ t.vagas }}
+          </td>
+          <td class="turma-vagas" *ngIf="turmaEditar.descricao === t.descricao">
+            <input type="number" [(ngModel)]="turmaEditar.vagas" />
+          </td>
 
           <td class="turma-numMatriculas">{{ t.matriculas.length }}</td>
 
           <td class="acoes" *ngIf="turmaEditar.descricao !== t.descricao">
             <button name="editar-turma" (click)="editarTurma(t)">Editar</button>
             &nbsp;
-            <button name="remover-turma" (click)="removerTurma(t)">Remover</button>
+            <button name="remover-turma" (click)="removerTurma(t)">
+              Remover
+            </button>
+            &nbsp;
+            <button
+              name="ver-turma"
+              [routerLink]="['/relatorio-de-desempenho', t.descricao]"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              class="link"
+            >
+              Relatório de Desempenho
+            </button>
           </td>
           <td *ngIf="turmaEditar.descricao === t.descricao" class="acoes">
-            <button name="atualizar-turma" (click)="atualizarTurma(t)">Salvar</button>
+            <button name="atualizar-turma" (click)="atualizarTurma(t)">
+              Salvar
+            </button>
           </td>
         </tr>
       </tbody>
