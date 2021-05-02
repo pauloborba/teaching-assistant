@@ -24,8 +24,7 @@ import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
 import { RoteirosService } from './roteiros/roteiros.service';
 import { DiscrepantesService } from './discrepantes/discrepantes.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
-import { RelatorioDesempenhoComponent } from './turmas/relatorio-de-desempenho/relatorio-desempenho/relatorio-desempenho.component';
-
+import { RelatorioDeDesempenhoComponent } from './turmas/relatorio-de-desempenho/relatorio-de-desempenho.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +36,7 @@ import { RelatorioDesempenhoComponent } from './turmas/relatorio-de-desempenho/r
     RoteirosComponent,
     DiscrepantesComponent,
     ComparacaoDeDesempenhoComponent,
-    RelatorioDesempenhoComponent
+    RelatorioDeDesempenhoComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +75,10 @@ import { RelatorioDesempenhoComponent } from './turmas/relatorio-de-desempenho/r
       {
         path: 'comparacao-de-desempenho',
         component: ComparacaoDeDesempenhoComponent
+      },
+      {
+        path: 'relatorio-de-desempenho/:turma',
+        component: RelatorioDeDesempenhoComponent
       }
     ])
   ],

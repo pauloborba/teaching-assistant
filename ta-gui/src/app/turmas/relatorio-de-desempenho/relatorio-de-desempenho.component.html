@@ -1,0 +1,57 @@
+<div class="turmas-container">
+  <div class="turmas-cadastro">
+    <h1>Relatório de Desempenho</h1>
+
+  <div class="turmas-cadastradas">
+    <table class="turmas-table">
+      <thead>
+        <tr>
+          <th colspan="3">Turma: {{descricaoDaTurma}}</th>
+        </tr>
+        <tr>
+          <th>Tipo de informação</th>
+          <th>Quantidade de Alunos</th>
+          <th>Percentual de Alunos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="turma" >
+          <td>Aprovados</td>
+          <td name="aprovados">{{relatorio.aprovados}}</td>
+          <td name="aprovadosPercentual">{{formataPorcentagem(relatorio.aprovadosPorcentagem)}}%</td>
+        </tr>
+        <tr class="turma" >
+          <td>Reprovados</td>
+          <td name="reprovados">{{relatorio.reprovados}}</td>
+          <td name="reprovadosPercentual">{{formataPorcentagem(relatorio.reprovadosPorcentagem)}}%</td>
+        </tr>
+        <tr class="turma" >
+          <td>Aprovados por Média</td>
+          <td name="aprovadosPorMedia">{{relatorio.aprovadosPorMedia}}</td>
+          <td name="aprovadosPorMediaPercentual">{{formataPorcentagem(relatorio.aprovadosPorMediaPorcentagem)}}%</td>
+        </tr>
+        <tr class="turma" >
+          <td>Reprovados por Nota</td>
+          <td name="reprovadosPorNota">{{relatorio.reprovadosPorNota}}</td>
+          <td name="reprovadosPorNotaPercentual">{{formataPorcentagem(relatorio.reprovadosPorNotaPorcentagem)}}%</td>
+        </tr>
+        <tr class="turma" >
+          <td>Reprovados por Falta</td>
+          <td name="reprovadosPorFalta">{{relatorio.reprovadosPorFalta}}</td>
+          <td name="reprovadosPorFaltaPercentual">{{formataPorcentagem(relatorio.reprovadosPorFaltaPorcentagem)}}%</td>
+        </tr>
+        <tr class="turma" >
+          <td>Aguardando Final</td>
+          <td name="aguardandoFinal">{{relatorio.aguardandoFinal}}</td>
+          <td name="aguardandoFinalPercentual">{{formataPorcentagem(relatorio.aguardandoFinalPorcentagem)}}%</td>
+        </tr>
+        <tr class="turma" >
+          <td>Total</td>
+          <td name="total">{{relatorio.total}}</td>
+          <td name="totalPercentual">{{formataPorcentagem(relatorio.totalPorcentagem)}}%</td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="dadosFaltando" id="dadosFaltando" name="dadosFaltando">Dados apresentados estão incompletos</p>
+  </div>
+</div>
