@@ -1,6 +1,6 @@
 <div class="matriculas-container">
     <div class="matriculas-cadastro">
-      <h1>Cadastro de notas</h1>
+      <h1>Configurar Média de Turmas</h1>
   
       <table>
         <tr>
@@ -38,31 +38,22 @@
     </div>
   
     <div class="matriculas-cadastrados" *ngIf="matriculas.length > 0 && descricaoTurmaSelecionada != '' && alunoSelecionado != ''">
-      <h1>Lista de Avaliações - <span class="aluno-nome">{{alunoSelecionado}}</span></h1>
+      <h1>Turma Selecionada - <span class="turma-nome">{{turmaSelecionada.descricao}}</span></h1>
   
       <table class="matriculas-table">
         <thead>
           <tr>
-            <th>CPF</th>
-            <th>Nome</th>
             <th>Meta</th>
-            <th>Nota</th>
+            <th>Peso</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           <tr class="matricula" *ngFor="let a of matriculaSelecionada.avaliacoes">
-            <td class="matricula-cpf">{{matriculaSelecionada.aluno.cpf}}</td>
-  
-            <td class="matriculas-nome">{{matriculaSelecionada.aluno.nome}}</td>
-  
+          
             <td class="matriculas-email">{{a.meta}}</td>
-
-            <td class="matriculas-nota" *ngIf="avaliacaoEditar.meta === a.meta"><input type="text" [(ngModel)]="avaliacaoEditar.nota"></td>
-            <td class="matriculas-nota" *ngIf="avaliacaoEditar.meta !== a.meta">
-              <span *ngIf="a.nota">{{a.nota}}</span>
-              <span *ngIf="!a.nota">Sem nota</span>
-            </td>
+            
+            <td class="matriculas-peso">{{turmaSelecionada.peso}}</td>            
   
             <td *ngIf="avaliacaoEditar.meta !== a.meta" class="acoes">
                 <button name="editar-turma" (click)="editarNota(a)">Atribuir/Editar</button>
@@ -76,7 +67,6 @@
           </tr>
         </tbody>
       </table>
-      <h2>Média do Aluno - <span class="aluno-nome">{{alunoSelecionado}}</span> = 7</h2>
     </div>
   
     <div *ngIf="matriculas.length == 0">

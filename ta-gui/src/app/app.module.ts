@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 
 import { AlunosComponent } from './alunos/alunos.component';
 import { TurmasComponent } from './turmas/turmas.component';
+import { MediaComponent } from './media/media.component';
 import { MatriculasComponent } from './matriculas/matriculas.component';
 import { RelatoriosComponent } from './relatorios/relatorios.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
@@ -34,6 +35,7 @@ import { NotasService } from './notas/notas.service';
     AlunosComponent,
     MatriculasComponent,
     TurmasComponent,
+    MediaComponent,
     RelatoriosComponent,
     AutoavaliacaoComponent,
     RoteirosComponent,
@@ -55,6 +57,10 @@ import { NotasService } from './notas/notas.service';
       {
         path: 'turmas',
         component: TurmasComponent
+      },
+      {
+        path: 'media',
+        component: MediaComponent
       },
       {
         path: 'matriculas',

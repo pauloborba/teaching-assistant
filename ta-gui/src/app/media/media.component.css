@@ -1,0 +1,110 @@
+.matriculas-container {
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .matriculas-cadastro {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .matriculas-cadastro table {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  button {
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+    background-color:#f9f9f9;
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    cursor:pointer;
+    color:#666666;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #ffffff;
+  }
+  button:hover {
+    background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+    background-color:#e9e9e9;
+  }
+  button:active {
+    position:relative;
+    top:1px;
+  }
+  
+  button.add-matricula {
+    color: black;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 6px 30px;
+  }
+  
+  button.add-matricula:hover {
+    background-color: #4eb1ba;
+    color: white;
+  }
+  
+  .matriculas-cadastrados {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
+  
+  .matriculas-table {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    border-collapse: collapse;
+  }
+
+  .aluno-nome {
+    border-bottom: #4EB1BA 2px solid;
+  }
+  
+  .matriculas-table td, .matriculas-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .matriculas-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .matriculas-table tr:hover {
+    background-color: #ddd;
+  }
+  
+  .matriculas-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background-color: #4EB1BA;
+    color: white;
+  }
+  
+  .matricula-repetida {
+    justify-content: space-between;
+    align-items: center;
+    border: #BA6194 1px solid;
+    margin-top: 25px;
+    border-radius: 15px;
+    padding: 10px;
+    text-align: center;
+  }
+  
