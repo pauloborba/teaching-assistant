@@ -8,42 +8,38 @@
 }
 
 #import{
-	width: 50%;
-	display: flex;
-  	flex-direction: row;
+	width: 80%;
+	justify-content: space-between;
   	font-family: 'Source Sans Pro', sans-serif;
+	display: flex;  
 }
 
 #inside{
-	width: 50%;
-	margin:10px;
+	height: 100px;
+	width: 300px;
 	padding: 15px;
-    height: 200px;;
 	display: flex;
     flex-direction: row;
 	align-items: center;
-    justify-content: space-evenly;
 }
 
 #upload{
-	font-size: 5px;
-	width: 50%;
-	margin:10px;
-	padding: 15px;
-  	height: 200px;;
+	font-size: 12px;
+	height: 90px;
+	width: 300px;
+	padding-top: 50px;
+	padding-left: 15px;
+	padding-right: 15px;
 	display: flex;
   	flex-direction: column;
 	align-items: center;
-    justify-content: space-evenly;
 }
 
 
 .botao {
-	box-shadow:inset 0px -3px 7px 0px #29bbff;
-	background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
-	background-color:#2dabf9;
+	background-color:#3399ff;
 	border-radius:3px;
-	border:1px solid #0b0e07;
+	border:none;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -54,7 +50,6 @@
 	text-shadow:0px 1px 0px #263666;
 }
 .botao:hover {
-	background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
 	background-color:#0688fa;
 }
 .botao:active {

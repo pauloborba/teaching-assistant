@@ -152,7 +152,7 @@ it("envia email normalmente",() =>{
     });
 
     it("importa planilhas corretamente", () => {
-        var options:any = {method: 'PUT', uri: (base_url + "importacaodenota"), body:[{cpf: "123", Meta1: "MA", Meta2: "MA", Meta3: "MPA"},{cpf: "456", Meta1: "MA", Meta2: "MPA", Meta3: "MA"}], json: true};
+        var options:any = {method: 'PUT', uri: (base_url + "importacaodenota?turma=ESS"), body:[{cpf: "123", Requisitos: "MA", Ger. de Configuração: "MA", Ger. de Projetos: "MPA"},{cpf: "456", Requisitos: "MA", Ger. de Configuração: "MPA", Ger. de Projetos: "MA"}], json: true};
         return request(options)
             .then(body => 
                 expect(body).toEqual({success: "A planilha foi importada com sucesso"})
