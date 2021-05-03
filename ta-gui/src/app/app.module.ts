@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,7 +14,6 @@ import { MonitoresComponent } from './monitores/monitores.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
 import { TurmasService } from './turmas/turmasService';
 
-import { AlunoService } from './alunos/alunos.service';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
@@ -26,13 +24,12 @@ import { AdicionarTurmaService } from './turmas/adicionar-turma/adicionar-turma.
 import { RoteiroService } from './roteiros/roteiro.service';
 import { DiscrepantesComponent } from './discrepantes/discrepantes.component';
 import { DiscrepantesService } from '../app/discrepantes/discrepantes.service';
-import { HttpClientModule } from '@angular/common/http';
 
-import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
 import { AlunoService } from './alunos/alunos.service';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from './relatorio/relatorio.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
+import { AtribuirRoteiroComponent } from './atribuir-roteiro/atribuir-roteiro/atribuir-roteiro.component';
 
 @NgModule({
   declarations: [ 
@@ -45,9 +42,10 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     MonitoresComponent,
     RoteirosComponent,
     AdicionarTurmaComponent,
-    EditarTurmaComponent
+    EditarTurmaComponent,
     DiscrepantesComponent,
-    RelatorioComponent
+    RelatorioComponent,
+    AtribuirRoteiroComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +101,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
   ])
   ],
 
-  providers: [TurmasService, AlunoService, AutoavaliacaoService, RoteiroService, DiscrepantsService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
+  providers: [TurmasService, AlunoService, AutoavaliacaoService, RoteiroService, DiscrepantesService, AutoavaliacaoService, AlunoService, RelatorioService, ComparacaoDeDesempenhoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
