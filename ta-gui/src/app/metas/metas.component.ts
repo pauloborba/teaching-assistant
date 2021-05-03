@@ -120,11 +120,54 @@ batata(){
   uparArquivo(arquivo:FileList){
     this.arquivo = arquivo.item(0);
     let read = new FileReader
+
     read.readAsText(this.arquivo);
     read.onload = () => this.textof(read.result)
-    console.log(this.texto);
+
     if(this.confirm != true){
-      this.sheetImportService.hasnota(this.curTurma)
+        this.getHasNota(); //extract method
+      }
+  }
+
+   paraJSON(csv,colNota,colId){
+    let convJSON = [];
+    let lines = csv.split("\r\n");
+    let header = lines[0].split(",");
+
+    let temp = header[0];
+    header[0] = header[colId];//Simplesmente coloca a coluna de identificação de aluno
+    header[colId] = temp;     //selecionada pelo usuário para a primeira posição
+
+  
+    for(let i = 1; i < lines.length; i++){//cria um objeto JSON da planilha, fileira por fileira
+      let mergedLine = {};
+      let currentline=lines[i].split(",");
+      let temp = currentline[0];
+
+      currentline[0] = currentline[colId];
+      currentline[colId] = temp;
+  
+      for(let j = 0; j < header.length; j++){ //montando uma fileira {Id, Meta1, ..., MetaN}
+        mergedLine[header[j]] = currentline[j];
+      }
+
+      if(colNota != -1){ //Se uma coluna é selecionada apenas ela é importada
+        for(let a = 1;a < header.length;a++){
+          if(a != colNota){
+          delete mergedLine[header[colNota]];
+          }
+        }
+      }
+      convJSON.push(mergedLine);
+  
+    }
+    return JSON.parse(JSON.stringify(convJSON)); 
+  }
+
+  
+
+  getHasNota(){
+    this.sheetImportService.hasnota(this.curTurma)
       .subscribe(
         a => {
           console.log(a);
@@ -137,40 +180,6 @@ batata(){
           }
         }
       );
-      }
-  }
-
-   paraJSON(csv,col,col1){
-    let convJSON = [];
-    let lines = csv.split("\r\n");
-    let header = lines[0].split(",");
-    let temp = header[0];
-    header[0] = header[col1];
-    header[col1] = temp;
-
-  
-    for(let i = 1; i < lines.length; i++){
-      let mergedLine = {};
-      let currentline=lines[i].split(",");
-      let temp = currentline[0];
-      currentline[0] = currentline[col1];
-      currentline[col1] = temp;
-  
-      for(let j = 0; j < header.length; j++){
-        mergedLine[header[j]] = currentline[j];
-      }
-      if(col != -1){
-        for(let a = 1;a < header.length;a++){
-          if(a != col){
-          delete mergedLine[header[col]];
-          }
-        }
-      }
-      convJSON.push(mergedLine);
-  
-    }
-    console.log(JSON.parse(JSON.stringify(convJSON)));
-    return JSON.parse(JSON.stringify(convJSON)); 
   }
 
   getmatriculas(){
@@ -185,8 +194,8 @@ batata(){
   
 
   enviarPlanilha(){
-    console.log(this.arquivo);
     let sheetJSON = this.paraJSON(this.texto,this.col,this.col1);
+
     this.sheetImportService.atualizar(this.curTurma,sheetJSON)
     .subscribe(
       a => { 
