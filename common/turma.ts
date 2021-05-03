@@ -17,7 +17,6 @@ export class Turma {
         this.descricao = from.descricao;
         this.metas = from.metas;
         this.matriculas = from.matriculas;
-        //this.metaTipo = from.metaTipo;
         this.monitores = from.monitores;
         this.numeroMatriculas = from.numeroMatriculas;
     }
@@ -26,7 +25,6 @@ export class Turma {
       this.metas = [];
       this.matriculas = [];
       this.roteiros = [];
-      //this.metaTipo = "";
       this.monitores = [];
       this.numeroMatriculas = 0;
     }
@@ -100,8 +98,10 @@ export class Turma {
     atualizaravaliacoes(cpf:string, notas: Avaliacao[]): boolean {
         let exist: boolean = false;
         let matricula = this.getMatricula(cpf)
+
         if(matricula){
             let confirm = matricula.atualizarAvaliacoes(notas);
+            
             if(confirm){
                 this.hasNotas = true
                 exist = true;
