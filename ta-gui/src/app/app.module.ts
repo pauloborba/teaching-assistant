@@ -29,7 +29,7 @@ import { AlunoService } from './alunos/alunos.service';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioService } from './relatorio/relatorio.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
-import { AtribuirRoteiroComponent } from './atribuir-roteiro/atribuir-roteiro/atribuir-roteiro.component';
+import { AtribuirRoteiroComponent } from './atribuir-roteiro/atribuir-roteiro.component';
 
 @NgModule({
   declarations: [ 
@@ -97,6 +97,10 @@ import { AtribuirRoteiroComponent } from './atribuir-roteiro/atribuir-roteiro/at
     {
       path: 'comparacao-de-desempenho',
       component: ComparacaoDeDesempenhoComponent
+    },
+    {
+      path: 'atribuir-roteiro',
+      component: AtribuirRoteiroComponent
     }
   ])
   ],

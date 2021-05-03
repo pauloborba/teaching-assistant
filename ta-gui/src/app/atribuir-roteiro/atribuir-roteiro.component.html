@@ -1,0 +1,65 @@
+<h3>Atribuir Roteiro:</h3>
+<label for="input-data-inicio">Data inicio:</label>
+<input name="input-data-inicio" [(ngModel)]="dataInicioNovo">
+&nbsp;
+<label for="input-data-inicio">Data fim:</label>
+<input name="input-data-fim" [(ngModel)]="dataFimNovo">
+
+<button (click)="atribuirRoteiro()" id="atribuir">Atribuir</button>
+
+<div class="turmas">
+    <table class="listTable">
+        <tr *ngIf="turmas.length > 0" name="turmas" class="header">
+            <th>Turma</th>
+            <th>Adicionar</th>
+        </tr>
+        <tr *ngFor="let a of turmas;" name="alunoList">
+            <td name="nomelist">{{a.getDescricao()}}</td>
+            <td><button (click)="adicionarTurma(a)" name="add">Adicionar</button></td>
+        </tr>
+    </table>
+    <div class="arrow">
+        <i class="fas fa-angle-double-right"></i>
+    </div>
+
+    <table class="listAddedTable">
+        <tr name="turmas" class="header">
+            <th>Turma</th>
+            <th>Remover</th>
+        </tr>
+        <tr *ngFor="let a of turmasSelecionadas;" name="addedList">
+            <td name="nomelist">{{a.getDescricao()}}</td>
+            <td><button (click)="removerTurma(a)" name="add">Remover</button></td>
+        </tr>
+    </table>
+</div>
+
+<br>
+<div class="roteiros">
+    <table class="listTable">
+        <tr *ngIf="roteiros.length > 0" name="turmas" class="header">
+            <th>Turma</th>
+            <th>Adicionar</th>
+        </tr>
+        <tr *ngFor="let r of roteiros;" name="alunoList">
+            <td name="nomelist">{{r.descricao}}</td>
+            <td><button (click)="adicionarRoteiro(r)" name="add">Adicionar</button></td>
+        </tr>
+    </table>
+    
+    <div class="arrow">
+        <i class="fas fa-angle-double-right"></i>
+    </div>
+
+    <table class="listAddedTable">
+        <tr name="turmas" class="header">
+            <th>Turma</th>
+            <th>Remover</th>
+        </tr>
+        <tr *ngFor="let r of roteirosSelecionados;" name="addedList">
+            <td name="nomelist">{{r.descricao}}</td>
+            <td><button (click)="removerRoteiro(r)" name="add">Remover</button></td>
+        </tr>
+    </table>
+</div>
+
