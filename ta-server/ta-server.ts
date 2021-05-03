@@ -15,6 +15,7 @@ import { BlocoDeQuestoes } from './blocodequestoes';
 import { Questao } from './questao';
 import { RespostaDeRoteiro } from './respostaderoteiro';
 import { EmailSender } from './EmailSender';
+import { AgendamentoRoteiro } from '../common/AgendamentoRoteiro';
 
 
 var taserver = express();
@@ -233,6 +234,33 @@ taserver.post('/adicionar-turma', function (req: express.Request, res: express.R
     } else {
         res.send({"failure": "A turma não foi cadastrada"});
     }
+});
+
+taserver.post('/atribuir-roteiro', function (req: express.Request, res: express.Response){
+  try{
+    var listaTurmas: Turma[] = <Turma[]> req.body.turmas;
+    var roteiros: Roteiro[] = <Roteiro[]> req.body.roteiros;
+    
+    var dataInicio : string = <string> req.body.dataInicio;
+    var dataFim : string = <string> req.body.dataFim;
+    
+    listaTurmas.forEach( t => {
+      var tempTurma : Turma = turmas.getTurma(t.descricao);
+
+      roteiros.forEach( roteiro => {
+        var rot = cadastroRoteiro.getRoteiros().filter( r => r.descricao == roteiro.descricao)[0];
+        var agendamento : AgendamentoRoteiro = new AgendamentoRoteiro(rot, dataInicio, dataFim);
+        tempTurma.addAgendamento(agendamento);
+        turmas.atualizarTurma(tempTurma);
+      });
+    });
+
+    var responseParams = {"turmas":turmas, "roteiros": roteiros, "dataInicio":dataInicio, "dataFim": dataFim };
+    res.send(JSON.stringify(responseParams));
+  }catch(Error){
+    var responseParams2 = {"failure":"Erro ao atribuir roteiros" };
+    res.send(JSON.stringify(responseParams2));
+  }
 });
 
 

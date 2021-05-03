@@ -65,8 +65,18 @@ export class AtribuirRoteiroComponent implements OnInit {
     this.roteirosSelecionados = tempRoteiros;
   }
 
-  atribuirRoteiro() : void{
-    //TODO
+  atribuirRoteiros() : void{
+    this.service.atribuirRoteiros(this.dataInicioNovo, this.dataFimNovo, this.turmasSelecionadas, this.roteirosSelecionados)
+      .subscribe(
+        ar => {
+          if (ar) {
+            alert("ok");
+            console.log(ar);
+          }
+        },
+        msg => { alert(msg.message); }
+      );
+    
   }
 
   ngOnInit() {
