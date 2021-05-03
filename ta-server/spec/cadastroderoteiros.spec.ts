@@ -25,7 +25,7 @@ describe("O cadastro de roteiros", () => {
 
     var roteiro = expectSoUmRoteiro();
     expect(roteiro.descricao).toBe("Roteiro de requisitos");
-    expect(roteiro.blocos.lenght).toBe(0);
+    expect(roteiro.blocos.length).toBe(0);
   })
 
   it("remove roteiro", () => {
@@ -40,7 +40,7 @@ describe("O cadastro de roteiros", () => {
     cadastrarRoteiro("Roteiro de requisitos");
 
     var roteiro = expectSoUmRoteiro();
-    expect(roteiro.blocos.lenght).toBe(0);
+    expect(roteiro.blocos.length).toBe(0);
 
     var bloco = new BlocoDeQuestoes();
     bloco.tipo = "Paralelo";
@@ -49,7 +49,7 @@ describe("O cadastro de roteiros", () => {
     cadastro.atualizarRoteiro(roteiro);
 
     roteiro = expectSoUmRoteiro();
-    expect(roteiro.blocos.lenght).toBe(1);
+    expect(roteiro.blocos.length).toBe(1);
   })
 
 })

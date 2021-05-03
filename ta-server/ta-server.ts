@@ -1,24 +1,21 @@
 import express = require('express');
 import bodyParser = require("body-parser");
 import turmaRotas from "./turmas/turmas.api";
-import { Turma } from '../common/turma'
-import { Turmas } from './turmas'
 
 import { NotificacaoNotas } from './notificacaoNotas';
 import { Avaliacao } from './avaliacao';
 import {Aluno} from '../common/aluno';
 import {CadastroDeAlunos} from './cadastrodealunos'; 
-import {Turmas} from './turmas'
-import {Turma} from '../common/turma'
-import {Roteiro} from '../common/roteiro'
+import {Turmas} from './turmas';
+import {Turma} from '../common/turma';
 import {CadastroDeRoteiros} from './cadastroderoteiros';
-import {Matricula} from '../common/matricula'
-import { Turma } from '../common/turma'
-import { Roteiro } from './roteiro';
+import {Matricula} from '../common/matricula';
+import { Roteiro } from '../common/roteiro';
 import { BlocoDeQuestoes } from './blocodequestoes';
 import { Questao } from './questao';
 import { RespostaDeRoteiro } from './respostaderoteiro';
-import { RespostaDeQuestao } from './respostadequestao';
+import { EmailSender } from './EmailSender';
+
 
 var taserver = express();
 // Stub para popular o front-end com alunos de uma turma
@@ -121,15 +118,17 @@ var server = taserver.listen(3000, function () {
 
 taserver.use("/turmas", turmaRotas);
 
-taserver.get('/matriculas', function (req: express.Request, res: express.Response) {})
+taserver.get('/matriculas', function (req: express.Request, res: express.Response) {
+	
+});
 
 taserver.get('/metas/', function (req: express.Request, res: express.Response){
   let conjTurmas: Turmas = turmas;
-  let descricaoTurma: string = req.query.descricaoTurma;
+  let descricaoTurma: string = req.query.descricaoTurma as string;
   let turma: Turma = conjTurmas.getTurma(descricaoTurma);
   let metas = turma.getMetas();
   res.send(metas);    
-})
+});
 
 taserver.post('/notificacaoResultadoFinal/', function (req: express.Request, res: express.Response) {
    
@@ -146,24 +145,24 @@ taserver.post('/notificacaoResultadoFinal/', function (req: express.Request, res
     else{ 
         res.send("Faltam informações da turma!")
     }
-
+});
 taserver.get('/turma/:descricao', function (req: express.Request, res: express.Response){
     var turmas = new Turmas();
     let turma = new Turma();
     turma = turmas.getTurma(req.params.descricao)
     res.send(turma)
     //res.send(JSON.stringify(cadastro.getAlunos()));
-})
+});
     
 //recebe um identificador de turma e de aluno e retorna uma matricula
 taserver.get('/matriculas/', function (req: express.Request, res: express.Response){
-    let cpf: string = req.query.cpf;
-    let descricaoTurma: string = req.query.descricaoTurma;
+    let cpf: string = req.query.cpf as string;
+    let descricaoTurma: string = req.query.descricaoTurma as string;
     
     let turma: Turma = turmas.getTurma(descricaoTurma);
     let matricula: Matricula = turma.getMatricula(cpf);
     res.send(matricula);
-})
+});
 
 taserver.put('/autoavalicoes/atualizar/', function (req: express.Request, res: express.Response) {
   console.log('test', req.body.autoavaliacoes);
@@ -182,14 +181,16 @@ taserver.put('/autoavalicoes/atualizar/', function (req: express.Request, res: e
     } else {
       res.send({"failure": "A autoavaliacao não pode ser atualizada"});
     }
-})
+});
 
 
-taserver.get('/alunos', function (req: express.Request, res: express.Response) {})
+taserver.get('/alunos', function (req: express.Request, res: express.Response) {
+	
+});
 
 taserver.get('/roteiros', function (req: express.Request, res: express.Response){
   res.send(JSON.stringify(cadastroRoteiro.getRoteiros()));
-})
+});
 
 taserver.post('/roteiro', function (req: express.Request, res: express.Response) {
   var roteiro: Roteiro = <Roteiro> req.body;
@@ -199,7 +200,7 @@ taserver.post('/roteiro', function (req: express.Request, res: express.Response)
   } else {
     res.send({"failure": "O roteiro não pode ser cadastrado"});
   }
-})
+});
 
 taserver.put('/roteiro', function (req: express.Request, res: express.Response) {
   var roteiro: Roteiro = <Roteiro> req.body;
@@ -209,17 +210,17 @@ taserver.put('/roteiro', function (req: express.Request, res: express.Response) 
   } else {
     res.send({"failure": "O roteiro não pode ser atualizado"});
   }
-})
+});
 
 taserver.delete('/roteiro/:descricao', function (req: express.Request, res: express.Response) {
   var descricao: string = <string> req.params.descricao;
-  descricao = cadastroRoteiro.removerRoteiro(descricao);
-  if (descricao) {
+  var result : Roteiro = cadastroRoteiro.removerRoteiro(descricao);
+  if (result) {
     res.send({"success": "O roteiro foi removido com sucesso"});
   } else {
     res.send({"failure": "O roteiro não pode ser removido"});
   }
-})
+});
 
 taserver.post('/adicionar-turma', function (req: express.Request, res: express.Response){
     var turma: Turma = <Turma> req.body;
@@ -234,10 +235,12 @@ taserver.post('/adicionar-turma', function (req: express.Request, res: express.R
     }
 });
 
-  taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: express.Response) {
-    const descricoes: string[] = req.query.turmas.split(',');
+
+taserver.get('/comparacao-de-desempenho', function (req: express.Request, res: express.Response) {
+    const descricoes: string[] = (req.query.turmas as string).split(',');
     res.send(JSON.stringify(turmas.getResumos(descricoes)));
 });
+
 function closeServer(): void {
 server.close();
 }

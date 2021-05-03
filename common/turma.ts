@@ -1,5 +1,5 @@
 import { Matricula } from './matricula';
-import { Roteiro } from './roteiro';
+import { AgendamentoRoteiro } from './AgendamentoRoteiro';
 import { Aluno } from './aluno';
 import { Avaliacao } from '../ta-server/avaliacao';
 
@@ -15,26 +15,27 @@ export class Turma {
         this.descricao = from.descricao;
         this.metas = from.metas;
         this.matriculas = from.matriculas;
-        this.roteiros = from.roteiros;
+        this.agendamentos = from.agendamentos;
         this.monitores = from.monitores;
         this.numeroMatriculas = from.numeroMatriculas;
-    
-    constructor() {
-      this.descricao = "";
+    }
+	
+    constructor(desc = "") {
+      this.descricao = desc;
       this.metas = [];
       this.matriculas = [];
-      this.roteiros = [];
+      this.agendamentos = [];
       this.monitores = [];
       this.numeroMatriculas = 0;
     }
 
-    addRoteiro(roteiro: Roteiro): void {
-      this.roteiros.push(roteiro);
+    addAgendamento(agendamento: AgendamentoRoteiro): void {
+      this.agendamentos.push(agendamento);
     }
 
     getNumMatriculas(): number {
-        return this.numeroMatriculas
-
+        return this.numeroMatriculas;
+	}
 
     getNumAprovados(): number{
         return 0;
@@ -57,16 +58,9 @@ export class Turma {
         return this.matriculas;
     }
 
-    getAgendamentoRoteiros(): Roteiro[] {
-        return [];
-
-    getRoteiros(): Roteiro[] {
-        return this.roteiros;
-    }
-    
-    getMetas(): string[]{
-        return this.metas;
-    }
+    getAgendamentosRoteiro(): AgendamentoRoteiro[] {
+        return this.agendamentos;
+	}
 
     getDescricao(): string{
         return this.descricao;
@@ -80,11 +74,7 @@ export class Turma {
     getPercentual(meta: string, conceito: string): number{
         return 0;
     }
-      
-	addAgendamento(ar: AgendamentoRoteiro){
-		agendamentos.push(ar);
-	}
-
+	
     addMetas(metasClonadas: string[]){
         this.metas = this.metas.concat(metasClonadas);
     }

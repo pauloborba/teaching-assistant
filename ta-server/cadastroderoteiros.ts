@@ -25,7 +25,7 @@ export class CadastroDeRoteiros{
          return !this.roteiros.find(a => a.descricao == descricao);
        }
 
-       removerRoteiro (descricao: string): string{
+       removerRoteiro (descricao: string): Roteiro{
          var result: Roteiro = this.roteiros.find(a => a.descricao == descricao);
          if(result){
            var index = this.roteiros.indexOf(result);
@@ -35,5 +35,9 @@ export class CadastroDeRoteiros{
            return null;
          }
        }
+	   
+	   getRoteiros () : Roteiro[]{
+		   return this.roteiros;
+	   }
 
 }

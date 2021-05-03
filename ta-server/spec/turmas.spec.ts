@@ -14,7 +14,7 @@ describe('Turmas:', () => {
             resumos = turmas.getResumos(descricoes);
         });
 
-        afterAll(() => descricoes.forEach(descricao => turmas.removerTurma(descricao)));
+        afterAll(() =>descricoes.forEach(descricao => turmas.removerTurma(new Turma(descricao))));
         
         it('retorna resumos com descrição, média e índice de reprovação', () => {
             resumos.forEach(resumo => {

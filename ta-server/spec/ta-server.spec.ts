@@ -16,6 +16,8 @@ describe("O servidor", () => {
   it("não envia email caso não haja informações sobre a descrição da turma",() =>{
     var turma: Turma = new Turma();
     turma.descricao="";
+    var notUrl : URL = new URL(base_url+"turma");
+    notUrl.searchParams.append("descricao", turma.descricao);
     var options: any = { method: 'POST', uri:notUrl, body:  turma,json:true}
     return request.post(options).then(body=>
         expect(body).toEqual("Faltam informações da turma!"))
@@ -26,6 +28,8 @@ describe("O servidor", () => {
 it("envia email normalmente",() =>{
     var turma: Turma = new Turma();
     turma.descricao="32131";
+    var notUrl : URL = new URL(base_url+"turma");
+    notUrl.searchParams.append("descricao", turma.descricao);
     var options: any = { method: 'POST', uri:notUrl, body:  turma,json:true}
     return request.post(options).then(body=>
         expect(body).toEqual(turma))
@@ -44,7 +48,6 @@ it("envia email normalmente",() =>{
                 .catch(e => {
                    expect(e).toEqual(null)
                 });
-      })
     });
 
   it("cadastro de roteiros", () => {
@@ -95,9 +98,7 @@ it("envia email normalmente",() =>{
               .catch(err => {
                  expect(err).toEqual(null)
               });
- })
-
-});
+	});
 
   it("retorna turma com base na descricao", () => {
     var turmaJson = '{"descricao":"ESS 2018.1","metas":["Requisitos","Gerência de Configuração","Testes"],"matriculas":[],"roteiros":[],"monitores":[],"numeroMatriculas":0}'

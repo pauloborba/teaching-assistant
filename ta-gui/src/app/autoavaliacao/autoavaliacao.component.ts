@@ -16,8 +16,7 @@ import { AutoavaliacaoService } from './autoavaliacao.service';
 
 export class AutoavaliacaoComponent implements OnInit {
 
-  constructor(private aaService: AutoavaliacaoService) {}
-
+  
   cpf: string = "";
   descricaoTurma: string = "";
 

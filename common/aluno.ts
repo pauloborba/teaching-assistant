@@ -1,7 +1,7 @@
 export class Aluno {
-    nome: String;
-    cpf: String;
-    email: String;
+    nome: string;
+    cpf: string;
+    email: string;
     metas: Map<string,string>;
     
     getNome(): String {
