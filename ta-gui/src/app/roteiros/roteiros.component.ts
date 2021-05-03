@@ -26,7 +26,7 @@ export class RoteirosComponent implements OnInit {
 
   cadastroNaTurma(descricao: string, roteiro: Roteiro): void {
     this.stubTurmas.cadastroRoteiro(descricao, roteiro);
-    console.log(this.stubTurmas.getTurma(descricao).getRoteiros());
+    console.log(this.stubTurmas.getTurma(descricao).getAgendamentosRoteiro());
   }
 
   ngOnInit() {

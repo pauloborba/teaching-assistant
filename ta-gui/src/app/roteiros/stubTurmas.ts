@@ -1,5 +1,6 @@
 import { Turma } from '../../../../common/turma';
 import { Roteiro } from '../../../../common/roteiro';
+import { AgendamentoRoteiro } from '../../../../common/AgendamentoRoteiro';
 
 export class StubTurmas {
     turmas: Turma[ ] = [ ]
@@ -20,7 +21,7 @@ export class StubTurmas {
 
     cadastroRoteiro(descricao: string, roteiro: Roteiro): void{
       var result: Turma = this.turmas.find(a => a.descricao == descricao);
-      result.addRoteiro(roteiro);
+      result.addAgendamento(new AgendamentoRoteiro(roteiro));
     }
 
     getTurmas(): string[]{

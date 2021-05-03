@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdicionarTurmaService } from './adicionar-turma.service'
 import { Matricula } from '../../../../../common/matricula';
 import { Aluno } from '../../../../../common/aluno'
-import { Roteiro } from '../../../../../ta-server/roteiro'
+import { Roteiro } from '../../../../../common/roteiro'
 import { Turma } from '../../../../../common/turma'
  
 @Component({

@@ -46,6 +46,8 @@ export class AutoavaliacaoComponent implements OnInit {
   erro_turma: boolean = false;
   selectedMetas: string[] = [];
   index = -1;
+  metas :string[] = []
+  autoavaliacoes : Avaliacao[] = [];
 
   constructor(private aaService: AutoavaliacaoService) { }
 
