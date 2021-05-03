@@ -2,12 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { retry, map } from 'rxjs/operators';
-
 import { Matricula } from '../../../../common/matricula';
-import { Aluno } from '../../../../common/aluno';
-import { Avaliacao } from '../../../../ta-server/avaliacao';
-import { Turma } from '../../../../common/turma';
-import { Turmas } from '../../../../ta-server/turmas';
+
 
 @Injectable()
 export class SheetImportService {
@@ -29,8 +25,7 @@ export class SheetImportService {
 
   hasnota(descricaoTurma: string): Observable<boolean>{
     let getUrl = this.taURL + `/importacaodenota?turma=${descricaoTurma}`;
-    console.log(getUrl);
-    //let response = this.http.get<string[]>(getUrl, { headers: this.headers });
+    
     return this.http.get<any>(getUrl,  {headers: this.headers})
     .pipe(
       retry(2),
@@ -39,8 +34,7 @@ export class SheetImportService {
 
   getMatriculas(descricaoTurma: string): Observable<any>{
     let getUrl = this.taURL + `/matriculas?turma=${descricaoTurma}`;
-    console.log(getUrl);
-    //let response = this.http.get<string[]>(getUrl, { headers: this.headers });
+    
     return this.http.get<Matricula[]>(getUrl,  {headers: this.headers})
     .pipe(
       retry(2),
