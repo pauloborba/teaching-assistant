@@ -7,7 +7,7 @@
 
     background-color: rgb(200, 200, 200);
     border: 1px solid black;
-    padding: 3px;
+    padding: 6px;
 }
 
 .roteiros{
@@ -19,7 +19,7 @@
 
     background-color: rgb(200, 200, 200);
     border: 1px solid black;
-    padding: 3px;
+    padding: 6px;
 }
 
 
@@ -30,6 +30,7 @@
 
 .listAddedTable{
     background-color: gray;
+    align-self: baseline;
 }
 
 

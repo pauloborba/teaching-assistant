@@ -5,7 +5,9 @@
 <label for="input-data-inicio">Data fim:</label>
 <input name="input-data-fim" [(ngModel)]="dataFimNovo">
 
-<button (click)="atribuirRoteiro()" id="atribuir">Atribuir</button>
+<button (click)="atribuirRoteiros()" id="atribuir">Atribuir</button>
+
+<br><br>
 
 <div class="turmas">
     <table class="listTable">
@@ -38,7 +40,7 @@
 <div class="roteiros">
     <table class="listTable">
         <tr *ngIf="roteiros.length > 0" name="turmas" class="header">
-            <th>Turma</th>
+            <th>Roteiro</th>
             <th>Adicionar</th>
         </tr>
         <tr *ngFor="let r of roteiros;" name="alunoList">
@@ -46,14 +48,14 @@
             <td><button (click)="adicionarRoteiro(r)" name="add">Adicionar</button></td>
         </tr>
     </table>
-    
+
     <div class="arrow">
         <i class="fas fa-angle-double-right"></i>
     </div>
 
     <table class="listAddedTable">
         <tr name="turmas" class="header">
-            <th>Turma</th>
+            <th>Roteiro</th>
             <th>Remover</th>
         </tr>
         <tr *ngFor="let r of roteirosSelecionados;" name="addedList">
