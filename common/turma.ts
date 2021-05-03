@@ -30,7 +30,11 @@ export class Turma {
     }
 
     addAgendamento(agendamento: AgendamentoRoteiro): void {
-      this.agendamentos.push(agendamento);
+        var tempRoteiros = this.agendamentos.filter( t => t.roteiro.descricao == agendamento.roteiro.descricao );
+
+        if(tempRoteiros.length==0){
+            this.agendamentos.push(agendamento);
+        }
     }
 
     getNumMatriculas(): number {
