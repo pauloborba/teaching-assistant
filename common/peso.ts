@@ -1,8 +1,8 @@
-export class Media {
-    media: String = '';
+  export class Peso {
+    peso: String = '';
   
-    copyFrom(from: Media): void {
-      this.media = from.media;
+    copyFrom(from: Peso): void {
+      this.peso = from.peso;
     }
   }
   

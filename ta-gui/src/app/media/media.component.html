@@ -11,12 +11,7 @@
               </datalist>
           </td>
   
-          <td *ngIf="descricaoTurmaSelecionada != '' && matriculas.length > 0"><label for="add-matricula-cpf">Matricula</label></td>
-          <td *ngIf="descricaoTurmaSelecionada != '' && matriculas.length > 0"><input id="add-matricula-cpf" list="alunoDataList" [(ngModel)]="alunoSelecionado" (change)="atualizaAlunoSelecionado()">
-              <datalist id="alunoDataList">
-                  <option *ngFor="let m of matriculas" [value]="m.aluno.cpf + ' - ' + m.aluno.nome">
-              </datalist>
-          </td>
+          
   
         </tr>
       </table>
@@ -37,7 +32,7 @@
       </div>
     </div>
   
-    <div class="matriculas-cadastrados" *ngIf="matriculas.length > 0 && descricaoTurmaSelecionada != '' && alunoSelecionado != ''">
+    <div class="matriculas-cadastrados" *ngIf="descricaoTurmaSelecionada != ''">
       <h1>Turma Selecionada - <span class="turma-nome">{{turmaSelecionada.descricao}}</span></h1>
   
       <table class="matriculas-table">
@@ -49,21 +44,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="matricula" *ngFor="let a of matriculaSelecionada.avaliacoes">
-          
-            <td class="matriculas-email">{{a.meta}}</td>
+          <tr class="matricula" *ngFor="let a of turmaSelecionada.metas; let i = index">
+            <td class="matriculas-email">{{a}}</td>
             
-            <td class="matriculas-peso">{{turmaSelecionada.peso}}</td>            
-  
-            <td *ngIf="avaliacaoEditar.meta !== a.meta" class="acoes">
-                <button name="editar-turma" (click)="editarNota(a)">Atribuir/Editar</button>
-                &nbsp;
-                <button name="remover-turma" (click)="removerNota(matriculaSelecionada, a)">Remover</button>
-            </td>
+            <td class="matriculas-peso">{{turmaSelecionada.peso[i]}}</td>
+            
 
-            <td *ngIf="avaliacaoEditar.meta === a.meta" class="acoes">
-              <button name="atualizar-aluno" (click)="atualizarNota(matriculaSelecionada, a)">Salvar</button>
+            <td class="acoes" >
+              <button name="editar-turma" (click)="turmaChamar.editarTurma(turmaSelecionada)">Editar</button>
+              &nbsp;
             </td>
+            <td class="acoes">
+              <button name="atualizar-turma" (click)="turmaChamar.atualizarTurma(turmaSelecionada)">Salvar</button>
+            </td>
+  
+            
           </tr>
         </tbody>
       </table>

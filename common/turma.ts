@@ -1,10 +1,12 @@
 import { Matricula } from './matricula';
 import { Roteiro } from './roteiro';
 import { Aluno } from './aluno';
+//import { Metas } from './metas';
 
 export class Turma {
   descricao: string;
   metas: string[];
+  //metas: Metas[]=[];
   peso: number[];
   vagas: number;
   matriculas: Matricula[];
@@ -25,7 +27,7 @@ export class Turma {
     this.descricao = from.descricao;
     this.vagas = from.vagas;
     this.metas = from.metas;
-    this.peso = from.peso;
+   this.peso = from.peso;
     this.matriculas = from.matriculas;
     this.roteiros = from.roteiros;
     this.monitores = from.monitores;

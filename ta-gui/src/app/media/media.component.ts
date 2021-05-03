@@ -6,6 +6,7 @@ import { Turma } from '../../../../common/turma';
 import { AlunosService } from '../alunos/alunos.service';
 import { MatriculasService } from '../matriculas/matriculas.service';
 import { TurmasService } from '../turmas/turmas.service';
+import { TurmasComponent } from '../turmas/turmas.component';
 
 @Component({
   selector: 'app-notas',
@@ -23,12 +24,14 @@ export class MediaComponent implements OnInit {
   alunoSelecionado: string = '';
   matriculaSelecionada: Matricula = new Matricula();
   descricaoTurmaSelecionada: string = '';
-  turmaSelecionada: Turma;
+  turmaSelecionada: Turma = new Turma();
   
   turmaInexistente: boolean = false;
   notaInvalida: boolean = false;
 
   avaliacaoEditar: Avaliacao = new Avaliacao();
+
+  turmaChamar: TurmasComponent;
 
   constructor(
     private matriculasService: MatriculasService,
