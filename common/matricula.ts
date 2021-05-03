@@ -42,7 +42,7 @@ export class Matricula{
         return ok;
     }
 
-    metaCheck(avaliacao){
+    metaCheck(avaliacao:Avaliacao){
         return this.avaliacoes.find(av => av.meta == avaliacao.meta);
     }
 

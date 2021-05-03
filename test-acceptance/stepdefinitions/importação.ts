@@ -10,6 +10,7 @@ let base_url = "http://localhost:3000/";
 var {setDefaultTimeout} = require('cucumber');
 var path = require('path')
 var absolutePath = "";
+var texto = "";
 setDefaultTimeout(60 * 1000);
 
 //async function getNotaBox(meta, nota) {
@@ -28,16 +29,20 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
 
-    When(/^eeu importo a planilha “test.csv”$/, async () => {
+    When(/^eu importo a planilha “test.csv”$/, async () => {
         var fileToUpload = '../stepdefinitions/test.csv',
         absolutePath = path.resolve(__dirname, fileToUpload);
         await element(by.css('input[type="file"]')).sendKeys(absolutePath);    
-        await element(by.id('uploadButton')).click();
     });
 
 
     Then(/^eu recebo confirmação do armazenamento das notas$/, async () => {
-        await expect((browser.switchTo().alert()).accept());
+        //await browser.sleep(6000)
+        await element(by.id('uploadButton')).click();
+        let mel = await browser.switchTo().alert()
+        let mel2 = await mel.getText();
+        await expect(mel2 == "A planilha foi importada com sucesso");
+        await mel.accept();
         
     });
 
@@ -59,7 +64,7 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
 
-    When(/^eu importo a planilha “test.csv”$/, async () => {
+    When(/^Eu importo a planilha “test.csv”$/, async () => {
         var fileToUpload = '../stepdefinitions/test.csv',
         absolutePath = path.resolve(__dirname, fileToUpload);
         await element(by.css('input[type="file"]')).sendKeys(absolutePath);    
@@ -96,10 +101,15 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     Then(/^as notas da coluna "2" são registradas pelo sistema$/, async () => {
         await element(by.id('uploadButton')).click();
+        let mel3 = await browser.switchTo().alert()
+        let mel4 = await mel3.getText();
+        texto = mel4;
+        //await expect(mel4 == "A planilha foi importada com sucesso");
+        await mel3.accept();
     });
 
     Then(/^eu recebo uma confirmação do armazenamento das notas$/, async () => {
-        await expect((browser.switchTo().alert()).accept());
+        await expect(texto == "A planilha foi importada com sucesso");
     });
 
 
@@ -125,6 +135,9 @@ defineSupportCode(function ({ Given, When, Then }) {
 
     Then(/^uma mensagem de erro é mostrada para o usuário$/, async () => {
         await expect((browser.switchTo().alert()).accept());
+        let mel3 = await browser.switchTo().alert()
+        let mel4 = await mel3.getText();
+        await expect(mel4 == "A planilha não foi importada");
     });
 
 })

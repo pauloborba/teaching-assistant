@@ -2,7 +2,7 @@ Feature:
 
 Scenario:“Importação de planilha completa”
 Given eu estou na página de notas da disciplina “ESS” que possui os alunos “Pedro” e “Mariana”
-When eeu importo a planilha “test.csv”
+When Eu importo a planilha “test.csv”
 Then eu recebo confirmação do armazenamento das notas
 
 Scenario:“Importação de uma planilha em um disciplina que já tem notas armazenadas”
