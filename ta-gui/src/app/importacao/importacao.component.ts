@@ -65,20 +65,20 @@ export class ImportacaoComponent implements OnInit {
     reader.onerror = this.errorHandler.bind(this);
   }
 
-  loadHandler(event, processData): void {
+  loadHandler(event, processData: Function): void {
     // Pegar o conteúdo do .csv e salvar na variável csv
     var csv = event.target.result;
     // Chamar a função que vai tratar o .csv
     this.processData(csv);
   }
   
-  errorHandler(event) {
+  errorHandler(event, processData: Function) {
     if(event.target.error.name == "NotReadableError") {
       alert("Não é possível ler o arquivo.");
     }
   }
 
-  processData = (csv): void => {
+  processData(csv: string): void {
     var csvLines = csv.split(/\r\n|\n/);
     // Retirar as 4 primeiras linhas que sempre vão vir
     csvLines = csvLines.slice(4, csvLines.length - 1);
@@ -91,7 +91,7 @@ export class ImportacaoComponent implements OnInit {
     this.createAlunos(csvLines);
   }
 
-  createAlunos(linhas:String[]): void{
+  createAlunos(linhas: String[]): void{
     // Criar um array de arrays, onde a primeira posição é o Nome do aluno, e 
     // a segunda posição é a tripla (CIn, GitHub, Slack)
     var alunos = linhas.map((aluno) => aluno.split(',').slice(0, 2));
@@ -120,7 +120,7 @@ export class ImportacaoComponent implements OnInit {
     this.EnviarAlunos(ListaDeAlunos);
   }
 
-  EnviarAlunos(alunos: Aluno[]){
+  EnviarAlunos(alunos: Aluno[]): void{
     this.enviarAlunos(alunos);
   }
 
