@@ -10,9 +10,9 @@ export class Turma {
   roteiros: Roteiro[];
   monitores: Aluno[];
 
-  constructor() {
-    this.descricao = '';
-    this.vagas = 0;
+  constructor(descricao: string = '', vagas: number = 0) {
+    this.descricao = descricao;
+    this.vagas = vagas;
     this.metas = [];
     this.matriculas = [];
     this.roteiros = [];

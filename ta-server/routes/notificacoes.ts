@@ -1,11 +1,28 @@
 import { Request, Response, Router } from 'express';
+import { AtualizacaoNotas } from '../../common/atualizacaoNotas';
+import { AtualizacoesNotas } from '../repos/atualizacoesNotas';
 import { Turma } from '../../common/turma';
 import { EmailSender } from '../emailSender';
 import { NotificacaoNotas } from '../notificacaoNotas';
 
 const notificacoesRoute = Router();
-var sender = new EmailSender();
-var notificacao: NotificacaoNotas = new NotificacaoNotas();
+const atualizacoesNotasRepo: AtualizacoesNotas = new AtualizacoesNotas();
+const sender = new EmailSender();
+const notificacao: NotificacaoNotas = new NotificacaoNotas();
+
+notificacoesRoute.get('/atualizacoes-notas', (req: Request, res: Response) => {
+  res.send(atualizacoesNotasRepo.getAtualizacoesNotas());
+});
+
+notificacoesRoute.post('/atualizacoes-notas', (req: Request, res: Response) => {
+  const atualizacaoNotas: AtualizacaoNotas = <AtualizacaoNotas>req.body;
+
+  if (atualizacoesNotasRepo.cadastrarAtualizacaoNotas(atualizacaoNotas)) {
+    res.send({ 'success': 'A atualização foi cadastrada com sucesso' });
+  } else {
+    res.send({ 'failure': 'A atualização não foi cadastrada' });
+  }
+});
 
 //recebe um endereço de email e envia a notificação para fazer a auto-avaliação
 notificacoesRoute.post('/auto-avaliacao', function (req: Request, res: Response){

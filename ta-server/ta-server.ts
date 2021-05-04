@@ -1,5 +1,8 @@
 import express = require('express');
 import bodyParser = require('body-parser');
+import { CronJob } from 'cron';
+
+import { NotificacaoNotas } from './notificacaoNotas';
 
 import alunosRoute from './routes/alunos';
 import turmasRoute from './routes/turmas';
@@ -9,6 +12,7 @@ import relatoriosRoute from './routes/relatorios';
 import notificacoesRoute from './routes/notificacoes';
 
 const taServer = express();
+const notificacaoNotas = new NotificacaoNotas();
 
 function allowCrossDomain(req: any, res: any, next: any) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -31,7 +35,19 @@ const server = taServer.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
 
+const enviarAtualizacoes = new CronJob('0 18 * * *', () => {
+  console.info((new Date()).toLocaleString('pt-BR'), 'Enviando atualizações de notas');
+  notificacaoNotas.enviarAtualizacoes();
+}, null, true, 'America/Sao_Paulo');
+
+const enviarAtualizacoesPendentes = new CronJob('0 0-17,19-23 * * *', () => {
+  console.info((new Date()).toLocaleString('pt-BR'), 'Enviando atualizações de notas pendentes');
+  notificacaoNotas.enviarAtualizacoesPendentes();
+}, null, true, 'America/Sao_Paulo');
+
 function closeServer(): void {
+  enviarAtualizacoes.stop();
+  enviarAtualizacoesPendentes.stop();
   server.close();
 }
 
