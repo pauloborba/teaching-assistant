@@ -1,4 +1,6 @@
-<p>Relatório da Turma: {{turma.descricao}} <p>
+<p>Relatório da Turma: <input type="text" [(ngModel)]="buscaTurma" (keydown.enter)="searchChange()($event)"> <button
+        (click)=searchChange()>Search</button>
+<p>
 
 <div>
     <table>
@@ -6,11 +8,15 @@
             <th>Tempo médio de resposta (min)</th>
             <th>Desvio da Média (min)</th>
             <th>Correlação Acerto x Tempo</th>
+            <th>Porcentagem de acerto do relaório das turmas</th>
         </tr>
-        <tr>
+        <tr *ngFor="let t of searchArr">
             <th>{{media}}</th>
             <th>{{desvio}}</th>
             <th>{{corr}}</th>
+            <th>A turma {{t.descricao}} teve {{questoesCertas}}% das questões acertadas. X % a mais que a turma passada
+                (2019.2 - por exemplo)
+            </th>
         </tr>
     </table>
 </div>

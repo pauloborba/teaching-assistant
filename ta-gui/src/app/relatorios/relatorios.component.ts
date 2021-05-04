@@ -5,12 +5,12 @@ import { RelatoriosService } from './relatorios.service';
 import { Roteiro } from '../../../../common/roteiro';
 
 @Component({
-    selector: 'app-relatorio',
-    templateUrl: './relatorios.component.html',
-    styleUrls: ['./relatorios.component.css'],
-    providers: [RelatoriosService]
-  })
-export class RelatoriosComponent implements OnInit{
+  selector: 'app-relatorio',
+  templateUrl: './relatorios.component.html',
+  styleUrls: ['./relatorios.component.css'],
+  providers: [RelatoriosService]
+})
+export class RelatoriosComponent implements OnInit {
 
   turma: Turma;
   roteiros: Roteiro[];
@@ -18,22 +18,38 @@ export class RelatoriosComponent implements OnInit{
   media: Number;
   desvio: Number;
   corr: Number;
+  questoesCertas: number;
+  questoesErradas: String;
+  descricao: String;
+  buscaTurma: String;
+  searchArr: Turma[];
 
   constructor(private service: RelatoriosService) {
-   }
+  }
 
   ngOnInit() {
-    // @ts-ignore
-    this.turma = this.service.getTurma('ess')
-    .subscribe(
-      (as) => {
-        this.turma = as;
-        this.media = this.getMedia(this.turma);
-        this.desvio = this.getDesvio(this.turma);
-        this.corr = this.getCorr(this.turma);
-      }
-    );
+    this.searchArr = [];
+    this.questoesCertas = 80.05; //nota simulada
+    this.questoesErradas = (100 - this.questoesCertas).toFixed(2);
+    // this.descricao = '2020.1';
 
+  }
+
+  searchChange(): void {
+    // @ts-ignore
+    this.turma = this.service.getTurma(this.buscaTurma)
+      .subscribe(
+        (as) => {
+          this.turma = as;
+          if (as) {
+            this.searchArr.push(as);
+          }
+          this.questoesCertas = this.questoesCertas;
+          this.questoesErradas = this.questoesErradas;
+          this.descricao = this.descricao;
+          console.log(this.searchArr);
+        }
+      );
   }
 
   getMedia(turma: Turma): Number {
@@ -51,11 +67,11 @@ export class RelatoriosComponent implements OnInit{
         somaDuracao += questao.duracao;
         count += 1;
       });
-      medias.push(somaDuracao/count);
-      });
+      medias.push(somaDuracao / count);
+    });
 
-    for(var i = 0; i < medias.length; i++) {
-        total += medias[i];
+    for (var i = 0; i < medias.length; i++) {
+      total += medias[i];
     }
     var media = total / medias.length;
 
@@ -76,11 +92,11 @@ export class RelatoriosComponent implements OnInit{
         count += 1;
       })
 
-      })
+    })
 
-    return desvio/count
+    return desvio / count
 
-    }
+  }
 
   getCorr(turma): Number {
     let matriculas = this.turma.matriculas;
@@ -93,16 +109,16 @@ export class RelatoriosComponent implements OnInit{
 
     matriculas.forEach(matricula => {
       matricula.respostasDeRoteiros['respostasDeQuestoes'].forEach(questao => {
-        if(questao.correcao == 'Errado'){
-          measurements.push({duracao:questao.duracao, correcao: 0});
+        if (questao.correcao == 'Errado') {
+          measurements.push({ duracao: questao.duracao, correcao: 0 });
         }
-        else if (questao.correcao == 'Certo'){
-          measurements.push({duracao:questao.duracao, correcao: 1});
+        else if (questao.correcao == 'Certo') {
+          measurements.push({ duracao: questao.duracao, correcao: 1 });
         }
       })
       console.log(measurements);
 
-      })
+    })
 
     let stats = new Statistics(measurements, vars);
     var r = stats.correlationCoefficient('duracao', 'correcao');
