@@ -1,79 +1,104 @@
-<h3>Atribuir Roteiro:</h3>
-<label for="input-data-inicio">Data inicio:</label>
-<input name="input-data-inicio" [(ngModel)]="dataInicioNovo">
-&nbsp;
-<label for="input-data-inicio">Data fim:</label>
-<input name="input-data-fim" [(ngModel)]="dataFimNovo">
-
-<button (click)="atribuirRoteiros()" id="atribuir">Atribuir</button>
-
-<br><br>
-
-<div class="turmas">
-    <div class="container">
-        <strong>Lista de turmas</strong>
-        <table class="listTable">
-            <tr *ngIf="turmas.length > 0" name="turmas" class="header">
-                <th>Turma</th>
-                <th>Adicionar</th>
-            </tr>
-            <tr *ngFor="let a of turmas;" name="alunoList">
-                <td name="nomelist">{{a.getDescricao()}}</td>
-                <td><button (click)="adicionarTurma(a)" name="add">Adicionar</button></td>
-            </tr>
-        </table>
+<body (mousemove)="hide()">
+    <div *ngIf='mensagem!=""' id="avisos" >
+        <h3 id="mensagem">
+            {{mensagem}}
+        </h3>
+        <div *ngIf="resultados.length > 0" id="turmas">
+            <table *ngFor="let a of resultados;" class="listTable">
+                <tr class="header">
+                    <th name="turma" colspan="3">Turma {{a.descricao}}</th>
+                </tr>
+                <tr class="header">
+                    <th>Roteiro</th>
+                    <th>Data Inicio</th>
+                    <th>Data Fim</th>
+                </tr>
+                <tr *ngFor="let r of a.agendamentos;" name="alunoList">
+                    <td name="nomelist">{{r.roteiro.descricao}}</td>
+                    <td name="nomelist">{{r.dataInicio}}</td>
+                    <td name="nomelist">{{r.dataFim}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
-    <div class="arrow">
-        <i class="fas fa-angle-double-right"></i>
+    <br><br>
+    <h3>Atribuir Roteiro:</h3>
+    <label for="input-data-inicio">Data inicio:</label>
+    <input name="input-data-inicio" [(ngModel)]="dataInicioNovo">
+    &nbsp;
+    <label for="input-data-inicio">Data fim:</label>
+    <input name="input-data-fim" [(ngModel)]="dataFimNovo">
+
+    <button (click)="atribuirRoteiros()" id="atribuir">Atribuir</button>
+
+    <br><br>
+
+    <div class="turmas">
+        <div class="container">
+            <strong>Lista de turmas</strong>
+            <table class="listTable">
+                <tr *ngIf="turmas.length > 0" name="turmas" class="header">
+                    <th>Turma</th>
+                    <th>Adicionar</th>
+                </tr>
+                <tr *ngFor="let a of turmas;" name="alunoList">
+                    <td name="nomelist">{{a.getDescricao()}}</td>
+                    <td><button (click)="adicionarTurma(a)" name="add">Adicionar</button></td>
+                </tr>
+            </table>
+        </div>
+        <div class="arrow">
+            <i class="fas fa-angle-double-right"></i>
+        </div>
+
+        <div class="container">
+            <strong>Turmas Selecionadas</strong>
+            <table class="listAddedTable">
+                <tr name="turmas" class="header">
+                    <th>Turma</th>
+                    <th>Remover</th>
+                </tr>
+                <tr *ngFor="let a of turmasSelecionadas;" name="addedList">
+                    <td name="nomelist">{{a.getDescricao()}}</td>
+                    <td><button (click)="removerTurma(a)" name="add">Remover</button></td>
+                </tr>
+            </table>
+        </div>
     </div>
 
-    <div class="container">
-        <strong>Turmas Selecionadas</strong>
-        <table class="listAddedTable">
-            <tr name="turmas" class="header">
-                <th>Turma</th>
-                <th>Remover</th>
-            </tr>
-            <tr *ngFor="let a of turmasSelecionadas;" name="addedList">
-                <td name="nomelist">{{a.getDescricao()}}</td>
-                <td><button (click)="removerTurma(a)" name="add">Remover</button></td>
-            </tr>
-        </table>
-    </div>
-</div>
+    <br>
+    <div class="roteiros">
+        <div class="container">
+            <strong>Lista de roteiros</strong>
+            <table class="listTable">
+                <tr *ngIf="roteiros.length > 0" name="turmas" class="header">
+                    <th>Roteiro</th>
+                    <th>Adicionar</th>
+                </tr>
+                <tr *ngFor="let r of roteiros;" name="alunoList">
+                    <td name="nomelist">{{r.descricao}}</td>
+                    <td><button (click)="adicionarRoteiro(r)" name="add">Adicionar</button></td>
+                </tr>
+            </table>
+        </div>
 
-<br>
-<div class="roteiros">
-    <div class="container">
-        <strong>Lista de roteiros</strong>
-        <table class="listTable">
-            <tr *ngIf="roteiros.length > 0" name="turmas" class="header">
-                <th>Roteiro</th>
-                <th>Adicionar</th>
-            </tr>
-            <tr *ngFor="let r of roteiros;" name="alunoList">
-                <td name="nomelist">{{r.descricao}}</td>
-                <td><button (click)="adicionarRoteiro(r)" name="add">Adicionar</button></td>
-            </tr>
-        </table>
+        <div class="arrow">
+            <i class="fas fa-angle-double-right"></i>
+        </div>
+
+        <div class="container">
+            <strong>Roteiros Selecionados</strong>
+            <table class="listAddedTable">
+                <tr name="turmas" class="header">
+                    <th>Roteiro</th>
+                    <th>Remover</th>
+                </tr>
+                <tr *ngFor="let r of roteirosSelecionados;" name="addedList">
+                    <td name="nomelist">{{r.descricao}}</td>
+                    <td><button (click)="removerRoteiro(r)" name="add">Remover</button></td>
+                </tr>
+            </table>
+        </div>
     </div>
 
-    <div class="arrow">
-        <i class="fas fa-angle-double-right"></i>
-    </div>
-
-    <div class="container">
-        <strong>Roteiros Selecionados</strong>
-        <table class="listAddedTable">
-            <tr name="turmas" class="header">
-                <th>Roteiro</th>
-                <th>Remover</th>
-            </tr>
-            <tr *ngFor="let r of roteirosSelecionados;" name="addedList">
-                <td name="nomelist">{{r.descricao}}</td>
-                <td><button (click)="removerRoteiro(r)" name="add">Remover</button></td>
-            </tr>
-        </table>
-    </div>
-</div>
-
+</body>

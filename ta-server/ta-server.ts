@@ -238,8 +238,29 @@ taserver.post('/adicionar-turma', function (req: express.Request, res: express.R
 
 taserver.post('/atribuir-roteiro', function (req: express.Request, res: express.Response){
   try{
+    turmas.cadastrarTurma(new Turma("1"));
+    turmas.cadastrarTurma(new Turma("2"));
+    turmas.cadastrarTurma(new Turma("3"));
+    
+
+    var tempr1 : Roteiro = new Roteiro();
+    tempr1.descricao = "aa";
+    cadastroRoteiro.cadastrarRoteiro(tempr1);
+
+    var tempr2 : Roteiro = new Roteiro();
+    tempr2.descricao = "ab";
+    cadastroRoteiro.cadastrarRoteiro(tempr2);
+
+    var tempr3 : Roteiro = new Roteiro();
+    tempr3.descricao = "ac";
+    cadastroRoteiro.cadastrarRoteiro(tempr3);
+
+    
     var listaTurmas: Turma[] = <Turma[]> req.body.turmas;
     var roteiros: Roteiro[] = <Roteiro[]> req.body.roteiros;
+    if (listaTurmas.length==0) throw new Error("Nenhuma turma foi selecionada");
+    if (roteiros.length==0) throw new Error("Nenhum roteiro foi selecionado");
+    
     
     var dataInicio : string = <string> req.body.dataInicio;
     var dataFim : string = <string> req.body.dataFim;
@@ -254,11 +275,16 @@ taserver.post('/atribuir-roteiro', function (req: express.Request, res: express.
         turmas.atualizarTurma(tempTurma);
       });
     });
+    
+    
+    var returnVal : Turma[] = [];
+    listaTurmas.forEach( t=> returnVal.push(turmas.getTurma(t.descricao)));
+    console.log(returnVal);
 
-    var responseParams = {"turmas":turmas, "roteiros": roteiros, "dataInicio":dataInicio, "dataFim": dataFim };
+    var responseParams = {"turmas":returnVal};
     res.send(JSON.stringify(responseParams));
   }catch(Error){
-    var responseParams2 = {"failure":"Erro ao atribuir roteiros" };
+    var responseParams2 = {"failure": Error.message };
     res.send(JSON.stringify(responseParams2));
   }
 });

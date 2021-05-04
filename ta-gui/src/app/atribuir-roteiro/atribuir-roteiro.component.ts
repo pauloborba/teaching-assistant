@@ -33,7 +33,10 @@ export class AtribuirRoteiroComponent implements OnInit {
   dataInicioNovo : string = "";
   dataFimNovo : string = "";
   turmas : Turma[] = [];
+  resultados : Turma[] = [];
+
   turmasSelecionadas : Turma[] = [];
+  mensagem: string = "";
   
   roteiros : Roteiro[] = [];
   roteirosSelecionados : Roteiro[] = [];
@@ -70,16 +73,24 @@ export class AtribuirRoteiroComponent implements OnInit {
       .subscribe(
         ar => {
           if (ar) {
-            alert("ok");
-            console.log(ar);
+            this.mensagem = "Roteiros adicionados com sucesso";
+            this.resultados = (ar.turmas as Turma[]);
+            console.log(this.resultados);
           }
         },
-        msg => { alert(msg.message); }
+        msg => { 
+          this.mensagem = msg;
+        }
       );
     
   }
 
   ngOnInit() {
+  }
+  hide(): void{
+    this.mensagem = "";
+    this.resultados = [];
+
   }
 
 }
