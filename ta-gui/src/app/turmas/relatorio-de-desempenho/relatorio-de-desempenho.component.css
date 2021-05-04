@@ -1,0 +1,79 @@
+.turmas-container {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.turmas-cadastro {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.turmas-cadastro table {
+  display: table;
+  justify-content: space-evenly;
+}
+
+button.add-turma {
+  color: black;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 6px 30px;
+}
+
+button.add-turma:hover {
+  background-color: #4eb1ba;
+  color: white;
+}
+
+.turmas-cadastradas {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.turmas-table {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+.turmas-table td, .turmas-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.turmas-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.turmas-table tr:hover {
+  background-color: #ddd;
+}
+
+.turmas-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #4EB1BA;
+  color: white;
+}
+
+.turma-repetida {
+  padding-top: 10px;
+  text-align: center;
+}
+
+#dadosFaltando {
+  color: red;
+}

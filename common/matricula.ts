@@ -8,9 +8,21 @@ export class Matricula {
   autoAvaliacoes: Avaliacao[] = [];
   monitor: Aluno;
   respostasDeRoteiros: RespostaDeRoteiro[] = [];
+  _media: number = 0;
+  _reprovouPorFalta: boolean = false;
 
   get aprovado(): boolean {
-    return false; /* TODO */
+    return this._media >= 5;
+  }
+
+  copyFrom(from: Matricula): void {
+    this.aluno = from.aluno;
+    this.avaliacoes = from.avaliacoes;
+    this.autoAvaliacoes = from.autoAvaliacoes;
+    this.monitor = from.monitor;
+    this.respostasDeRoteiros = from.respostasDeRoteiros;
+    this._media = from._media;
+    this._reprovouPorFalta = from._reprovouPorFalta;
   }
 
   atualizarAutoAvaliacoes(autoAvaliacoesAtualizadas: Avaliacao[]): Avaliacao[] {
@@ -28,7 +40,19 @@ export class Matricula {
     return this.autoAvaliacoes;
   }
 
+  get reprovadoPorFalta(){
+    return this._reprovouPorFalta;
+  }
+
+  set reprovadoPorFalta(value: boolean){
+    this._reprovouPorFalta = value;
+  }
+
   get media(): number {
-    return 0; /* TODO */
+    return this._media;
+  }
+
+  set media(value: number){
+      this._media = value;
   }
 }

@@ -1,16 +1,62 @@
-<p>Relatório da Turma: {{turma.descricao}} <p>
+<div class="relatorio-container">
+    <div class="relatorio-cadastro">
+        <h1>Cadastro de notas</h1>
 
-<div>
-    <table>
-        <tr>
-            <th>Tempo médio de resposta (min)</th>
-            <th>Desvio da Média (min)</th>
-            <th>Correlação Acerto x Tempo</th>
-        </tr>
-        <tr>
-            <th>{{media}}</th>
-            <th>{{desvio}}</th>
-            <th>{{corr}}</th>
-        </tr>
-    </table>
+        <table>
+            <tr>
+                <td><label for="add-turma-descricao">Turma 1</label></td>
+                <td><input id="add-turma-descricao" list="turmaDataList" [(ngModel)]="descricaoTurmaSelecionada"
+                        (change)="atualizaTurmaSelecionada()">
+                    <datalist id="turmaDataList">
+                        <option *ngFor="let turma of listaTurmas" [value]="turma.descricao">
+                    </datalist>
+                </td>
+
+                <td *ngIf="descricaoTurmaSelecionada != ''"><label>Turma 2</label></td>
+                <td *ngIf="descricaoTurmaSelecionada != ''"><input list="turmaDataList"
+                        [(ngModel)]="descricaoTurmaSelecionada2" (change)="atualizaTurmaSelecionada2()">
+                    <datalist id="turmaDataList">
+                        <option *ngFor="let turma of listaTurmas" [value]="turma.descricao">
+                    </datalist>
+                </td>
+
+            </tr>
+        </table>
+        <div class="turma-repetida" *ngIf="turmaInexistente">
+            <span>
+                Não existe turma com essa descrição.<br>
+                Por favor, tente novamente.
+            </span>&nbsp;
+            <button (click)="turmaInexistente=false"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+    </div>
+
+    <div class="relatorio-cadastrados" *ngIf="descricaoTurmaSelecionada != ''">
+        <h1>Comparativo entre turmas <span class="turma-nome">{{turmaSelecionada.descricao}}</span> e <span
+                class="turma-nome">{{turmaSelecionada2.descricao}}</span></h1>
+
+        <table class="relatorio-table">
+            <thead>
+                <tr>
+                    <th>Tempo médio de resposta (min)</th>
+                    <th>Desvio da Média (min)</th>
+                    <th>Correlação Acerto x Tempo</th>
+                    <th>Comparação de acertos no relatório entre duas turmas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="relatorio">
+                    <td class="relatorio-tempo-medio">X</td>
+
+                    <td class="relatorio-desvio-media">X</td>
+
+                    <td class="relatorio-corr">X</td>
+
+                    <td class="relatorio-nota">
+                        {{mensagemComparacao}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

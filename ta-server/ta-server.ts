@@ -7,6 +7,7 @@ import autoAvaliacoesRoute from './routes/autoAvaliacoes';
 import roteirosRoute from './routes/roteiros';
 import relatoriosRoute from './routes/relatorios';
 import notificacoesRoute from './routes/notificacoes';
+import matriculasRoute from './routes/matriculas';
 
 const taServer = express();
 
@@ -21,6 +22,7 @@ taServer.use(allowCrossDomain);
 taServer.use(bodyParser.json());
 
 taServer.use('/alunos', alunosRoute);
+taServer.use('/matriculas', matriculasRoute);
 taServer.use('/turmas', turmasRoute);
 taServer.use('/auto-avaliacoes', autoAvaliacoesRoute);
 taServer.use('/roteiros', roteirosRoute);

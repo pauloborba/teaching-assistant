@@ -1,3 +1,4 @@
+import { RelatorioDeDesempenho } from './../../common/relatorioDesempenho';
 import { Turma } from '../../common/turma';
 
 export class Turmas {

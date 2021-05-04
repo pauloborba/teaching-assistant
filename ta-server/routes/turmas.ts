@@ -1,3 +1,4 @@
+import { RelatorioDeDesempenho } from './../../common/relatorioDesempenho';
 import { Request, Response, Router } from 'express';
 import { Turma } from '../../common/turma';
 import { Turmas } from '../repos/turmas';
