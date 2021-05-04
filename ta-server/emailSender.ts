@@ -6,7 +6,8 @@ export class EmailSender {
         'De: <' + from + '>\n' +
         'Para: <' + to + '>\n' +
         'Assunto: ' + subject + '\n' +
-        message + '\n' +
+        'Mensagem: ---------------\n'
+        + message + '\n' +
         '-------------------------\n');
     return true;
   }

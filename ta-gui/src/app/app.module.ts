@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { AlunosComponent } from './alunos/alunos.component';
 import { TurmasComponent } from './turmas/turmas.component';
 import { RelatoriosComponent } from './relatorios/relatorios.component';
+import { AtualizacoesComponent } from './atualizacoes/atualizacoes.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
 import { DiscrepantesComponent } from './discrepantes/discrepantes.component';
@@ -18,6 +19,7 @@ import { ComparacaoDeDesempenhoComponent } from './comparacao-de-desempenho/comp
 import { AlunosService } from './alunos/alunos.service';
 import { TurmasService } from './turmas/turmas.service';
 import { RelatoriosService } from './relatorios/relatorios.service';
+import { AtualizacoesService } from './atualizacoes/atualizacoes.service';
 import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
 import { RoteirosService } from './roteiros/roteiros.service';
 import { DiscrepantesService } from './discrepantes/discrepantes.service';
@@ -29,6 +31,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
     AlunosComponent,
     TurmasComponent,
     RelatoriosComponent,
+    AtualizacoesComponent,
     AutoavaliacaoComponent,
     RoteirosComponent,
     DiscrepantesComponent,
@@ -53,6 +56,10 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
         component: RelatoriosComponent
       },
       {
+        path: 'atualizacoes-notas',
+        component: AtualizacoesComponent
+      },
+      {
         path: 'auto-avaliacao',
         component: AutoavaliacaoComponent
       },
@@ -70,7 +77,7 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
       }
     ])
   ],
-  providers: [ AlunosService, TurmasService, RelatoriosService, AutoavaliacaoService, RoteirosService, DiscrepantesService, ComparacaoDeDesempenhoService,  ],
+  providers: [ AlunosService, TurmasService, RelatoriosService, AtualizacoesService, AutoavaliacaoService, RoteirosService, DiscrepantesService, ComparacaoDeDesempenhoService,  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

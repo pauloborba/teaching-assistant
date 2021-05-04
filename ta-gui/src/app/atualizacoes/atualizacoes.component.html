@@ -1,0 +1,43 @@
+<div class="atualizacoes-container">
+  <h1>Lista de atualizações de notas</h1>
+
+  <div class="atualizacoes-cadastradas" *ngIf="atualizacoes.length">
+    <table class="atualizacoes-table">
+      <thead>
+        <tr>
+          <th>Turma</th>
+          <th>Aluno</th>
+          <th>Notas atualizadas</th>
+          <th>Data e hora</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="atualizacao" *ngFor="let a of atualizacoes">
+          <td class="atualizacao-turma">{{a.turma.descricao}}</td>
+          <td class="atualizacao-aluno">{{a.aluno.nome}}</td>
+          <td class="atualizacao-notas">
+            <span *ngFor="let n of a.avaliacoes">
+              <span>{{n.meta}}</span>: <span>{{n.nota}}</span><br>
+            </span>
+          </td>
+          <td class="atualizacao-data-hora">
+            <span>{{a.dataHora.toLocaleString('pt-BR')}}</span><br>
+            <span *ngIf="a.erroEnvio">
+              <br>
+              Erro: {{a.erroEnvio}}<br>
+              <span>Próxima tentativa: {{proximaTentativa.toLocaleString('pt-BR')}}</span>
+            </span>
+          </td>
+        </tr>
+        <tr class="atualizacao-proximo-envio">
+          <td colspan="3"></td>
+          <td>Próximo envio: {{proximoEnvio.toLocaleString('pt-BR')}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!atualizacoes.length">
+    <h3 id="atualizacao-nenhuma">Nenhuma atualização.</h3>
+  </div>
+</div>
