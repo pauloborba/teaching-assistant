@@ -123,25 +123,4 @@ export class Turma {
 	getPercentual(meta: string, conceito: string): number {
 		return 0; /* TODO */
 	}
-
-	getRelatorioDesempenho(): RelatorioDeDesempenho {
-		const relatorio = {
-			turma: this.descricao,
-			aprovados: this.numAprovados,
-			reprovados: this.numReprovados,
-			aprovadosPorMedia: this.numAprovadosPorMedia,
-			reprovadosPorFalta: this.reprovadoPorFalta,
-			reprovadosPorNota: this.numReprovadosPorNota,
-			aguardandoFinal: this.aguardandoFinal,
-			total: this.numMatriculas,
-			aprovadosPorcentagem: this.numAprovados / this.numMatriculas,
-			reprovadosPorcentagem: this.numReprovados / this.numMatriculas,
-			aprovadosPorMediaPorcentagem: this.numAprovadosPorMedia / this.numMatriculas,
-			reprovadosPorFaltaPorcentagem: this.reprovadoPorFalta / this.numMatriculas,
-			reprovadosPorNotaPorcentagem: this.numReprovadosPorNota / this.numMatriculas,
-			aguardandoFinalPorcentagem: this.aguardandoFinal / this.numMatriculas,
-			totalPorcentagem: this.numMatriculas / this.numMatriculas
-		}
-		return relatorio;
-	}
 }

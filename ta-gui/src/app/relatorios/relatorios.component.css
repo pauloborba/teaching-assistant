@@ -1,3 +1,10 @@
 th{
     border: 1px solid black;
 }
+
+.center-table{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+}

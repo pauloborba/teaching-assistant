@@ -15,11 +15,6 @@ turmasRoute.get('/:id', (req: Request, res: Response) => {
   res.send(turma || null);
 });
 
-turmasRoute.get('/relatorio-de-desempenho/:id', (req: Request, res: Response) => {
-  const relatorio: RelatorioDeDesempenho = turmasRepo.getRelatorioDeDesempenho(req.params.id);
-  res.send(relatorio || null);
-});
-
 turmasRoute.post('/', (req: Request, res: Response) => {
   const turma: Turma = <Turma>req.body;
 

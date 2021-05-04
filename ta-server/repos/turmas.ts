@@ -12,11 +12,6 @@ export class Turmas {
     return Turmas.turmas.find(t => t.descricao === descricao);
   }
 
-  getRelatorioDeDesempenho(descricao: string): RelatorioDeDesempenho {
-    const turma = Turmas.turmas.find(t => t.descricao === descricao);
-    return turma.getRelatorioDesempenho();
-  }
-
   cadastrarTurma(t: Turma): Turma {
     const turma: Turma = new Turma();
     turma.copyFrom(t);
