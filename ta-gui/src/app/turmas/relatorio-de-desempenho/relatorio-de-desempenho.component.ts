@@ -9,9 +9,10 @@ import { TurmasService } from '../turmas.service';
   styleUrls: ['./relatorio-de-desempenho.component.css'],
 })
 export class RelatorioDeDesempenhoComponent implements OnInit {
-  descricaoDaTurma: any;
+  descricaoDaTurma: string;
   dadosFaltando: boolean = false;
   relatorio: RelatorioDeDesempenho;
+  relatorioCarregado: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,8 +22,10 @@ export class RelatorioDeDesempenhoComponent implements OnInit {
   ngOnInit() {
     this.descricaoDaTurma = this.route.snapshot.paramMap.get('turma');
     this.turmasService.getRelatorioDeDesempenho(this.descricaoDaTurma).subscribe((relatorio) =>{
-      this.relatorio = relatorio;
+      this.relatorio = new RelatorioDeDesempenho();
+      this.relatorio.copyFrom(relatorio);
       if(this.relatorio.aguardandoFinal > 0) this.dadosFaltando = true;
+      this.relatorioCarregado = true;
     })
   }
 
