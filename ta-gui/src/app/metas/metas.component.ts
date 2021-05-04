@@ -150,11 +150,13 @@ batata(){
       for(let j = 0; j < header.length; j++){ //montando uma fileira {Id, Meta1, ..., MetaN}
         mergedLine[header[j]] = currentline[j];
       }
-
+      console.log(mergedLine)
+      console.log(header)
       if(colNota != -1){ //Se uma coluna é selecionada apenas ela é importada
         for(let a = 1;a < header.length;a++){
+          console.log(mergedLine[header[a]])
           if(a != colNota){
-          delete mergedLine[header[colNota]];
+            delete mergedLine[header[a]];
           }
         }
       }

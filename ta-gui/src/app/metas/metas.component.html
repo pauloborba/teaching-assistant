@@ -27,7 +27,7 @@
         
     </div>
     <a (click) = "toggleDisplayImport()" class="botao" name = "Importar Planilha">Importar Planilha</a>
-    <div *ngIf = 'isShowImport'>
+    <div *ngIf = 'isShowImport' id="importhidden">
       <div class="form-group">
         <label for="file">Arquivo da planilha: </label>
         <input type="file"
