@@ -15,7 +15,6 @@ export class Matriculas {
   cadastrarMatricula(a: Matricula): Matricula {
     const matricula: Matricula = new Matricula();
     matricula.copyFrom(a);
-    console.log(matricula);
 
     if (matricula.aluno.cpf && this.cpfNaoCadastrado(matricula.aluno.cpf)) {
       Matriculas.matriculas.push(matricula);
@@ -32,17 +31,7 @@ export class Matriculas {
     return Matricula;
   }
 
-  atualizarNota(m: Matricula, a: Avaliacao): Matricula {
-    console.log(m, a);
-    
-    const Matricula: Matricula = Matriculas.matriculas.find(l => l.aluno.cpf === m.aluno.cpf);
-    if (Matricula)
-      Matriculas.matriculas.find(mat => mat.aluno.cpf == m.aluno.cpf).avaliacoes.find(av => av.meta == a.meta).nota = a.nota;
-      console.log(Matriculas.matriculas.find(mat => mat.aluno.cpf == m.aluno.cpf));
-      
-    return Matricula;
-  }
-
+  
   removerMatricula(cpf: string): Matricula {
     const Matricula: Matricula = Matriculas.matriculas.find(a => a.aluno.cpf === cpf);
     if (Matricula) {
@@ -52,14 +41,24 @@ export class Matriculas {
       return null;
     }
   }
-
+  
+  atualizarNota(m: Matricula, a: Avaliacao): Matricula {
+    const Matricula: Matricula = Matriculas.matriculas.find(l => l.aluno.cpf === m.aluno.cpf);
+    if (Matricula) {
+      Matriculas.matriculas.find(mat => mat.aluno.cpf == m.aluno.cpf).avaliacoes.find(av => av.meta == a.meta).nota = a.nota;
+    }
+      
+    return Matricula;
+  }
+  
   removerNota(cpf: string, meta: string): Avaliacao {
-    console.log('removernota repo');
-    const Avaliacao: Avaliacao = Matriculas.matriculas.find(a => a.aluno.cpf === cpf).avaliacoes.find(as => as.meta === meta);
-    console.log(Avaliacao);
+    const Avaliacao: Avaliacao = Matriculas.matriculas
+      .find(a => a.aluno.cpf === cpf)
+      .avaliacoes.find(as => as.meta === meta);
+
     if (Avaliacao) {
-      Matriculas.matriculas.find(a => a.aluno.cpf === cpf).avaliacoes.find(as => as.meta === meta).nota = '';
-      console.log(Matriculas.matriculas.find(a => a.aluno.cpf === cpf).avaliacoes.find(as => as.meta === meta));
+      Matriculas.matriculas.find(a => a.aluno.cpf === cpf)
+        .avaliacoes.find(as => as.meta === meta).nota = '';
       
       return Avaliacao;
     } else {
