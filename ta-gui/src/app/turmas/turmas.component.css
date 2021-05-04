@@ -73,3 +73,13 @@ button.add-turma:hover {
   padding-top: 10px;
   text-align: center;
 }
+
+.turmas-alert {
+  justify-content: space-between;
+  align-items: center;
+  border: #BA6194 1px solid;
+  margin-top: 25px;
+  border-radius: 15px;
+  padding: 10px;
+  text-align: center;
+}

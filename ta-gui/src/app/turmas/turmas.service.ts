@@ -35,8 +35,7 @@ export class TurmasService {
         );
       }
       
-    emailResultado(descricao: string): Observable<string> {
-      console.log(descricao);
+    emailResultado(descricao: string): Observable<boolean[]> {
       return this.http.get<any>(this.turmasURL + '/emailsender' + `/${descricao}`)
         .pipe(
           retry(2)

@@ -25,15 +25,8 @@ turmasRoute.post('/', (req: Request, res: Response) => {
 });
 
 turmasRoute.get('/emailsender/:descricao', (req: Request, res: Response) => {
-  console.log("CHEGOU AQUI NA ROTA");
-  console.log(req.params.descricao);
   const descricao: string = req.params.descricao;
-  if (turmasRepo.sendAllMails(descricao)) {
-    res.send({ 'success': 'Os emails foram enviados com sucesso' });
-  } else {
-    res.send({ 'failure': 'O envio dos emails falhou' });
-  }
-
+  res.send(turmasRepo.sendAllMails(descricao)); 
 });
 
 turmasRoute.put('/', (req: Request, res: Response) => {

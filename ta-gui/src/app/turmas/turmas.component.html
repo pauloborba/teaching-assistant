@@ -32,6 +32,28 @@
   <div class="turmas-cadastradas" *ngIf="turmas.length">
     <h1>Lista de turmas cadastradas</h1>
 
+    <div class="turma-alert" *ngIf="turmaVazia">
+      <span>
+        Esta turma está vazia! Não existem alunos matriculados para enviar resultados.
+      </span>
+      <button (click)="turmaVazia=false"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+
+    <div class="turma-alert" *ngIf="!emailsEnviados">
+      <span>
+        Ocorreu um erro no envio de um ou mais emails, tente novamente mais tarde!
+      </span>
+      <button (click)="emailsEnviados = true"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+
+    <div class="turma-alert" *ngIf="envioComSucesso">
+      <span>
+        Os emails foram enviados com sucesso!
+      </span>
+      <button (click)="envioComSucesso = false"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+
+    
     <table class="turmas-table">
       <thead>
         <tr>
@@ -43,6 +65,8 @@
         </tr>
       </thead>
       <tbody>
+        
+
         <tr class="turma" *ngFor="let t of turmas">
           <td class="turma-descricao">{{ t.descricao }}</td>
 
@@ -58,7 +82,7 @@
             <button name="editar-turma" (click)="editarTurma(t)">Editar</button>
             &nbsp;
             <button name="remover-turma" (click)="removerTurma(t)">Remover</button>
-            <button class="add-turma" (click)="enviarEmail(t.descricao)">Enviar Email aos alunos</button>
+            <button class="add-turma" (click)="enviarEmail(t)">Enviar Email aos alunos</button>
           </td>
           <td *ngIf="turmaEditar.descricao === t.descricao" class="acoes">
             <button name="atualizar-turma" (click)="atualizarTurma(t)">Salvar</button>

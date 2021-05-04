@@ -13,13 +13,10 @@ export class Turmas {
     return Turmas.turmas.find(t => t.descricao === descricao);
   }
 
-  sendAllMails(descricao:string): boolean {
+  sendAllMails(descricao:string): boolean[] {
     Turmas.emailSender = new EmailSender();
     const turma: Turma = this.getTurma(descricao);
-    let parsedTurma = new Turma();
-    parsedTurma.copyFrom(turma);
-    Turmas.emailSender.filterAllInformations(parsedTurma.matriculas, descricao);
-    return true;
+    return Turmas.emailSender.filterAllInformations(turma.matriculas, descricao);
   }
 
   

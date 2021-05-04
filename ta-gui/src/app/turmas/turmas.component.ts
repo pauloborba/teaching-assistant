@@ -16,6 +16,9 @@ export class TurmasComponent implements OnInit {
   turmaRepetida: boolean = false;
   turmaEditar: Turma = new Turma();
   turmaEditarMetas: string = '';
+  turmaVazia: boolean = false;
+  emailsEnviados: boolean = true;
+  envioComSucesso:boolean = false;
 
   constructor(private turmasService: TurmasService) { }
 
@@ -114,13 +117,32 @@ export class TurmasComponent implements OnInit {
     })
   }
 
-  enviarEmail(d: string): void{
-    console.log(d);
-    this.turmasService.emailResultado(d).subscribe(
-      a => {
-        console.log('voltou');
-      }
-    );
+  enviarEmail(t: Turma): void {
+
+    if(t.matriculas.length == 0)
+    {
+      this.turmaVazia = true;
+    }
+
+    else {
+      this.turmasService.emailResultado(t.descricao).subscribe(
+
+        sentEmails => {
+
+          if(sentEmails.every(x => x === true)) {
+            this.emailsEnviados = true;
+            this.envioComSucesso = true;
+          }
+
+          else {
+            this.emailsEnviados = false;
+            this.envioComSucesso = false;
+          }
+
+        }
+      );
+
+    }
   }
 
   criarTurma(): void {
