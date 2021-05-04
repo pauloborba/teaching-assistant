@@ -1,4 +1,4 @@
-export class DateLimit {
+export class AgendamentoRoteiro {
     datainicio:string;
     datalimite:string;
   }
