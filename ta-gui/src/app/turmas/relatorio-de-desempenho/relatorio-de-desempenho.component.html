@@ -3,7 +3,7 @@
     <h1>Relatório de Desempenho</h1>
 
   <div class="turmas-cadastradas">
-    <table class="turmas-table">
+    <table class="turmas-table" *ngIf="relatorioCarregado">
       <thead>
         <tr>
           <th colspan="3">Turma: {{descricaoDaTurma}}</th>
