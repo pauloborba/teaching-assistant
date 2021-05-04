@@ -3,7 +3,7 @@ import { Roteiro } from './roteiro';
 import { Aluno } from './aluno';
 import { Avaliacao } from '../ta-server/avaliacao';
 
-interface StatusNotificacao {
+export interface StatusNotificacao {
     nome: String;
     cpf: String;
     notificado: boolean;

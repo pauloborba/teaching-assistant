@@ -1,13 +1,6 @@
-import { Turma } from '../common/turma'
+import { Turma, StatusNotificacao } from '../common/turma'
 import { EmailSender } from './EmailSender'
 import { Matricula } from '../common/matricula'
-
-// Interface para criar um array de alunos notificados
-interface StatusNotificacao {
-  nome: String;
-  cpf: String;
-  notificado: boolean;
-}
 
 export class NotificacaoNotas {
   emailSender: EmailSender = new EmailSender();
