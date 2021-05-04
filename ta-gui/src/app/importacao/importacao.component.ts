@@ -3,13 +3,17 @@ import { Component, OnInit } from '@angular/core';
 import { Aluno } from '../../../../common/aluno';
 import { ImportacaoService } from './importacao.service';
 
+import {AlunoFactory, AlunoData} from '../../../../common/alunofactory';
 @Component({
   selector: 'app-importacao',
   templateUrl: './importacao.component.html',
   styleUrls: ['./importacao.component.css']
 })
 export class ImportacaoComponent implements OnInit {
-  constructor(private ImportacaoService: ImportacaoService) { }
+  factory: AlunoFactory;
+  constructor(private ImportacaoService: ImportacaoService) {
+    this.factory = new AlunoFactory();
+  }
 
   ngOnInit(): void {
   }
@@ -96,11 +100,10 @@ export class ImportacaoComponent implements OnInit {
     // a segunda posição é a tripla (CIn, GitHub, Slack)
     const alunosData: AlunoData[] = linhas.map((aluno) => {
       const alunoArray = aluno.split(',').slice(0, 2)
-      console.log(alunoArray);
-      const alunoData: AlunoData = {
+        const alunoData: AlunoData = {
           nome: alunoArray[0],
           email: alunoArray[1].split('::')[0].trim() + '@cin.ufpe.br'
-      }
+        }
 
       return alunoData;
   });
@@ -111,19 +114,10 @@ export class ImportacaoComponent implements OnInit {
   }
 
   // Array de alunos a ser retornado
-  const alunosList: Aluno[] = [];
+  const alunosList: Aluno[] = alunosData.map(alunoData => this.factory.criarAluno(alunoData));
 
-  for (const alunoData of alunosData) {
-    const aluno = new Aluno();
+  this.EnviarAlunos(alunosList);
 
-    // Setar o nome do aluno
-    aluno.nome = alunoData.nome;
-    // Setar o email do aluno
-    aluno.email = alunoData.email;
-    
-    alunosList.push(aluno);
-  }
-    this.EnviarAlunos(alunosList);
   }
 
   EnviarAlunos(alunos: Aluno[]): void{
@@ -135,9 +129,3 @@ export class ImportacaoComponent implements OnInit {
   }
 
 }
-
-type AlunoData = {
-  nome: string,
-  email: string
-}
-
