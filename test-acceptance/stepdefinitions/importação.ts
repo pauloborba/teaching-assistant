@@ -13,12 +13,6 @@ var absolutePath = "";
 var texto = "";
 setDefaultTimeout(60 * 1000);
 
-//async function getNotaBox(meta, nota) {
-//    let notaSelecionada: any = await element(by.id(meta.toString())).getAttribute('value') === nota.toString();
-//    return notaSelecionada;
-//};
-
-
 
 defineSupportCode(function ({ Given, When, Then }) {
     Given(/^eu estou na página de notas da disciplina “ESS” que possui os alunos “Pedro” e “Mariana”$/, async () => {
@@ -68,7 +62,6 @@ defineSupportCode(function ({ Given, When, Then }) {
         var fileToUpload = '../stepdefinitions/test.csv',
         absolutePath = path.resolve(__dirname, fileToUpload);
         await element(by.css('input[type="file"]')).sendKeys(absolutePath);    
-        //element(by.id('uploadButton')).click();
     });
 
 
@@ -95,7 +88,7 @@ defineSupportCode(function ({ Given, When, Then }) {
     });
 
     When(/^seleciono sua coluna de notas “2”$/, async () => {
-        await element(by.name('colInput')).sendKeys("2")
+        await element(by.name('colNotaInput')).sendKeys("2")
 
     });
 
@@ -104,7 +97,6 @@ defineSupportCode(function ({ Given, When, Then }) {
         let mel3 = await browser.switchTo().alert()
         let mel4 = await mel3.getText();
         texto = mel4;
-        //await expect(mel4 == "A planilha foi importada com sucesso");
         await mel3.accept();
     });
 
