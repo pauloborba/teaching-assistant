@@ -11,7 +11,7 @@ export class TurmasComponent implements OnInit {
   turmas: Turma[] = [];
   turma: Turma = new Turma();
   turmaMetas: string = '';
-  //turmaPeso: string = '';
+  turmaPeso: number []= [];
   turmaRepetida: boolean = false;
   turmaEditar: Turma = new Turma();
   turmaEditarMetas: string = '';
@@ -104,7 +104,7 @@ export class TurmasComponent implements OnInit {
       let tempTurma = new Turma()
       tempTurma.descricao = turma.descricao;
       tempTurma.metas = turma.metas;
-     // tempTurma.peso = turma.peso;
+      tempTurma.peso = turma.peso;
       tempTurma.vagas = turma.vagas;
       this.turmasService.criar(tempTurma)
       .subscribe(
@@ -113,7 +113,7 @@ export class TurmasComponent implements OnInit {
             this.turmas.push(turma);
             this.turma = new Turma();
             this.turmaMetas = '';
-           // this.turmaPeso = '';
+            this.turmaPeso = [];
           } else {
             this.turmaRepetida = true;
           }
@@ -133,7 +133,7 @@ export class TurmasComponent implements OnInit {
             this.turmas.push(turma);
             this.turma = new Turma();
             this.turmaMetas = '';
-           // this.turmaPeso = '';
+            this.turmaPeso = [];
           } else {
             this.turmaRepetida = true;
           }

@@ -5,7 +5,7 @@
   "main": "ta-server.js",
   "scripts": {
     "test": "npm run tsc && jasmine --config=spec/support/jasmine.json",
-    "tsc": "C:/Users/acs/AppData/Roaming/npm/tsc",
+    "tsc": "C:/Users/dinho/Documents/FACULDADE/ESS/ProjetoFinal/teaching-assistant/ta-server/node_modules/.bin/tsc",
     "start": "npm run tsc && node compiledCode/ta-server/ta-server.js"
   },
   "author": "Paulo Borba",

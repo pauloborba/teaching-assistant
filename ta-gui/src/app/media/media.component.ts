@@ -24,7 +24,7 @@ export class MediaComponent implements OnInit {
   alunoSelecionado: string = '';
   matriculaSelecionada: Matricula = new Matricula();
   descricaoTurmaSelecionada: string = '';
-  turmaSelecionada: Turma = new Turma();
+  turmaSelecionada: Turma;
   
   turmaInexistente: boolean = false;
   notaInvalida: boolean = false;
@@ -74,6 +74,7 @@ export class MediaComponent implements OnInit {
     );
     if (selecionada) {
       this.turmaSelecionada = selecionada;
+      console.log(this.turmaSelecionada);
       this.matriculas = [];
       this.matriculas = this.turmaSelecionada.matriculas;
     }else{
