@@ -29,21 +29,22 @@ export class Matricula{
     atualizarAvaliacoes(avaliacoes: Avaliacao[]): boolean{
         let ok:boolean = true;
 
-        avaliacoes.forEach((avaliacao) => {
-            const metaCheck = this.metaCheck(avaliacao);
+        for(let a = 0; a < avaliacoes.length; a++) {
+            const metaCheck = this.metaCheck(avaliacoes[a]);
             
-            if(metaCheck){
-                metaCheck.setNota(avaliacao.nota);
+            if(metaCheck != -1){
+                //metaCheck.setNota(avaliacoes[a].nota);
+                this.avaliacoes[metaCheck].setNota(avaliacoes[a].nota)
             }
             else{
                 ok = false;
             }
-        })
+        }
         return ok;
     }
 
     metaCheck(avaliacao:Avaliacao){
-        return this.avaliacoes.find(av => av.meta == avaliacao.meta);
+        return this.avaliacoes.findIndex(av => av.meta == avaliacao.meta);
     }
 
     atualizarAutoAvaliacoes(autoAvaliacoesAtualizadas: Avaliacao[]): Avaliacao[] {

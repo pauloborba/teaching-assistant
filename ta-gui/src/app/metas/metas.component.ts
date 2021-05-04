@@ -157,6 +157,7 @@ batata(){
           console.log(mergedLine[header[a]])
           if(a != colNota){
             delete mergedLine[header[a]];
+            console.log(mergedLine)
           }
         }
       }

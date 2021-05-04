@@ -46,8 +46,19 @@ stub_avalicao1.setNota("");
 let stub_avalicao2 = new Avaliacao;
 stub_avalicao2.setMeta("Ger_Projetos");
 stub_avalicao2.setNota("");
+
+let stub_avalicao3 = new Avaliacao;
+stub_avalicao3.setMeta("Requisitos");
+stub_avalicao3.setNota("");
+let stub_avalicao4 = new Avaliacao;
+stub_avalicao4.setMeta("Ger_Configuração");
+stub_avalicao4.setNota("");
+let stub_avalicao5 = new Avaliacao;
+stub_avalicao5.setMeta("Ger_Projetos");
+stub_avalicao5.setNota("");
+
 stub_matricula1.avaliacoes = [stub_avalicao,stub_avalicao1,stub_avalicao2];
-stub_matricula2.avaliacoes = [stub_avalicao,stub_avalicao1,stub_avalicao2];
+stub_matricula2.avaliacoes = [stub_avalicao3,stub_avalicao4,stub_avalicao5];
 stub_turma1.matriculas = [stub_matricula1, stub_matricula2];
 stub_turma2.matriculas = [stub_matricula2];
 
