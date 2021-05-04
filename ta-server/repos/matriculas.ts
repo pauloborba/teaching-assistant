@@ -31,15 +31,7 @@ export class Matriculas {
     return Matricula;
   }
 
-  atualizarNota(m: Matricula, a: Avaliacao): Matricula {
-    const Matricula: Matricula = Matriculas.matriculas.find(l => l.aluno.cpf === m.aluno.cpf);
-    if (Matricula) {
-      Matriculas.matriculas.find(mat => mat.aluno.cpf == m.aluno.cpf).avaliacoes.find(av => av.meta == a.meta).nota = a.nota;
-    }
-      
-    return Matricula;
-  }
-
+  
   removerMatricula(cpf: string): Matricula {
     const Matricula: Matricula = Matriculas.matriculas.find(a => a.aluno.cpf === cpf);
     if (Matricula) {
@@ -49,12 +41,24 @@ export class Matriculas {
       return null;
     }
   }
-
+  
+  atualizarNota(m: Matricula, a: Avaliacao): Matricula {
+    const Matricula: Matricula = Matriculas.matriculas.find(l => l.aluno.cpf === m.aluno.cpf);
+    if (Matricula) {
+      Matriculas.matriculas.find(mat => mat.aluno.cpf == m.aluno.cpf).avaliacoes.find(av => av.meta == a.meta).nota = a.nota;
+    }
+      
+    return Matricula;
+  }
+  
   removerNota(cpf: string, meta: string): Avaliacao {
-    const Avaliacao: Avaliacao = Matriculas.matriculas.find(a => a.aluno.cpf === cpf).avaliacoes.find(as => as.meta === meta);
+    const Avaliacao: Avaliacao = Matriculas.matriculas
+      .find(a => a.aluno.cpf === cpf)
+      .avaliacoes.find(as => as.meta === meta);
 
     if (Avaliacao) {
-      Matriculas.matriculas.find(a => a.aluno.cpf === cpf).avaliacoes.find(as => as.meta === meta).nota = '';
+      Matriculas.matriculas.find(a => a.aluno.cpf === cpf)
+        .avaliacoes.find(as => as.meta === meta).nota = '';
       
       return Avaliacao;
     } else {
