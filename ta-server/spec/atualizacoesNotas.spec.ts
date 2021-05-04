@@ -10,27 +10,6 @@ import { NotificacaoNotas } from '../notificacaoNotas';
 const atualizacoesNotasRepo: AtualizacoesNotas = new AtualizacoesNotas();
 const notificacaoNotas = new NotificacaoNotas();
 
-function newAluno(cpf: string, nome: string, email: string = ''): Aluno {
-  const aluno = new Aluno();
-  aluno.cpf = cpf;
-  aluno.nome = nome;
-  aluno.email = email;
-  return aluno;
-}
-
-function newTurma(descricao: string): Turma {
-  const turma = new Turma();
-  turma.descricao = descricao;
-  return turma;
-}
-
-function newAvaliacao(meta: string, nota: string): Avaliacao {
-  const avaliacao = new Avaliacao();
-  avaliacao.meta = meta;
-  avaliacao.nota = nota;
-  return avaliacao;
-}
-
 function newAtualizacaoNota(turma: Turma, aluno: Aluno, avaliacoes: Avaliacao[]): AtualizacaoNotas {
   const atualizacaoNotas = new AtualizacaoNotas();
   atualizacaoNotas.turma = turma;
@@ -42,22 +21,22 @@ function newAtualizacaoNota(turma: Turma, aluno: Aluno, avaliacoes: Avaliacao[])
 function cadastrarAtualizacoesNotas(id: number = 0): AtualizacaoNotas[] {
   let atualizacoesNotas = [
     newAtualizacaoNota(
-        newTurma('Engenharia de Software e Sistemas'),
-        newAluno(id.toString().padStart(3, '0') + '.000.000-01', 'Fernanda Pereira Barbosa', 'fpb@ta.example'),
-        [ newAvaliacao('Requisitos', 'MA') ]
+        new Turma('Engenharia de Software e Sistemas'),
+        new Aluno('Fernanda Pereira Barbosa', id.toString().padStart(3, '0') + '.000.000-01', 'fpb@ta.example'),
+        [ new Avaliacao('Requisitos', 'MA') ]
     ),
     newAtualizacaoNota(
-        newTurma('Gerenciamento de Dados e Informação'),
-        newAluno(id.toString().padStart(3, '0') + '.000.000-02', 'Igor Carvalho Costa', 'icc@ta.example'),
+        new Turma('Gerenciamento de Dados e Informação'),
+        new Aluno('Igor Carvalho Costa', id.toString().padStart(3, '0') + '.000.000-02', 'icc@ta.example'),
         [
-          newAvaliacao('SQL', 'MPA'),
-          newAvaliacao('PL/SQL', 'MA')
+          new Avaliacao('SQL', 'MPA'),
+          new Avaliacao('PL/SQL', 'MA')
         ]
     ),
     newAtualizacaoNota(
-        newTurma('Informática Teórica'),
-        newAluno(id.toString().padStart(3, '0') + '.000.000-03', 'Lavinia Rodrigues Cunha', 'lrc@ta.example'),
-        [ newAvaliacao('Autômato Finito Determinístico', 'MA') ]
+        new Turma('Informática Teórica'),
+        new Aluno('Lavinia Rodrigues Cunha', id.toString().padStart(3, '0') + '.000.000-03', 'lrc@ta.example'),
+        [ new Avaliacao('Autômato Finito Determinístico', 'MA') ]
     )
   ];
 

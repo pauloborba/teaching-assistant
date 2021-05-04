@@ -8,7 +8,7 @@ export class AtualizacoesNotas {
   }
 
   getAtualizacaoNotas(alunoCPF: string, turmaDescricao: string): AtualizacaoNotas {
-    return AtualizacoesNotas.atualizacoesNotas.find(a => a.aluno.cpf === alunoCPF && a.turma.descricao === turmaDescricao && !a.enviada);
+    return this.findAtualizacaoNotas(alunoCPF, turmaDescricao, null, false);
   }
 
   cadastrarAtualizacaoNotas(a: AtualizacaoNotas): AtualizacaoNotas {
@@ -27,11 +27,7 @@ export class AtualizacoesNotas {
   }
 
   atualizarAtualizacaoNotas(a: AtualizacaoNotas): AtualizacaoNotas {
-    const atualizacaoNotas: AtualizacaoNotas = AtualizacoesNotas.atualizacoesNotas.find(
-        v => v.aluno.cpf === a.aluno.cpf
-            && v.turma.descricao === a.turma.descricao
-            && v.dataHora.valueOf() === a.dataHora.valueOf()
-    )
+    const atualizacaoNotas: AtualizacaoNotas = this.findAtualizacaoNotas(a.aluno.cpf, a.turma.descricao, a.dataHora);
 
     if (atualizacaoNotas) {
       atualizacaoNotas.copyFrom(a);
@@ -44,5 +40,14 @@ export class AtualizacoesNotas {
 
   static drop(): void {
     AtualizacoesNotas.atualizacoesNotas = [];
+  }
+
+  private findAtualizacaoNotas(alunoCpf: string, turmaDescricao: string, dataHora: Date = null, enviada: boolean = null): AtualizacaoNotas {
+    return AtualizacoesNotas.atualizacoesNotas.find(
+        v => v.aluno.cpf === alunoCpf
+            && v.turma.descricao === turmaDescricao
+            && (!dataHora || v.dataHora.valueOf() === dataHora.valueOf())
+            && (enviada === null || v.enviada === enviada)
+    );
   }
 }
