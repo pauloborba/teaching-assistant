@@ -13,7 +13,7 @@ describe("O servidor", () => {
 	});
 
 	it("retorna relatorio de desempenho da turma 2020.1", () => {
-		var relatorioDeDesempenho = `{"turma":"2020.1","aprovados":7,"reprovados":0,"aprovadosPorMedia":3,"reprovadosPorFalta":7,"reprovadosPorNota":0,"aguardandoFinal":3,"total":10,"aprovadosPorcentagem":0.7,"reprovadosPorcentagem":0,"aprovadosPorMediaPorcentagem":0.3,"reprovadosPorFaltaPorcentagem":0.7,"reprovadosPorNotaPorcentagem":0,"aguardandoFinalPorcentagem":0.3,"totalPorcentagem":1}`;
+		var relatorioDeDesempenho = `{"_turma":"2020.1","_aprovados":7,"_reprovados":0,"_aprovadosPorMedia":3,"_reprovadosPorFalta":7,"_reprovadosPorNota":0,"_aguardandoFinal":3,"_total":10,"_aprovadosPorcentagem":0.7,"_reprovadosPorcentagem":0,"_aprovadosPorMediaPorcentagem":0.3,"_reprovadosPorFaltaPorcentagem":0.7,"_reprovadosPorNotaPorcentagem":0,"_aguardandoFinalPorcentagem":0.3,"_totalPorcentagem":1}`;
 
 		return request
 			.get(base_url + "turmas/relatorio-de-desempenho/2020.1")
@@ -26,7 +26,7 @@ describe("O servidor", () => {
 	});
 
 	it("retorna relatorio de desempenho da turma 2019.2", () => {
-		var relatorioDeDesempenho = `{"turma":"2019.2","aprovados":7,"reprovados":0,"aprovadosPorMedia":3,"reprovadosPorFalta":0,"reprovadosPorNota":0,"aguardandoFinal":3,"total":10,"aprovadosPorcentagem":0.7,"reprovadosPorcentagem":0,"aprovadosPorMediaPorcentagem":0.3,"reprovadosPorFaltaPorcentagem":0,"reprovadosPorNotaPorcentagem":0,"aguardandoFinalPorcentagem":0.3,"totalPorcentagem":1}`;
+		var relatorioDeDesempenho = `{"_turma":"2019.2","_aprovados":7,"_reprovados":0,"_aprovadosPorMedia":3,"_reprovadosPorFalta":0,"_reprovadosPorNota":0,"_aguardandoFinal":3,"_total":10,"_aprovadosPorcentagem":0.7,"_reprovadosPorcentagem":0,"_aprovadosPorMediaPorcentagem":0.3,"_reprovadosPorFaltaPorcentagem":0,"_reprovadosPorNotaPorcentagem":0,"_aguardandoFinalPorcentagem":0.3,"_totalPorcentagem":1}`;
 		return request
 			.get(base_url + "turmas/relatorio-de-desempenho/2019.2")
 			.then((body) => {
@@ -39,7 +39,7 @@ describe("O servidor", () => {
 
 	it("retorna relatorio de desempenho da turma 2020.2", () => {
 		var relatorioDeDesempenho =
-			'{"turma":"2020.2","aprovados":3,"reprovados":7,"aprovadosPorMedia":2,"reprovadosPorFalta":0,"reprovadosPorNota":7,"aguardandoFinal":0,"total":10,"aprovadosPorcentagem":0.3,"reprovadosPorcentagem":0.7,"aprovadosPorMediaPorcentagem":0.2,"reprovadosPorFaltaPorcentagem":0,"reprovadosPorNotaPorcentagem":0.7,"aguardandoFinalPorcentagem":0,"totalPorcentagem":1}';
+			'{"_turma":"2020.2","_aprovados":3,"_reprovados":7,"_aprovadosPorMedia":2,"_reprovadosPorFalta":0,"_reprovadosPorNota":7,"_aguardandoFinal":0,"_total":10,"_aprovadosPorcentagem":0.3,"_reprovadosPorcentagem":0.7,"_aprovadosPorMediaPorcentagem":0.2,"_reprovadosPorFaltaPorcentagem":0,"_reprovadosPorNotaPorcentagem":0.7,"_aguardandoFinalPorcentagem":0,"_totalPorcentagem":1}';
 		return request
 			.get(base_url + "turmas/relatorio-de-desempenho/2020.2")
 			.then((body) => {
@@ -52,7 +52,7 @@ describe("O servidor", () => {
 
 	it("retorna relatorio de desempenho da turma 2020.3", () => {
 		var relatorioDeDesempenho =
-			'{"turma":"2020.3","aprovados":1,"reprovados":0,"aprovadosPorMedia":1,"reprovadosPorFalta":0,"reprovadosPorNota":0,"aguardandoFinal":9,"total":10,"aprovadosPorcentagem":0.1,"reprovadosPorcentagem":0,"aprovadosPorMediaPorcentagem":0.1,"reprovadosPorFaltaPorcentagem":0,"reprovadosPorNotaPorcentagem":0,"aguardandoFinalPorcentagem":0.9,"totalPorcentagem":1}';
+			'{"_turma":"2020.3","_aprovados":1,"_reprovados":0,"_aprovadosPorMedia":1,"_reprovadosPorFalta":0,"_reprovadosPorNota":0,"_aguardandoFinal":9,"_total":10,"_aprovadosPorcentagem":0.1,"_reprovadosPorcentagem":0,"_aprovadosPorMediaPorcentagem":0.1,"_reprovadosPorFaltaPorcentagem":0,"_reprovadosPorNotaPorcentagem":0,"_aguardandoFinalPorcentagem":0.9,"_totalPorcentagem":1}';
 		return request
 			.get(base_url + "turmas/relatorio-de-desempenho/2020.3")
 			.then((body) => {
