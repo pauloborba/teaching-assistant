@@ -1,11 +1,21 @@
 import { Turma } from '../common/turma'
 import { EmailSender } from './emailSender'
 import { Matricula } from '../common/matricula'
+import * as nodemailer from "nodemailer";
 
 export class NotificacaoNotas {
   emailSender: EmailSender = new EmailSender();
 
   enviarNotificacao(turma: Turma): string {
+    let smtpConfig = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      auth: {
+          user: 'tyrell.reilly60@ethereal.email',
+          pass: 'CrGDjzUMddCXHbNN5f'
+      }
+  });
+
     if(turma.descricao===undefined || turma.descricao===null || turma.descricao==="" ){
       return null;
     }
@@ -17,7 +27,7 @@ export class NotificacaoNotas {
       this.ressaltarDiferencaMedia(matricula,mediaTurma);
 
       console.log("Enviando email para : " + matricula.aluno.email )
-      if(this.emailSender.enviarEmail(matricula.aluno.email, "", texto) == false){
+      if(this.emailSender.enviarEmail(matricula.aluno.email, "", texto, smtpConfig) == false){
         return null;
       }
     }
