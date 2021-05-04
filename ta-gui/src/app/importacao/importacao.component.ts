@@ -94,35 +94,50 @@ export class ImportacaoComponent implements OnInit {
   createAlunos(linhas: String[]): void{
     // Criar um array de arrays, onde a primeira posição é o Nome do aluno, e 
     // a segunda posição é a tripla (CIn, GitHub, Slack)
-    var alunos = linhas.map((aluno) => aluno.split(',').slice(0, 2));
-    // Desse array de alunos, criar um array com os nomes
-    var nomes = alunos.map((aluno) => aluno[0]);
-    // Do mesmo array de alunos, criar um array com o email
-    var emails = alunos.map((aluno) => aluno[1].split('::')[0].trim() + '@cin.ufpe.br');
-    // Condição para alguma linha de email vazia
-    if(emails.includes('@cin.ufpe.br')){
-      alert('A planilha não contém os dados de email de um ou mais alunos!');
-      return;
-    }
-    // Array de alunos a ser retornado
-    var ListaDeAlunos: Aluno[] = [];
-  
-    for(var x = 0; x < nomes.length; x++){
-      var a = new Aluno();
+    const alunosData: AlunoData[] = linhas.map((aluno) => {
+      const alunoArray = aluno.split(',').slice(0, 2)
+      console.log(alunoArray);
+      const alunoData: AlunoData = {
+          nome: alunoArray[0],
+          email: alunoArray[1].split('::')[0].trim() + '@cin.ufpe.br'
+      }
 
-      // Setar o nome do aluno
-      a.nome = nomes[x];
-      // Setar o email do aluno
-      a.email = emails[x];
-      
-      ListaDeAlunos.push(a);
-    }
-    this.EnviarAlunos(ListaDeAlunos);
+      return alunoData;
+  });
+
+  if (this.checkEmailVazio(alunosData)){
+    alert('A planilha não contém os dados de email de um ou mais alunos!');
+    return;
+  }
+
+  // Array de alunos a ser retornado
+  const alunosList: Aluno[] = [];
+
+  for (const alunoData of alunosData) {
+    const aluno = new Aluno();
+
+    // Setar o nome do aluno
+    aluno.nome = alunoData.nome;
+    // Setar o email do aluno
+    aluno.email = alunoData.email;
+    
+    alunosList.push(aluno);
+  }
+    this.EnviarAlunos(alunosList);
   }
 
   EnviarAlunos(alunos: Aluno[]): void{
     this.enviarAlunos(alunos);
   }
 
+  checkEmailVazio(alunoData: AlunoData[]): Boolean {
+    return !!alunoData.find(aluno => aluno.email === '@cin.ufpe.br');
+  }
+
+}
+
+type AlunoData = {
+  nome: string,
+  email: string
 }
 
