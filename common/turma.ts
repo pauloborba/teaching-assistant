@@ -30,10 +30,13 @@ export class Turma {
     }
 
     addAgendamento(agendamento: AgendamentoRoteiro): void {
-        var tempRoteiros = this.agendamentos.filter( t => t.roteiro.descricao == agendamento.roteiro.descricao );
-
-        if(tempRoteiros.length==0){
+        var tempAgendamentos = this.agendamentos.filter(t => t.roteiro.equals(agendamento.roteiro));
+        
+        if(tempAgendamentos.length==0){
             this.agendamentos.push(agendamento);
+        }else{
+            tempAgendamentos[0].dataInicio = agendamento.dataInicio;
+            tempAgendamentos[0].dataFim = agendamento.dataFim;
         }
     }
 
@@ -86,7 +89,7 @@ export class Turma {
     getMetas(): string[]{
         return this.metas;
     }
-    equals(outra:Turma ){
+    equals(outra:Turma){
         return this.getDescricao()==outra.getDescricao();
     }
 }
