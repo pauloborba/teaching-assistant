@@ -24,6 +24,11 @@ turmasRoute.post('/', (req: Request, res: Response) => {
   }
 });
 
+turmasRoute.get('/emailsender/:descricao', (req: Request, res: Response) => {
+  const descricao: string = req.params.descricao;
+  res.send(turmasRepo.sendAllMails(descricao)); 
+});
+
 turmasRoute.put('/', (req: Request, res: Response) => {
   const turma: Turma = <Turma>req.body;
 

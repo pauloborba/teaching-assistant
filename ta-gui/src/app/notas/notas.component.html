@@ -1,0 +1,85 @@
+<div class="matriculas-container">
+    <div class="matriculas-cadastro">
+      <h1>Cadastro de notas</h1>
+  
+      <table>
+        <tr>
+          <td><label for="add-turma-descricao">Turma</label></td>
+          <td><input id="add-turma-descricao" list="turmaDataList" [(ngModel)]="descricaoTurmaSelecionada" (change)="atualizaTurmaSelecionada()">
+              <datalist id="turmaDataList">
+                  <option *ngFor="let turma of listaTurmas" [value]="turma.descricao">
+              </datalist>
+          </td>
+  
+          <td *ngIf="descricaoTurmaSelecionada != '' && matriculas.length > 0"><label for="add-matricula-cpf">Matricula</label></td>
+          <td *ngIf="descricaoTurmaSelecionada != '' && matriculas.length > 0"><input id="add-matricula-cpf" list="alunoDataList" [(ngModel)]="alunoSelecionado" (change)="atualizaAlunoSelecionado()">
+              <datalist id="alunoDataList">
+                  <option *ngFor="let m of matriculas" [value]="m.aluno.cpf + ' - ' + m.aluno.nome">
+              </datalist>
+          </td>
+  
+        </tr>
+      </table>
+      <div class="matricula-repetida" *ngIf="turmaInexistente">
+           <span>
+             Não existe turma com essa descrição.<br>
+             Por favor, tente novamente.
+           </span>
+           <button (click)="turmaInexistente=false"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </div>
+
+      <div class="matricula-repetida" *ngIf="notaInvalida">
+        <span>
+          Nota inválida.<br>
+          Por favor, insira uma nota válida ou clique em remover se quiser apagar a nota.
+        </span>
+        <button (click)="notaInvalida=false"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  
+    <div class="matriculas-cadastrados" *ngIf="matriculas.length > 0 && descricaoTurmaSelecionada != '' && alunoSelecionado != ''">
+      <h1>Lista de Avaliações - <span class="aluno-nome">{{alunoSelecionado}}</span></h1>
+  
+      <table class="matriculas-table">
+        <thead>
+          <tr>
+            <th>CPF</th>
+            <th>Nome</th>
+            <th>Meta</th>
+            <th>Nota</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="matricula" *ngFor="let a of matriculaSelecionada.avaliacoes">
+            <td class="matricula-cpf">{{matriculaSelecionada.aluno.cpf}}</td>
+  
+            <td class="matriculas-nome">{{matriculaSelecionada.aluno.nome}}</td>
+  
+            <td class="matriculas-email">{{a.meta}}</td>
+
+            <td class="matriculas-nota" *ngIf="avaliacaoEditar.meta === a.meta"><input type="text" [(ngModel)]="avaliacaoEditar.nota"></td>
+            <td class="matriculas-nota" *ngIf="avaliacaoEditar.meta !== a.meta">
+              <span *ngIf="a.nota">{{a.nota}}</span>
+              <span *ngIf="!a.nota">Sem nota</span>
+            </td>
+  
+            <td *ngIf="avaliacaoEditar.meta !== a.meta" class="acoes">
+                <button name="editar-turma" (click)="editarNota(a)">Atribuir/Editar</button>
+                &nbsp;
+                <button name="remover-turma" (click)="removerNota(matriculaSelecionada, a)">Remover</button>
+            </td>
+
+            <td *ngIf="avaliacaoEditar.meta === a.meta" class="acoes">
+              <button name="atualizar-aluno" (click)="atualizarNota(matriculaSelecionada, a)">Salvar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div *ngIf="matriculas.length == 0">
+      <h3>Nenhuma matricula selecionada.</h3>
+    </div>
+  </div>
+  

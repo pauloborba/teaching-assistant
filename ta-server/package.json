@@ -18,10 +18,12 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "nodemailer": "^6.6.0",
     "statistics": "^3.3.0"
   },
   "devDependencies": {
     "@types/jasmine": "^2.8.17",
+    "@types/nodemailer": "^6.4.1",
     "@types/request-promise": "^4.1.46",
     "jasmine": "^2.8.0",
     "jasmine-promises": "^0.4.1",

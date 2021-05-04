@@ -1,8 +1,10 @@
 import { Turma } from '../../common/turma';
+import { EmailSender } from '../emailSender';
+import { Matricula } from '../../common/matricula';
 
 export class Turmas {
   private static turmas: Turma[] = [];
-
+  private static emailSender:EmailSender;
   getTurmas(): Turma[] {
     return Turmas.turmas;
   }
@@ -11,6 +13,13 @@ export class Turmas {
     return Turmas.turmas.find(t => t.descricao === descricao);
   }
 
+  sendAllMails(descricao:string): boolean[] {
+    Turmas.emailSender = new EmailSender();
+    const turma: Turma = this.getTurma(descricao);
+    return Turmas.emailSender.filterAllInformations(turma.matriculas, descricao);
+  }
+
+  
   cadastrarTurma(t: Turma): Turma {
     const turma: Turma = new Turma();
     turma.copyFrom(t);
