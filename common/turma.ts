@@ -86,4 +86,7 @@ export class Turma {
     getMetas(): string[]{
         return this.metas;
     }
+    equals(outra:Turma ){
+        return this.getDescricao()==outra.getDescricao();
+    }
 }

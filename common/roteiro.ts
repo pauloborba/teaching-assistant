@@ -17,4 +17,8 @@ export class Roteiro {
       this.descricao = from.descricao;
       this.blocos = from.blocos;
     }
+  
+    equals(b: Roteiro) : boolean{
+      return this.descricao==b.descricao;
+    }
 }

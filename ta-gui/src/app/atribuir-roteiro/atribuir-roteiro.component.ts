@@ -42,9 +42,7 @@ export class AtribuirRoteiroComponent implements OnInit {
   roteirosSelecionados : Roteiro[] = [];
   
   adicionarTurma(a : Turma) : void{
-    var tempTurmas = this.turmasSelecionadas.filter( t => t.descricao == a.descricao );
-    
-    if(tempTurmas.length==0){
+    if(this.notExists(this.turmasSelecionadas, a, (s: Turma,b)=>s.equals(b))){
       this.turmasSelecionadas.push(a);
     }
   }
@@ -57,9 +55,7 @@ export class AtribuirRoteiroComponent implements OnInit {
 
 
   adicionarRoteiro(r :Roteiro) : void{
-    var tempRoteiros = this.roteirosSelecionados.filter( t => t.descricao == r.descricao );
-
-    if(tempRoteiros.length==0){
+    if(this.notExists(r, this.roteirosSelecionados, (s: Roteiro,b)=>s.equals(b))){
       this.roteirosSelecionados.push(r);
     }
   }
@@ -92,5 +88,12 @@ export class AtribuirRoteiroComponent implements OnInit {
     this.resultados = [];
 
   }
+  //extrair equals para uma interface
+  notExists(list, a, equals) : boolean{
+    var temp = list.filter( t => equals(t, a) );
+    return temp.length==0;
+  }
+
+  
 
 }
