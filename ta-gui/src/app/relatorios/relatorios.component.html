@@ -1,22 +1,62 @@
-<p class="center-table">Relatório da Turma:&nbsp; <input type="text" [(ngModel)]="buscaTurma"
-        (keydown.enter)="searchChange()">&nbsp; <button (click)=searchChange()>Search</button>
-<p>
+<div class="matriculas-container">
+    <div class="matriculas-cadastro">
+        <h1>Cadastro de notas</h1>
 
-<div class="center-table">
-    <table>
-        <tr>
-            <th>Tempo médio de resposta (min)</th>
-            <th>Desvio da Média (min)</th>
-            <th>Correlação Acerto x Tempo</th>
-            <th>Porcentagem de acerto do relaório das turmas</th>
-        </tr>
-        <tr *ngFor="let t of searchArr">
-            <th>{{media}}</th>
-            <th>{{desvio}}</th>
-            <th>{{corr}}</th>
-            <th>A turma {{t.descricao}} teve {{t.questoesCertas}}% das questões acertadas, consequentemente, tiveram
-                {{t.questoesErradas}}% das questões erradas.
-            </th>
-        </tr>
-    </table>
+        <table>
+            <tr>
+                <td><label for="add-turma-descricao">Turma 1</label></td>
+                <td><input id="add-turma-descricao" list="turmaDataList" [(ngModel)]="descricaoTurmaSelecionada"
+                        (change)="atualizaTurmaSelecionada()">
+                    <datalist id="turmaDataList">
+                        <option *ngFor="let turma of listaTurmas" [value]="turma.descricao">
+                    </datalist>
+                </td>
+
+                <td *ngIf="descricaoTurmaSelecionada != ''"><label for="add-matricula-cpf">Turma 2</label></td>
+                <td *ngIf="descricaoTurmaSelecionada != ''"><input id="add-matricula-cpf" list="alunoDataList"
+                        [(ngModel)]="descricaoTurmaSelecionada2" (change)="atualizaTurmaSelecionada2()">
+                    <datalist id="alunoDataList">
+                        <option *ngFor="let turma of listaTurmas" [value]="turma.descricao">
+                    </datalist>
+                </td>
+
+            </tr>
+        </table>
+        <div class="matricula-repetida" *ngIf="turmaInexistente">
+            <span>
+                Não existe turma com essa descrição.<br>
+                Por favor, tente novamente.
+            </span>
+            <button (click)="turmaInexistente=false"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+    </div>
+
+    <div class="matriculas-cadastrados" *ngIf="descricaoTurmaSelecionada != '' && descricaoTurmaSelecionada2 != ''">
+        <h1>Comparativo entre turmas <span class="aluno-nome">{{turmaSelecionada.descricao}}</span> - <span
+                class="aluno-nome">{{turmaSelecionada2.descricao}}</span></h1>
+
+        <table class="matriculas-table">
+            <thead>
+                <tr>
+                    <th>Tempo médio de resposta (min)</th>
+                    <th>Desvio da Média (min)</th>
+                    <th>Correlação Acerto x Tempo</th>
+                    <th>Porcentagem de acerto do relaório das turmas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="matricula">
+                    <td class="matricula-cpf">X</td>
+
+                    <td class="matriculas-nome">X</td>
+
+                    <td class="matriculas-email">X</td>
+
+                    <td class="matriculas-nota">
+                        {{relatorio}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

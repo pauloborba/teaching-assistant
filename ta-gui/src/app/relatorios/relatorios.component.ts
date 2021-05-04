@@ -4,6 +4,7 @@ import { Turma } from '../../../../common/turma';
 import { RelatoriosService } from './relatorios.service';
 import { Roteiro } from '../../../../common/roteiro';
 import { count } from 'rxjs/operators';
+import { TurmasService } from '../turmas/turmas.service';
 
 @Component({
   selector: 'app-relatorio',
@@ -14,6 +15,7 @@ import { count } from 'rxjs/operators';
 export class RelatoriosComponent implements OnInit {
 
   turma: Turma;
+  turma2: Turma;
   roteiros: Roteiro[];
   roteiro: Roteiro;
   media: Number;
@@ -22,12 +24,120 @@ export class RelatoriosComponent implements OnInit {
   descricao: String;
   buscaTurma: String;
   searchArr: Turma[];
+  turmaInexistente: boolean = false;
+  turmaSelecionada: Turma;
+  turmaSelecionada2: Turma;
+  listaTurmas: Turma[];
+  descricaoTurmaSelecionada: string = '';
+  descricaoTurmaSelecionada2: string = '';
+  relatorio: string = '';
 
-  constructor(private service: RelatoriosService) {
+  constructor(private service: RelatoriosService, private turmasService: TurmasService) {
+
   }
 
   ngOnInit() {
     this.searchArr = [];
+    this.turmasService.getTurmas().subscribe(
+      (turmas) => {
+        this.listaTurmas = turmas;
+      },
+      (msg) => {
+        alert(msg.message);
+      }
+    );
+  }
+
+  atualizaTurmaSelecionada() {
+    let selecionada = this.listaTurmas.find(
+      (turma) => turma.descricao == this.descricaoTurmaSelecionada
+    );
+    if (selecionada) {
+      this.turmaSelecionada = selecionada;
+    } else {
+      this.turmaInexistente = true;
+    }
+  }
+
+  atualizaTurmaSelecionada2() {
+    let selecionada = this.listaTurmas.find(
+      (turma) => turma.descricao == this.descricaoTurmaSelecionada2
+    );
+    if (selecionada) {
+      this.turmaSelecionada2 = selecionada;
+      this.compareTurmas();
+    } else {
+      this.turmaInexistente = true;
+    }
+  }
+
+  compareTurmas(): void {
+    // @ts-ignore
+    this.turma = this.service.getTurma(this.descricaoTurmaSelecionada)
+      .subscribe(
+        (as) => {
+
+          if (as) {
+            var count: number = 0;
+            var qtdeResp: number = 0;
+            as.matriculas.forEach(m => {
+              m.respostasDeRoteiros.forEach(rr => {
+                qtdeResp++;
+                rr.respostasDeQuestoes.forEach(rq => {
+                  if (rq.correcao == 'certo') {
+                    console.log('Achei um certo');
+                    count++;
+                  }
+                })
+              })
+            })
+            console.log(count);
+            as.questoesCertas = Math.round((count / qtdeResp) * 100);
+            console.log(as.questoesCertas + '%');
+            as.questoesErradas = Math.round(100 - as.questoesCertas);
+            this.turma = as;
+
+            // @ts-ignore
+            this.turma2 = this.service.getTurma(this.descricaoTurmaSelecionada2)
+              .subscribe(
+                (as) => {
+
+                  if (as) {
+                    var count: number = 0;
+                    var qtdeResp: number = 0;
+                    as.matriculas.forEach(m => {
+                      m.respostasDeRoteiros.forEach(rr => {
+                        qtdeResp++;
+                        rr.respostasDeQuestoes.forEach(rq => {
+                          if (rq.correcao == 'certo') {
+                            console.log('Achei um certo');
+                            count++;
+                          }
+                        })
+                      })
+                    })
+                    console.log(count);
+                    as.questoesCertas = Math.round((count / qtdeResp) * 100);
+                    console.log(as.questoesCertas + '%');
+                    as.questoesErradas = Math.round(100 - as.questoesCertas);
+                    this.turma2 = as;
+
+                    // comment
+
+                    if (this.turma.questoesCertas > this.turma2.questoesCertas) {
+                      this.relatorio = `A turma ${this.turma.descricao} teve ${this.turma.questoesCertas}% de questões corretas no roteiro. ${this.turma.questoesCertas - this.turma2.questoesCertas}% a mais que a turma ${this.turma2.descricao}.`
+                    } else {
+                      this.relatorio = `A turma ${this.turma.descricao} teve ${this.turma.questoesCertas}% de questões corretas no roteiro. ${this.turma2.questoesCertas - this.turma.questoesCertas}% a menos que a turma ${this.turma2.descricao}.`
+                    }
+                  }
+                }
+              );
+          }
+        }
+      );
+    console.log(this.turma);
+
+
   }
 
   searchChange(): void {
