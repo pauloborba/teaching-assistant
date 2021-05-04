@@ -13,6 +13,14 @@ export class Matricula {
     return false; /* TODO */
   }
 
+  copyFrom(from: Matricula): void {
+    this.aluno = from.aluno;
+    this.avaliacoes = from.avaliacoes;
+    this.autoAvaliacoes = from.autoAvaliacoes;
+    this.monitor = from.monitor;
+    this.respostasDeRoteiros = from.respostasDeRoteiros;
+  }
+
   atualizarAutoAvaliacoes(autoAvaliacoesAtualizadas: Avaliacao[]): Avaliacao[] {
     autoAvaliacoesAtualizadas.map((avaliacao) => {
       const metaExistente = this.autoAvaliacoes.find(av => av.meta == avaliacao.meta);
