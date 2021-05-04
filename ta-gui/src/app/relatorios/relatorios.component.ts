@@ -25,6 +25,8 @@ export class RelatoriosComponent implements OnInit {
   descricaoTurmaSelecionada: string = '';
   descricaoTurmaSelecionada2: string = '';
   mensagemComparacao: string = '';
+  qtdeRespCertas: number = 0;
+  qtdeResp: number = 0
   // media: Number;
   // desvio: Number;
   // corr: Number;
@@ -66,26 +68,46 @@ export class RelatoriosComponent implements OnInit {
     }
   }
 
+  randomNotas(): number {
+    this.turma.questoesCertas = Math.round((this.qtdeRespCertas / this.qtdeResp) * 100);
+    return this.turma.questoesCertas;
+  }
+
+  randomNotas2(): number {
+    this.turma2.questoesCertas = Math.round((this.qtdeRespCertas / this.qtdeResp) * 100);
+    return this.turma2.questoesCertas;
+  }
+
+  returnText() {
+    //Se a turma 1 tiver notas maiores que a 2, display primeiro texto, se não, o segundo. O referencial é sempre a turma 1.
+    if (this.turma.questoesCertas > this.turma2.questoesCertas) {
+      this.mensagemComparacao = `A turma ${this.turma.descricao} teve ${this.turma.questoesCertas}% de questões corretas no roteiro. ${this.turma.questoesCertas - this.turma2.questoesCertas}% a mais que a turma ${this.turma2.descricao}.`
+    } else if (this.turma.questoesCertas < this.turma2.questoesCertas) {
+      this.mensagemComparacao = `A turma ${this.turma.descricao} teve ${this.turma.questoesCertas}% de questões corretas no roteiro. ${this.turma2.questoesCertas - this.turma.questoesCertas}% a menos que a turma ${this.turma2.descricao}.`
+    } else {
+      this.mensagemComparacao = `As turmas ${this.turma.descricao} e ${this.turma2.descricao} tiveram a mesma porcentagem de acerto de notas: ${this.turma.questoesCertas}%`
+    }
+  }
+
   compareTurmas(): void {
     // @ts-ignore
     this.turma = this.service.getTurma(this.descricaoTurmaSelecionada)
       .subscribe(
         (as) => {
+          this.qtdeResp = 0;
+          this.qtdeRespCertas = 0;
           if (as) {
-            var count: number = 0;
-            var qtdeResp: number = 0;
             as.matriculas.forEach(m => {
               m.respostasDeRoteiros.forEach(rr => {
-                qtdeResp++;
+                this.qtdeResp++;
                 rr.respostasDeQuestoes.forEach(rq => {
                   if (rq.correcao == 'certo') {
-                    count++;
+                    this.qtdeRespCertas++;
                   }
                 })
               })
             })
-            as.questoesCertas = Math.round((count / qtdeResp) * 100);
-            as.questoesErradas = Math.round(100 - as.questoesCertas);
+            as.questoesCertas = this.randomNotas();
             this.turma = as;
 
             // @ts-ignore
@@ -93,29 +115,21 @@ export class RelatoriosComponent implements OnInit {
               .subscribe(
                 (as) => {
                   if (as) {
-                    var count: number = 0;
-                    var qtdeResp: number = 0;
+                    this.qtdeResp = 0;
+                    this.qtdeRespCertas = 0;
                     as.matriculas.forEach(m => {
                       m.respostasDeRoteiros.forEach(rr => {
-                        qtdeResp++;
+                        this.qtdeResp++;
                         rr.respostasDeQuestoes.forEach(rq => {
                           if (rq.correcao == 'certo') {
-                            count++;
+                            this.qtdeRespCertas++;
                           }
                         })
                       })
                     })
-                    as.questoesCertas = Math.round((count / qtdeResp) * 100);
-                    as.questoesErradas = Math.round(100 - as.questoesCertas);
+                    as.questoesCertas = this.randomNotas2();
                     this.turma2 = as;
-
-                    // comment
-
-                    if (this.turma.questoesCertas > this.turma2.questoesCertas) {
-                      this.mensagemComparacao = `A turma ${this.turma.descricao} teve ${this.turma.questoesCertas}% de questões corretas no roteiro. ${this.turma.questoesCertas - this.turma2.questoesCertas}% a mais que a turma ${this.turma2.descricao}.`
-                    } else {
-                      this.mensagemComparacao = `A turma ${this.turma.descricao} teve ${this.turma.questoesCertas}% de questões corretas no roteiro. ${this.turma2.questoesCertas - this.turma.questoesCertas}% a menos que a turma ${this.turma2.descricao}.`
-                    }
+                    this.returnText();
                   }
                 }
               );

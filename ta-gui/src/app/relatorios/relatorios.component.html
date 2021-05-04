@@ -26,12 +26,12 @@
             <span>
                 Não existe turma com essa descrição.<br>
                 Por favor, tente novamente.
-            </span>
+            </span>&nbsp;
             <button (click)="turmaInexistente=false"><i class="fa fa-times" aria-hidden="true"></i></button>
         </div>
     </div>
 
-    <div class="relatorio-cadastrados" *ngIf="descricaoTurmaSelecionada != '' && descricaoTurmaSelecionada2 != ''">
+    <div class="relatorio-cadastrados" *ngIf="descricaoTurmaSelecionada != ''">
         <h1>Comparativo entre turmas <span class="turma-nome">{{turmaSelecionada.descricao}}</span> e <span
                 class="turma-nome">{{turmaSelecionada2.descricao}}</span></h1>
 
@@ -41,7 +41,7 @@
                     <th>Tempo médio de resposta (min)</th>
                     <th>Desvio da Média (min)</th>
                     <th>Correlação Acerto x Tempo</th>
-                    <th>Porcentagem de acerto do relaório das turmas</th>
+                    <th>Comparação de acertos no relatório entre duas turmas</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +53,7 @@
                     <td class="relatorio-corr">X</td>
 
                     <td class="relatorio-nota">
-                        {{relatorio}}
+                        {{mensagemComparacao}}
                     </td>
                 </tr>
             </tbody>
