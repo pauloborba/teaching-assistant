@@ -39,7 +39,7 @@
         a serem
         exibidas, pois todas as
         notas enviadas já foram notificadas</p>
-    <p id="notificacaoTodosAlunosReceberam">Todos os alunos receberam todas as notas da disciplina</p>
+    <p id="notificacaoTodosAlunosReceberam" *ngIf="todosNotificados">Todos os alunos receberam todas as notas da disciplina</p>
     <p id="notificacaoNenhumAluno" *ngIf="turmaVisualizacao.matriculas.length == 0">Essa turma não possui notificações de notas a serem
         exibidas, pois nenhum aluno foi cadastrado nela</p>
 

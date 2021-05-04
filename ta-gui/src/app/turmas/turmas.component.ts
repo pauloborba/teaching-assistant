@@ -19,6 +19,7 @@ export class TurmasComponent implements OnInit {
   modalAtivo: string = '';
   opcaoSelecionada: string = '';
   novasNotificacoes: boolean = false;
+  todosNotificados: boolean = false;
   turmaVisualizacao: Turma;
 
   ngOnInit() {
@@ -72,6 +73,10 @@ export class TurmasComponent implements OnInit {
         if (res.length > 0) {
           turma.statusNotificacao = res;
           this.novasNotificacoes = true;
+          const naoNotificados = turma.statusNotificacao.filter(s => s.notificado == false);
+          if (naoNotificados.length == 0) {
+            this.todosNotificados = true;
+          }
           setTimeout(() => { this.novasNotificacoes = false }, 10000)
         }
         // return res; // Retorna a resposta que contém o array de alunos notificados
