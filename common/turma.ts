@@ -1,4 +1,4 @@
-import { RelatorioDeDesempenho } from './relatorioDesempenho';
+import { RelatorioDeDesempenho } from "./relatorioDesempenho";
 import { Matricula } from "./matricula";
 import { Roteiro } from "./roteiro";
 import { Aluno } from "./aluno";
@@ -120,23 +120,28 @@ export class Turma {
 	}
 
 	getRelatorioDesempenho(): RelatorioDeDesempenho {
-        const relatorio = {
-            turma: this.descricao,
-            aprovados: this.numAprovados,
-            reprovados: this.numReprovados,
-            aprovadosPorMedia: this.numAprovadosPorMedia,
-            reprovadosPorFalta: this.reprovadoPorFalta,
-            reprovadosPorNota: this.numReprovadosPorNota,
-            aguardandoFinal: this.aguardandoFinal,
-            total: this.numMatriculas,
-            aprovadosPorcentagem: this.numAprovados/this.numMatriculas,
-            reprovadosPorcentagem: this.numReprovados/this.numMatriculas,
-            aprovadosPorMediaPorcentagem: this.numAprovadosPorMedia/this.numMatriculas,
-            reprovadosPorFaltaPorcentagem: this.reprovadoPorFalta/this.numMatriculas,
-            reprovadosPorNotaPorcentagem: this.numReprovadosPorNota/this.numMatriculas,
-            aguardandoFinalPorcentagem: this.aguardandoFinal/this.numMatriculas,
-            totalPorcentagem: this.numMatriculas/this.numMatriculas
-        }
-        return relatorio;
+		const relatorio = new RelatorioDeDesempenho();
+		relatorio.turma = this.descricao;
+		relatorio.aprovados = this.numAprovados;
+		relatorio.reprovados = this.numReprovados;
+		relatorio.aprovadosPorMedia = this.numAprovadosPorMedia;
+		relatorio.reprovadosPorFalta = this.reprovadoPorFalta;
+		relatorio.reprovadosPorNota = this.numReprovadosPorNota;
+		relatorio.aguardandoFinal = this.aguardandoFinal;
+		relatorio.total = this.numMatriculas;
+		relatorio.aprovadosPorcentagem = this.numAprovados / this.numMatriculas;
+		relatorio.reprovadosPorcentagem =
+			this.numReprovados / this.numMatriculas;
+		relatorio.aprovadosPorMediaPorcentagem =
+			this.numAprovadosPorMedia / this.numMatriculas;
+		relatorio.reprovadosPorFaltaPorcentagem =
+			this.reprovadoPorFalta / this.numMatriculas;
+		relatorio.reprovadosPorNotaPorcentagem =
+			this.numReprovadosPorNota / this.numMatriculas;
+		relatorio.aguardandoFinalPorcentagem =
+			this.aguardandoFinal / this.numMatriculas;
+		relatorio.totalPorcentagem = this.numMatriculas / this.numMatriculas;
+
+		return relatorio;
 	}
 }
