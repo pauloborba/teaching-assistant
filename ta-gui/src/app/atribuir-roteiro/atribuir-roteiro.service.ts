@@ -6,6 +6,7 @@ import { retry, map } from 'rxjs/operators';
 
 import { Roteiro } from '../../../../common/roteiro';
 import { Turma } from '../../../../common/turma';
+import { TurmasService } from '../turmas/turmasService';
 
 
 
@@ -26,5 +27,12 @@ export class AtribuirRoteiroService {
                 retry(2),
                 map( res => {if (res.failure){throw new Error(res.failure); return null;} else{return res;}  } )
               );
+  }
+  getActiveTurmas():Observable<any>{
+    return this.http.get<any>(this.baseURL + "atribuir-roteiro", {headers: this.headers})
+    .pipe( 
+       retry(2),
+       map( res => res )
+     );
   }
 }

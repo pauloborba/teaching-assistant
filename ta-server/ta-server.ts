@@ -99,6 +99,23 @@ var conjTurmas: Turmas = new Turmas();
 var cadastroRoteiro: CadastroDeRoteiros = new CadastroDeRoteiros();
 
 
+turmas.cadastrarTurma(new Turma("2020.1"));
+turmas.cadastrarTurma(new Turma("2019.2"));
+turmas.cadastrarTurma(new Turma("2020.2"));
+
+
+var tempr1 : Roteiro = new Roteiro();
+tempr1.descricao = "Gerência de projeto";
+cadastroRoteiro.cadastrarRoteiro(tempr1);
+
+var tempr2 : Roteiro = new Roteiro();
+tempr2.descricao = "Gerência de Configuração";
+cadastroRoteiro.cadastrarRoteiro(tempr2);
+
+var tempr3 : Roteiro = new Roteiro();
+tempr3.descricao = "Requisitos";
+cadastroRoteiro.cadastrarRoteiro(tempr3);
+
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
@@ -236,24 +253,14 @@ taserver.post('/adicionar-turma', function (req: express.Request, res: express.R
     }
 });
 
+taserver.get('/atribuir-roteiro', function (req: express.Request, res: express.Response) {
+  var params = {"turmas":turmas.getTurmas(), "roteiros":cadastroRoteiro.getRoteiros()};
+  res.send(params);
+});
+
 taserver.post('/atribuir-roteiro', function (req: express.Request, res: express.Response){
   try{
-    turmas.cadastrarTurma(new Turma("1"));
-    turmas.cadastrarTurma(new Turma("2"));
-    turmas.cadastrarTurma(new Turma("3"));
-    
 
-    var tempr1 : Roteiro = new Roteiro();
-    tempr1.descricao = "aa";
-    cadastroRoteiro.cadastrarRoteiro(tempr1);
-
-    var tempr2 : Roteiro = new Roteiro();
-    tempr2.descricao = "ab";
-    cadastroRoteiro.cadastrarRoteiro(tempr2);
-
-    var tempr3 : Roteiro = new Roteiro();
-    tempr3.descricao = "ac";
-    cadastroRoteiro.cadastrarRoteiro(tempr3);
 
     
     var listaTurmas: Turma[] = <Turma[]> req.body.turmas;

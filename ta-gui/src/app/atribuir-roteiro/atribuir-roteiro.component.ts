@@ -10,25 +10,7 @@ import { AtribuirRoteiroService } from './atribuir-roteiro.service';
 })
 export class AtribuirRoteiroComponent implements OnInit {
 
-  constructor(private service: AtribuirRoteiroService) {
-    this.turmas.push(new Turma("1"));
-    this.turmas.push(new Turma("2"));
-    this.turmas.push(new Turma("3"));
-    
-    var temp1 :Roteiro = new Roteiro();
-    temp1.descricao = "aa";
-
-    var temp2 :Roteiro = new Roteiro();
-    temp2.descricao = "ab";
-
-    var temp3 :Roteiro = new Roteiro();
-    temp3.descricao = "ac";
-
-    this.roteiros.push(temp1);
-    this.roteiros.push(temp2);
-    this.roteiros.push(temp3);
-    
-  }
+  constructor(private service: AtribuirRoteiroService) {  }
 
   dataInicioNovo : string = "";
   dataFimNovo : string = "";
@@ -55,7 +37,7 @@ export class AtribuirRoteiroComponent implements OnInit {
 
 
   adicionarRoteiro(r :Roteiro) : void{
-    if(this.notExists(r, this.roteirosSelecionados, (s: Roteiro,b)=>s.equals(b))){
+    if(this.notExists(this.roteirosSelecionados, r,(s: Roteiro,b)=>s.equals(b))){
       this.roteirosSelecionados.push(r);
     }
   }
@@ -82,6 +64,14 @@ export class AtribuirRoteiroComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.service.getActiveTurmas().subscribe(res => {
+      (res.turmas as Turma[]).forEach( t => this.turmas.push(new Turma(t.descricao)));
+      (res.roteiros as Roteiro[]).forEach( r => {
+        var temp = new Roteiro();
+        temp.descricao = r.descricao;
+        this.roteiros.push(temp)
+      });
+    });
   }
   hide(): void{
     this.mensagem = "";
