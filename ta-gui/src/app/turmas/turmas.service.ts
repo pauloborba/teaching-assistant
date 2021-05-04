@@ -35,14 +35,14 @@ export class TurmasService {
         );
       }
       
-    emailResultado(turma: Turma): Observable<Turma> {
-      return this.http.post<any>(this.turmasURL + '/emailsender', turma, { headers: this.headers })
+    emailResultado(descricao: string): Observable<string> {
+      console.log(descricao);
+      return this.http.get<any>(this.turmasURL + '/emailsender' + `/${descricao}`)
         .pipe(
-          retry(2),
-          map(res => { if (res.success) { return turma; } else { return null; } })
+          retry(2)
         );
       }
-       
+
   atualizar(turma: Turma): Observable<Turma> {
     return this.http.put<any>(this.turmasURL, turma, { headers: this.headers })
       .pipe(

@@ -114,14 +114,9 @@ export class TurmasComponent implements OnInit {
     })
   }
 
-  enviarEmail(t: Turma): void{
-    t.matriculas.forEach(x => {
-      x.avaliacoes.push(new Avaliacao);
-      x.avaliacoes.forEach(n => {
-        n.nota = '8'
-      })
-    });
-    this.turmasService.emailResultado(t).subscribe(
+  enviarEmail(d: string): void{
+    console.log(d);
+    this.turmasService.emailResultado(d).subscribe(
       a => {
         console.log('voltou');
       }

@@ -58,7 +58,7 @@
             <button name="editar-turma" (click)="editarTurma(t)">Editar</button>
             &nbsp;
             <button name="remover-turma" (click)="removerTurma(t)">Remover</button>
-            <button class="add-turma" (click)="enviarEmail(t)">Enviar Email aos alunos</button>
+            <button class="add-turma" (click)="enviarEmail(t.descricao)">Enviar Email aos alunos</button>
           </td>
           <td *ngIf="turmaEditar.descricao === t.descricao" class="acoes">
             <button name="atualizar-turma" (click)="atualizarTurma(t)">Salvar</button>

@@ -13,25 +13,13 @@ export class Turmas {
     return Turmas.turmas.find(t => t.descricao === descricao);
   }
 
-  sendAllMails(t:Turma): boolean {
+  sendAllMails(descricao:string): boolean {
     Turmas.emailSender = new EmailSender();
-    const turma: Turma = new Turma();
-    turma.copyFrom(t);
-    
-    if(t.matriculas) {
-      console.log();
-      t.matriculas.forEach(x => {
-        const m:Matricula = <Matricula> x;
-        const b = m.aprovado;
-        Turmas.emailSender.enviarEmail(m.aluno.email, `resultado final na disciplina ${t.descricao}`,
-         `Prezado ${m.aluno.nome}, segue abaixo o seu resultado final na disciplina: ${m.aprovado}, sua media foi de ${m.media}`)
-      })
-      return true;
-    }
-    else{
-      return false;
-    }
-  
+    const turma: Turma = this.getTurma(descricao);
+    let parsedTurma = new Turma();
+    parsedTurma.copyFrom(turma);
+    Turmas.emailSender.filterAllInformations(parsedTurma.matriculas, descricao);
+    return true;
   }
 
   

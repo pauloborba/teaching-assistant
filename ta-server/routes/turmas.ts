@@ -24,10 +24,11 @@ turmasRoute.post('/', (req: Request, res: Response) => {
   }
 });
 
-turmasRoute.post('/emailsender', (req: Request, res: Response) => {
-  const turma: Turma = <Turma>req.body;
-  console.log(turma);
-  if (turmasRepo.sendAllMails(turma)) {
+turmasRoute.get('/emailsender/:descricao', (req: Request, res: Response) => {
+  console.log("CHEGOU AQUI NA ROTA");
+  console.log(req.params.descricao);
+  const descricao: string = req.params.descricao;
+  if (turmasRepo.sendAllMails(descricao)) {
     res.send({ 'success': 'Os emails foram enviados com sucesso' });
   } else {
     res.send({ 'failure': 'O envio dos emails falhou' });
