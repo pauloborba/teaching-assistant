@@ -1,4 +1,9 @@
 export class Avaliacao {
-  meta: string = '';
-  nota: string = '';
+  meta: String = '';
+  nota: String = '';
+
+  copyFrom(from: Avaliacao): void {
+    this.meta = from.meta;
+    this.nota = from.nota;
+  }
 }

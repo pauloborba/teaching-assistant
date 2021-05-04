@@ -25,6 +25,8 @@ import { RoteirosService } from './roteiros/roteiros.service';
 import { DiscrepantesService } from './discrepantes/discrepantes.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
 import { RelatorioDesempenhoComponent } from './turmas/relatorio-de-desempenho/relatorio-desempenho/relatorio-desempenho.component';
+import { NotasComponent } from './notas/notas.component';
+import { NotasService } from './notas/notas.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { RelatorioDesempenhoComponent } from './turmas/relatorio-de-desempenho/r
     RoteirosComponent,
     DiscrepantesComponent,
     ComparacaoDeDesempenhoComponent,
-    RelatorioDesempenhoComponent
+    RelatorioDesempenhoComponent,
+    NotasComponent
   ],
   imports: [
     BrowserModule,
@@ -76,10 +79,14 @@ import { RelatorioDesempenhoComponent } from './turmas/relatorio-de-desempenho/r
       {
         path: 'comparacao-de-desempenho',
         component: ComparacaoDeDesempenhoComponent
+      },
+      {
+        path: 'notas',
+        component: NotasComponent
       }
     ])
   ],
-  providers: [ AlunosService, TurmasService, MatriculasService, RelatoriosService, AutoavaliacaoService, RoteirosService, DiscrepantesService, ComparacaoDeDesempenhoService,  ],
+  providers: [ AlunosService, TurmasService, MatriculasService, RelatoriosService, AutoavaliacaoService, RoteirosService, DiscrepantesService, ComparacaoDeDesempenhoService, NotasService  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

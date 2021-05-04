@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import { Avaliacao } from '../../common/avaliacao';
 import { Matricula } from '../../common/matricula';
 import { Matriculas } from '../repos/matriculas';
 
@@ -39,6 +40,25 @@ matriculasRoute.delete('/:id', (req: Request, res: Response) => {
     res.send({ 'success': 'A Matricula foi removida com sucesso' });
   } else {
     res.send({ 'failure': 'A Matricula não foi removida' });
+  }
+});
+
+matriculasRoute.put('/nota', (req: Request, res: Response) => {
+  const matricula: Matricula = <Matricula>req.body.matricula;
+  const avaliacao: Avaliacao = <Avaliacao>req.body.avaliacao;
+
+  if (matriculasRepo.atualizarNota(matricula, avaliacao)) {
+    res.send({ 'success': 'A Nota foi atualizada com sucesso' });
+  } else {
+    res.send({ 'failure': 'A Nota não foi atualizada' });
+  }
+});
+
+matriculasRoute.delete('/removerNota/:id/:meta', (req: Request, res: Response) => {
+  if (matriculasRepo.removerNota(req.params.id, req.params.meta)) {
+    res.send({ 'success': 'A Nota foi removida com sucesso' });
+  } else {
+    res.send({ 'failure': 'A Nota não foi removida' });
   }
 });
 
