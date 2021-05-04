@@ -36,7 +36,7 @@ export class Turma {
     let numAprovados = 0;
 
     this.matriculas.forEach((matricula: Matricula) => {
-      if (matricula.aprovado)
+      if (matricula.aprovado())
         ++numAprovados;
     });
 
@@ -52,7 +52,7 @@ export class Turma {
       let totalMedias = 0;
 
       this.matriculas.forEach((matricula: Matricula) => {
-        totalMedias += matricula.media;
+        totalMedias += matricula.media();
       });
 
       return totalMedias / this.numMatriculas;

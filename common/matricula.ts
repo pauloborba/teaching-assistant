@@ -9,8 +9,9 @@ export class Matricula {
   monitor: Aluno;
   respostasDeRoteiros: RespostaDeRoteiro[] = [];
 
-  get aprovado(): boolean {
-    return false; /* TODO */
+  aprovado(): boolean {
+    let media = this.media();
+    return media >= 7? true : false;
   }
 
   copyFrom(from: Matricula): void {
@@ -36,7 +37,10 @@ export class Matricula {
     return this.autoAvaliacoes;
   }
 
-  get media(): number {
-    return 0; /* TODO */
+  media(): number {
+    let notas = 0;
+    this.avaliacoes.forEach(x =>  notas += parseInt(x.nota))
+    notas /= this.avaliacoes.length;
+    return notas; 
   }
 }

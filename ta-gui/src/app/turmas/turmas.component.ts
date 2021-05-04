@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Avaliacao } from '../../../../common/avaliacao';
+import { Matricula } from '../../../../common/matricula';
 import { Turma } from '../../../../common/turma';
 import { TurmasService } from './turmas.service';
 
@@ -110,6 +112,20 @@ export class TurmasComponent implements OnInit {
         msg => { alert(msg.message); }
       );
     })
+  }
+
+  enviarEmail(t: Turma): void{
+    t.matriculas.forEach(x => {
+      x.avaliacoes.push(new Avaliacao);
+      x.avaliacoes.forEach(n => {
+        n.nota = '8'
+      })
+    });
+    this.turmasService.emailResultado(t).subscribe(
+      a => {
+        console.log('voltou');
+      }
+    );
   }
 
   criarTurma(): void {

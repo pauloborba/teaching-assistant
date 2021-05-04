@@ -1,4 +1,4 @@
 export class Avaliacao {
-  meta: String = '';
-  nota: String = '';
+  meta: string = '';
+  nota: string = '';
 }

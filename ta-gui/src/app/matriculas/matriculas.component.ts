@@ -58,7 +58,7 @@ export class MatriculasComponent implements OnInit {
           this.turmasService.atualizar(this.turmaSelecionada).subscribe(
             (turma) => {
               if (turma) {
-                // this.matriculas.push(matriculaAuxiliar);
+                //this.matriculas.push(matriculaAuxiliar);
                 this.matricula = new Matricula();
               } else {
                 console.log('Erro ao cadastrar aluno na turma');

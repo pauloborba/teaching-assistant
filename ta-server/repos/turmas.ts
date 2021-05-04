@@ -1,8 +1,10 @@
 import { Turma } from '../../common/turma';
+import { EmailSender } from '../emailSender';
+import { Matricula } from '../../common/matricula';
 
 export class Turmas {
   private static turmas: Turma[] = [];
-
+  private static emailSender:EmailSender;
   getTurmas(): Turma[] {
     return Turmas.turmas;
   }
@@ -11,6 +13,28 @@ export class Turmas {
     return Turmas.turmas.find(t => t.descricao === descricao);
   }
 
+  sendAllMails(t:Turma): boolean {
+    Turmas.emailSender = new EmailSender();
+    const turma: Turma = new Turma();
+    turma.copyFrom(t);
+    
+    if(t.matriculas) {
+      console.log();
+      t.matriculas.forEach(x => {
+        const m:Matricula = <Matricula> x;
+        const b = m.aprovado;
+        Turmas.emailSender.enviarEmail(m.aluno.email, `resultado final na disciplina ${t.descricao}`,
+         `Prezado ${m.aluno.nome}, segue abaixo o seu resultado final na disciplina: ${m.aprovado}, sua media foi de ${m.media}`)
+      })
+      return true;
+    }
+    else{
+      return false;
+    }
+  
+  }
+
+  
   cadastrarTurma(t: Turma): Turma {
     const turma: Turma = new Turma();
     turma.copyFrom(t);
