@@ -42,3 +42,14 @@
 .arrow{
     height: 100%;
 }
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+
+    background-color: rgb(180, 180, 180);
+    border: 1px solid darkgray;
+    padding: 6px;
+}
