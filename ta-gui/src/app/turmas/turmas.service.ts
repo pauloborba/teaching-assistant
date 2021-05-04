@@ -1,3 +1,4 @@
+import { RelatorioDeDesempenho } from './../../../../common/relatorioDesempenho';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -21,6 +22,13 @@ export class TurmasService {
 
   getTurma(descricao: string): Observable<Turma> {
     return this.http.get<Turma>(this.turmasURL + `/${descricao}`)
+      .pipe(
+        retry(2)
+      );
+  }
+
+  getRelatorioDeDesempenho(descricao: string): Observable<RelatorioDeDesempenho> {
+    return this.http.get<RelatorioDeDesempenho>(this.turmasURL + `/relatorio-de-desempenho/${descricao}`)
       .pipe(
         retry(2)
       );
