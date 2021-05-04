@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { Aluno } from '../../../../common/aluno';
 import { Matricula } from '../../../../common/matricula';
+import { RespostaDeQuestao } from '../../../../common/respostaDeQuestao';
+import { RespostaDeRoteiro } from '../../../../common/respostaDeRoteiro';
 import { Turma } from '../../../../common/turma';
 import { AlunosService } from '../alunos/alunos.service';
 import { TurmasService } from '../turmas/turmas.service';
@@ -27,7 +30,7 @@ export class MatriculasComponent implements OnInit {
     private matriculasService: MatriculasService,
     private alunosService: AlunosService,
     private turmasService: TurmasService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.alunosService.getAlunos().subscribe(
@@ -51,7 +54,18 @@ export class MatriculasComponent implements OnInit {
   }
 
   criarMatricula(matricula: Matricula): void {
-    if(!matricula || this.descricaoTurmaSelecionada == '' || this.alunoSelecionado == '') return;
+
+    var respostasArray = ['certo', 'errado'];
+
+    if (!matricula || this.descricaoTurmaSelecionada == '' || this.alunoSelecionado == '') return;
+    this.turmaSelecionada.metas.forEach(meta => {
+      var respostaDeQuestoes: RespostaDeQuestao = new RespostaDeQuestao;
+      respostaDeQuestoes.correcao = respostasArray[Math.floor(Math.random() * respostasArray.length)];
+
+      var respostaDeRoteiro: RespostaDeRoteiro = new RespostaDeRoteiro;
+      respostaDeRoteiro.respostasDeQuestoes.push(respostaDeQuestoes);
+      matricula.respostasDeRoteiros.push(respostaDeRoteiro);
+    })
     this.matriculasService.criar(matricula).subscribe(
       (matriculaAuxiliar) => {
         if (matriculaAuxiliar) {
@@ -60,6 +74,7 @@ export class MatriculasComponent implements OnInit {
             (turma) => {
               if (turma) {
                 this.matricula = new Matricula();
+                console.log(matriculaAuxiliar);
               } else {
                 console.log('Erro ao cadastrar aluno na turma');
               }
@@ -88,7 +103,7 @@ export class MatriculasComponent implements OnInit {
       selecionadaAux.copyFrom(selecionada);
       this.turmaSelecionada = selecionadaAux;
       this.matriculas = this.turmaSelecionada.matriculas;
-    }else{
+    } else {
       this.turmaInexistente = true;
     }
   }
@@ -98,7 +113,7 @@ export class MatriculasComponent implements OnInit {
       (aluno) => aluno.cpf == this.alunoSelecionado.split(' - ')[0]
     );
     this.matricula.aluno = selecionado;
-    this.matricula.media = Math.floor(Math.random()*10);
+    this.matricula.media = Math.floor(Math.random() * 10);
     this.matricula.reprovadoPorFalta = Math.random() < 0.2;
 
   }

@@ -5,7 +5,7 @@ import { TurmasService } from './turmas.service';
 @Component({
   selector: 'app-turmas',
   templateUrl: './turmas.component.html',
-  styleUrls: [ './turmas.component.css' ]
+  styleUrls: ['./turmas.component.css']
 })
 export class TurmasComponent implements OnInit {
   turmas: Turma[] = [];
@@ -27,7 +27,6 @@ export class TurmasComponent implements OnInit {
 
   criarTurma(): void {
     this.turma.metas = this.splitMetas(this.turmaMetas);
-
     this.turmasService.criar(this.turma)
       .subscribe(
         turma => {

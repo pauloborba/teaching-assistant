@@ -1,4 +1,4 @@
-<p>Relatório da Turma: <input type="text" [(ngModel)]="buscaTurma" (keydown.enter)="searchChange()($event)"> <button
+<p>Relatório da Turma: <input type="text" [(ngModel)]="buscaTurma" (keydown.enter)="searchChange()"> <button
         (click)=searchChange()>Search</button>
 <p>
 
@@ -14,8 +14,8 @@
             <th>{{media}}</th>
             <th>{{desvio}}</th>
             <th>{{corr}}</th>
-            <th>A turma {{t.descricao}} teve {{questoesCertas}}% das questões acertadas. X % a mais que a turma passada
-                (2019.2 - por exemplo)
+            <th>A turma {{t.descricao}} teve {{t.questoesCertas}}% das questões acertadas, consequentemente, tiveram
+                {{t.questoesErradas}}% das questões erradas.
             </th>
         </tr>
     </table>

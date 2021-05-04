@@ -3,6 +3,7 @@ import { Statistics } from "statistics.js";
 import { Turma } from '../../../../common/turma';
 import { RelatoriosService } from './relatorios.service';
 import { Roteiro } from '../../../../common/roteiro';
+import { count } from 'rxjs/operators';
 
 @Component({
   selector: 'app-relatorio',
@@ -18,8 +19,6 @@ export class RelatoriosComponent implements OnInit {
   media: Number;
   desvio: Number;
   corr: Number;
-  questoesCertas: number;
-  questoesErradas: String;
   descricao: String;
   buscaTurma: String;
   searchArr: Turma[];
@@ -29,10 +28,6 @@ export class RelatoriosComponent implements OnInit {
 
   ngOnInit() {
     this.searchArr = [];
-    this.questoesCertas = 80.05; //nota simulada
-    this.questoesErradas = (100 - this.questoesCertas).toFixed(2);
-    // this.descricao = '2020.1';
-
   }
 
   searchChange(): void {
@@ -42,10 +37,25 @@ export class RelatoriosComponent implements OnInit {
         (as) => {
           this.turma = as;
           if (as) {
+            var count: number = 0;
+            var qtdeResp: number = 0;
+            as.matriculas.forEach(m => {
+              m.respostasDeRoteiros.forEach(rr => {
+                qtdeResp++;
+                rr.respostasDeQuestoes.forEach(rq => {
+                  if (rq.correcao == 'certo') {
+                    console.log('Achei um certo');
+                    count++;
+                  }
+                })
+              })
+            })
+            console.log(count);
+            as.questoesCertas = Math.round((count / qtdeResp) * 100);
+            console.log(as.questoesCertas + '%');
+            as.questoesErradas = Math.round(100 - as.questoesCertas);
             this.searchArr.push(as);
           }
-          this.questoesCertas = this.questoesCertas;
-          this.questoesErradas = this.questoesErradas;
           this.descricao = this.descricao;
           console.log(this.searchArr);
         }
