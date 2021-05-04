@@ -32,28 +32,28 @@
   <div class="turmas-cadastradas" *ngIf="turmas.length">
     <h1>Lista de turmas cadastradas</h1>
 
-    <div class="turma-alert" *ngIf="turmaVazia">
+    <div class="turma-empty" *ngIf="turmaVazia">
       <span>
         Esta turma está vazia! Não existem alunos matriculados para enviar resultados.
       </span>
       <button (click)="turmaVazia=false"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
 
-    <div class="turma-alert" *ngIf="!emailsEnviados">
+    <div class="turma-faliure" *ngIf="!emailsEnviados">
       <span>
         Ocorreu um erro no envio de um ou mais emails, tente novamente mais tarde!
       </span>
       <button (click)="emailsEnviados = true"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
 
-    <div class="turma-alert" *ngIf="envioComSucesso">
+    <div class="turma-success" *ngIf="envioComSucesso">
       <span>
         Os emails foram enviados com sucesso!
       </span>
       <button (click)="envioComSucesso = false"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
 
-    
+
     <table class="turmas-table">
       <thead>
         <tr>

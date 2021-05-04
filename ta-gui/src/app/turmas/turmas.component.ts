@@ -128,7 +128,6 @@ export class TurmasComponent implements OnInit {
       this.turmasService.emailResultado(t.descricao).subscribe(
 
         sentEmails => {
-
           if(sentEmails.every(x => x === true)) {
             this.emailsEnviados = true;
             this.envioComSucesso = true;

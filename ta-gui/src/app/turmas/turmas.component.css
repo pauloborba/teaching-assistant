@@ -74,7 +74,27 @@ button.add-turma:hover {
   text-align: center;
 }
 
-.turmas-alert {
+.turma-faliure{
+  justify-content: space-between;
+  align-items: center;
+  border: #BA6194 1px solid;
+  margin-top: 25px;
+  border-radius: 15px;
+  padding: 10px;
+  text-align: center;
+}
+
+.turma-empty{
+  justify-content: space-between;
+  align-items: center;
+  border: #BA6194 1px solid;
+  margin-top: 25px;
+  border-radius: 15px;
+  padding: 10px;
+  text-align: center;
+}
+
+.turma-success{
   justify-content: space-between;
   align-items: center;
   border: #BA6194 1px solid;
