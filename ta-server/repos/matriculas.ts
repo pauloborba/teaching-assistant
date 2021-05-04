@@ -45,7 +45,7 @@ export class Matriculas {
   atualizarNota(m: Matricula, a: Avaliacao): Matricula {
     const Matricula: Matricula = Matriculas.matriculas.find(l => l.aluno.cpf === m.aluno.cpf);
     if (Matricula) {
-      Matriculas.matriculas.find(mat => mat.aluno.cpf == m.aluno.cpf).avaliacoes.find(av => av.meta == a.meta).nota = a.nota;
+      Matriculas.matriculas.find(mat => mat.aluno.cpf == m.aluno.cpf).avaliacoes.find(av => av.meta == a.meta).nota = a.nota.toUpperCase();
     }
       
     return Matricula;

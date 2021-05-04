@@ -93,9 +93,15 @@ export class NotasComponent implements OnInit {
   }
   
   atualizarNota(m: Matricula, a: Avaliacao): void {
+    var notaArray: String[] = ["MA", "MPA", "MANA"];
     if(!this.avaliacaoEditar.nota){
         this.notaInvalida = true;
         return;
+    }
+
+    if (!notaArray.includes(this.avaliacaoEditar.nota.toUpperCase())) {
+      this.notaInvalida = true;
+      return;
     }
 
     this.matriculasService.atualizarNota(m, this.avaliacaoEditar)
