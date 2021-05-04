@@ -1,5 +1,5 @@
-<div class="matriculas-container">
-    <div class="matriculas-cadastro">
+<div class="relatorio-container">
+    <div class="relatorio-cadastro">
         <h1>Cadastro de notas</h1>
 
         <table>
@@ -12,17 +12,17 @@
                     </datalist>
                 </td>
 
-                <td *ngIf="descricaoTurmaSelecionada != ''"><label for="add-matricula-cpf">Turma 2</label></td>
-                <td *ngIf="descricaoTurmaSelecionada != ''"><input id="add-matricula-cpf" list="alunoDataList"
+                <td *ngIf="descricaoTurmaSelecionada != ''"><label>Turma 2</label></td>
+                <td *ngIf="descricaoTurmaSelecionada != ''"><input list="turmaDataList"
                         [(ngModel)]="descricaoTurmaSelecionada2" (change)="atualizaTurmaSelecionada2()">
-                    <datalist id="alunoDataList">
+                    <datalist id="turmaDataList">
                         <option *ngFor="let turma of listaTurmas" [value]="turma.descricao">
                     </datalist>
                 </td>
 
             </tr>
         </table>
-        <div class="matricula-repetida" *ngIf="turmaInexistente">
+        <div class="turma-repetida" *ngIf="turmaInexistente">
             <span>
                 Não existe turma com essa descrição.<br>
                 Por favor, tente novamente.
@@ -31,11 +31,11 @@
         </div>
     </div>
 
-    <div class="matriculas-cadastrados" *ngIf="descricaoTurmaSelecionada != '' && descricaoTurmaSelecionada2 != ''">
-        <h1>Comparativo entre turmas <span class="aluno-nome">{{turmaSelecionada.descricao}}</span> - <span
-                class="aluno-nome">{{turmaSelecionada2.descricao}}</span></h1>
+    <div class="relatorio-cadastrados" *ngIf="descricaoTurmaSelecionada != '' && descricaoTurmaSelecionada2 != ''">
+        <h1>Comparativo entre turmas <span class="turma-nome">{{turmaSelecionada.descricao}}</span> e <span
+                class="turma-nome">{{turmaSelecionada2.descricao}}</span></h1>
 
-        <table class="matriculas-table">
+        <table class="relatorio-table">
             <thead>
                 <tr>
                     <th>Tempo médio de resposta (min)</th>
@@ -45,14 +45,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="matricula">
-                    <td class="matricula-cpf">X</td>
+                <tr class="relatorio">
+                    <td class="relatorio-tempo-medio">X</td>
 
-                    <td class="matriculas-nome">X</td>
+                    <td class="relatorio-desvio-media">X</td>
 
-                    <td class="matriculas-email">X</td>
+                    <td class="relatorio-corr">X</td>
 
-                    <td class="matriculas-nota">
+                    <td class="relatorio-nota">
                         {{relatorio}}
                     </td>
                 </tr>

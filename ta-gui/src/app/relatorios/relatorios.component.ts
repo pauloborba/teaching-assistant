@@ -16,28 +16,23 @@ export class RelatoriosComponent implements OnInit {
 
   turma: Turma;
   turma2: Turma;
-  roteiros: Roteiro[];
-  roteiro: Roteiro;
-  media: Number;
-  desvio: Number;
-  corr: Number;
   descricao: String;
   buscaTurma: String;
-  searchArr: Turma[];
-  turmaInexistente: boolean = false;
+  turmaInexistente: boolean = false; //Dá trigger no input caso a turma não exista
   turmaSelecionada: Turma;
   turmaSelecionada2: Turma;
   listaTurmas: Turma[];
   descricaoTurmaSelecionada: string = '';
   descricaoTurmaSelecionada2: string = '';
-  relatorio: string = '';
+  mensagemComparacao: string = '';
+  // media: Number;
+  // desvio: Number;
+  // corr: Number;
 
   constructor(private service: RelatoriosService, private turmasService: TurmasService) {
-
   }
 
   ngOnInit() {
-    this.searchArr = [];
     this.turmasService.getTurmas().subscribe(
       (turmas) => {
         this.listaTurmas = turmas;
@@ -76,7 +71,6 @@ export class RelatoriosComponent implements OnInit {
     this.turma = this.service.getTurma(this.descricaoTurmaSelecionada)
       .subscribe(
         (as) => {
-
           if (as) {
             var count: number = 0;
             var qtdeResp: number = 0;
@@ -85,15 +79,12 @@ export class RelatoriosComponent implements OnInit {
                 qtdeResp++;
                 rr.respostasDeQuestoes.forEach(rq => {
                   if (rq.correcao == 'certo') {
-                    console.log('Achei um certo');
                     count++;
                   }
                 })
               })
             })
-            console.log(count);
             as.questoesCertas = Math.round((count / qtdeResp) * 100);
-            console.log(as.questoesCertas + '%');
             as.questoesErradas = Math.round(100 - as.questoesCertas);
             this.turma = as;
 
@@ -101,7 +92,6 @@ export class RelatoriosComponent implements OnInit {
             this.turma2 = this.service.getTurma(this.descricaoTurmaSelecionada2)
               .subscribe(
                 (as) => {
-
                   if (as) {
                     var count: number = 0;
                     var qtdeResp: number = 0;
@@ -110,64 +100,26 @@ export class RelatoriosComponent implements OnInit {
                         qtdeResp++;
                         rr.respostasDeQuestoes.forEach(rq => {
                           if (rq.correcao == 'certo') {
-                            console.log('Achei um certo');
                             count++;
                           }
                         })
                       })
                     })
-                    console.log(count);
                     as.questoesCertas = Math.round((count / qtdeResp) * 100);
-                    console.log(as.questoesCertas + '%');
                     as.questoesErradas = Math.round(100 - as.questoesCertas);
                     this.turma2 = as;
 
                     // comment
 
                     if (this.turma.questoesCertas > this.turma2.questoesCertas) {
-                      this.relatorio = `A turma ${this.turma.descricao} teve ${this.turma.questoesCertas}% de questões corretas no roteiro. ${this.turma.questoesCertas - this.turma2.questoesCertas}% a mais que a turma ${this.turma2.descricao}.`
+                      this.mensagemComparacao = `A turma ${this.turma.descricao} teve ${this.turma.questoesCertas}% de questões corretas no roteiro. ${this.turma.questoesCertas - this.turma2.questoesCertas}% a mais que a turma ${this.turma2.descricao}.`
                     } else {
-                      this.relatorio = `A turma ${this.turma.descricao} teve ${this.turma.questoesCertas}% de questões corretas no roteiro. ${this.turma2.questoesCertas - this.turma.questoesCertas}% a menos que a turma ${this.turma2.descricao}.`
+                      this.mensagemComparacao = `A turma ${this.turma.descricao} teve ${this.turma.questoesCertas}% de questões corretas no roteiro. ${this.turma2.questoesCertas - this.turma.questoesCertas}% a menos que a turma ${this.turma2.descricao}.`
                     }
                   }
                 }
               );
           }
-        }
-      );
-    console.log(this.turma);
-
-
-  }
-
-  searchChange(): void {
-    // @ts-ignore
-    this.turma = this.service.getTurma(this.buscaTurma)
-      .subscribe(
-        (as) => {
-          this.turma = as;
-          if (as) {
-            var count: number = 0;
-            var qtdeResp: number = 0;
-            as.matriculas.forEach(m => {
-              m.respostasDeRoteiros.forEach(rr => {
-                qtdeResp++;
-                rr.respostasDeQuestoes.forEach(rq => {
-                  if (rq.correcao == 'certo') {
-                    console.log('Achei um certo');
-                    count++;
-                  }
-                })
-              })
-            })
-            console.log(count);
-            as.questoesCertas = Math.round((count / qtdeResp) * 100);
-            console.log(as.questoesCertas + '%');
-            as.questoesErradas = Math.round(100 - as.questoesCertas);
-            this.searchArr.push(as);
-          }
-          this.descricao = this.descricao;
-          console.log(this.searchArr);
         }
       );
   }
@@ -194,7 +146,6 @@ export class RelatoriosComponent implements OnInit {
       total += medias[i];
     }
     var media = total / medias.length;
-
     return media
   }
 
@@ -211,11 +162,8 @@ export class RelatoriosComponent implements OnInit {
         desvio += Math.abs(questao.duracao - media);
         count += 1;
       })
-
     })
-
     return desvio / count
-
   }
 
   getCorr(turma): Number {
@@ -236,8 +184,6 @@ export class RelatoriosComponent implements OnInit {
           measurements.push({ duracao: questao.duracao, correcao: 1 });
         }
       })
-      console.log(measurements);
-
     })
 
     let stats = new Statistics(measurements, vars);
