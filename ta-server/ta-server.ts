@@ -99,22 +99,7 @@ var conjTurmas: Turmas = new Turmas();
 var cadastroRoteiro: CadastroDeRoteiros = new CadastroDeRoteiros();
 
 
-turmas.cadastrarTurma(new Turma("2020.1"));
-turmas.cadastrarTurma(new Turma("2019.2"));
-turmas.cadastrarTurma(new Turma("2020.2"));
 
-
-var tempr1 : Roteiro = new Roteiro();
-tempr1.descricao = "Gerência de projeto";
-cadastroRoteiro.cadastrarRoteiro(tempr1);
-
-var tempr2 : Roteiro = new Roteiro();
-tempr2.descricao = "Gerência de Configuração";
-cadastroRoteiro.cadastrarRoteiro(tempr2);
-
-var tempr3 : Roteiro = new Roteiro();
-tempr3.descricao = "Requisitos";
-cadastroRoteiro.cadastrarRoteiro(tempr3);
 
 var allowCrossDomain = function(req: any, res: any, next: any) {
     res.header('Access-Control-Allow-Origin', "*");
