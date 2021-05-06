@@ -1,5 +1,5 @@
-<div class="matriculas-container">
-    <div class="matriculas-cadastro">
+<div class="media-container">
+    <div class="media-cadastro">
       <h1>Configurar Média de Turmas</h1>
   
       <table>
@@ -21,10 +21,10 @@
       </div>
     </div>
   
-    <div class="matriculas-cadastrados" *ngIf="descricaoTurmaSelecionada != ''">
+    <div class="media-cadastrados" *ngIf="descricaoTurmaSelecionada != ''">
       <h1>Turma Selecionada - <span class="turma-nome">{{descricaoTurmaSelecionada}}</span></h1>
   
-      <table class="matriculas-table">
+      <table class="media-table">
         <thead>
           <tr>
             <th>Meta</th>
@@ -33,18 +33,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="matricula" *ngFor="let a of turmaSelecionada.metas; let i = index">
-            <td class="matriculas-email">{{a}}</td>
+          <tr class="media" *ngFor="let a of turmaSelecionada.metas; let i = index">
+            <td class="media-email">{{a}}</td>
             
-            <td class="matriculas-peso">{{turmaSelecionada.peso[i]}}</td>
             
+            <td class="media-peso" *ngIf="turmaPesoEditar.descricao === descricaoTurmaSelecionada"><input type="number" [(ngModel)]="turmaPesoEditar.peso[i]"></td>
+            <td class="media-peso" *ngIf="turmaPesoEditar.descricao !== descricaoTurmaSelecionada">{{turmaSelecionada.peso[i]}}</td>
 
-            <td class="acoes" >
-              <button name="editar-turma" (click)="turmaChamar.editarTurma(turmaSelecionada)">Editar</button>
-              &nbsp;
-              <button name="atualizar-turma" (click)="turmaChamar.atualizarTurma(turmaSelecionada)">Salvar</button>
+            <td class="acoes" *ngIf="turmaPesoEditar.descricao !== turmaSelecionada.descricao">
+              <button name="editar-turma" (click)="editarPeso(turmaSelecionada)">Editar</button>
             </td>
-  
+            <td class="acoes" *ngIf="turmaPesoEditar.descricao === turmaSelecionada.descricao">
+              <button name="atualizar-peso" (click)="atualizarPeso(turmaSelecionada)">Salvar</button>
+            </td>
             
           </tr>
         </tbody>

@@ -3,6 +3,7 @@ import { Avaliacao } from '../../../../common/avaliacao';
 import { Turma } from '../../../../common/turma';
 import { TurmasService } from '../turmas/turmas.service';
 import { TurmasComponent } from '../turmas/turmas.component';
+import { Peso } from '../../../../common/peso';
 
 @Component({
   selector: 'app-media',
@@ -11,20 +12,20 @@ import { TurmasComponent } from '../turmas/turmas.component';
 })
 export class MediaComponent implements OnInit {
 
-  turmaMetas: string[] = [];
+  //variaveis para manipular turma
   listaTurmas: Turma[];
-  alunoSelecionado: string = '';
+  turmaSelecionada: Turma = new Turma();
   descricaoTurmaSelecionada: string = '';
-  turmaSelecionada: Turma;
-  turmas: Turma[]=[];
-  turma: Turma = new Turma();
   
+  //Manipular pesos
+  turmaPesos: number []=[];
+  
+  //Editar peso em turma
+  turmaPesoEditar: Turma = new Turma();
+
+  //bool para erros
   turmaInexistente: boolean = false;
-  notaInvalida: boolean = false;
 
-  avaliacaoEditar: Avaliacao = new Avaliacao();
-
-  turmaChamar: TurmasComponent;
 
   constructor(
     private turmasService: TurmasService
@@ -47,45 +48,34 @@ export class MediaComponent implements OnInit {
     );
     if (selecionada) {
       this.turmaSelecionada = selecionada;
+      this.turmaPesos=[];      
+      this.turmaPesos = this.turmaSelecionada.peso;
+
       console.log(this.turmaSelecionada);
     }else{
       this.turmaInexistente = true;
     }
   }
 
-//atualizarNota(m: Matricula, a: Avaliacao): void {
-//  console.log('chegou no att nota do component');
-//
-//  console.log(this.avaliacaoEditar, m, a);
-//  
-//  if(!this.avaliacaoEditar.nota){
-//      this.notaInvalida = true;
-//      return;
-//  }
-//
-//  this.matriculasService.atualizarNota(m, this.avaliacaoEditar)
-//    .subscribe(
-//      notaResponse => {
-//        if (notaResponse) {
-//          this.avaliacaoEditar = new Avaliacao();
-//          Object.assign(a, notaResponse);
-//
-//          this.matriculasService.getMatriculas().subscribe(
-//            (matriculasResponse) => {
-//              this.matriculaSelecionada = matriculasResponse.find(m => m.aluno.cpf == this.matriculaSelecionada.aluno.cpf);
-//            },
-//            (msg) => {
-//              alert(msg.message);
-//            }
-//          )
-//        } else {
-//          alert('O aluno não foi atualizado');
-//        }
-//      }
-//    );
-//}
+  editarPeso(t: Turma): void {
+    console.log(this.turmaPesoEditar);
+    console.log(this.descricaoTurmaSelecionada);
+    this.turmaPesoEditar.copyFrom(t);
+    this.turmaPesos = t.peso;
+  }
 
-  editarNota(avaliacao: Avaliacao): void {
-    this.avaliacaoEditar.copyFrom(avaliacao);
+  atualizarPeso(t: Turma): void {
+    this.turmasService.atualizar(this.turmaPesoEditar)
+      .subscribe(
+        turma => {
+          if (turma) {
+            this.turmaPesoEditar = new Turma();
+            this.turmaPesoEditar.peso = [];
+            Object.assign(t, turma);
+          } else {
+            alert('A turma não foi atualizada');
+          }
+        }
+      );
   }
 }

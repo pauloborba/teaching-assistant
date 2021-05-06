@@ -11,7 +11,7 @@ export class TurmasComponent implements OnInit {
   turmas: Turma[] = [];
   turma: Turma = new Turma();
   turmaMetas: string = '';
-  turmaPeso: number []= [];
+  turmaPeso: string []= [];
   turmaRepetida: boolean = false;
   turmaEditar: Turma = new Turma();
   turmaEditarMetas: string = '';

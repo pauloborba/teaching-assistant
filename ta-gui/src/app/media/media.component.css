@@ -1,4 +1,4 @@
-.matriculas-container {
+.media-container {
     height: auto;
     width: 100%;
     display: flex;
@@ -6,7 +6,7 @@
     align-items: center;
   }
   
-  .matriculas-cadastro {
+  .media-cadastro {
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -14,7 +14,7 @@
     height: 100%;
   }
   
-  .matriculas-cadastro table {
+  .media-cadastro table {
     display: flex;
     justify-content: space-evenly;
   }
@@ -60,7 +60,7 @@
     color: white;
   }
   
-  .matriculas-cadastrados {
+  .media-cadastrados {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -68,7 +68,7 @@
     padding-top: 20px;
   }
   
-  .matriculas-table {
+  .media-table {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     border-collapse: collapse;
@@ -78,20 +78,20 @@
     border-bottom: #4EB1BA 2px solid;
   }
   
-  .matriculas-table td, .matriculas-table th {
+  .media-table td, .media-table th {
     border: 1px solid #ddd;
     padding: 8px;
   }
   
-  .matriculas-table tr:nth-child(even) {
+  .media-table tr:nth-child(even) {
     background-color: #f2f2f2;
   }
   
-  .matriculas-table tr:hover {
+  .media-table tr:hover {
     background-color: #ddd;
   }
   
-  .matriculas-table th {
+  .media-table th {
     padding-top: 12px;
     padding-bottom: 12px;
     background-color: #4EB1BA;

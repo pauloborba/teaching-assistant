@@ -1,7 +1,7 @@
 import { Matricula } from './matricula';
 import { Roteiro } from './roteiro';
 import { Aluno } from './aluno';
-//import { Metas } from './metas';
+import { Peso } from './peso';
 
 export class Turma {
   descricao: string;
