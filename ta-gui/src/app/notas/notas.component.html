@@ -61,7 +61,7 @@
             <td class="matriculas-nota" *ngIf="avaliacaoEditar.meta === a.meta"><input type="text" [(ngModel)]="avaliacaoEditar.nota"></td>
             <td class="matriculas-nota" *ngIf="avaliacaoEditar.meta !== a.meta">
               <span *ngIf="a.nota">{{a.nota}}</span>
-              <span *ngIf="!a.nota">Sem nota</span>
+              <span *ngIf="!a.nota">0</span>
             </td>
   
             <td *ngIf="avaliacaoEditar.meta !== a.meta" class="acoes">
@@ -76,7 +76,7 @@
           </tr>
         </tbody>
       </table>
-      <h2>Média do Aluno - <span class="aluno-nome">{{alunoSelecionado}}</span> = 7</h2>
+      <h2>Média do Aluno - <span class="aluno-nome">{{alunoSelecionado}}</span> = {{calcularMedia(matriculaSelecionada)}}</h2>
     </div>
   
     <div *ngIf="matriculas.length == 0">

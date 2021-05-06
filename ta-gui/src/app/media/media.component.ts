@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Avaliacao } from '../../../../common/avaliacao';
 import { Turma } from '../../../../common/turma';
 import { TurmasService } from '../turmas/turmas.service';
-import { TurmasComponent } from '../turmas/turmas.component';
-import { Peso } from '../../../../common/peso';
 
 @Component({
   selector: 'app-media',

@@ -1,9 +1,28 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map, retry } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class NotasService {
+import { Turma } from '../../../../common/turma';
 
-  constructor() { }
+@Injectable()
+export class MediaService {
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  private turmasURL = 'http://localhost:3000/turmas';
+
+  constructor(private http: HttpClient) { }
+
+  //getPesos(peso: number[]): Observable<Turma> {
+  //  return this.http.get<Turma>(this.turmasURL)
+  //    .pipe(
+  //      retry(2)
+  //    );
+  //}
+
+  getPeso(peso: number): Observable<Turma> {
+    return this.http.get<Turma>(this.turmasURL + `/${peso}`)
+      .pipe(
+        retry(2)
+      );
+  }
 }

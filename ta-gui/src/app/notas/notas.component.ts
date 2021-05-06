@@ -78,6 +78,23 @@ export class NotasComponent implements OnInit {
     }
   }
 
+  calcularMedia(m: Matricula){
+    console.log(m.avaliacoes[1].nota);
+    let media = (Number(m.avaliacoes[0].nota)*this.turmaSelecionada.peso[0]+
+    Number(m.avaliacoes[1].nota)*this.turmaSelecionada.peso[1]+
+    Number(m.avaliacoes[2].nota)*this.turmaSelecionada.peso[2]+
+    Number(m.avaliacoes[3].nota)*this.turmaSelecionada.peso[3]+
+    Number(m.avaliacoes[4].nota)*this.turmaSelecionada.peso[4])/(
+      this.turmaSelecionada.peso[0]+
+      this.turmaSelecionada.peso[1]+
+      this.turmaSelecionada.peso[2]+
+      this.turmaSelecionada.peso[3]+
+      this.turmaSelecionada.peso[4]
+    )
+    
+    return media;
+  }
+
   atualizaAlunoSelecionado() {
     let selecionado = this.listaAlunos.find(
       (aluno) => aluno.cpf == this.alunoSelecionado.split(' - ')[0]
@@ -147,6 +164,8 @@ export class NotasComponent implements OnInit {
       }
     });
   }
+
+  
 
 
 }

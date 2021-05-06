@@ -1,12 +1,11 @@
 import { Matricula } from './matricula';
 import { Roteiro } from './roteiro';
 import { Aluno } from './aluno';
-import { Peso } from './peso';
+
 
 export class Turma {
   descricao: string;
   metas: string[];
-  //metas: Metas[]=[];
   peso: number[];
   vagas: number;
   matriculas: Matricula[];
