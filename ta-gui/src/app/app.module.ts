@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 
 import { AlunosComponent } from './alunos/alunos.component';
 import { TurmasComponent } from './turmas/turmas.component';
+import { MediaComponent } from './media/media.component';
+import { MatriculasComponent } from './matriculas/matriculas.component';
 import { RelatoriosComponent } from './relatorios/relatorios.component';
 import { AutoavaliacaoComponent } from './autoavaliacao/autoavaliacao.component';
 import { RoteirosComponent } from './roteiros/roteiros.component';
@@ -16,23 +18,31 @@ import { DiscrepantesComponent } from './discrepantes/discrepantes.component';
 import { ComparacaoDeDesempenhoComponent } from './comparacao-de-desempenho/comparacao-de-desempenho.component';
 
 import { AlunosService } from './alunos/alunos.service';
+import { MatriculasService } from './matriculas/matriculas.service';
 import { TurmasService } from './turmas/turmas.service';
 import { RelatoriosService } from './relatorios/relatorios.service';
 import { AutoavaliacaoService } from './autoavaliacao/autoavaliacao.service';
 import { RoteirosService } from './roteiros/roteiros.service';
 import { DiscrepantesService } from './discrepantes/discrepantes.service';
 import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/comparacao-de-desempenho.service';
+import { RelatorioDesempenhoComponent } from './turmas/relatorio-de-desempenho/relatorio-desempenho/relatorio-desempenho.component';
+import { NotasComponent } from './notas/notas.component';
+import { NotasService } from './notas/notas.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlunosComponent,
+    MatriculasComponent,
     TurmasComponent,
+    MediaComponent,
     RelatoriosComponent,
     AutoavaliacaoComponent,
     RoteirosComponent,
     DiscrepantesComponent,
-    ComparacaoDeDesempenhoComponent
+    ComparacaoDeDesempenhoComponent,
+    RelatorioDesempenhoComponent,
+    NotasComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +57,14 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
       {
         path: 'turmas',
         component: TurmasComponent
+      },
+      {
+        path: 'media',
+        component: MediaComponent
+      },
+      {
+        path: 'matriculas',
+        component: MatriculasComponent
       },
       {
         path: 'relatorios',
@@ -67,10 +85,14 @@ import { ComparacaoDeDesempenhoService } from './comparacao-de-desempenho/compar
       {
         path: 'comparacao-de-desempenho',
         component: ComparacaoDeDesempenhoComponent
+      },
+      {
+        path: 'notas',
+        component: NotasComponent
       }
     ])
   ],
-  providers: [ AlunosService, TurmasService, RelatoriosService, AutoavaliacaoService, RoteirosService, DiscrepantesService, ComparacaoDeDesempenhoService,  ],
+  providers: [ AlunosService, TurmasService, MatriculasService, RelatoriosService, AutoavaliacaoService, RoteirosService, DiscrepantesService, ComparacaoDeDesempenhoService, NotasService  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

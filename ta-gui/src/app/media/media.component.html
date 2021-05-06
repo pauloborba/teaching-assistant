@@ -1,0 +1,55 @@
+<div class="media-container">
+    <div class="media-cadastro">
+      <h1>Configurar Média de Turmas</h1>
+  
+      <table>
+        <tr>
+          <td><label for="add-turma-descricao">Turma</label></td>
+          <td><input id="add-turma-descricao" list="turmaDataList" [(ngModel)]="descricaoTurmaSelecionada" (change)="atualizaTurmaSelecionada()">
+              <datalist id="turmaDataList">
+                  <option *ngFor="let turma of listaTurmas" [value]="turma.descricao">
+              </datalist>
+          </td>
+        </tr>
+      </table>
+      <div class="matricula-repetida" *ngIf="turmaInexistente">
+           <span>
+             Não existe turma com essa descrição.<br>
+             Por favor, tente novamente.
+           </span>
+           <button (click)="turmaInexistente=false"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </div>
+    </div>
+  
+    <div class="media-cadastrados" *ngIf="descricaoTurmaSelecionada != ''">
+      <h1>Turma Selecionada - <span class="turma-nome">{{descricaoTurmaSelecionada}}</span></h1>
+  
+      <table class="media-table">
+        <thead>
+          <tr>
+            <th>Meta</th>
+            <th>Peso</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="media" *ngFor="let a of turmaSelecionada.metas; let i = index">
+            <td class="media-email">{{a}}</td>
+            
+            
+            <td class="media-peso" *ngIf="turmaPesoEditar.descricao === descricaoTurmaSelecionada"><input type="number" [(ngModel)]="turmaPesoEditar.peso[i]"></td>
+            <td class="media-peso" *ngIf="turmaPesoEditar.descricao !== descricaoTurmaSelecionada">{{turmaSelecionada.peso[i]}}</td>
+
+            <td class="acoes" *ngIf="turmaPesoEditar.descricao !== turmaSelecionada.descricao">
+              <button name="editar-turma" (click)="editarPeso(turmaSelecionada)">Editar</button>
+            </td>
+            <td class="acoes" *ngIf="turmaPesoEditar.descricao === turmaSelecionada.descricao">
+              <button name="atualizar-peso" (click)="atualizarPeso(turmaSelecionada)">Salvar</button>
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
