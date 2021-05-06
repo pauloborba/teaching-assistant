@@ -78,21 +78,19 @@ export class NotasComponent implements OnInit {
     }
   }
 
-  calcularMedia(m: Matricula){
-    console.log(m.avaliacoes[1].nota);
-    let media = (Number(m.avaliacoes[0].nota)*this.turmaSelecionada.peso[0]+
-    Number(m.avaliacoes[1].nota)*this.turmaSelecionada.peso[1]+
-    Number(m.avaliacoes[2].nota)*this.turmaSelecionada.peso[2]+
-    Number(m.avaliacoes[3].nota)*this.turmaSelecionada.peso[3]+
-    Number(m.avaliacoes[4].nota)*this.turmaSelecionada.peso[4])/(
-      this.turmaSelecionada.peso[0]+
-      this.turmaSelecionada.peso[1]+
-      this.turmaSelecionada.peso[2]+
-      this.turmaSelecionada.peso[3]+
-      this.turmaSelecionada.peso[4]
-    )
-    
-    return media;
+  calcularMedia(m: Matricula){   
+    return this.mediaPonderada(m,this.turmaSelecionada);
+  }
+
+  mediaPonderada(m: Matricula, t: Turma){
+    let resultado=0;
+    let divisor=0;
+    let dividendo=0;
+    for(let i=0; i<5; i++ ){
+      divisor+=(Number(m.avaliacoes[i].nota)*this.turmaSelecionada.peso[i]);
+      dividendo+=(this.turmaSelecionada.peso[i]);
+    }
+    return resultado=divisor/dividendo;
   }
 
   atualizaAlunoSelecionado() {
@@ -110,10 +108,6 @@ export class NotasComponent implements OnInit {
   }
   
   atualizarNota(m: Matricula, a: Avaliacao): void {
-    console.log('chegou no att nota do component');
-
-    console.log(this.avaliacaoEditar, m, a);
-    
     if(!this.avaliacaoEditar.nota){
         this.notaInvalida = true;
         return;

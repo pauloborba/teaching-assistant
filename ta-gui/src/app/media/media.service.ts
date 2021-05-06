@@ -12,13 +12,6 @@ export class MediaService {
 
   constructor(private http: HttpClient) { }
 
-  //getPesos(peso: number[]): Observable<Turma> {
-  //  return this.http.get<Turma>(this.turmasURL)
-  //    .pipe(
-  //      retry(2)
-  //    );
-  //}
-
   getPeso(peso: number): Observable<Turma> {
     return this.http.get<Turma>(this.turmasURL + `/${peso}`)
       .pipe(

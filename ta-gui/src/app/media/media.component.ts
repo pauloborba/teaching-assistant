@@ -47,16 +47,12 @@ export class MediaComponent implements OnInit {
       this.turmaSelecionada = selecionada;
       this.turmaPesos=[];      
       this.turmaPesos = this.turmaSelecionada.peso;
-
-      console.log(this.turmaSelecionada);
     }else{
       this.turmaInexistente = true;
     }
   }
 
   editarPeso(t: Turma): void {
-    console.log(this.turmaPesoEditar);
-    console.log(this.descricaoTurmaSelecionada);
     this.turmaPesoEditar.copyFrom(t);
     this.turmaPesos = t.peso;
   }
